@@ -1,6 +1,6 @@
 package bewareofthetruth.model.gameMechanics.entity;
 
-import org.newdawn.slick.geom.Vector2f;
+import com.badlogic.gdx.math.Vector2;
 
 import bewareofthetruth.contract.model.gameMecanism.IEntity;
 import bewareofthetruth.contract.model.gameMecanism.behaviors.IBounceStrategy;
@@ -81,14 +81,14 @@ public class Entity implements IEntity {
 		this.position = position;
 	}
 
-	public void setPosition(Vector2f position) {
+	public void setPosition(Vector2 vectorPosition) {
 		this.position.setVector();
-		this.position.setX(position.getX());
-		this.position.setY(position.getY());
+		this.position.setX(vectorPosition.x);
+		this.position.setY(vectorPosition.y);
 	}
 
 	@Override
-	public void addVector(Vector2f vectorToadd) {
+	public void addVector(Vector2 vectorToadd) {
 
 	}
 

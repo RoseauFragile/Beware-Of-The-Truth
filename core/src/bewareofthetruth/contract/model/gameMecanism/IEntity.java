@@ -1,7 +1,6 @@
 package bewareofthetruth.contract.model.gameMecanism;
 
-import org.newdawn.slick.geom.Vector2f;
-
+import com.badlogic.gdx.math.Vector2;
 import bewareofthetruth.contract.model.gameMecanism.behaviors.IBounceStrategy;
 import bewareofthetruth.contract.model.gameMecanism.behaviors.IDodgeStrategy;
 import bewareofthetruth.contract.model.gameMecanism.behaviors.IMoveStrategy;
@@ -32,7 +31,7 @@ public interface IEntity {
 
 	public void setPosition(IPosition position);
 
-	public void addVector(Vector2f vectorToAdd);
+	public void addVector(Vector2 vectorToAdd);
 
 	public IAudio getAudio();
 

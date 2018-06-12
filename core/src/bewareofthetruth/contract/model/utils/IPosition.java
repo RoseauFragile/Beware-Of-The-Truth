@@ -1,6 +1,6 @@
 package bewareofthetruth.contract.model.utils;
 
-import org.newdawn.slick.geom.Vector2f;
+import com.badlogic.gdx.math.Vector2;
 
 /* **** POUR LEA ***** INTERFACE UTILE POUR LES ITEMS JE SUPPOSE,
  * A TOI DE VOIR SI TU PENSES LES VECTEURS NECESSAIRE POUR UN AFFICHAGE STATIQUE
@@ -23,9 +23,9 @@ public interface IPosition {
 
 	public void setY(float y);
 
-	public Vector2f getPosition();
+	public Vector2 getPosition();
 
 	void setVector();
 
-	public void addVector(Vector2f vectorToAdd);
+	public void addVector(Vector2 vectorToAdd);
 }

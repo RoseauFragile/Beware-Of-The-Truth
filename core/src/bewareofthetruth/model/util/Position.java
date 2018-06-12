@@ -1,33 +1,30 @@
 package bewareofthetruth.model.util;
 
-import org.newdawn.slick.geom.Vector2f;
-
+import com.badlogic.gdx.math.Vector2;
 import bewareofthetruth.contract.model.utils.IPosition;
 
 public class Position implements IPosition {
 
-	private float x;
-	private float y;
 	private float maxX;
 	private float maxY;
-	private Vector2f vector;
+	private Vector2 vector;
 
 	public Position() {
 		this.setVector();
 	}
 
 	@Override
-	public Vector2f getPosition() {
+	public Vector2 getPosition() {
 		return this.vector;
 	}
 
 	@Override
 	public void setVector() {
-		this.vector = new Vector2f();
+		this.vector = new Vector2();
 	}
 
 	@Override
-	public void addVector(Vector2f vectorToAdd) {
+	public void addVector(Vector2 vectorToAdd) {
 		this.vector.add(vectorToAdd);
 	}
 
@@ -43,12 +40,12 @@ public class Position implements IPosition {
 
 	@Override
 	public float getX() {
-		return this.vector.getX();
+		return this.vector.x;
 	}
 
 	@Override
 	public float getY() {
-		return this.vector.getY();
+		return this.vector.y;
 	}
 
 	@Override
@@ -63,13 +60,11 @@ public class Position implements IPosition {
 
 	@Override
 	public void setX(float x) {
-		this.x = x;
 		this.vector.x = x;
 	}
 
 	@Override
 	public void setY(float y) {
-		this.y = y;
 		this.vector.y = y;
 	}
 
