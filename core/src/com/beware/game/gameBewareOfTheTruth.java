@@ -31,7 +31,7 @@ public class gameBewareOfTheTruth extends ApplicationAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
         batch.begin();
-        font.draw(batch, "Hello World", 200, 200);
+        font.draw(batch, "Hello Wold", 200, 200);
         batch.end();
     }
 
