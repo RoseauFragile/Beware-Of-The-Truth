@@ -1,5 +1,6 @@
 package bewareofthetruth.contract.model.gameMecanism;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import bewareofthetruth.contract.model.gameMecanism.behaviors.IBounceStrategy;
 import bewareofthetruth.contract.model.gameMecanism.behaviors.IDodgeStrategy;
@@ -7,7 +8,6 @@ import bewareofthetruth.contract.model.gameMecanism.behaviors.IMoveStrategy;
 import bewareofthetruth.contract.model.utils.IAudio;
 import bewareofthetruth.contract.model.utils.IDimension;
 import bewareofthetruth.contract.model.utils.IPosition;
-import bewareofthetruth.contract.model.utils.ISprite;
 
 public interface IEntity {
 
@@ -37,7 +37,7 @@ public interface IEntity {
 
 	public void setAudio(IAudio audio);
 
-	public ISprite getSprite();
+	public Sprite getSprite();
 
-	public void setSprite(ISprite sprite);
+	public void setSprite(Sprite sprite);
 }

@@ -1,7 +1,7 @@
 package bewareofthetruth.model.gameMechanics.entity;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
-
 import bewareofthetruth.contract.model.gameMecanism.IEntity;
 import bewareofthetruth.contract.model.gameMecanism.behaviors.IBounceStrategy;
 import bewareofthetruth.contract.model.gameMecanism.behaviors.IDodgeStrategy;
@@ -9,7 +9,6 @@ import bewareofthetruth.contract.model.gameMecanism.behaviors.IMoveStrategy;
 import bewareofthetruth.contract.model.utils.IAudio;
 import bewareofthetruth.contract.model.utils.IDimension;
 import bewareofthetruth.contract.model.utils.IPosition;
-import bewareofthetruth.contract.model.utils.ISprite;
 import bewareofthetruth.model.util.Position;
 
 public class Entity implements IEntity {
@@ -26,10 +25,11 @@ public class Entity implements IEntity {
 
 	private IAudio audio;
 
-	private ISprite sprite;
+	private Sprite sprite;
 
-	public Entity() {
+	public Entity(Sprite sprite) {
 		this.position = new Position();
+		this.setSprite(sprite);
 	}
 
 	@Override
@@ -103,24 +103,23 @@ public class Entity implements IEntity {
 	}
 
 	@Override
-	public ISprite getSprite() {
+	public Sprite getSprite() {
 		return sprite;
 	}
-
+/*
 	public void setSprite() {
 		this.sprite = sprite;
-	}
+	}*/
 
 	@Override
 	public void setBounceStrategy(IBounceStrategy bounceStrategy) {
-		// TODO Auto-generated method stub
+
 
 	}
 
 	@Override
-	public void setSprite(ISprite sprite) {
-		// TODO Auto-generated method stub
-
+	public void setSprite(Sprite sprite) {
+		this.sprite = sprite;
 	}
 
 }

@@ -1,6 +1,8 @@
 package bewareofthetruth.model.gameMechanics.items;
 
-public class Item {
+import bewareofthetruth.contract.model.gameMecanism.IItem;
+
+public class Item implements IItem{
 
 	private boolean isEquipable;
 	

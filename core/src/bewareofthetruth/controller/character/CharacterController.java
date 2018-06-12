@@ -2,7 +2,7 @@ package bewareofthetruth.controller.character;
 
 import java.util.ArrayList;
 
-import org.newdawn.slick.geom.Vector2f;
+import com.badlogic.gdx.math.Vector2;
 
 import bewareofthetruth.contract.model.gameMecanism.ICharacter;
 import bewareofthetruth.contract.model.gameMecanism.IPlayer;
@@ -17,7 +17,7 @@ public class CharacterController {
 		return null;
 	}
 
-	public ICharacter getCharacterByPos(final Vector2f position) {
+	public ICharacter getCharacterByPos(final Vector2 position) {
 		return null;
 	}
 

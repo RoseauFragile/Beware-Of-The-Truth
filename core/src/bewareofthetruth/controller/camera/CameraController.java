@@ -1,6 +1,6 @@
 package bewareofthetruth.controller.camera;
 
-import org.newdawn.slick.geom.Vector2f;
+import com.badlogic.gdx.math.Vector2;
 
 import bewareofthetruth.contract.model.gameMecanism.ICharacter;
 
@@ -34,7 +34,7 @@ public class CameraController {
 	public void setCameraPosition(final float x, final float y) {
 	}
 
-	public void setCameraPosition(final Vector2f position) {
+	public void setCameraPosition(final Vector2 position) {
 	}
 
 }

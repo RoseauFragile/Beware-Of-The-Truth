@@ -17,7 +17,7 @@ public class ItemController {
 
 	}
 
-	public void spawnItem(final Vector2f position, final Item item) {
+	public void spawnItem(final Vector2 position, final Item item) {
 
 	}
 

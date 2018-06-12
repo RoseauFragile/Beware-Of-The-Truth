@@ -1,12 +1,7 @@
 package bewareofthetruth.contract.model.data;
 
-import org.lwjgl.input.Cursor;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.opengl.ImageData;
-
 public interface IGame {
-
+/*
 	public void buildLevel(ILevel level);
 
 	public String getGameName();
@@ -40,5 +35,5 @@ public interface IGame {
 	public void setMouseCursor(String arg0, int arg1, int arg2) throws SlickException;
 
 	public void setMouseGrabbed(boolean arg0);
-
+*/
 }
