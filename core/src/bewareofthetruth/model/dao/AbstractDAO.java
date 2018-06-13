@@ -3,6 +3,7 @@ package bewareofthetruth.model.dao;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 
+
 public abstract class AbstractDAO {
 
 	protected static ResultSet executeQuery(final String query) {

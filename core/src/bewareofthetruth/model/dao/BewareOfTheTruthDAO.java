@@ -1,5 +1,8 @@
 package bewareofthetruth.model.dao;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+
 public class BewareOfTheTruthDAO extends AbstractDAO {
 
 	private ChapterDAO chapterDAO;
@@ -11,6 +14,12 @@ public class BewareOfTheTruthDAO extends AbstractDAO {
 	public BewareOfTheTruthDAO() {
 		super();
 		System.out.println("DAO créer");
+		BewareOfTheTruthDAO.test();
+		this.setChapterDAO(new ChapterDAO());
+		this.setLevelDAO(new LevelDAO());
+		this.setMainMenuDAO(new MainMenuDAO());
+		this.setPlayerDao(new PlayerDAO());
+		this.setOptionsDAO(new OptionsDAO());
 	}
 
 	public ChapterDAO getChapterDAO() {
@@ -52,5 +61,19 @@ public class BewareOfTheTruthDAO extends AbstractDAO {
 	public void setOptionsDAO(OptionsDAO optionsDAO) {
 		this.optionsDAO = optionsDAO;
 	}
+	
+	  public static void test() {
+	      Connection c = null;
+	      
+	      try {
+	    	  System.out.println("test create DB");
+	         Class.forName("org.sqlite.JDBC");
+	         c = DriverManager.getConnection("jdbc:sqlite:BewareOfTheTruth.db");
+	      } catch ( Exception e ) {
+	         System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+	         System.exit(0);
+	      }
+	      System.out.println("Opened database successfully");
+	   }
 
 }
