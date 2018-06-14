@@ -24,12 +24,13 @@ public class Player extends Entity implements IPlayer {
 		super(SPRITE);
 	}
 
-	public Player(int idPlayer, String nom, int idLevel2, int idInventory2) {
+	public Player(int idPlayer, String nom, int idLevel, int idInventory, int idChapter) {
 		super(SPRITE);
 		this.setId(idPlayer);
 		this.setPlayerName(playerName);
-		this.setIdLevel(idLevel2);
-		this.setIdInventory(idInventory2);
+		this.setIdLevel(idLevel);
+		this.setIdInventory(idInventory);
+		this.setIdChapter(idChapter);
 		System.out.println("nouveau player créer");
 	}
 

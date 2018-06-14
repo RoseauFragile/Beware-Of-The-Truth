@@ -25,15 +25,12 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	private IMainMenu mainMenu;
 	private BewareOfTheTruthDAO dao;
 	private IModelFacade modelFacade;
-	private int idChapter;
 
 	public BewareOfTruthModel() throws SQLException {
-		this.setIdChapter(1);
 		System.out.println("Model créer");
 		this.setDao(new BewareOfTheTruthDAO());
 		this.setPlayer(1);
 		this.getPlayer().setBewareOfTruthModel(this);
-		this.getPlayer().setChapter(this.getIdChapter());
 		this.setMainMenu(new MainMenu());
 		this.getMainMenu().setBewareOfTruthModel(this);
 		this.setGameMenu(new GameMenu());
@@ -44,13 +41,7 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 		this.getOptions().setBewareOfTruthModel(this);
 		this.setChapter(new Chapter());
 		this.getChapter().setBewareOfTruthModel(this);
-		this.getChapter().setIdChapter(this.getPlayer().getChapter());
-		this.getChapter().setLevel();
-	}
-
-	@Override
-	public void setIdChapter(int idChapter) {
-		this.idChapter = idChapter;
+		this.setChapterByIdPlayerChapter();
 	}
 
 	@Override
@@ -120,7 +111,7 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	@Override
 	public void setPlayer(int idLevel) throws SQLException {
 		PlayerSql playerSql = this.getDao().getPlayerDao().getPlayerByIdLevel(idLevel);
-		this.player = new Player(playerSql.getIdPlayer(), playerSql.getNom(), playerSql.getIdLevel(), playerSql.getIdInventaire());
+		this.player = new Player(playerSql.getIdPlayer(), playerSql.getNom(), playerSql.getIdLevel(), playerSql.getIdInventaire(), playerSql.getIdChapter());
 	}
 
 	@Override
@@ -133,8 +124,10 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	}
 
 	@Override
-	public int getIdChapter() {
-		return this.idChapter;
+	public void setChapterByIdPlayerChapter() throws SQLException {
+		this.getChapter().setIdChapter(this.getPlayer().getChapter());
+		this.getChapter().setLevel();
 	}
+
 
 }

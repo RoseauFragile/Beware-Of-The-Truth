@@ -1,9 +1,9 @@
 package bewareofthetruth.controller.movement;
 
-import org.newdawn.slick.geom.Vector2f;
+import com.badlogic.gdx.math.Vector2;
 
 public class Movement {
-	private Vector2f vector;
+	private Vector2 vector;
 
 	public Movement() {
 		this.setVector(0, 0);
@@ -13,11 +13,11 @@ public class Movement {
 		this.setVector(x, y);
 	}
 
-	public void addToMovement(final Vector2f vector) {
+	public void addToMovement(final Vector2 vector) {
 		this.getVector().add(vector);
 	}
 
-	public Vector2f getVector() {
+	public Vector2 getVector() {
 		return this.vector;
 	}
 
@@ -25,7 +25,7 @@ public class Movement {
 		this.vector.set(x, y);
 	}
 
-	public void setVector(final Vector2f vector) {
+	public void setVector(final Vector2 vector) {
 		this.vector.set(vector);
 	}
 }

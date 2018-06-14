@@ -2,11 +2,15 @@ package bewareofthetruth.model.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class PlayerDAO extends AbstractDAO {
 
-	private int	idLevel;
+	private static int	idLevelColumn = 2;
+	private static int idPlayerColumn = 6;
+	private static int idChapterColum = 1;
+	private static int namePlayerColumn = 4;
+	private static int idInventoryColumn = 5;
+	private int idLevel;
 
 	public PlayerDAO() {
 	}
@@ -16,11 +20,11 @@ public class PlayerDAO extends AbstractDAO {
 		  
 	  this.setIdLevel(idLevel);
 		  
-	  String	getPlayerByIdLevel	= ("SELECT Player.ID_Player, Player.Name_Player, Player.ID_Level, Player.ID_Inventory\r\n" + 
-	  		"FROM Player\r\n" + 
-	  		"WHERE Player.ID_Level = " + this.getIdLevel());
+	  String	getPlayerByIdLevel	= ("SELECT Chapter.ID_Chapter, Level.ID_Level,Player.ID_Level AS ID_Level_Player, Player.Name_Player, Player.ID_Inventory, Player.ID_Player\r\n" + 
+	  		"FROM Chapter, Level, Player, comporte\r\n" + 
+	  		"WHERE Chapter.ID_Chapter = comporte.ID_Chapter AND Level.ID_Level = comporte.ID_Level AND Player.ID_Level = Level.ID_Level AND Player.ID_Player =  " + this.getIdLevel());
       ResultSet rs = executeQuery(getPlayerByIdLevel);
-      PlayerSql playerSql = new PlayerSql(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4));
+      PlayerSql playerSql = new PlayerSql(rs.getInt(idPlayerColumn), rs.getString(namePlayerColumn), rs.getInt(idLevelColumn), rs.getInt(idInventoryColumn), rs.getInt(idChapterColum));
 	  return playerSql;
 	  }
 	 

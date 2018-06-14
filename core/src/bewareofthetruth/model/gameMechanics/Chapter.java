@@ -15,7 +15,7 @@ public class Chapter implements IChapter {
 	private ArrayList<ILevel> levels;
 	private int idChapter;
 
-	public Chapter() {
+	public Chapter() throws SQLException {
 		System.out.println("Chapitre créer");
 		this.levels = new ArrayList<>();
 	}

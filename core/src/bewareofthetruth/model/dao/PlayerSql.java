@@ -6,13 +6,15 @@ public class PlayerSql {
 	private int idLevel;
 	private int idInventaire;
 	private int idPlayer;
+	private int idChapter;
 	
-	public PlayerSql(int idPlayer,String nom, int idLevel, int idInventaire) {
+	public PlayerSql(int idPlayer,String nom, int idLevel, int idInventaire,  int idChapter) {
 		super();
 		this.setIdPlayer(idPlayer);
 		this.setNom(nom);
 		this.setIdInventaire(idInventaire);
 		this.setIdLevel(idLevel);
+		this.setIdChapter(idChapter);
 		System.out.println("nouveau playerSql");
 	}
 	public String getNom() {
@@ -38,6 +40,12 @@ public class PlayerSql {
 	}
 	public void setIdPlayer(int idPlayer) {
 		this.idPlayer = idPlayer;
+	}
+	public int getIdChapter() {
+		return idChapter;
+	}
+	public void setIdChapter(int idChapter) {
+		this.idChapter = idChapter;
 	}
 	
 	

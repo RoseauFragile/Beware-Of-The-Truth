@@ -32,10 +32,8 @@ public interface IBewareOfTruthModel {
 	public void setModelFacade(IModelFacade modelFacade);
 
 	public void setChapter(IChapter chapter);
-
-	void setIdChapter(int idChapter);
-
-	int getIdChapter();
+	
+	public void setChapterByIdPlayerChapter() throws SQLException;
 
 	public void setDao(BewareOfTheTruthDAO dao);
 
