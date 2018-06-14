@@ -1,5 +1,7 @@
 package bewareofthetruth.model;
 
+import java.sql.SQLException;
+
 import bewareofthetruth.contract.model.data.IBewareOfTruthModel;
 import bewareofthetruth.contract.model.data.IChapter;
 import bewareofthetruth.contract.model.data.IGameMenu;
@@ -24,7 +26,7 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	private IModelFacade modelFacade;
 	private int idChapter;
 
-	public BewareOfTruthModel() {
+	public BewareOfTruthModel() throws SQLException {
 		this.setIdChapter(1);
 		System.out.println("Model créer");
 		this.setDao(new BewareOfTheTruthDAO());

@@ -1,10 +1,12 @@
 package bewareofthetruth.model.gameMechanics;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import bewareofthetruth.contract.model.data.IBewareOfTruthModel;
 import bewareofthetruth.contract.model.data.IChapter;
 import bewareofthetruth.contract.model.data.ILevel;
+import bewareofthetruth.model.dao.LevelSql;
 import bewareofthetruth.model.gameMechanics.level.Level;
 
 public class Chapter implements IChapter {
@@ -34,10 +36,14 @@ public class Chapter implements IChapter {
 	}
 
 	@Override
-	public void setLevel() {
-		ILevel level = new Level(this.getIdChapter());
-		level.setChapter(this);
-		this.levels.add(level);
+	public void setLevel() throws SQLException {
+		ArrayList<LevelSql> levelSql = this.getBewareOfTruthModel().getDao().getLevelDAO().getLevelById(this.getIdChapter());
+		for( LevelSql temp : levelSql) {
+			this.levels.add(new Level(temp.getId(), temp.getLevelName(), temp.getHeight(), temp.getWidth(), temp.getSourceMap()));
+		}
+		for (ILevel temp : this.levels) {
+			temp.setChapter(this);
+		}
 	}
 
 	@Override

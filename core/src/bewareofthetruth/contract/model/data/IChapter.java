@@ -1,5 +1,6 @@
 package bewareofthetruth.contract.model.data;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface IChapter {
@@ -14,6 +15,6 @@ public interface IChapter {
 
 	public void setIdChapter(int idChapter);
 
-	void setLevel();
+	void setLevel() throws SQLException;
 
 }

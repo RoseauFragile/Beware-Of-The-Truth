@@ -1,15 +1,21 @@
 package bewareofthetruth.main;
 
+import java.sql.SQLException;
 import com.badlogic.gdx.ApplicationListener;
-
 import bewareofthetruth.contract.model.data.IModelFacade;
 import bewareofthetruth.model.ModelFacade;
 
-public class Main implements ApplicationListener{
+public class Main implements ApplicationListener {
 
 	@Override
 	public void create() {
-		IModelFacade modelFacade = new ModelFacade();
+
+			try {
+				IModelFacade modelFacade = new ModelFacade();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
 		
 	}
 

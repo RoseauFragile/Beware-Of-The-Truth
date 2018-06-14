@@ -1,20 +1,20 @@
 package bewareofthetruth.model.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class BewareOfTheTruthDAO extends AbstractDAO {
 
-	private ChapterDAO chapterDAO;
-	private LevelDAO levelDAO;
-	private MainMenuDAO mainMenuDAO;
-	private PlayerDAO playerDao;
-	private OptionsDAO optionsDAO;
+	private ChapterDAO	chapterDAO;
+	private LevelDAO	levelDAO;
+	private MainMenuDAO	mainMenuDAO;
+	private PlayerDAO	playerDao;
+	private OptionsDAO	optionsDAO;
+	private static int	idColumnIndex	= 1;
 
-	public BewareOfTheTruthDAO() {
+	public BewareOfTheTruthDAO() throws SQLException {
+
 		super();
 		System.out.println("DAO créer");
-		BewareOfTheTruthDAO.test();
 		this.setChapterDAO(new ChapterDAO());
 		this.setLevelDAO(new LevelDAO());
 		this.setMainMenuDAO(new MainMenuDAO());
@@ -23,57 +23,57 @@ public class BewareOfTheTruthDAO extends AbstractDAO {
 	}
 
 	public ChapterDAO getChapterDAO() {
-		return chapterDAO;
+
+		return this.chapterDAO;
 	}
 
-	public void setChapterDAO(ChapterDAO chapterDAO) {
+	public void setChapterDAO(final ChapterDAO chapterDAO) {
+
 		this.chapterDAO = chapterDAO;
 	}
 
 	public LevelDAO getLevelDAO() {
-		return levelDAO;
+
+		return this.levelDAO;
 	}
 
-	public void setLevelDAO(LevelDAO levelDAO) {
+	public void setLevelDAO(final LevelDAO levelDAO) {
+
 		this.levelDAO = levelDAO;
 	}
 
 	public MainMenuDAO getMainMenuDAO() {
-		return mainMenuDAO;
+
+		return this.mainMenuDAO;
 	}
 
-	public void setMainMenuDAO(MainMenuDAO mainMenuDAO) {
+	public void setMainMenuDAO(final MainMenuDAO mainMenuDAO) {
+
 		this.mainMenuDAO = mainMenuDAO;
 	}
 
 	public PlayerDAO getPlayerDao() {
-		return playerDao;
+
+		return this.playerDao;
 	}
 
-	public void setPlayerDao(PlayerDAO playerDao) {
+	public void setPlayerDao(final PlayerDAO playerDao) {
+
 		this.playerDao = playerDao;
 	}
 
 	public OptionsDAO getOptionsDAO() {
-		return optionsDAO;
+
+		return this.optionsDAO;
 	}
 
-	public void setOptionsDAO(OptionsDAO optionsDAO) {
+	public void setOptionsDAO(final OptionsDAO optionsDAO) {
+
 		this.optionsDAO = optionsDAO;
 	}
-	
-	  public static void test() {
-	      Connection c = null;
-	      
-	      try {
-	    	  System.out.println("test create DB");
-	         Class.forName("org.sqlite.JDBC");
-	         c = DriverManager.getConnection("jdbc:sqlite:BewareOfTheTruth.db");
-	      } catch ( Exception e ) {
-	         System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-	         System.exit(0);
-	      }
-	      System.out.println("Opened database successfully");
-	   }
 
+	public static int getIdColumnIndex() {
+
+		return idColumnIndex;
+	}
 }

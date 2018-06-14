@@ -1,33 +1,39 @@
 package bewareofthetruth.model.util;
 
-public class Dimension {
+import bewareofthetruth.contract.model.utils.IDimension;
 
-	private double width;
+public class Dimension implements IDimension {
 
-	private double height;
+	private float width;
+
+	private float height;
 
 	public Dimension() {
 
 	}
 
-	public Dimension(float width, float height) {
+	public Dimension(float height, float width) {
 		this.setWidth(width);
 		this.setHeight(height);
 	}
 
-	public double getWidth() {
-		return width;
+	@Override
+	public float getWidth() {
+		return this.width;
 	}
 
-	public void setWidth(double width) {
+	@Override
+	public void setWidth(float width) {
 		this.width = width;
 	}
 
-	public double getHeight() {
-		return height;
+	@Override
+	public float getHeight() {
+		return this.height;
 	}
 
-	public void setHeight(double height) {
+	@Override
+	public void setHeight(float height) {
 		this.height = height;
 	}
 }

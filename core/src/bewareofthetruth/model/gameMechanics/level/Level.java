@@ -13,6 +13,7 @@ import bewareofthetruth.contract.model.gameMecanism.ISpecial;
 import bewareofthetruth.contract.model.gameMecanism.ITile;
 import bewareofthetruth.contract.model.utils.IDimension;
 import bewareofthetruth.contract.model.utils.ISound;
+import bewareofthetruth.model.util.Dimension;
 
 public class Level implements ILevel {
 
@@ -29,9 +30,16 @@ public class Level implements ILevel {
 	private String levelName;
 
 	private IChapter chapter;
+	
+	private float id;
+	
+	private String sourceMap;
 
-	public Level(int idChapter) {
-		System.out.println("Level  1 créer");
+	public Level(float id, String levelName, float height, float width, String sourceMap) {
+		this.setLevelName(levelName);
+		this.setId(id);
+		this.setDimension(height, width);
+		System.out.println("level créer avec pour id : " + id + " nom : " + levelName + " height : " + height + " width : " + width + " sourceMap : " + sourceMap);
 	}
 
 	@Override
@@ -39,8 +47,8 @@ public class Level implements ILevel {
 		return levelName;
 	}
 
-	public void setLevelName() {
-		// this.getChapter().getBewareOfTruthModel().getDao().getLevelDAO()
+	public void setLevelName(String levelName) {
+		this.levelName = levelName;
 	}
 
 	@Override
@@ -53,8 +61,8 @@ public class Level implements ILevel {
 		return dimension;
 	}
 
-	public void setDimension() {
-		this.dimension = dimension;
+	public void setDimension(float height, float width) {
+		this.dimension = new Dimension(height, width);
 	}
 
 	public void removeSpecials(ISpecial special) {
@@ -96,37 +104,31 @@ public class Level implements ILevel {
 
 	@Override
 	public void addProjectiles(IProjectile projectile) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	public void addSpecials(ITile special) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public ISound getAudio() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public IMap getMap() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.map;
 	}
 
 	@Override
 	public ArrayList<IProjectile> getProjectiles() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public ArrayList<ITile> getSpecials() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -161,15 +163,8 @@ public class Level implements ILevel {
 	}
 
 	@Override
-	public void setLevelName(String levelName) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void setMap(IMap map) {
-		// TODO Auto-generated method stub
-
+		this.map = new Map();
 	}
 
 	@Override
@@ -200,4 +195,21 @@ public class Level implements ILevel {
 		this.chapter = chapter;
 	}
 
+	public float getId() {
+		return this.id;
+	}
+
+	public void setId(float id) {
+		this.id = id;
+	}
+
+	public String getSourceMap() {
+		return sourceMap;
+	}
+
+	public void setSourceMap(String sourceMap) {
+		this.sourceMap = sourceMap;
+	}
+
+	
 }

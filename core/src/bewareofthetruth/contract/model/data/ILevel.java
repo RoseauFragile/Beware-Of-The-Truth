@@ -66,5 +66,13 @@ public interface ILevel {
 	public IChapter getChapter();
 
 	public void setChapter(IChapter chapter);
+	
+	public float getId();
+
+	public void setId(float id);
+	
+	public String getSourceMap();
+
+	public void setSourceMap(String sourceMap);
 
 }
