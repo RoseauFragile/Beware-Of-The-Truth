@@ -1,5 +1,7 @@
 package bewareofthetruth.contract.model.data;
 
+import java.sql.SQLException;
+
 import bewareofthetruth.contract.model.gameMecanism.IPlayer;
 import bewareofthetruth.model.dao.BewareOfTheTruthDAO;
 
@@ -29,8 +31,6 @@ public interface IBewareOfTruthModel {
 
 	public void setModelFacade(IModelFacade modelFacade);
 
-	public void setPlayer(IPlayer player);
-
 	public void setChapter(IChapter chapter);
 
 	void setIdChapter(int idChapter);
@@ -40,5 +40,7 @@ public interface IBewareOfTruthModel {
 	public void setDao(BewareOfTheTruthDAO dao);
 
 	public BewareOfTheTruthDAO getDao();
+
+	void setPlayer(int idLevel) throws SQLException;
 
 }

@@ -11,6 +11,7 @@ import bewareofthetruth.contract.model.data.IModelFacade;
 import bewareofthetruth.contract.model.data.IOptions;
 import bewareofthetruth.contract.model.gameMecanism.IPlayer;
 import bewareofthetruth.model.dao.BewareOfTheTruthDAO;
+import bewareofthetruth.model.dao.PlayerSql;
 import bewareofthetruth.model.gameMechanics.Chapter;
 import bewareofthetruth.model.gameMechanics.mobile.Player;
 
@@ -30,7 +31,7 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 		this.setIdChapter(1);
 		System.out.println("Model créer");
 		this.setDao(new BewareOfTheTruthDAO());
-		this.setPlayer(new Player());
+		this.setPlayer(1);
 		this.getPlayer().setBewareOfTruthModel(this);
 		this.getPlayer().setChapter(this.getIdChapter());
 		this.setMainMenu(new MainMenu());
@@ -117,8 +118,9 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	}
 
 	@Override
-	public void setPlayer(IPlayer player) {
-		this.player = player;
+	public void setPlayer(int idLevel) throws SQLException {
+		PlayerSql playerSql = this.getDao().getPlayerDao().getPlayerByIdLevel(idLevel);
+		this.player = new Player(playerSql.getIdPlayer(), playerSql.getNom(), playerSql.getIdLevel(), playerSql.getIdInventaire());
 	}
 
 	@Override

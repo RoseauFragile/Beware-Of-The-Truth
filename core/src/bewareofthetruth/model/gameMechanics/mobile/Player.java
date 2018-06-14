@@ -14,10 +14,23 @@ public class Player extends Entity implements IPlayer {
 	private IEnergy energy;
 	private int idChapter;
 	private IBewareOfTruthModel bewareOfTruthModel;
+	private int idLevel;
+	private int id;
+	private int idInventory;
+	private String playerName;
 	private static Sprite SPRITE = new Sprite();
 
 	public Player() {
 		super(SPRITE);
+	}
+
+	public Player(int idPlayer, String nom, int idLevel2, int idInventory2) {
+		super(SPRITE);
+		this.setId(idPlayer);
+		this.setPlayerName(playerName);
+		this.setIdLevel(idLevel2);
+		this.setIdInventory(idInventory2);
+		System.out.println("nouveau player créer");
 	}
 
 	@Override
@@ -59,5 +72,47 @@ public class Player extends Entity implements IPlayer {
 	public void setBewareOfTruthModel(IBewareOfTruthModel bewareOfTruthModel) {
 		this.bewareOfTruthModel = bewareOfTruthModel;
 	}
+
+	public int getIdChapter() {
+		return this.idChapter;
+	}
+
+	public void setIdChapter(int idChapter) {
+		this.idChapter = idChapter;
+	}
+
+	public int getIdLevel() {
+		return this.idLevel;
+	}
+
+	public void setIdLevel(int idLevel) {
+		this.idLevel = idLevel;
+	}
+
+	public int getId() {
+		return this.id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getIdInventory() {
+		return this.idInventory;
+	}
+
+	public void setIdInventory(int idInventory) {
+		this.idInventory = idInventory;
+	}
+
+	public String getPlayerName() {
+		return this.playerName;
+	}
+
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
+	}
+	
+	
 
 }

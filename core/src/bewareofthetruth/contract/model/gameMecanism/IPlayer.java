@@ -21,4 +21,19 @@ public interface IPlayer {
 	public IBewareOfTruthModel getBewareOfTruthModel();
 
 	public void setBewareOfTruthModel(IBewareOfTruthModel bewareOfTruthModel);
+	
+	public int getIdLevel();
+	public void setIdLevel(int idLevel);
+
+	public int getId();
+
+	public void setId(int id);
+
+	public int getIdInventory();
+
+	public void setIdInventory(int idInventory);
+
+	public String getPlayerName();
+
+	public void setPlayerName(String playerName);
 }
