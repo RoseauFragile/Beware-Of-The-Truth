@@ -1,17 +1,37 @@
 package bewareofthetruth.view.main;
 
-public abstract class GameState implements IGameState{
+public abstract class GameState implements IGameState {
 
 	protected GameStateManager gsm;
-	
+	// protected ModelFacade modelFacade;
+
 	public GameState(GameStateManager gsm) {
 		this.gsm = gsm;
 	}
-	
-	public abstract void init();
-	public abstract void update(float dt);
-	public abstract void draw();
-	public abstract void handleInput();
-	public abstract void dispose();
-	
+
+	@Override
+	public void init() {
+		/*
+		 * try { this.modelFacade = new ModelFacade(); } catch (SQLException e) {
+		 * e.printStackTrace(); }
+		 */
+
+	}
+
+	@Override
+	public void update(float dt) {
+	}
+
+	@Override
+	public void draw() {
+	}
+
+	@Override
+	public void handleInput() {
+	}
+
+	@Override
+	public void dispose() {
+	}
+
 }

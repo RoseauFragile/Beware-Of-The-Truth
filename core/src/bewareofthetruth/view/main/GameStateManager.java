@@ -1,20 +1,22 @@
 package bewareofthetruth.view.main;
 
 public class GameStateManager {
-	
-	private IGameState gameState;
-	public static final int MENU = 0;
-	public static final int PLAY = 1;
-	public static final int PAUSE = 2;
-	
+
+	private IGameState		gameState;
+	public static final int	MENU	= 0;
+	public static final int	PLAY	= 1;
+	public static final int	PAUSE	= 2;
+
 	public GameStateManager() {
 		this.setState(MENU);
-		
+
 	}
-	
+
 	public void setState(int state) {
-		if(this.gameState != null) {this.gameState.dispose();}
-		switch(state) {
+		if (this.gameState != null) {
+			this.gameState.dispose();
+		}
+		switch (state) {
 		case MENU:
 			gameState = new MenuState(this);
 			break;
@@ -23,18 +25,21 @@ public class GameStateManager {
 			break;
 		case PAUSE:
 			gameState = new PauseState(this);
-		break;
+			break;
 		}
-		
+
 	}
-	
+
+	public void init() {
+		gameState.init();
+	}
+
 	public void update(float dt) {
 		gameState.update(dt);
 	}
-	
+
 	public void draw() {
 		gameState.draw();
 	}
-	
 
 }
