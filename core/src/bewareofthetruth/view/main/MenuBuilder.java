@@ -26,7 +26,6 @@ public class MenuBuilder implements IGraphicsBuilder {
 		sb.setProjectionMatrix(cam.combined);
 		sb.draw(paused, 0, 0);
 		sb.end();
-
 	}
 
 	@Override
