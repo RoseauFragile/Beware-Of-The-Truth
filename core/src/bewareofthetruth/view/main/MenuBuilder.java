@@ -38,7 +38,7 @@ public class MenuBuilder implements IGraphicsBuilder {
 
 	@Override
 	public void applyModelToGraphics() {
-		cam.setToOrtho(false, paused.getWidth(), paused.getHeight());
+		cam.setToOrtho(false, paused.getWidth() * 2, paused.getHeight() * 2);
 		sb.begin();
 		pausedImage.draw(sb, 1);
 		sb.setProjectionMatrix(cam.combined);
