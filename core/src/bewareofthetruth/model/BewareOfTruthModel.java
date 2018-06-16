@@ -2,7 +2,13 @@ package bewareofthetruth.model;
 
 import java.sql.SQLException;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.World;
+
 import bewareofthetruth.contract.model.data.IBewareOfTruthModel;
+import bewareofthetruth.contract.model.data.ICamera;
 import bewareofthetruth.contract.model.data.IChapter;
 import bewareofthetruth.contract.model.data.IGameMenu;
 import bewareofthetruth.contract.model.data.IHud;
@@ -25,6 +31,11 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	private IMainMenu mainMenu;
 	private BewareOfTheTruthDAO dao;
 	private IModelFacade modelFacade;
+	private World world;
+	private Box2DDebugRenderer debugRenderer;
+	private ICamera cam;
+	private float widthLevel;
+	private float heightLevel;
 
 	public BewareOfTruthModel() throws SQLException {
 		System.out.println("Model créer");
@@ -42,6 +53,11 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 		this.setChapter(new Chapter());
 		this.getChapter().setBewareOfTruthModel(this);
 		this.setChapterByIdPlayerChapter();
+		this.setWorld(new World(new Vector2(0, -10), true));
+		this.setHeightLevel(100);
+		this.setWidthLevel(100);
+		this.setCam(new Camera(this.getWidthLevel(), this.getHeightLevel()));
+		this.setDebugRenderer(new Box2DDebugRenderer());
 	}
 
 	@Override
@@ -127,6 +143,50 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	public void setChapterByIdPlayerChapter() throws SQLException {
 		this.getChapter().setIdChapter(this.getPlayer().getChapter());
 		this.getChapter().setLevel();
+	}
+	
+	public void render(SpriteBatch sb) {
+		
+	}
+
+	public World getWorld() {
+		return world;
+	}
+
+	public void setWorld(World world) {
+		this.world = world;
+	}
+
+	public Box2DDebugRenderer getDebugRenderer() {
+		return debugRenderer;
+	}
+
+	public void setDebugRenderer(Box2DDebugRenderer debugRenderer) {
+		this.debugRenderer = debugRenderer;
+	}
+
+	public ICamera getCam() {
+		return cam;
+	}
+
+	public void setCam(ICamera cam) {
+		this.cam = cam;
+	}
+
+	public float getWidthLevel() {
+		return widthLevel;
+	}
+
+	public void setWidthLevel(float widthLevel) {
+		this.widthLevel = widthLevel;
+	}
+
+	public float getHeightLevel() {
+		return heightLevel;
+	}
+
+	public void setHeightLevel(float heightLevel) {
+		this.heightLevel = heightLevel;
 	}
 
 

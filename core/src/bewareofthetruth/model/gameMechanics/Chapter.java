@@ -37,7 +37,7 @@ public class Chapter implements IChapter {
 
 	@Override
 	public void setLevel() throws SQLException {
-		ArrayList<LevelSql> levelSql = this.getBewareOfTruthModel().getDao().getLevelDAO().getLevelById(this.getIdChapter());
+		ArrayList<LevelSql> levelSql = this.getBewareOfTruthModel().getDao().getChapterDAO().getLevelByChapter(this.getIdChapter());;
 		for( LevelSql temp : levelSql) {
 			this.levels.add(new Level(temp.getId(), temp.getLevelName(), temp.getHeight(), temp.getWidth(), temp.getSourceMap()));
 		}

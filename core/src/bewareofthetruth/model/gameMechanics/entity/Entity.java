@@ -1,7 +1,12 @@
 package bewareofthetruth.model.gameMechanics.entity;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+
 import bewareofthetruth.contract.model.gameMecanism.IEntity;
 import bewareofthetruth.contract.model.gameMecanism.behaviors.IBounceStrategy;
 import bewareofthetruth.contract.model.gameMecanism.behaviors.IDodgeStrategy;
@@ -26,10 +31,20 @@ public class Entity implements IEntity {
 	private IAudio audio;
 
 	private Sprite sprite;
-
-	public Entity(Sprite sprite) {
+	
+	private Texture texture;
+	
+	private Animation animation;
+	
+	private TextureRegion[][] regions;
+	
+	private Body body;
+	
+	public Entity(String sourceTexture/*, Body body*/) {
 		this.position = new Position();
-		this.setSprite(sprite);
+		//this.setBody(body);
+		this.setTexture(new Texture("assets/sprite/"+sourceTexture));
+		this.setRegions(TextureRegion.split(this.getTexture(), 64, 64));
 	}
 
 	@Override
@@ -106,14 +121,9 @@ public class Entity implements IEntity {
 	public Sprite getSprite() {
 		return sprite;
 	}
-/*
-	public void setSprite() {
-		this.sprite = sprite;
-	}*/
 
 	@Override
 	public void setBounceStrategy(IBounceStrategy bounceStrategy) {
-
 
 	}
 
@@ -122,4 +132,35 @@ public class Entity implements IEntity {
 		this.sprite = sprite;
 	}
 
+	public Texture getTexture() {
+		return this.texture;
+	}
+
+	public void setTexture(Texture texture) {
+		this.texture = texture;
+	}
+
+	public Animation getAnimation() {
+		return this.animation;
+	}
+
+	public void setAnimation(Animation animation) {
+		this.animation = animation;
+	}
+
+	public TextureRegion[][] getRegions() {
+		return regions;
+	}
+
+	public void setRegions(TextureRegion[][] regions) {
+		this.regions = regions;
+	}
+
+	public Body getBody() {
+		return this.body;
+	}
+
+	public void setBody(Body body) {
+		this.body = body;
+	}
 }

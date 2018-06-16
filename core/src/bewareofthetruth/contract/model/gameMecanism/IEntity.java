@@ -1,6 +1,9 @@
 package bewareofthetruth.contract.model.gameMecanism;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import bewareofthetruth.contract.model.gameMecanism.behaviors.IBounceStrategy;
 import bewareofthetruth.contract.model.gameMecanism.behaviors.IDodgeStrategy;
@@ -8,6 +11,7 @@ import bewareofthetruth.contract.model.gameMecanism.behaviors.IMoveStrategy;
 import bewareofthetruth.contract.model.utils.IAudio;
 import bewareofthetruth.contract.model.utils.IDimension;
 import bewareofthetruth.contract.model.utils.IPosition;
+import com.badlogic.gdx.graphics.g2d.Animation;
 
 public interface IEntity {
 
@@ -40,4 +44,16 @@ public interface IEntity {
 	public Sprite getSprite();
 
 	public void setSprite(Sprite sprite);
+	
+	public Texture getTexture();
+
+	public void setTexture(Texture texture);
+	
+	public Animation getAnimation();
+
+	public void setAnimation(Animation animation);
+	
+	public TextureRegion[][] getRegions();
+
+	public void setRegions(TextureRegion[][] regions);
 }
