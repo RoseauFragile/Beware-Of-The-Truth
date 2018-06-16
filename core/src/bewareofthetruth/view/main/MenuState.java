@@ -4,10 +4,12 @@ import com.badlogic.gdx.Gdx;
 
 public class MenuState extends GameState {
 
-	private final IGraphicsBuilder menuBuilder;
+	private final IGraphicsBuilder	menuBuilder;
+	GameStateManager				gsm;
 
 	public MenuState(GameStateManager gsm) {
 		super(gsm);
+		this.gsm = gsm;
 		Gdx.graphics.setTitle("Game Menu");
 		this.menuBuilder = new MenuBuilder();
 
@@ -16,7 +18,7 @@ public class MenuState extends GameState {
 	@Override
 	public void init() {
 		super.init();
-		this.menuBuilder.init();
+		this.menuBuilder.init(this.gsm);
 	}
 
 	@Override

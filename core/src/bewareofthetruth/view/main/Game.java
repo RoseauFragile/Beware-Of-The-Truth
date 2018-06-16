@@ -11,6 +11,7 @@ public class Game implements ApplicationListener {
 	public void create() {
 		gsm = new GameStateManager();
 		gsm.init();
+
 	}
 
 	@Override

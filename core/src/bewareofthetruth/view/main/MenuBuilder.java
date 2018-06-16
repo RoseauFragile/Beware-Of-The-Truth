@@ -3,6 +3,9 @@ package bewareofthetruth.view.main;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class MenuBuilder implements IGraphicsBuilder {
 
@@ -10,22 +13,38 @@ public class MenuBuilder implements IGraphicsBuilder {
 	private SpriteBatch					sb;
 	private Texture						paused;
 	public static OrthographicCamera	cam;
+	private Stage						stage	= new Stage();
+	Image								pausedImage;
 
 	@Override
-	public void init() {
+	public void init(final GameStateManager gsm) {
 		// sr = new ShapeRenderer();
 		paused = new Texture("sprite/paused.png");
+		pausedImage = new Image(paused);
 		sb = new SpriteBatch();
 		cam = new OrthographicCamera();
+		sb.setProjectionMatrix(cam.combined);
+		stage.addActor(pausedImage);
+
+		pausedImage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(100.0f), Actions.delay(1),
+				Actions.run(new Runnable() {
+					@Override
+					public void run() {
+						gsm.setState(0);
+					}
+				})));
+
 	}
 
 	@Override
 	public void applyModelToGraphics() {
-		cam.setToOrtho(false, getGlobalWidth(), getGlobalHeight());
+		cam.setToOrtho(false, paused.getWidth(), paused.getHeight());
 		sb.begin();
+		pausedImage.draw(sb, 1);
 		sb.setProjectionMatrix(cam.combined);
-		sb.draw(paused, 0, 0);
 		sb.end();
+		stage.act();
+
 	}
 
 	@Override
