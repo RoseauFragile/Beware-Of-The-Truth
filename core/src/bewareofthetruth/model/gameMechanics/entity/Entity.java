@@ -3,9 +3,10 @@ package bewareofthetruth.model.gameMechanics.entity;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+
 import bewareofthetruth.contract.model.gameMecanism.IEntity;
 import bewareofthetruth.contract.model.gameMecanism.behaviors.IBounceStrategy;
 import bewareofthetruth.contract.model.gameMecanism.behaviors.IDodgeStrategy;
@@ -36,9 +37,12 @@ public class Entity implements IEntity {
 	private Animation animation;
 	
 	private TextureRegion[][] regions;
-
-	public Entity(String sourceTexture) {
+	
+	private Body body;
+	
+	public Entity(String sourceTexture/*, Body body*/) {
 		this.position = new Position();
+		//this.setBody(body);
 		this.setTexture(new Texture("assets/sprite/"+sourceTexture));
 		this.setRegions(TextureRegion.split(this.getTexture(), 64, 64));
 	}
@@ -117,14 +121,9 @@ public class Entity implements IEntity {
 	public Sprite getSprite() {
 		return sprite;
 	}
-/*
-	public void setSprite() {
-		this.sprite = sprite;
-	}*/
 
 	@Override
 	public void setBounceStrategy(IBounceStrategy bounceStrategy) {
-
 
 	}
 
@@ -155,5 +154,13 @@ public class Entity implements IEntity {
 
 	public void setRegions(TextureRegion[][] regions) {
 		this.regions = regions;
+	}
+
+	public Body getBody() {
+		return this.body;
+	}
+
+	public void setBody(Body body) {
+		this.body = body;
 	}
 }
