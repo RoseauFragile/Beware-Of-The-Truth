@@ -33,17 +33,14 @@ public class Main implements ApplicationListener {
 
 	@Override
 	public void render() {
-		/*Gdx.gl.glClearColor(1, 1, 1, 1);
+		Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         this.batch.begin();
         this.batch.draw(this.modelFacade.getBewareOfTruthModel().getPlayer().getTexture(), 200 , 100);
         this.batch.draw(this.modelFacade.getBewareOfTruthModel().getPlayer().getTexture(), 200 , 200);
-		for (int i = 0; i < this.modelFacade.getBewareOfTruthModel().getPlayer().getRegions().length; i++) {
-			this.modelFacade.getBewareOfTruthModel().getPlayer().getRegions().;		// #8
-		}
         //this.elapsedTime += Gdx.graphics.getDeltaTime();
         //this.batch.draw(this.modelFacade.getBewareOfTruthModel().getPlayer().getAnimation().getKeyFrame(elapsedTime, true), 0, 0);
-        this.batch.end();*/
+        this.batch.end();
 	}
 
 	@Override
