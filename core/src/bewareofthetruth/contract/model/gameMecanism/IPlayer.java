@@ -4,7 +4,7 @@ import bewareofthetruth.contract.model.data.IBewareOfTruthModel;
 import bewareofthetruth.contract.model.utils.IEnergy;
 import bewareofthetruth.contract.model.utils.IHealth;
 
-public interface IPlayer {
+public interface IPlayer extends IEntity{
 
 	public IEnergy getEnergy();
 

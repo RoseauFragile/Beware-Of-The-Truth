@@ -18,14 +18,14 @@ public class Player extends Entity implements IPlayer {
 	private int id;
 	private int idInventory;
 	private String playerName;
-	private static Sprite SPRITE = new Sprite();
+	private static String sourceTexture = "zombie.png";
 
 	public Player() {
-		super(SPRITE);
+		super(sourceTexture);
 	}
 
 	public Player(int idPlayer, String nom, int idLevel, int idInventory, int idChapter) {
-		super(SPRITE);
+		super(sourceTexture);
 		this.setId(idPlayer);
 		this.setPlayerName(playerName);
 		this.setIdLevel(idLevel);
