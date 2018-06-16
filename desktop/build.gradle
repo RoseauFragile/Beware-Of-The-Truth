@@ -8,6 +8,7 @@ sourceSets.main.java.srcDirs = [ "src/" ]
 project.ext.mainClassName = "com.beware.game.desktop.DesktopLauncher"
 project.ext.assetsDir = new File("../core/assets");
 
+
 task run(dependsOn: classes, type: JavaExec) {
     main = project.mainClassName
     classpath = sourceSets.main.runtimeClasspath
