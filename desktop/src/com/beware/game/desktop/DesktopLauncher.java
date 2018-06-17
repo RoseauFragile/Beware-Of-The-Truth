@@ -13,6 +13,7 @@ public class DesktopLauncher {
 		config.height = 480;
 		config.backgroundFPS = 60;
 		config.foregroundFPS = 60;
+		config.title = "Zombie/heros et tiledMap";
 		new LwjglApplication(new Main(), config);
 	}
 }

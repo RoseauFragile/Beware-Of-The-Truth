@@ -8,6 +8,7 @@ public final class Constants {
 	private ModelFacade modelFacade;
 	public final Camera CAMERA = this.modelFacade.getBewareOfTruthModel().getCam().getCamera();
 	public static final float PPM = 32;
+	public static final float SCALE = 2.0f;
 	
 	public Constants(ModelFacade modelFacade) {
 		this.setModelFacade(modelFacade);

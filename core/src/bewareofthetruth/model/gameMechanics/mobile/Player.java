@@ -17,14 +17,14 @@ public class Player extends Entity implements IPlayer {
 	private int id;
 	private int idInventory;
 	private String playerName;
-	private static String sourceTexture = "zombie.png";
+	private static String sourceTexture = "herosMarche.png";
 
-	public Player(World world, float x, float y) {
-		super(sourceTexture, world , x , y);
+	public Player(World world, float x, float y, boolean isStatic) {
+		super(sourceTexture, world , x , y, isStatic);
 	}
 
-	public Player(int idPlayer, String nom, int idLevel, int idInventory, int idChapter, World world, float x, float y) {
-		super(sourceTexture, world, x, y);
+	public Player(int idPlayer, String nom, int idLevel, int idInventory, int idChapter, World world, float x, float y, boolean isStatic) {
+		super(sourceTexture, world, x, y, isStatic);
 		this.setId(idPlayer);
 		this.setPlayerName(nom);
 		this.setIdLevel(idLevel);

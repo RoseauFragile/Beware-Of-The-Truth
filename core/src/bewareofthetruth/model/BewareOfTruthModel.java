@@ -16,11 +16,13 @@ import bewareofthetruth.contract.model.data.IHud;
 import bewareofthetruth.contract.model.data.IMainMenu;
 import bewareofthetruth.contract.model.data.IModelFacade;
 import bewareofthetruth.contract.model.data.IOptions;
+import bewareofthetruth.contract.model.gameMecanism.IEntity;
 import bewareofthetruth.contract.model.gameMecanism.IPlayer;
 import bewareofthetruth.model.dao.BewareOfTheTruthDAO;
 import bewareofthetruth.model.dao.PlayerSql;
 import bewareofthetruth.model.gameMechanics.Chapter;
 import bewareofthetruth.model.gameMechanics.mobile.Player;
+import bewareofthetruth.model.gameMechanics.mobile.Zombie;
 
 public class BewareOfTruthModel implements IBewareOfTruthModel {
 
@@ -39,6 +41,8 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	private float heightLevel;
 	private static float XPLAYER = 10;
 	private static float YPLAYER = 0;
+	private IEntity zombie;
+	private SpriteBatch batch;
 	
 
 	public BewareOfTruthModel() throws SQLException {
@@ -46,22 +50,17 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 		this.setWorld(new World(new Vector2(0, 0), true));	
 		this.setDao(new BewareOfTheTruthDAO());
 		this.setPlayer(1, this.getWorld());
-		this.getPlayer().setBewareOfTruthModel(this);
+		this.setZombie(new Zombie(this.getWorld(), 5 ,5, true));
 		this.setMainMenu(new MainMenu());
-		this.getMainMenu().setBewareOfTruthModel(this);
 		this.setGameMenu(new GameMenu());
-		this.getGameMenu().setBewareOfTruthModel(this);
 		this.setHud(new Hud());
-		this.getHud().setBewareOfTruthModel(this);
 		this.setOptions(new Options());
-		this.getOptions().setBewareOfTruthModel(this);
 		this.setChapter(new Chapter());
-		this.getChapter().setBewareOfTruthModel(this);
 		this.setChapterByIdPlayerChapter();	
 		System.out.println(Gdx.graphics.getWidth() + " " + Gdx.graphics.getHeight());
-		this.setCam(new Camera(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2));
-		this.getCam().setBewareOfTruthModel(this);
+		this.setCam(new Camera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
 		this.setDebugRenderer(new Box2DDebugRenderer());
+		this.setBatch(new SpriteBatch());	
 	}
 
 	@Override
@@ -82,6 +81,7 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	@Override
 	public void setOptions(IOptions options) {
 		this.options = options;
+		this.getOptions().setBewareOfTruthModel(this);
 	}
 
 	@Override
@@ -92,6 +92,7 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	@Override
 	public void setMainMenu(IMainMenu mainMenu) {
 		this.mainMenu = mainMenu;
+		this.getMainMenu().setBewareOfTruthModel(this);
 	}
 
 	public BewareOfTheTruthDAO getDao() {
@@ -106,6 +107,7 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	@Override
 	public void setHud(IHud hud) {
 		this.hud = hud;
+		this.getHud().setBewareOfTruthModel(this);
 	}
 
 	@Override
@@ -116,6 +118,7 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	@Override
 	public void setGameMenu(IGameMenu gameMenu) {
 		this.gameMenu = gameMenu;
+		this.getGameMenu().setBewareOfTruthModel(this);
 	}
 
 	@Override
@@ -131,13 +134,15 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	@Override
 	public void setPlayer(int idLevel, World world) throws SQLException {
 		PlayerSql playerSql = this.getDao().getPlayerDao().getPlayerByIdLevel(idLevel);
-		this.player = new Player(playerSql.getIdPlayer(), playerSql.getNom(), playerSql.getIdLevel(), playerSql.getIdInventaire(), playerSql.getIdChapter(), world, XPLAYER, YPLAYER);
+		this.player = new Player(playerSql.getIdPlayer(), playerSql.getNom(), playerSql.getIdLevel(), playerSql.getIdInventaire(), playerSql.getIdChapter(), world, XPLAYER, YPLAYER, false);
+		this.getPlayer().setBewareOfTruthModel(this);
 		System.out.println("player attribué");
 	}
 
 	@Override
 	public void setChapter(IChapter chapter) {
 		this.chapter = chapter;
+		this.getChapter().setBewareOfTruthModel(this);
 	}
 
 	public void setDao(BewareOfTheTruthDAO dao) {
@@ -176,6 +181,7 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 
 	public void setCam(ICamera cam) {
 		this.cam = cam;
+		this.getCam().setBewareOfTruthModel(this);
 	}
 
 	public float getWidthLevel() {
@@ -196,6 +202,22 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 
 	public void loadTiledMap() {
 		
+	}
+
+	public IEntity getZombie() {
+		return zombie;
+	}
+
+	public void setZombie(IEntity zombie) {
+		this.zombie = zombie;
+	}
+
+	public SpriteBatch getBatch() {
+		return batch;
+	}
+
+	public void setBatch(SpriteBatch batch) {
+		this.batch = batch;
 	}
 
 }

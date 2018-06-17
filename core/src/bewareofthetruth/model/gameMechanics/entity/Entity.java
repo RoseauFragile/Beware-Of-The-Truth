@@ -16,6 +16,7 @@ import bewareofthetruth.contract.model.utils.IAudio;
 import bewareofthetruth.contract.model.utils.IDimension;
 import bewareofthetruth.contract.model.utils.IPosition;
 import bewareofthetruth.model.util.Position;
+import static bewareofthetruth.model.util.Constants.PPM;
 
 public class Entity implements IEntity {
 
@@ -41,8 +42,11 @@ public class Entity implements IEntity {
 	
 	private World world;
 	
-	public Entity(String sourceTexture, World world, float x, float y) {
+	private boolean isStatic;
+	
+	public Entity(String sourceTexture, World world, float x, float y, boolean isStatic) {
 		this.setPosition(new Position());
+		this.setStatic(isStatic);
 		this.getPosition().setX(x);
 		this.getPosition().setY(y);
 		this.setWorld(world);
@@ -164,12 +168,18 @@ public class Entity implements IEntity {
 	public Body createDynamicBody() {
 		Body pBody;
 		BodyDef def = new BodyDef();
-		def.type = BodyDef.BodyType.DynamicBody;
-		def.position.set(this.getPosition().getX(),this.getPosition().getY());
+		
+		if(this.isStatic() == false) {
+			def.type = BodyDef.BodyType.DynamicBody;
+		}else {
+			def.type = BodyDef.BodyType.StaticBody;
+		}
+		
+		def.position.set(this.getPosition().getX() / PPM,this.getPosition().getY() / PPM);
 		def.fixedRotation = true;
 		pBody = this.getWorld().createBody(def);
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(32 / 2, 32 / 2);
+		shape.setAsBox(64 / 2 / PPM, 64 / 2 / PPM);
 		pBody.createFixture(shape, 1.0f);
 		shape.dispose();
 		System.out.println("BODY CREE");
@@ -187,5 +197,13 @@ public class Entity implements IEntity {
 	public void updateEntity() {
 		this.body.getPosition().x = this.getPosition().getX();
 		this.body.getPosition().y = this.getPosition().getY();
+	}
+
+	public boolean isStatic() {
+		return isStatic;
+	}
+
+	public void setStatic(boolean isStatic) {
+		this.isStatic = isStatic;
 	}
 }

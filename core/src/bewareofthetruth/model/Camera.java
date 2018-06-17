@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector3;
 import bewareofthetruth.contract.model.data.IBewareOfTruthModel;
 import bewareofthetruth.contract.model.data.ICamera;
 import static bewareofthetruth.model.util.Constants.PPM;
+import static bewareofthetruth.model.util.Constants.SCALE;
 
 public class Camera implements ICamera {
 
@@ -14,7 +15,7 @@ public class Camera implements ICamera {
 	
 	public Camera(float width, float height) {
 		this.setCamera(new OrthographicCamera());
-		this.getCamera().setToOrtho(false, width, height);
+		this.getCamera().setToOrtho(false, width / SCALE, height / SCALE);
 	}
 	
 	@Override
@@ -36,13 +37,13 @@ public class Camera implements ICamera {
 	}
 	
 	public void resize(float width, float height) {
-		this.getCamera().setToOrtho(false, width, height);
+		this.getCamera().setToOrtho(false, width / SCALE, height/ SCALE);
 	}
 	
 	public void cameraUpdate(float delta) {
 		Vector3 position = this.getCamera().position;
-		position.x = this.getBewareOfTruthModel().getPlayer().getBody().getPosition().x / PPM;
-		position.y = this.getBewareOfTruthModel().getPlayer().getBody().getPosition().y / PPM;
+		position.x = this.getBewareOfTruthModel().getPlayer().getBody().getPosition().x * PPM;
+		position.y = this.getBewareOfTruthModel().getPlayer().getBody().getPosition().y * PPM;
 		this.getCamera().position.set(position);
 		this.getCamera().update();
 	}

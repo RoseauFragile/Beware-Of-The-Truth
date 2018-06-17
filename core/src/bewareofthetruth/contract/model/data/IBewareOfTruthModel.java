@@ -2,9 +2,11 @@ package bewareofthetruth.contract.model.data;
 
 import java.sql.SQLException;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
+import bewareofthetruth.contract.model.gameMecanism.IEntity;
 import bewareofthetruth.contract.model.gameMecanism.IPlayer;
 import bewareofthetruth.model.dao.BewareOfTheTruthDAO;
 
@@ -63,5 +65,13 @@ public interface IBewareOfTruthModel {
 	public void setHeightLevel(float heightLevel);
 
 	void setPlayer(int idLevel, World world) throws SQLException;
+	
+	public IEntity getZombie();
+
+	public void setZombie(IEntity zombie);
+
+	public SpriteBatch getBatch();
+
+	public void setBatch(SpriteBatch batch);
 
 }
