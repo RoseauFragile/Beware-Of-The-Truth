@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class SplashScreenBuilder {
 
@@ -17,7 +18,7 @@ public class SplashScreenBuilder {
 	public SplashScreenBuilder(BewareOfTruth game) {
 		super();
 		this.game = game;
-		this.stage = new Stage();
+		this.stage = new Stage(new FitViewport(BewareOfTruth.WINDOWS_WIDTH, BewareOfTruth.WINDOWS_HEIGHT, game.camera));
 		Gdx.input.setInputProcessor(stage);
 
 	}
@@ -42,6 +43,7 @@ public class SplashScreenBuilder {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stage.act(dt);
 		stage.draw();
+
 	}
 
 	public void dispose() {
@@ -49,8 +51,8 @@ public class SplashScreenBuilder {
 		stage.dispose();
 	}
 
-	public void rezise() {
-
+	public void rezise(int width, int height) {
+		stage.getViewport().update(width, height, true);
 	}
 
 	private float getGlobalHeight() {

@@ -1,16 +1,14 @@
 package bewareofthetruth.view.main;
 
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Texture;
 
 public class SplashScreen implements Screen {
 
 	private SplashScreenBuilder	screenBuilder;
 	private BewareOfTruth		game;
-	private Texture				texture	= new Texture("sprite/paused.png");
 
 	public SplashScreen(BewareOfTruth game) {
-		this.game = game;
+		this.setGame(game);
 		this.screenBuilder = new SplashScreenBuilder(game);
 	}
 
@@ -26,7 +24,7 @@ public class SplashScreen implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-
+		this.screenBuilder.rezise(width, height);
 	}
 
 	@Override
@@ -45,6 +43,14 @@ public class SplashScreen implements Screen {
 	@Override
 	public void dispose() {
 		this.screenBuilder.dispose();
+	}
+
+	public BewareOfTruth getGame() {
+		return game;
+	}
+
+	public void setGame(BewareOfTruth game) {
+		this.game = game;
 	}
 
 }
