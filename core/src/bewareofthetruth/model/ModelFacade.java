@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import bewareofthetruth.contract.model.data.IBewareOfTruthModel;
 import bewareofthetruth.contract.model.data.IModelFacade;
 import bewareofthetruth.contract.model.gameMecanism.IPlayer;
-import bewareofthetruth.main.Constants;
+import bewareofthetruth.model.util.Constants;
 
 public class ModelFacade implements IModelFacade {
 

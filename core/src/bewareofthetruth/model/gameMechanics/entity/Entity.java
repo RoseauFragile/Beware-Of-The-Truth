@@ -1,7 +1,6 @@
 package bewareofthetruth.model.gameMechanics.entity;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -9,7 +8,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-
 import bewareofthetruth.contract.model.gameMecanism.IEntity;
 import bewareofthetruth.contract.model.gameMecanism.behaviors.IBounceStrategy;
 import bewareofthetruth.contract.model.gameMecanism.behaviors.IDodgeStrategy;
@@ -37,20 +35,21 @@ public class Entity implements IEntity {
 	
 	private Texture texture;
 	
-	private Animation animation;
-	
 	private TextureRegion[][] regions;
 	
 	private Body body;
 	
 	private World world;
 	
-	public Entity(String sourceTexture, World world) {
-		this.position = new Position();
+	public Entity(String sourceTexture, World world, float x, float y) {
+		this.setPosition(new Position());
+		this.getPosition().setX(x);
+		this.getPosition().setY(y);
 		this.setWorld(world);
-		this.createDynamicBody();
+		this.setBody(this.createDynamicBody());
 		this.setTexture(new Texture("assets/sprite/"+sourceTexture));
 		this.setRegions(TextureRegion.split(this.getTexture(), 64, 64));
+		System.out.println(this.getBody().getType());
 	}
 
 	@Override
@@ -146,14 +145,6 @@ public class Entity implements IEntity {
 		this.texture = texture;
 	}
 
-	public Animation getAnimation() {
-		return this.animation;
-	}
-
-	public void setAnimation(Animation animation) {
-		this.animation = animation;
-	}
-
 	public TextureRegion[][] getRegions() {
 		return regions;
 	}
@@ -174,13 +165,11 @@ public class Entity implements IEntity {
 		Body pBody;
 		BodyDef def = new BodyDef();
 		def.type = BodyDef.BodyType.DynamicBody;
-		def.position.set(0,0);
+		def.position.set(this.getPosition().getX(),this.getPosition().getY());
 		def.fixedRotation = true;
 		pBody = this.getWorld().createBody(def);
-		
 		PolygonShape shape = new PolygonShape();
 		shape.setAsBox(32 / 2, 32 / 2);
-		
 		pBody.createFixture(shape, 1.0f);
 		shape.dispose();
 		System.out.println("BODY CREE");
@@ -193,5 +182,10 @@ public class Entity implements IEntity {
 
 	public void setWorld(World world) {
 		this.world = world;
+	}
+	
+	public void updateEntity() {
+		this.body.getPosition().x = this.getPosition().getX();
+		this.body.getPosition().y = this.getPosition().getY();
 	}
 }

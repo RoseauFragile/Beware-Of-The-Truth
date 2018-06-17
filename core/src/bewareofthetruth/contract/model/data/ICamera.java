@@ -8,4 +8,7 @@ public void setCamera(OrthographicCamera cam);
 public void setRotationSpeed(float rotationSpeed);
 public float getRotationSpeed();
 public void resize(float width, float height);
+public void cameraUpdate(float delta);
+public IBewareOfTruthModel getBewareOfTruthModel();
+public void setBewareOfTruthModel(IBewareOfTruthModel bewareOfTruthModel);
 }

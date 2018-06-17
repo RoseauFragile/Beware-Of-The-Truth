@@ -37,6 +37,8 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	private ICamera cam;
 	private float widthLevel;
 	private float heightLevel;
+	private static float XPLAYER = 10;
+	private static float YPLAYER = 0;
 	
 
 	public BewareOfTruthModel() throws SQLException {
@@ -58,6 +60,7 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 		this.setChapterByIdPlayerChapter();	
 		System.out.println(Gdx.graphics.getWidth() + " " + Gdx.graphics.getHeight());
 		this.setCam(new Camera(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2));
+		this.getCam().setBewareOfTruthModel(this);
 		this.setDebugRenderer(new Box2DDebugRenderer());
 	}
 
@@ -128,7 +131,8 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	@Override
 	public void setPlayer(int idLevel, World world) throws SQLException {
 		PlayerSql playerSql = this.getDao().getPlayerDao().getPlayerByIdLevel(idLevel);
-		this.player = new Player(playerSql.getIdPlayer(), playerSql.getNom(), playerSql.getIdLevel(), playerSql.getIdInventaire(), playerSql.getIdChapter(), world);
+		this.player = new Player(playerSql.getIdPlayer(), playerSql.getNom(), playerSql.getIdLevel(), playerSql.getIdInventaire(), playerSql.getIdChapter(), world, XPLAYER, YPLAYER);
+		System.out.println("player attribué");
 	}
 
 	@Override
