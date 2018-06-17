@@ -48,6 +48,7 @@ public class Entity implements IEntity {
 	public Entity(String sourceTexture, World world) {
 		this.position = new Position();
 		this.setWorld(world);
+		this.createDynamicBody();
 		this.setTexture(new Texture("assets/sprite/"+sourceTexture));
 		this.setRegions(TextureRegion.split(this.getTexture(), 64, 64));
 	}
@@ -182,6 +183,7 @@ public class Entity implements IEntity {
 		
 		pBody.createFixture(shape, 1.0f);
 		shape.dispose();
+		System.out.println("BODY CREE");
 		return pBody;
 	}
 

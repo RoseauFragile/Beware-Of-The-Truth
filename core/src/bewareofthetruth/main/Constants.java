@@ -8,8 +8,8 @@ public class Constants {
 	private ModelFacade modelFacade;
 	public final Camera CAMERA = this.modelFacade.getBewareOfTruthModel().getCam().getCamera();
 	
-	public Constants() {
-		
+	public Constants(ModelFacade modelFacade) {
+		this.setModelFacade(modelFacade);
 	}
 
 	public ModelFacade getModelFacade() {

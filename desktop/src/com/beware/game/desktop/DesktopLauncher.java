@@ -3,6 +3,7 @@ package com.beware.game.desktop;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
+import bewareofthetruth.main.Main;
 import bewareofthetruth.view.main.BewareOfTruth;
 
 public class DesktopLauncher {
@@ -12,6 +13,6 @@ public class DesktopLauncher {
 		config.height = 480;
 		config.backgroundFPS = 60;
 		config.foregroundFPS = 60;
-		new LwjglApplication(new BewareOfTruth(), config);
+		new LwjglApplication(new Main(), config);
 	}
 }
