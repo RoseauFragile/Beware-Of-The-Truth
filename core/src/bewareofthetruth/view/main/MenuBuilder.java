@@ -1,11 +1,11 @@
 package bewareofthetruth.view.main;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class MenuBuilder implements IGraphicsBuilder {
@@ -18,33 +18,28 @@ public class MenuBuilder implements IGraphicsBuilder {
 	Image								pausedImage;
 
 	@Override
-	public void init(final GameStateManager gsm) {
+	public void init(final BewareOfTruth gsm) {
 		// sr = new ShapeRenderer();
 		paused = new Texture("sprite/paused.png");
 		pausedImage = new Image(paused);
 		sb = new SpriteBatch();
 		cam = new OrthographicCamera();
-		sb.setProjectionMatrix(cam.combined);
 		stage.addActor(pausedImage);
-
-		pausedImage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(100.0f), Actions.delay(1),
-				Actions.run(new Runnable() {
-					@Override
-					public void run() {
-						gsm.setState(0);
-					}
-				})));
+		pausedImage.setSize(getGlobalWidth() / 3, getGlobalHeight() / 3);
+		;
 
 	}
 
 	@Override
 	public void applyModelToGraphics() {
-		cam.setToOrtho(false, paused.getWidth() * 2, paused.getHeight() * 2);
+		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		cam.setToOrtho(false, paused.getWidth(), paused.getHeight());
 		sb.begin();
-		pausedImage.draw(sb, 1);
 		sb.setProjectionMatrix(cam.combined);
 		sb.end();
 		stage.act();
+		stage.draw();
 
 	}
 

@@ -24,6 +24,7 @@ public abstract class GameState implements IGameState {
 
 	@Override
 	public void draw() {
+
 	}
 
 	@Override
