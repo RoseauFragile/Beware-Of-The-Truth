@@ -40,6 +40,8 @@ public class Main implements ApplicationListener {
 		update(Gdx.graphics.getDeltaTime());
 		Gdx.gl.glClearColor(0, 0, 1, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		this.modelFacade.getBewareOfTruthModel().getDebugRenderer().render(this.modelFacade.getBewareOfTruthModel().getWorld(), this.modelFacade.getConstants().CAMERA.combined);
 	}
 
 	@Override
