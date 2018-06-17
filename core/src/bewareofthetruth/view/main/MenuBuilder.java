@@ -25,7 +25,7 @@ public class MenuBuilder implements IGraphicsBuilder {
 		sb = new SpriteBatch();
 		cam = new OrthographicCamera();
 		stage.addActor(pausedImage);
-		pausedImage.setSize(getGlobalWidth() / 3, getGlobalHeight() / 3);
+		pausedImage.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		;
 
 	}
@@ -35,9 +35,6 @@ public class MenuBuilder implements IGraphicsBuilder {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		cam.setToOrtho(false, paused.getWidth(), paused.getHeight());
-		sb.begin();
-		sb.setProjectionMatrix(cam.combined);
-		sb.end();
 		stage.act();
 		stage.draw();
 
