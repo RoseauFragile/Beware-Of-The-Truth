@@ -2,6 +2,7 @@ package bewareofthetruth.model;
 
 import java.sql.SQLException;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -36,11 +37,13 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	private ICamera cam;
 	private float widthLevel;
 	private float heightLevel;
+	
 
 	public BewareOfTruthModel() throws SQLException {
 		System.out.println("Model créer");
+		this.setWorld(new World(new Vector2(0, 0), true));	
 		this.setDao(new BewareOfTheTruthDAO());
-		this.setPlayer(1);
+		this.setPlayer(1, this.getWorld());
 		this.getPlayer().setBewareOfTruthModel(this);
 		this.setMainMenu(new MainMenu());
 		this.getMainMenu().setBewareOfTruthModel(this);
@@ -52,11 +55,9 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 		this.getOptions().setBewareOfTruthModel(this);
 		this.setChapter(new Chapter());
 		this.getChapter().setBewareOfTruthModel(this);
-		this.setChapterByIdPlayerChapter();
-		this.setWorld(new World(new Vector2(0, -10), true));
-		this.setHeightLevel(100);
-		this.setWidthLevel(100);
-		this.setCam(new Camera(this.getWidthLevel(), this.getHeightLevel()));
+		this.setChapterByIdPlayerChapter();	
+		System.out.println(Gdx.graphics.getWidth() + " " + Gdx.graphics.getHeight());
+		this.setCam(new Camera(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2));
 		this.setDebugRenderer(new Box2DDebugRenderer());
 	}
 
@@ -125,9 +126,9 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	}
 
 	@Override
-	public void setPlayer(int idLevel) throws SQLException {
+	public void setPlayer(int idLevel, World world) throws SQLException {
 		PlayerSql playerSql = this.getDao().getPlayerDao().getPlayerByIdLevel(idLevel);
-		this.player = new Player(playerSql.getIdPlayer(), playerSql.getNom(), playerSql.getIdLevel(), playerSql.getIdInventaire(), playerSql.getIdChapter());
+		this.player = new Player(playerSql.getIdPlayer(), playerSql.getNom(), playerSql.getIdLevel(), playerSql.getIdInventaire(), playerSql.getIdChapter(), world);
 	}
 
 	@Override
@@ -189,5 +190,8 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 		this.heightLevel = heightLevel;
 	}
 
+	public void loadTiledMap() {
+		
+	}
 
 }

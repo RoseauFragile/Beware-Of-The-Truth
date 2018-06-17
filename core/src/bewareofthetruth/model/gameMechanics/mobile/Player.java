@@ -1,6 +1,7 @@
 package bewareofthetruth.model.gameMechanics.mobile;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.physics.box2d.World;
 
 import bewareofthetruth.contract.model.data.IBewareOfTruthModel;
 import bewareofthetruth.contract.model.gameMecanism.IPlayer;
@@ -20,12 +21,12 @@ public class Player extends Entity implements IPlayer {
 	private String playerName;
 	private static String sourceTexture = "zombie.png";
 
-	public Player() {
-		super(sourceTexture);
+	public Player(World world) {
+		super(sourceTexture, world);
 	}
 
-	public Player(int idPlayer, String nom, int idLevel, int idInventory, int idChapter) {
-		super(sourceTexture);
+	public Player(int idPlayer, String nom, int idLevel, int idInventory, int idChapter, World world) {
+		super(sourceTexture, world);
 		this.setId(idPlayer);
 		this.setPlayerName(playerName);
 		this.setIdLevel(idLevel);

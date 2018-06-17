@@ -41,8 +41,6 @@ public interface IBewareOfTruthModel {
 	public void setDao(BewareOfTheTruthDAO dao);
 
 	public BewareOfTheTruthDAO getDao();
-
-	void setPlayer(int idLevel) throws SQLException;
 	
 	public World getWorld();
 
@@ -63,5 +61,7 @@ public interface IBewareOfTruthModel {
 	public float getHeightLevel();
 
 	public void setHeightLevel(float heightLevel);
+
+	void setPlayer(int idLevel, World world) throws SQLException;
 
 }

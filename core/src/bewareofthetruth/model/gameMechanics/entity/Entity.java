@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 
 import bewareofthetruth.contract.model.gameMecanism.IEntity;
 import bewareofthetruth.contract.model.gameMecanism.behaviors.IBounceStrategy;
@@ -40,9 +43,11 @@ public class Entity implements IEntity {
 	
 	private Body body;
 	
-	public Entity(String sourceTexture/*, Body body*/) {
+	private World world;
+	
+	public Entity(String sourceTexture, World world) {
 		this.position = new Position();
-		//this.setBody(body);
+		this.setWorld(world);
 		this.setTexture(new Texture("assets/sprite/"+sourceTexture));
 		this.setRegions(TextureRegion.split(this.getTexture(), 64, 64));
 	}
@@ -162,5 +167,29 @@ public class Entity implements IEntity {
 
 	public void setBody(Body body) {
 		this.body = body;
+	}
+	
+	public Body createDynamicBody() {
+		Body pBody;
+		BodyDef def = new BodyDef();
+		def.type = BodyDef.BodyType.DynamicBody;
+		def.position.set(0,0);
+		def.fixedRotation = true;
+		pBody = this.getWorld().createBody(def);
+		
+		PolygonShape shape = new PolygonShape();
+		shape.setAsBox(32 / 2, 32 / 2);
+		
+		pBody.createFixture(shape, 1.0f);
+		shape.dispose();
+		return pBody;
+	}
+
+	public World getWorld() {
+		return this.world;
+	}
+
+	public void setWorld(World world) {
+		this.world = world;
 	}
 }

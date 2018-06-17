@@ -10,7 +10,8 @@ public class Camera implements ICamera {
 	private float rotationSpeed = 0.5f;     
 	
 	public Camera(float width, float height) {
-		this.setCamera(new OrthographicCamera(30, 30* (height / width)));
+		this.setCamera(new OrthographicCamera());
+		this.getCamera().setToOrtho(false, width, height);
 	}
 	
 	@Override
@@ -29,6 +30,10 @@ public class Camera implements ICamera {
 
 	public void setRotationSpeed(float rotationSpeed) {
 		this.rotationSpeed = rotationSpeed;
+	}
+	
+	public void resize(float width, float height) {
+		this.getCamera().setToOrtho(false, width, height);
 	}
 
 }
