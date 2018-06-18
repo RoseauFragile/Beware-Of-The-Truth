@@ -11,7 +11,7 @@ public class DesktopLauncher {
 		config.width = 720;
 		config.height = 480;
 		config.backgroundFPS = 60;
-		config.foregroundFPS = 0
+		config.foregroundFPS = 0;
 		new LwjglApplication(new BewareOfTruth(), config);
 	}
 }
