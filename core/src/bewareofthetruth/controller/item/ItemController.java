@@ -1,7 +1,8 @@
 package bewareofthetruth.controller.item;
 
-import org.newdawn.slick.geom.Vector2f;
-import org.newdawn.slick.tests.xml.Item;
+import com.badlogic.gdx.math.Vector2;
+
+import bewareofthetruth.contract.model.gameMecanism.IItem;
 
 public class ItemController {
 
@@ -9,15 +10,15 @@ public class ItemController {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void removeItem(final Item item) {
+	public void removeItem(final IItem item) {
 
 	}
 
-	public void spawnItem(final float x, final float y, final Item item) {
+	public void spawnItem(final float x, final float y, final IItem item) {
 
 	}
 
-	public void spawnItem(final Vector2 position, final Item item) {
+	public void spawnItem(final Vector2 position, final IItem item) {
 
 	}
 
