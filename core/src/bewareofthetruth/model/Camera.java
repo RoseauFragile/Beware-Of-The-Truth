@@ -15,7 +15,7 @@ public class Camera implements ICamera {
 	
 	public Camera(float width, float height) {
 		this.setCamera(new OrthographicCamera());
-		this.getCamera().setToOrtho(false, width / SCALE, height / SCALE);
+		this.getCamera().setToOrtho(false,width,height/*false, width / SCALE, height / SCALE*/);
 		this.getCamera().update();
 	}
 	

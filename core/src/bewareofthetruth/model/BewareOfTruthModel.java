@@ -222,7 +222,7 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	}
 
 	public void setTmr(TiledMap map) {
-		this.tmr = new OrthogonalTiledMapRenderer(map);
+		this.tmr = new OrthogonalTiledMapRenderer(map, 1/2f);
 		//this.getTmr().setView(this.getCam().getCamera().combined,0,0,Gdx.graphics.getWidth() / PPM,Gdx.graphics.getHeight() / 128);
 	}
 
