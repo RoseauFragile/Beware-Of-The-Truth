@@ -3,6 +3,8 @@ package bewareofthetruth.contract.model.data;
 import java.sql.SQLException;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -73,5 +75,13 @@ public interface IBewareOfTruthModel {
 	public SpriteBatch getBatch();
 
 	public void setBatch(SpriteBatch batch);
+	
+	public IEntity getZombie2();
+
+	public void setZombie2(IEntity zombie2);
+	
+	public OrthogonalTiledMapRenderer getTmr();
+
+	public void setTmr(TiledMap map);
 
 }

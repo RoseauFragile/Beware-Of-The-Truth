@@ -24,21 +24,18 @@ public class Level implements ILevel {
 	ArrayList<ICharacter> characters = new ArrayList<ICharacter>();
 
 	private ISound audio;
-
 	private IDimension dimension;
-
 	private String levelName;
-
 	private IChapter chapter;
-	
-	private float id;
-	
+	private float id; 
 	private String sourceMap;
 
 	public Level(float id, String levelName, float height, float width, String sourceMap) {
 		this.setLevelName(levelName);
 		this.setId(id);
 		this.setDimension(height, width);
+		this.setMap(new Map(sourceMap));
+		this.getMap().setLevel(this);
 		System.out.println("level créer avec pour id : " + id + " nom : " + levelName + " height : " + height + " width : " + width + " sourceMap : " + sourceMap);
 	}
 
@@ -164,7 +161,7 @@ public class Level implements ILevel {
 
 	@Override
 	public void setMap(IMap map) {
-		this.map = new Map();
+		this.map = map;
 	}
 
 	@Override

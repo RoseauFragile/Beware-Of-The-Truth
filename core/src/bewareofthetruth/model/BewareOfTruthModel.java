@@ -4,6 +4,8 @@ import java.sql.SQLException;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -42,25 +44,28 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	private static float XPLAYER = 10;
 	private static float YPLAYER = 0;
 	private IEntity zombie;
+	private IEntity zombie2;
 	private SpriteBatch batch;
+	private OrthogonalTiledMapRenderer  tmr;
 	
 
 	public BewareOfTruthModel() throws SQLException {
 		System.out.println("Model créer");
 		this.setWorld(new World(new Vector2(0, 0), true));	
+		this.setCam(new Camera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
 		this.setDao(new BewareOfTheTruthDAO());
 		this.setPlayer(1, this.getWorld());
 		this.setZombie(new Zombie(this.getWorld(), 5 ,5, true));
+		this.setZombie2(new Zombie(this.getWorld(), 150 ,5, true));
 		this.setMainMenu(new MainMenu());
 		this.setGameMenu(new GameMenu());
 		this.setHud(new Hud());
 		this.setOptions(new Options());
 		this.setChapter(new Chapter());
 		this.setChapterByIdPlayerChapter();	
-		System.out.println(Gdx.graphics.getWidth() + " " + Gdx.graphics.getHeight());
-		this.setCam(new Camera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
 		this.setDebugRenderer(new Box2DDebugRenderer());
-		this.setBatch(new SpriteBatch());	
+		this.setBatch(new SpriteBatch());
+		this.setTmr(this.getChapter().getLevels().get(1).getMap().getTiledMap());
 	}
 
 	@Override
@@ -218,6 +223,23 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 
 	public void setBatch(SpriteBatch batch) {
 		this.batch = batch;
+	}
+
+	public IEntity getZombie2() {
+		return zombie2;
+	}
+
+	public void setZombie2(IEntity zombie2) {
+		this.zombie2 = zombie2;
+	}
+
+	public OrthogonalTiledMapRenderer getTmr() {
+		return tmr;
+	}
+
+	public void setTmr(TiledMap map) {
+		this.tmr = new OrthogonalTiledMapRenderer(map);
+		System.out.println("Tmr crée");
 	}
 
 }

@@ -1,5 +1,7 @@
 package bewareofthetruth.model.gameMechanics.level;
 
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import bewareofthetruth.contract.model.data.ILevel;
 import bewareofthetruth.contract.model.data.IMap;
 import bewareofthetruth.contract.model.data.IMiniMap;
@@ -7,9 +9,14 @@ import bewareofthetruth.contract.model.data.IMiniMap;
 public class Map implements IMap {
 	
 	private String tiledMapSource;
+	private TiledMap map;
+	private IMiniMap miniMap;
+	private String mapName;
+	private ILevel level;
 	
-	public Map() {
-		
+	public Map(String sourceMap) {
+		this.setTiledMapSource(sourceMap);
+		this.setTiledMap(this.getTiledMapSource());
 	}
 	
 	public String getTiledMapSource() {
@@ -22,12 +29,12 @@ public class Map implements IMap {
 
 	@Override
 	public String getMapName() {
-		return null;
+		return this.mapName;
 	}
 
 	@Override
 	public IMiniMap getMiniMap() {
-		return null;
+		return this.miniMap;
 	}
 
 	@Override
@@ -37,14 +44,31 @@ public class Map implements IMap {
 
 	@Override
 	public void setLevel(ILevel level) {
+		this.level = level;
 	}
 
 	@Override
 	public void setMapName(String mapName) {
+		this.mapName = mapName;
 	}
 
 	@Override
 	public void setMiniMap(IMiniMap miniMap) {
+		this.miniMap = miniMap;
+	}
+
+	public TiledMap getTiledMap() {
+		System.out.println("Tilemap get");
+		return this.map;
+	}
+
+	public void setTiledMap(String map) {
+		System.out.println("TiledMap load");
+		this.map = new TmxMapLoader().load("tiledMap/"+map);
+	}
+	
+	public ILevel getLevel() {
+		return this.level;
 	}
 	
 }

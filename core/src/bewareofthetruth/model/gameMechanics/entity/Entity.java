@@ -1,5 +1,6 @@
 package bewareofthetruth.model.gameMechanics.entity;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -51,7 +52,7 @@ public class Entity implements IEntity {
 		this.getPosition().setY(y);
 		this.setWorld(world);
 		this.setBody(this.createDynamicBody());
-		this.setTexture(new Texture("assets/sprite/"+sourceTexture));
+		this.setTexture(new Texture(Gdx.files.internal("sprite/"+sourceTexture)));
 		this.setRegions(TextureRegion.split(this.getTexture(), 64, 64));
 		System.out.println(this.getBody().getType());
 	}
@@ -179,7 +180,7 @@ public class Entity implements IEntity {
 		def.fixedRotation = true;
 		pBody = this.getWorld().createBody(def);
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(64 / 2 / PPM, 64 / 2 / PPM);
+		shape.setAsBox(44 / 2 / PPM, 64 / 2 / PPM);
 		pBody.createFixture(shape, 1.0f);
 		shape.dispose();
 		System.out.println("BODY CREE");
