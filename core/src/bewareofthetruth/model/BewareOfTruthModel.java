@@ -23,6 +23,7 @@ import bewareofthetruth.model.dao.BewareOfTheTruthDAO;
 import bewareofthetruth.model.dao.PlayerSql;
 import bewareofthetruth.model.gameMechanics.Chapter;
 import bewareofthetruth.model.gameMechanics.mobile.Player;
+import static bewareofthetruth.model.util.Constants.PPM;
 
 public class BewareOfTruthModel implements IBewareOfTruthModel {
 
@@ -60,11 +61,6 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 		this.getChapter().setWorlds();
 		this.getChapter().setLevel();
 		this.setPlayer(2, this.getChapter().getWorldByIdLevel(2));
-
-		//this.setPlayer(1, this.getWorld());
-		//this.setZombie(new Zombie(this.getWorld(), 5 ,5, true));
-		//this.setZombie2(new Zombie(this.getWorld(), 150 ,5, true));
-
 		this.setChapterByIdPlayerChapter();	
 		this.initializeFirstLevelOfChapter(this.getChapter());
 		this.setDebugRenderer(new Box2DDebugRenderer());
@@ -227,6 +223,7 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 
 	public void setTmr(TiledMap map) {
 		this.tmr = new OrthogonalTiledMapRenderer(map);
+		//this.getTmr().setView(this.getCam().getCamera().combined,0,0,Gdx.graphics.getWidth() / PPM,Gdx.graphics.getHeight() / 128);
 	}
 
 	public ILevel getLevel() {
@@ -241,13 +238,13 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 		this.indexLevel +=1;
 		this.level = this.getChapter().getLevels().get(indexLevel);
 		this.setTmr(this.getLevel().getMap().getTiledMap());
-		this.getTmr().setView(this.getCam().getCamera());
+		//this.getTmr().setView(this.getCam().getCamera().combined,0,0,Gdx.graphics.getWidth() /PPM,Gdx.graphics.getHeight()/128);
 	}
 
 	public void initializeFirstLevelOfChapter(IChapter chapter) {
 		this.setChapter(chapter);
-		this.level = this.getChapter().getLevels().get(this.indexLevel);
+		this.level = this.getChapter().getLevels().get(0);
 		this.setTmr(this.getLevel().getMap().getTiledMap());
-		this.getTmr().setView(this.getCam().getCamera());
+		//this.getTmr().setView(this.getCam().getCamera().combined,0,0,Gdx.graphics.getWidth() /PPM,Gdx.graphics.getHeight()/128);
 	}
 }

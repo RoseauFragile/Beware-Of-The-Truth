@@ -15,7 +15,7 @@ public class Main implements ApplicationListener {
 	
 	@Override
 	public void create() {
-		
+	
 			try {
 				this.modelFacade = new ModelFacade();
 			} catch (SQLException e) {
@@ -30,42 +30,26 @@ public class Main implements ApplicationListener {
 
 	@Override
 	public void render() {
+		
 		update(Gdx.graphics.getDeltaTime());
-		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClearColor(0, 0, 0, 0);
+		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		this.modelFacade.getBewareOfTruthModel().getCam().getCamera().update();
+		this.modelFacade.getBewareOfTruthModel().getTmr().render();
 		
 		//BATCH START
 		this.modelFacade.getBewareOfTruthModel().getBatch().begin();
-	
-		
-		//DRAW PLAYER
 		this.modelFacade.getBewareOfTruthModel().getBatch().draw(this.modelFacade.getBewareOfTruthModel().getPlayer().getRegions()[0][0],
 				this.modelFacade.getBewareOfTruthModel().getPlayer().getBody().getPosition().x * PPM - 
 				(this.modelFacade.getBewareOfTruthModel().getPlayer().getRegions()[0][0].getRegionWidth() / 2),
 				this.modelFacade.getBewareOfTruthModel().getPlayer().getBody().getPosition().y * PPM - 
 				(this.modelFacade.getBewareOfTruthModel().getPlayer().getRegions()[0][0].getRegionHeight() / 2));
 		
-		
-		//DRAW ZOMBIE
-		/*this.modelFacade.getBewareOfTruthModel().getBatch().draw(this.modelFacade.getBewareOfTruthModel().getZombie().getRegions()[0][1],
-				this.modelFacade.getBewareOfTruthModel().getZombie().getBody().getPosition().x * PPM - 
-				(this.modelFacade.getBewareOfTruthModel().getZombie().getRegions()[0][1].getRegionWidth() / 2),
-				this.modelFacade.getBewareOfTruthModel().getZombie().getBody().getPosition().y * PPM - 
-				(this.modelFacade.getBewareOfTruthModel().getZombie().getRegions()[0][1].getRegionHeight() / 2));
-		
-		//DRAW ZOMBIE2
-		this.modelFacade.getBewareOfTruthModel().getBatch().draw(this.modelFacade.getBewareOfTruthModel().getZombie2().getRegions()[0][2],
-				this.modelFacade.getBewareOfTruthModel().getZombie2().getBody().getPosition().x * PPM - 
-				(this.modelFacade.getBewareOfTruthModel().getZombie2().getRegions()[0][2].getRegionWidth() / 2),
-				this.modelFacade.getBewareOfTruthModel().getZombie2().getBody().getPosition().y * PPM - 
-				(this.modelFacade.getBewareOfTruthModel().getZombie2().getRegions()[0][2].getRegionHeight() / 2));*/
-		
 		//BATCH END
 		this.modelFacade.getBewareOfTruthModel().getBatch().end();
-
-		this.modelFacade.getBewareOfTruthModel().getTmr().render();
-		this.modelFacade.getBewareOfTruthModel().getDebugRenderer().render(this.modelFacade.getBewareOfTruthModel().getChapter().getWorldByIdLevel(2), this.modelFacade.getBewareOfTruthModel().getCam().getCamera().combined.scl(PPM));
 		
+		this.modelFacade.getBewareOfTruthModel().getDebugRenderer().render(this.modelFacade.getBewareOfTruthModel().getChapter().getWorldByIdLevel(2), this.modelFacade.getBewareOfTruthModel().getCam().getCamera().combined.scl(PPM));
 		if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
 			Gdx.app.exit();
 		}
@@ -93,9 +77,8 @@ public class Main implements ApplicationListener {
 	public void update(float delta) {
 		this.modelFacade.getBewareOfTruthModel().getChapter().getWorldByIdLevel(2).step(1/60f, 6, 2);
 		inputUpdate(delta);
-		this.modelFacade.getBewareOfTruthModel().getTmr().setView(this.modelFacade.getBewareOfTruthModel().getCam().getCamera());
 		this.modelFacade.getBewareOfTruthModel().getCam().cameraUpdate(delta);
-		this.modelFacade.getBewareOfTruthModel().getTmr().setView(this.modelFacade.getBewareOfTruthModel().getCam().getCamera());
+		this.modelFacade.getBewareOfTruthModel().getTmr().setView(this.modelFacade.getBewareOfTruthModel().getCam().getCamera().combined,0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 		this.modelFacade.getBewareOfTruthModel().getBatch().setProjectionMatrix(this.modelFacade.getBewareOfTruthModel().getCam().getCamera().combined);
 	}
 	
