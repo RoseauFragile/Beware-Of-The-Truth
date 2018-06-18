@@ -2,7 +2,7 @@ package bewareofthetruth.controller.projectile;
 
 import java.util.ArrayList;
 
-import org.newdawn.slick.geom.Vector2f;
+import com.badlogic.gdx.math.Vector2;
 
 import bewareofthetruth.contract.model.gameMecanism.IProjectile;
 
@@ -20,7 +20,7 @@ public class ProjectileController {
 
 	}
 
-	public void spawnProjectile(final Vector2f position, final IProjectile projectile) {
+	public void spawnProjectile(final Vector2 position, final IProjectile projectile) {
 
 	}
 

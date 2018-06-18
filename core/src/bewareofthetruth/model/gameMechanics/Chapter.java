@@ -17,7 +17,7 @@ public class Chapter implements IChapter {
 
 	public Chapter() throws SQLException {
 		System.out.println("Chapitre créer");
-		this.levels = new ArrayList<>();
+		this.levels = new ArrayList<ILevel>();
 	}
 
 	@Override
@@ -31,15 +31,18 @@ public class Chapter implements IChapter {
 	}
 
 	@Override
-	public void setBewareOfTruthModel(IBewareOfTruthModel bewareOfTruthModel) {
+	public void setBewareOfTruthModel(final IBewareOfTruthModel bewareOfTruthModel) {
 		this.bewareOfTruthModel = bewareOfTruthModel;
 	}
 
 	@Override
 	public void setLevel() throws SQLException {
-		ArrayList<LevelSql> levelSql = this.getBewareOfTruthModel().getDao().getChapterDAO().getLevelByChapter(this.getIdChapter());;
-		for( LevelSql temp : levelSql) {
-			this.levels.add(new Level(temp.getId(), temp.getLevelName(), temp.getHeight(), temp.getWidth(), temp.getSourceMap()));
+		ArrayList<LevelSql> levelSql = this.getBewareOfTruthModel().getDao().getChapterDAO()
+				.getLevelByChapter(this.getIdChapter());
+		;
+		for (LevelSql temp : levelSql) {
+			this.levels.add(new Level(temp.getId(), temp.getLevelName(), temp.getHeight(), temp.getWidth(),
+					temp.getSourceMap()));
 		}
 		for (ILevel temp : this.levels) {
 			temp.setChapter(this);
@@ -52,7 +55,7 @@ public class Chapter implements IChapter {
 	}
 
 	@Override
-	public void setIdChapter(int idChapter) {
+	public void setIdChapter(final int idChapter) {
 		this.idChapter = idChapter;
 	}
 }

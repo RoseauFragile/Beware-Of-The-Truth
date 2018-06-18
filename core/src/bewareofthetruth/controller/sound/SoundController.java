@@ -1,6 +1,6 @@
 package bewareofthetruth.controller.sound;
 
-import org.newdawn.slick.Sound;
+import com.badlogic.gdx.audio.Sound;
 
 public class SoundController {
 
