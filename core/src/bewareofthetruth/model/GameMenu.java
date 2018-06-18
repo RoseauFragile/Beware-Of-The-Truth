@@ -1,9 +1,7 @@
 package bewareofthetruth.model;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-
 import bewareofthetruth.contract.model.data.IBewareOfTruthModel;
 import bewareofthetruth.contract.model.data.IGameMenu;
 

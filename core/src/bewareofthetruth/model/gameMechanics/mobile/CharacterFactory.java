@@ -1,23 +1,18 @@
 package bewareofthetruth.model.gameMechanics.mobile;
 
-public class CharacterFactory {
+import com.badlogic.gdx.physics.box2d.World;
 
-	private final Mob MOB = new Mob();
+import bewareofthetruth.contract.model.gameMecanism.IEntity;
+import bewareofthetruth.model.dao.MobileSql;
 
-	private final Player PLAYER = new Player();
+public abstract class CharacterFactory {
 
-	private final Npc NPC = new Npc();
-	/*
-	 * public MOB createMob() {
-	 * 
-	 * }
-	 * 
-	 * public PLAYER createPlayer() {
-	 * 
-	 * }
-	 * 
-	 * public NPV createNpc() {
-	 * 
-	 * }
-	 */
+ public IEntity createEntity(MobileSql mobileSql, World world) {
+	 switch(mobileSql.getMobtype()) {
+	 case ZOMBIE:
+		 return new Zombie(world, mobileSql.getX(), mobileSql.getY(), true);
+	default :
+		 return null;
+	 }
+ }
 }

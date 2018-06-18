@@ -6,7 +6,6 @@ import bewareofthetruth.contract.model.data.ILevel;
 import bewareofthetruth.contract.model.gameMecanism.ICharacter;
 import bewareofthetruth.contract.model.gameMecanism.IEquipment;
 import bewareofthetruth.contract.model.utils.IDimension;
-import bewareofthetruth.contract.model.utils.IHealth;
 import bewareofthetruth.contract.model.utils.ISound;
 
 public class Character implements ICharacter {
@@ -15,12 +14,7 @@ public class Character implements ICharacter {
 
 	private String name;
 
-	private IHealth health;
-
-	@Override
-	public void setHealth(IHealth health) {
-		this.health = health;
-	}
+	private int health;
 
 	@Override
 	public String getName() {
@@ -127,12 +121,6 @@ public class Character implements ICharacter {
 	}
 
 	@Override
-	public void setHealth(int health) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void setLevel(ILevel level) {
 		// TODO Auto-generated method stub
 
@@ -151,9 +139,12 @@ public class Character implements ICharacter {
 	}
 
 	@Override
-	public int getHealth() {
-		// TODO Auto-generated method stub
-		return 0;
+	public void setHealth(int health) {
+		this.health = health;
 	}
 
+	@Override
+	public int getHealth() {
+		return this.health;
+	}
 }

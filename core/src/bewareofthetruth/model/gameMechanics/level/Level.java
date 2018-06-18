@@ -114,7 +114,7 @@ public class Level implements ILevel {
 
 	@Override
 	public ISound getAudio() {
-		return null;
+		return this.audio;
 	}
 
 	@Override
@@ -146,8 +146,7 @@ public class Level implements ILevel {
 
 	@Override
 	public void setAudio(ISound audio) {
-		// TODO Auto-generated method stub
-
+		this.audio = audio;
 	}
 
 	@Override

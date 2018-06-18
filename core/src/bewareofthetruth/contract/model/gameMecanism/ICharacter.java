@@ -1,10 +1,8 @@
 package bewareofthetruth.contract.model.gameMecanism;
 
 import java.util.ArrayList;
-
 import bewareofthetruth.contract.model.data.ILevel;
 import bewareofthetruth.contract.model.utils.IDimension;
-import bewareofthetruth.contract.model.utils.IHealth;
 import bewareofthetruth.contract.model.utils.ISound;
 
 /* **** ALEXIS **** INTERFACE UTILISE POUR LES METHODES PRINCIPALE DE CHARACTER A TOI DE VOIR SI TU VEUX QUE LA CLASSE CHARACTER SOIT ABSTRAITE OU NON,
@@ -63,9 +61,7 @@ public interface ICharacter {
 	public void setWater(final int water);
 
 	public int getHealth();
-
-	public void setHealth(IHealth health);
-
+	
 	public void setSpeed(int speed);
 
 }
