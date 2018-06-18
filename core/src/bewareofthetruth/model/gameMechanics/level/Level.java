@@ -1,5 +1,6 @@
 package bewareofthetruth.model.gameMechanics.level;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import bewareofthetruth.contract.model.data.IChapter;
@@ -14,6 +15,8 @@ import bewareofthetruth.contract.model.gameMecanism.ISpecial;
 import bewareofthetruth.contract.model.gameMecanism.ITile;
 import bewareofthetruth.contract.model.utils.IDimension;
 import bewareofthetruth.contract.model.utils.ISound;
+import bewareofthetruth.model.dao.MobileSql;
+import bewareofthetruth.model.gameMechanics.mobile.CharacterFactory;
 import bewareofthetruth.model.util.Dimension;
 
 public class Level implements ILevel {
@@ -24,7 +27,7 @@ public class Level implements ILevel {
 
 	ArrayList<ICharacter> characters = new ArrayList<ICharacter>();
 	
-	private ArrayList<IEntity> entities = new ArrayList<IEntity>();
+	private ArrayList<IEntity> mobiles = new ArrayList<IEntity>();
 
 	private ISound audio;
 	private IDimension dimension;
@@ -33,7 +36,7 @@ public class Level implements ILevel {
 	private float id; 
 	private String sourceMap;
 
-	public Level(float id, String levelName, float height, float width, String sourceMap) {
+	public Level(float id, String levelName, float height, float width, String sourceMap) throws SQLException {
 		this.setLevelName(levelName);
 		this.setId(id);
 		this.setDimension(height, width);
@@ -210,13 +213,15 @@ public class Level implements ILevel {
 		this.sourceMap = sourceMap;
 	}
 
-	public ArrayList<IEntity> getEntities() {
-		return entities;
+	public ArrayList<IEntity> getMobiles() {
+		return mobiles;
 	}
 
-	public void setEntities(ArrayList<IEntity> entities) {
-		this.entities = entities;
+	public void setMobiles() throws SQLException {
+		ArrayList<MobileSql> mobileSql = this.getChapter().getBewareOfTruthModel().getDao().getLevelDAO().getMobilesByLevelId((int) this.getId());
+		this.mobiles = new ArrayList<>();
+		for( MobileSql temp : mobileSql) {
+			this.mobiles.add(CharacterFactory.createEntity(temp, this.getChapter().getWorldByIdLevel((int) this.getId())));
+		}
 	}
-
-	
 }

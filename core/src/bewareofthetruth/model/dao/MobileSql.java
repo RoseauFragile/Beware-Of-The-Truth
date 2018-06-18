@@ -21,6 +21,7 @@ public class MobileSql {
 		this.setLevel(level);
 		this.setPermeability(permeability);
 		this.setMobType(mobType);
+		this.convertIntTypeIntoMobType(this.getMobType());
 	}
 	
 	public float getX() {

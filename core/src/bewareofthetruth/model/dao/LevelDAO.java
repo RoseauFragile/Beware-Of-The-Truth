@@ -44,7 +44,7 @@ public class LevelDAO extends AbstractDAO {
 		final ArrayList<MobileSql> mobileSql = new ArrayList<MobileSql>();
 
 		String getMobilesByLevelId = ( "SELECT Level.ID_Level, Mobile.ID_Mobile, Mobile.Name_Mobile, Mobile.ID_Type,"
-				+ " Position.X, Position.Y, Permeability.Name_Permeability FROM Level, Permeability, Mobile, contient, Type, PositionWHERE level.ID_Level = contient.ID_Level AND "
+				+ " Position.X, Position.Y, Permeability.Name_Permeability FROM Level, Permeability, Mobile, contient, Type, Position WHERE level.ID_Level = contient.ID_Level AND "
 				+ "contient.ID_Mobile = Mobile.ID_Mobile AND Mobile.ID_Positon = Position.ID_Positon AND Mobile.ID_Type = Type.ID_Type AND Permeability.ID_Permeability = Type.ID_Permeability AND Level.ID_Level = " 
 				+ this.getIdLevel());
 		

@@ -3,6 +3,9 @@ package bewareofthetruth.model.gameMechanics;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
+
 import bewareofthetruth.contract.model.data.IBewareOfTruthModel;
 import bewareofthetruth.contract.model.data.IChapter;
 import bewareofthetruth.contract.model.data.ILevel;
@@ -13,6 +16,7 @@ public class Chapter implements IChapter {
 
 	private IBewareOfTruthModel bewareOfTruthModel;
 	private ArrayList<ILevel> levels;
+	private ArrayList<World> worlds;
 	private int idChapter;
 
 	public Chapter() throws SQLException {
@@ -43,6 +47,7 @@ public class Chapter implements IChapter {
 		}
 		for (ILevel temp : this.levels) {
 			temp.setChapter(this);
+			temp.setMobiles();
 		}
 	}
 
@@ -54,5 +59,29 @@ public class Chapter implements IChapter {
 	@Override
 	public void setIdChapter(int idChapter) {
 		this.idChapter = idChapter;
+	}
+
+	public ArrayList<World> getFirstWorldLevel() {
+		return worlds;
+	}
+
+	public void setWorlds() throws SQLException {
+		
+		ArrayList<LevelSql> numberLevels= this.getBewareOfTruthModel().getDao().getChapterDAO().getLevelByChapter(this.getIdChapter());
+		this.worlds = new ArrayList<World>();
+		this.worlds.add(new World(new Vector2(0,0), true));
+		
+		for(LevelSql temp : numberLevels) {
+			this.worlds.add(new World(new Vector2(0,0), true));
+			this.worlds.set((int) temp.getId(), new World(new Vector2(0,0), true));
+	}
+	}
+		
+	public World getWorldByIdLevel(int idLevel){
+		
+		if(this.worlds.get(idLevel) != null) {
+			return this.worlds.get(idLevel);
+		}
+		else return null;
 	}
 }

@@ -6,7 +6,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import bewareofthetruth.contract.model.data.IBewareOfTruthModel;
@@ -24,7 +23,6 @@ import bewareofthetruth.model.dao.BewareOfTheTruthDAO;
 import bewareofthetruth.model.dao.PlayerSql;
 import bewareofthetruth.model.gameMechanics.Chapter;
 import bewareofthetruth.model.gameMechanics.mobile.Player;
-import bewareofthetruth.model.gameMechanics.mobile.Zombie;
 
 public class BewareOfTruthModel implements IBewareOfTruthModel {
 
@@ -36,7 +34,6 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	private IMainMenu mainMenu;
 	private BewareOfTheTruthDAO dao;
 	private IModelFacade modelFacade;
-	private World world;
 	private Box2DDebugRenderer debugRenderer;
 	private ICamera cam;
 	private float widthLevel;
@@ -51,19 +48,23 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	private int indexLevel = 1;
 
 	public BewareOfTruthModel() throws SQLException {
-		System.out.println("Model créer");
 		this.setDao(new BewareOfTheTruthDAO());
 		this.setMainMenu(new MainMenu());
 		this.setGameMenu(new GameMenu());
 		this.setHud(new Hud());
 		this.setOptions(new Options());
-		
-		this.setWorld(new World(new Vector2(0, 0), true));	
 		this.setCam(new Camera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
-		this.setPlayer(1, this.getWorld());
-		this.setZombie(new Zombie(this.getWorld(), 5 ,5, true));
-		this.setZombie2(new Zombie(this.getWorld(), 150 ,5, true));
+		
 		this.setChapter(new Chapter());
+		this.getChapter().setIdChapter(1);
+		this.getChapter().setWorlds();
+		this.getChapter().setLevel();
+		this.setPlayer(2, this.getChapter().getWorldByIdLevel(2));
+
+		//this.setPlayer(1, this.getWorld());
+		//this.setZombie(new Zombie(this.getWorld(), 5 ,5, true));
+		//this.setZombie2(new Zombie(this.getWorld(), 150 ,5, true));
+
 		this.setChapterByIdPlayerChapter();	
 		this.initializeFirstLevelOfChapter(this.getChapter());
 		this.setDebugRenderer(new Box2DDebugRenderer());
@@ -162,18 +163,6 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 		this.getChapter().setIdChapter(this.getPlayer().getChapter());
 		this.getChapter().setLevel();
 	}
-	
-	public void render(SpriteBatch sb) {
-		
-	}
-
-	public World getWorld() {
-		return world;
-	}
-
-	public void setWorld(World world) {
-		this.world = world;
-	}
 
 	public Box2DDebugRenderer getDebugRenderer() {
 		return debugRenderer;
@@ -206,10 +195,6 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 
 	public void setHeightLevel(float heightLevel) {
 		this.heightLevel = heightLevel;
-	}
-
-	public void loadTiledMap() {
-		
 	}
 
 	public IEntity getZombie() {

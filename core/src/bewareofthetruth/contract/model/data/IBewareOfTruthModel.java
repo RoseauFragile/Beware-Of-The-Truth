@@ -46,10 +46,6 @@ public interface IBewareOfTruthModel {
 
 	public BewareOfTheTruthDAO getDao();
 	
-	public World getWorld();
-
-	public void setWorld(World world);
-	
 	public Box2DDebugRenderer getDebugRenderer();
 
 	public void setDebugRenderer(Box2DDebugRenderer debugRenderer);

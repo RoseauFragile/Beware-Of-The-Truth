@@ -1,5 +1,6 @@
 package bewareofthetruth.contract.model.data;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import bewareofthetruth.contract.model.gameMecanism.ICharacter;
@@ -76,8 +77,8 @@ public interface ILevel {
 
 	public void setSourceMap(String sourceMap);
 	
-	public ArrayList<IEntity> getEntities();
+	public ArrayList<IEntity> getMobiles();
 
-	public void setEntities(ArrayList<IEntity> entities);
+	public void setMobiles() throws SQLException;
 
 }

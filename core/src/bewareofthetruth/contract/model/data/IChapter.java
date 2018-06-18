@@ -2,6 +2,7 @@ package bewareofthetruth.contract.model.data;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import com.badlogic.gdx.physics.box2d.World;
 
 public interface IChapter {
 
@@ -17,4 +18,7 @@ public interface IChapter {
 
 	void setLevel() throws SQLException;
 
+	public void setWorlds() throws SQLException;
+		
+	public World getWorldByIdLevel(int idLevel);
 }
