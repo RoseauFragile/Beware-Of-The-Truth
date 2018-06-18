@@ -15,6 +15,7 @@ import bewareofthetruth.contract.model.data.ICamera;
 import bewareofthetruth.contract.model.data.IChapter;
 import bewareofthetruth.contract.model.data.IGameMenu;
 import bewareofthetruth.contract.model.data.IHud;
+import bewareofthetruth.contract.model.data.ILevel;
 import bewareofthetruth.contract.model.data.IMainMenu;
 import bewareofthetruth.contract.model.data.IModelFacade;
 import bewareofthetruth.contract.model.data.IOptions;
@@ -47,25 +48,30 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	private IEntity zombie2;
 	private SpriteBatch batch;
 	private OrthogonalTiledMapRenderer  tmr;
+	private ILevel level;
+	private int indexLevel = 1;
 	
 
 	public BewareOfTruthModel() throws SQLException {
 		System.out.println("Model créer");
-		this.setWorld(new World(new Vector2(0, 0), true));	
-		this.setCam(new Camera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
 		this.setDao(new BewareOfTheTruthDAO());
-		this.setPlayer(1, this.getWorld());
-		this.setZombie(new Zombie(this.getWorld(), 5 ,5, true));
-		this.setZombie2(new Zombie(this.getWorld(), 150 ,5, true));
 		this.setMainMenu(new MainMenu());
 		this.setGameMenu(new GameMenu());
 		this.setHud(new Hud());
 		this.setOptions(new Options());
+		
+		this.setWorld(new World(new Vector2(0, 0), true));	
+		this.setCam(new Camera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
+		this.setPlayer(1, this.getWorld());
+		this.setZombie(new Zombie(this.getWorld(), 5 ,5, true));
+		this.setZombie2(new Zombie(this.getWorld(), 150 ,5, true));
 		this.setChapter(new Chapter());
 		this.setChapterByIdPlayerChapter();	
+		this.initializeFirstLevelOfChapter(this.getChapter());
+		this.setTmr(this.getLevel().getMap().getTiledMap());
+		this.getTmr().setView(this.getCam().getCamera());
 		this.setDebugRenderer(new Box2DDebugRenderer());
 		this.setBatch(new SpriteBatch());
-		this.setTmr(this.getChapter().getLevels().get(1).getMap().getTiledMap());
 	}
 
 	@Override
@@ -239,7 +245,23 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 
 	public void setTmr(TiledMap map) {
 		this.tmr = new OrthogonalTiledMapRenderer(map);
-		System.out.println("Tmr crée");
 	}
 
+	public ILevel getLevel() {
+		return level;
+	}
+
+	public void setLevel(ILevel level) {
+		this.level = level;
+	}
+	
+	public void nextLevel() {
+		this.indexLevel +=1;
+		this.level = this.getChapter().getLevels().get(indexLevel);
+	}
+
+	public void initializeFirstLevelOfChapter(IChapter chapter) {
+		this.setChapter(chapter);
+		this.level = this.getChapter().getLevels().get(this.indexLevel);
+	}
 }

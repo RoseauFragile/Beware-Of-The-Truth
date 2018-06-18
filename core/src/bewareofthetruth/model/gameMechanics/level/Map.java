@@ -58,17 +58,14 @@ public class Map implements IMap {
 	}
 
 	public TiledMap getTiledMap() {
-		System.out.println("Tilemap get");
 		return this.map;
 	}
 
 	public void setTiledMap(String map) {
-		System.out.println("TiledMap load");
 		this.map = new TmxMapLoader().load("tiledMap/"+map);
 	}
 	
 	public ILevel getLevel() {
 		return this.level;
 	}
-	
 }

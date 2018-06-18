@@ -21,9 +21,7 @@ public class Main implements ApplicationListener {
 	
 	@Override
 	public void create() {
-
-		this.map = new TmxMapLoader().load("tiledMap/niveau1.tmx");
-		this.tmr = new OrthogonalTiledMapRenderer(this.map);
+		
 			try {
 				this.modelFacade = new ModelFacade();
 			} catch (SQLException e) {
@@ -70,8 +68,8 @@ public class Main implements ApplicationListener {
 		//BATCH END
 		this.modelFacade.getBewareOfTruthModel().getBatch().end();
 
-		this.tmr.render();
-		//this.modelFacade.getBewareOfTruthModel().getTmr().render();
+		
+		this.modelFacade.getBewareOfTruthModel().getTmr().render();
 		
 		this.modelFacade.getBewareOfTruthModel().getDebugRenderer().render(this.modelFacade.getBewareOfTruthModel().getWorld(), this.modelFacade.getBewareOfTruthModel().getCam().getCamera().combined.scl(PPM));
 		
@@ -95,21 +93,17 @@ public class Main implements ApplicationListener {
 		this.modelFacade.getBewareOfTruthModel().getWorld().dispose();
 		this.modelFacade.getBewareOfTruthModel().getDebugRenderer().dispose();
 		this.modelFacade.getBewareOfTruthModel().getBatch().dispose();
-		/*this.modelFacade.getBewareOfTruthModel().getTmr().dispose();
-		this.modelFacade.getBewareOfTruthModel().getChapter().getLevels().get(1).getMap().getTiledMap().dispose();*/
-		this.tmr.dispose();
-		this.map.dispose();
+		this.modelFacade.getBewareOfTruthModel().getTmr().dispose();
+		this.modelFacade.getBewareOfTruthModel().getChapter().getLevels().get(1).getMap().getTiledMap().dispose();
 	}
 	
 	public void update(float delta) {
 		this.modelFacade.getBewareOfTruthModel().getWorld().step(1/60f, 6, 2);
 		inputUpdate(delta);
-		this.tmr.setView(this.modelFacade.getBewareOfTruthModel().getCam().getCamera());
+
+		this.modelFacade.getBewareOfTruthModel().getTmr().setView(this.modelFacade.getBewareOfTruthModel().getCam().getCamera());
 		this.modelFacade.getBewareOfTruthModel().getCam().cameraUpdate(delta);
-		
-		//this.tmr.setView(this.modelFacade.getBewareOfTruthModel().getCam().getCamera());
-		//this.modelFacade.getBewareOfTruthModel().getTmr().setView(this.modelFacade.getBewareOfTruthModel().getCam().getCamera());
-		
+		this.modelFacade.getBewareOfTruthModel().getTmr().setView(this.modelFacade.getBewareOfTruthModel().getCam().getCamera());
 		this.modelFacade.getBewareOfTruthModel().getBatch().setProjectionMatrix(this.modelFacade.getBewareOfTruthModel().getCam().getCamera().combined);
 	}
 	
