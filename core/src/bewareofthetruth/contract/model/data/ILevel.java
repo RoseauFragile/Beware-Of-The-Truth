@@ -3,6 +3,7 @@ package bewareofthetruth.contract.model.data;
 import java.util.ArrayList;
 
 import bewareofthetruth.contract.model.gameMecanism.ICharacter;
+import bewareofthetruth.contract.model.gameMecanism.IEntity;
 import bewareofthetruth.contract.model.gameMecanism.IPlayer;
 import bewareofthetruth.contract.model.gameMecanism.IProjectile;
 import bewareofthetruth.contract.model.gameMecanism.ITile;
@@ -74,5 +75,9 @@ public interface ILevel {
 	public String getSourceMap();
 
 	public void setSourceMap(String sourceMap);
+	
+	public ArrayList<IEntity> getEntities();
+
+	public void setEntities(ArrayList<IEntity> entities);
 
 }

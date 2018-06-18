@@ -1,6 +1,5 @@
 package bewareofthetruth.model;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
 import bewareofthetruth.contract.model.data.IBewareOfTruthModel;

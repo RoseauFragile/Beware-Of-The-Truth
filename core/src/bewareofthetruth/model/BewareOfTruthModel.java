@@ -9,7 +9,6 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-
 import bewareofthetruth.contract.model.data.IBewareOfTruthModel;
 import bewareofthetruth.contract.model.data.ICamera;
 import bewareofthetruth.contract.model.data.IChapter;
@@ -50,7 +49,6 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	private OrthogonalTiledMapRenderer  tmr;
 	private ILevel level;
 	private int indexLevel = 1;
-	
 
 	public BewareOfTruthModel() throws SQLException {
 		System.out.println("Model créer");
@@ -68,10 +66,9 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 		this.setChapter(new Chapter());
 		this.setChapterByIdPlayerChapter();	
 		this.initializeFirstLevelOfChapter(this.getChapter());
-		this.setTmr(this.getLevel().getMap().getTiledMap());
-		this.getTmr().setView(this.getCam().getCamera());
 		this.setDebugRenderer(new Box2DDebugRenderer());
 		this.setBatch(new SpriteBatch());
+		
 	}
 
 	@Override
@@ -258,10 +255,14 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	public void nextLevel() {
 		this.indexLevel +=1;
 		this.level = this.getChapter().getLevels().get(indexLevel);
+		this.setTmr(this.getLevel().getMap().getTiledMap());
+		this.getTmr().setView(this.getCam().getCamera());
 	}
 
 	public void initializeFirstLevelOfChapter(IChapter chapter) {
 		this.setChapter(chapter);
 		this.level = this.getChapter().getLevels().get(this.indexLevel);
+		this.setTmr(this.getLevel().getMap().getTiledMap());
+		this.getTmr().setView(this.getCam().getCamera());
 	}
 }

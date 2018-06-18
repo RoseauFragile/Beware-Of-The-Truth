@@ -83,5 +83,13 @@ public interface IBewareOfTruthModel {
 	public OrthogonalTiledMapRenderer getTmr();
 
 	public void setTmr(TiledMap map);
+	
+	public ILevel getLevel();
+
+	public void setLevel(ILevel level);
+	
+	public void nextLevel();
+
+	public void initializeFirstLevelOfChapter(IChapter chapter);
 
 }

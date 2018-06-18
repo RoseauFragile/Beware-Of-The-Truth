@@ -5,10 +5,6 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-
 import bewareofthetruth.contract.model.data.IModelFacade;
 import bewareofthetruth.model.ModelFacade;
 import static bewareofthetruth.model.util.Constants.PPM;
@@ -16,8 +12,6 @@ import static bewareofthetruth.model.util.Constants.PPM;
 public class Main implements ApplicationListener {
 
 	private IModelFacade modelFacade;
-	private TiledMap map;
-	private OrthogonalTiledMapRenderer tmr;
 	
 	@Override
 	public void create() {
@@ -42,6 +36,7 @@ public class Main implements ApplicationListener {
 		
 		//BATCH START
 		this.modelFacade.getBewareOfTruthModel().getBatch().begin();
+	
 		
 		//DRAW PLAYER
 		this.modelFacade.getBewareOfTruthModel().getBatch().draw(this.modelFacade.getBewareOfTruthModel().getPlayer().getRegions()[0][0],
@@ -68,9 +63,7 @@ public class Main implements ApplicationListener {
 		//BATCH END
 		this.modelFacade.getBewareOfTruthModel().getBatch().end();
 
-		
 		this.modelFacade.getBewareOfTruthModel().getTmr().render();
-		
 		this.modelFacade.getBewareOfTruthModel().getDebugRenderer().render(this.modelFacade.getBewareOfTruthModel().getWorld(), this.modelFacade.getBewareOfTruthModel().getCam().getCamera().combined.scl(PPM));
 		
 		if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
@@ -94,13 +87,12 @@ public class Main implements ApplicationListener {
 		this.modelFacade.getBewareOfTruthModel().getDebugRenderer().dispose();
 		this.modelFacade.getBewareOfTruthModel().getBatch().dispose();
 		this.modelFacade.getBewareOfTruthModel().getTmr().dispose();
-		this.modelFacade.getBewareOfTruthModel().getChapter().getLevels().get(1).getMap().getTiledMap().dispose();
+		this.modelFacade.getBewareOfTruthModel().getLevel().getMap().getTiledMap().dispose();
 	}
 	
 	public void update(float delta) {
 		this.modelFacade.getBewareOfTruthModel().getWorld().step(1/60f, 6, 2);
 		inputUpdate(delta);
-
 		this.modelFacade.getBewareOfTruthModel().getTmr().setView(this.modelFacade.getBewareOfTruthModel().getCam().getCamera());
 		this.modelFacade.getBewareOfTruthModel().getCam().cameraUpdate(delta);
 		this.modelFacade.getBewareOfTruthModel().getTmr().setView(this.modelFacade.getBewareOfTruthModel().getCam().getCamera());

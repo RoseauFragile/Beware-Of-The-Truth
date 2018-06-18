@@ -7,6 +7,7 @@ import bewareofthetruth.contract.model.data.IGame;
 import bewareofthetruth.contract.model.data.ILevel;
 import bewareofthetruth.contract.model.data.IMap;
 import bewareofthetruth.contract.model.gameMecanism.ICharacter;
+import bewareofthetruth.contract.model.gameMecanism.IEntity;
 import bewareofthetruth.contract.model.gameMecanism.IPlayer;
 import bewareofthetruth.contract.model.gameMecanism.IProjectile;
 import bewareofthetruth.contract.model.gameMecanism.ISpecial;
@@ -22,6 +23,8 @@ public class Level implements ILevel {
 	ArrayList<ITile> specials = new ArrayList<ITile>();
 
 	ArrayList<ICharacter> characters = new ArrayList<ICharacter>();
+	
+	private ArrayList<IEntity> entities = new ArrayList<IEntity>();
 
 	private ISound audio;
 	private IDimension dimension;
@@ -206,6 +209,14 @@ public class Level implements ILevel {
 
 	public void setSourceMap(String sourceMap) {
 		this.sourceMap = sourceMap;
+	}
+
+	public ArrayList<IEntity> getEntities() {
+		return entities;
+	}
+
+	public void setEntities(ArrayList<IEntity> entities) {
+		this.entities = entities;
 	}
 
 	

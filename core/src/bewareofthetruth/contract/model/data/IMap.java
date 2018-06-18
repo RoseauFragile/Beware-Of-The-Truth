@@ -1,7 +1,6 @@
 package bewareofthetruth.contract.model.data;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 /* **** POUR BEN **** INTERFACE POUR LA MAP, QUI CONTIENT LA TILED MAP */
 
