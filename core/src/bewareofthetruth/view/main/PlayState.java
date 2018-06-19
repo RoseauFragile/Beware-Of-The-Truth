@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class PlayState extends GameState {
 	private SpriteBatch sb;
 
-	public PlayState(GameStateManager gsm) {
-		super(gsm);
+	public PlayState(/*GameStateManager gsm*/) {
+		//super(gsm);
 		init();
 		Gdx.graphics.setTitle("Beware of truth");
 	}

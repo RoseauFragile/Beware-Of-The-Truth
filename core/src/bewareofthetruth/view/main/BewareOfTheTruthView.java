@@ -1,8 +1,7 @@
 package bewareofthetruth.view.main;
 
-public class BewareOfTheTruthView implements IViewSystem, Runnable {
+public class BewareOfTheTruthView implements /* IViewSystem*/ Runnable {
 
-	@Override
 	public void closeAll() {
 		// TODO Auto-generated method stub
 
@@ -13,7 +12,6 @@ public class BewareOfTheTruthView implements IViewSystem, Runnable {
 
 	}
 
-	@Override
 	public void warning(final String message) {
 		// TODO Auto-generated method stub
 

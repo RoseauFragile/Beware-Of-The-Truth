@@ -2,8 +2,8 @@ package bewareofthetruth.view.main;
 
 public class PauseState extends GameState {
 
-	public PauseState(GameStateManager gsm) {
-		super(gsm);
+	public PauseState(/*GameStateManager gsm*/) {
+		//super(gsm);
 	}
 
 	@Override

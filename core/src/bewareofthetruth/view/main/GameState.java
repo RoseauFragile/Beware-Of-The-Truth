@@ -2,11 +2,11 @@ package bewareofthetruth.view.main;
 
 public abstract class GameState implements IGameState {
 
-	protected GameStateManager gsm;
+	//protected GameStateManager gsm;
 	// protected ModelFacade modelFacade;
 
-	public GameState(GameStateManager gsm) {
-		this.gsm = gsm;
+	public GameState(/*GameStateManager gsm*/) {
+		//this.gsm = gsm;
 	}
 
 	@Override
