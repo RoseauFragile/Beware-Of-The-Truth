@@ -31,8 +31,8 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	private IModelFacade				modelFacade;
 	private Box2DDebugRenderer			debugRenderer;
 	private ICamera						cam;
-	private static float				XPLAYER		= 10;
-	private static float				YPLAYER		= 0;
+	private static float				XPLAYER		= 800;
+	private static float				YPLAYER		= 500;
 	private SpriteBatch					batch;
 	private ILevel						level;
 	private int							indexLevel	= 1;
