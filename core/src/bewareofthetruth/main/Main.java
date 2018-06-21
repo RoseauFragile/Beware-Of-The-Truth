@@ -11,24 +11,27 @@ import com.badlogic.gdx.graphics.GL20;
 
 import bewareofthetruth.contract.model.data.IModelFacade;
 import bewareofthetruth.model.ModelFacade;
+import bewareofthetruth.model.util.Constants;
 
 public class Main implements ApplicationListener {
 
 	private IModelFacade modelFacade;
+	private Constants constant;
 
 	@Override
 	public void create() {
-
+		
 		try {
 			this.modelFacade = new ModelFacade();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		this.constant = new Constants(this.modelFacade);
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		this.modelFacade.getBewareOfTruthModel().getCam().resize(width / 2, height / 2);
+		this.constant.CAMERA.resize(width / 2, height / 2);
 	}
 
 	@Override
@@ -38,29 +41,19 @@ public class Main implements ApplicationListener {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		this.modelFacade.getBewareOfTruthModel().getCam().getCamera().update();
-		this.modelFacade.getBewareOfTruthModel().getLevel().getTmr().render();
-
+		this.constant.CAMERA.getCamera().update();
+		this.constant.TMR.render();
 		// BATCH START
-		this.modelFacade.getBewareOfTruthModel().getBatch().begin();
-		this.modelFacade.getBewareOfTruthModel().getBatch().draw(
-				this.modelFacade.getBewareOfTruthModel().getLevel().getPlayer().getRegions()[0][0],
-				this.modelFacade.getBewareOfTruthModel().getLevel().getPlayer().getBody().getPosition().x * PPM
-						- (this.modelFacade.getBewareOfTruthModel().getLevel().getPlayer().getRegions()[0][0].getRegionWidth()
-								/ 2),
-				this.modelFacade.getBewareOfTruthModel().getLevel().getPlayer().getBody().getPosition().y * PPM
-						- (this.modelFacade.getBewareOfTruthModel().getLevel().getPlayer().getRegions()[0][0].getRegionHeight()
-								/ 2));
-
+		this.constant.BATCH.begin();
+		this.constant.BATCH.draw(this.constant.PLAYER.getRegions()[0][0], this.constant.PLAYER.getBody().getPosition().x * PPM 
+							  - (this.constant.PLAYER.getRegions()[0][0].getRegionWidth() / 2),
+						         this.constant.PLAYER.getBody().getPosition().y * PPM
+						      - (this.constant.PLAYER.getRegions()[0][0].getRegionHeight() / 2));
 		// BATCH END
-		this.modelFacade.getBewareOfTruthModel().getBatch().end();
+		this.constant.BATCH.end();
 
-		this.modelFacade.getBewareOfTruthModel().getDebugRenderer().render(
-				this.modelFacade.getBewareOfTruthModel().getLevel().getWorld(),
-				this.modelFacade.getBewareOfTruthModel().getCam().getCamera().combined.scl(PPM));
-		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-			Gdx.app.exit();
-		}
+		this.constant.DEBUG_RENDERER.render(this.constant.WORLD,this.constant.CAMERA.getCamera().combined.scl(PPM));
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) { Gdx.app.exit(); }
 	}
 
 	@Override
@@ -75,23 +68,19 @@ public class Main implements ApplicationListener {
 
 	@Override
 	public void dispose() {
-		this.modelFacade.getBewareOfTruthModel().getLevel().getWorld().dispose();
-		this.modelFacade.getBewareOfTruthModel().getDebugRenderer().dispose();
-		this.modelFacade.getBewareOfTruthModel().getBatch().dispose();
-		this.modelFacade.getBewareOfTruthModel().getLevel().getTmr().dispose();
-		this.modelFacade.getBewareOfTruthModel().getLevel().getMap().getTiledMap().dispose();
+		this.constant.WORLD.dispose();
+		this.constant.DEBUG_RENDERER.dispose();
+		this.constant.BATCH.dispose();
+		this.constant.TMR.dispose();
+		this.constant.TILEDMAP.dispose();
 	}
 
 	public void update(float delta) {
-		this.modelFacade.getBewareOfTruthModel().getLevel().getWorld().step(1 / 60f, 6, 2);
+		this.constant.WORLD.step(1 / 60f, 6, 2);
 		inputUpdate(delta);
-		this.modelFacade.getBewareOfTruthModel().getCam()
-				.cameraUpdate(this.modelFacade.getBewareOfTruthModel().getLevel().getPlayer().getBody().getPosition());
-		this.modelFacade.getBewareOfTruthModel().getLevel().getTmr().setView(
-				this.modelFacade.getBewareOfTruthModel().getCam().getCamera().combined, 0, 0, Gdx.graphics.getWidth(),
-				Gdx.graphics.getHeight());
-		this.modelFacade.getBewareOfTruthModel().getBatch()
-				.setProjectionMatrix(this.modelFacade.getBewareOfTruthModel().getCam().getCamera().combined);
+		this.constant.CAMERA.cameraUpdate(this.constant.PLAYER.getBody().getPosition());
+		this.constant.TMR.setView( this.constant.CAMERA.getCamera().combined, 0, 0, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+		this.constant.BATCH.setProjectionMatrix(this.constant.CAMERA.getCamera().combined);
 	}
 
 	public void inputUpdate(float delta) {
@@ -108,8 +97,6 @@ public class Main implements ApplicationListener {
 		} else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
 			verticalForce -= 1;
 		}
-
-		this.modelFacade.getBewareOfTruthModel().getLevel().getPlayer().getBody().setLinearVelocity(horizontalForce * 5,
-				verticalForce * 5);
+		this.constant.PLAYER.getBody().setLinearVelocity(horizontalForce * 5, verticalForce * 5);
 	}
 }
