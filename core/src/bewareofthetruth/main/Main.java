@@ -39,24 +39,24 @@ public class Main implements ApplicationListener {
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		this.modelFacade.getBewareOfTruthModel().getCam().getCamera().update();
-		this.modelFacade.getBewareOfTruthModel().getTmr().render();
+		this.modelFacade.getBewareOfTruthModel().getLevel().getTmr().render();
 
 		// BATCH START
 		this.modelFacade.getBewareOfTruthModel().getBatch().begin();
 		this.modelFacade.getBewareOfTruthModel().getBatch().draw(
-				this.modelFacade.getBewareOfTruthModel().getPlayer().getRegions()[0][0],
-				this.modelFacade.getBewareOfTruthModel().getPlayer().getBody().getPosition().x * PPM
-						- (this.modelFacade.getBewareOfTruthModel().getPlayer().getRegions()[0][0].getRegionWidth()
+				this.modelFacade.getBewareOfTruthModel().getLevel().getPlayer().getRegions()[0][0],
+				this.modelFacade.getBewareOfTruthModel().getLevel().getPlayer().getBody().getPosition().x * PPM
+						- (this.modelFacade.getBewareOfTruthModel().getLevel().getPlayer().getRegions()[0][0].getRegionWidth()
 								/ 2),
-				this.modelFacade.getBewareOfTruthModel().getPlayer().getBody().getPosition().y * PPM
-						- (this.modelFacade.getBewareOfTruthModel().getPlayer().getRegions()[0][0].getRegionHeight()
+				this.modelFacade.getBewareOfTruthModel().getLevel().getPlayer().getBody().getPosition().y * PPM
+						- (this.modelFacade.getBewareOfTruthModel().getLevel().getPlayer().getRegions()[0][0].getRegionHeight()
 								/ 2));
 
 		// BATCH END
 		this.modelFacade.getBewareOfTruthModel().getBatch().end();
 
 		this.modelFacade.getBewareOfTruthModel().getDebugRenderer().render(
-				this.modelFacade.getBewareOfTruthModel().getChapter().getWorldByIdLevel(2),
+				this.modelFacade.getBewareOfTruthModel().getLevel().getWorld(),
 				this.modelFacade.getBewareOfTruthModel().getCam().getCamera().combined.scl(PPM));
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
 			Gdx.app.exit();
@@ -75,19 +75,19 @@ public class Main implements ApplicationListener {
 
 	@Override
 	public void dispose() {
-		this.modelFacade.getBewareOfTruthModel().getChapter().getWorldByIdLevel(2).dispose();
+		this.modelFacade.getBewareOfTruthModel().getLevel().getWorld().dispose();
 		this.modelFacade.getBewareOfTruthModel().getDebugRenderer().dispose();
 		this.modelFacade.getBewareOfTruthModel().getBatch().dispose();
-		this.modelFacade.getBewareOfTruthModel().getTmr().dispose();
+		this.modelFacade.getBewareOfTruthModel().getLevel().getTmr().dispose();
 		this.modelFacade.getBewareOfTruthModel().getLevel().getMap().getTiledMap().dispose();
 	}
 
 	public void update(float delta) {
-		this.modelFacade.getBewareOfTruthModel().getChapter().getWorldByIdLevel(2).step(1 / 60f, 6, 2);
+		this.modelFacade.getBewareOfTruthModel().getLevel().getWorld().step(1 / 60f, 6, 2);
 		inputUpdate(delta);
 		this.modelFacade.getBewareOfTruthModel().getCam()
-				.cameraUpdate(this.modelFacade.getBewareOfTruthModel().getPlayer().getBody().getPosition());
-		this.modelFacade.getBewareOfTruthModel().getTmr().setView(
+				.cameraUpdate(this.modelFacade.getBewareOfTruthModel().getLevel().getPlayer().getBody().getPosition());
+		this.modelFacade.getBewareOfTruthModel().getLevel().getTmr().setView(
 				this.modelFacade.getBewareOfTruthModel().getCam().getCamera().combined, 0, 0, Gdx.graphics.getWidth(),
 				Gdx.graphics.getHeight());
 		this.modelFacade.getBewareOfTruthModel().getBatch()
@@ -109,7 +109,7 @@ public class Main implements ApplicationListener {
 			verticalForce -= 1;
 		}
 
-		this.modelFacade.getBewareOfTruthModel().getPlayer().getBody().setLinearVelocity(horizontalForce * 5,
+		this.modelFacade.getBewareOfTruthModel().getLevel().getPlayer().getBody().setLinearVelocity(horizontalForce * 5,
 				verticalForce * 5);
 	}
 }

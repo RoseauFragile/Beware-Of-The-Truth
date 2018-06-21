@@ -1,25 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="left-up" width="128" height="128" tilewidth="128" tileheight="128" infinite="0" nextobjectid="2">
- <tileset firstgid="1" source="Tileset Sol niveau 1 128.128.tsx"/>
- <tileset firstgid="17" source="Tileset Wall Niveau 1 128.128.tsx"/>
- <layer name="sol" width="128" height="128">
+<map version="1.0" tiledversion="1.1.3" orientation="orthogonal" renderorder="left-up" width="12" height="14" tilewidth="128" tileheight="128" infinite="0" nextobjectid="4">
+ <tileset firstgid="1" source="Tileset-Sol-niveau-1-128.128.tsx"/>
+ <tileset firstgid="17" source="Tileset-Wall-Niveau-1-128.128.tsx"/>
+ <layer name="sol" width="12" height="14">
   <data encoding="base64" compression="zlib">
-   eJzt0bEJACEQRUEv0DotzVJdEEGuAA12Bj6ymfBKAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWL5YPRb3ePohrormvcW7V/VPRf/c9M9N/9z0BwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP4m8ocGPg==
+   eJxjYMAPWBkYEtgg9AKYGCOEjxUzAdWhqweZwQQ1hw2ihoENDaOrZ4Waw4bkBnzqgWYeQHcDPvXo8sNdPaHwRwaEwh8dEBP+yHoJuR0ZAwC1KROs
   </data>
  </layer>
- <layer name="mur" width="128" height="128">
+ <layer name="mur" width="12" height="14">
   <data encoding="base64" compression="zlib">
-   eJzt0bEJACAMRUFXUKx0/z0V7ERbLXIHaVJ9eCkBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMDS59XD5Z+jeKZd/uXpCn7RPzb9Y9M/Nv0BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2A2xegFt
+   eJxjYGBgEMGBhRkGFogOAjeMZIAr/EHisDRCawAA5F8BGQ==
   </data>
  </layer>
- <objectgroup name="Calque d'objets 1">
-  <object id="1" x="7933" y="7681">
-   <polyline points="0,0 642,2 641,689 7,691 4,0"/>
+ <layer name="toit" width="12" height="14">
+  <data encoding="base64" compression="zlib">
+   eJyTZmBgkMeD0YEUFjF8AFm9OBArkaBeDoIbiFVPqntGmnpc4Q8Sl4BiYswHxQssfZDqHjEgliQBAwC1ogUn
+  </data>
+ </layer>
+ <layer name="toit2" width="12" height="14">
+  <data encoding="base64" compression="zlib">
+   eJxjYCAeCJGgdlT90FIviUVMDoIbSLSWqgAAkC8Big==
+  </data>
+ </layer>
+ <objectgroup name="Calque d'objets 1" visible="0">
+  <object id="1" x="1029.58" y="4.12">
+   <polyline points="0,0 -3.0303,121.212 -903.03,130.303 -896.97,1651.52 503.03,1660.61 506.061,1533.33 130.303,1530.3 127.273,1387.88 363.636,1390.91 366.667,0 -3.0303,-6.06061"/>
+  </object>
+  <object id="2" x="381.09" y="382.91">
+   <polyline points="0,0 3.0303,124.242 245.455,130.303 254.545,9.09091"/>
+  </object>
+  <object id="3" x="381.09" y="1410.18">
+   <polyline points="0,0 3.0303,118.182 251.515,115.152 257.576,3.0303"/>
   </object>
  </objectgroup>
- <layer name="toit" width="128" height="128">
-  <data encoding="base64" compression="zlib">
-   eJzt17ENACAIAEHG0Mr9tyRWNsQB4C75IT4CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOBZn5jhFAEAAP3cz9tF/g8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABmS7MtAfE=
-  </data>
- </layer>
 </map>

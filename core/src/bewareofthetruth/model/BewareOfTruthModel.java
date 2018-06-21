@@ -4,11 +4,8 @@ import java.sql.SQLException;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-
 import bewareofthetruth.contract.model.data.IBewareOfTruthModel;
 import bewareofthetruth.contract.model.data.ICamera;
 import bewareofthetruth.contract.model.data.IChapter;
@@ -18,8 +15,6 @@ import bewareofthetruth.contract.model.data.ILevel;
 import bewareofthetruth.contract.model.data.IMainMenu;
 import bewareofthetruth.contract.model.data.IModelFacade;
 import bewareofthetruth.contract.model.data.IOptions;
-import bewareofthetruth.contract.model.gameMecanism.IEntity;
-import bewareofthetruth.contract.model.gameMecanism.IPlayer;
 import bewareofthetruth.model.dao.BewareOfTheTruthDAO;
 import bewareofthetruth.model.dao.PlayerSql;
 import bewareofthetruth.model.gameMechanics.Chapter;
@@ -27,7 +22,6 @@ import bewareofthetruth.model.gameMechanics.mobile.Player;
 
 public class BewareOfTruthModel implements IBewareOfTruthModel {
 
-	private IPlayer						player;
 	private IChapter					chapter;
 	private IHud						hud;
 	private IGameMenu					gameMenu;
@@ -37,32 +31,20 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	private IModelFacade				modelFacade;
 	private Box2DDebugRenderer			debugRenderer;
 	private ICamera						cam;
-	private float						widthLevel;
-	private float						heightLevel;
 	private static float				XPLAYER		= 10;
 	private static float				YPLAYER		= 0;
-	private IEntity						zombie;
-	private IEntity						zombie2;
 	private SpriteBatch					batch;
-	private OrthogonalTiledMapRenderer	tmr;
 	private ILevel						level;
 	private int							indexLevel	= 1;
 
 	public BewareOfTruthModel() throws SQLException {
-		this.setDao(new BewareOfTheTruthDAO());
-		this.setMainMenu(new MainMenu());
-		this.setGameMenu(new GameMenu());
-		this.setHud(new Hud());
-		this.setOptions(new Options());
-		this.setCam(new Camera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
+		
+		this.initializeModel();
 
-		this.setChapter(new Chapter());
-		this.getChapter().setIdChapter(1);
-		this.getChapter().setWorlds();
-		this.getChapter().setLevel();
-		this.setPlayer(2, this.getChapter().getWorldByIdLevel(2));
-		this.setChapterByIdPlayerChapter();
-		this.initializeFirstLevelOfChapter(this.getChapter());
+		this.setChapter(new Chapter(1));
+		this.setPlayer(indexLevel, this.getChapter().getLevels().get(indexLevel).getWorld());
+		//this.initializeFirstLevelOfChapter();
+		this.setLevel(this.getChapter().getLevels().get(this.indexLevel));
 		this.setDebugRenderer(new Box2DDebugRenderer());
 		this.setBatch(new SpriteBatch());
 
@@ -71,11 +53,6 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	@Override
 	public IChapter getChapter() {
 		return this.chapter;
-	}
-
-	@Override
-	public IPlayer getPlayer() {
-		return this.player;
 	}
 
 	@Override
@@ -139,26 +116,20 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	@Override
 	public void setPlayer(int idLevel, World world) throws SQLException {
 		PlayerSql playerSql = this.getDao().getPlayerDao().getPlayerByIdLevel(idLevel);
-		this.player = new Player(playerSql.getIdPlayer(), playerSql.getNom(), playerSql.getIdLevel(),
-				playerSql.getIdInventaire(), playerSql.getIdChapter(), world, XPLAYER, YPLAYER, false);
-		this.getPlayer().setBewareOfTruthModel(this);
-		System.out.println("player attribué");
+		this.getChapter().getLevels().get(playerSql.getIdLevel()).setPlayer(new Player(playerSql.getIdPlayer(), playerSql.getNom(), playerSql.getIdLevel(),
+				playerSql.getIdInventaire(), playerSql.getIdChapter(), world, XPLAYER, YPLAYER, false));
+		this.getChapter().getLevels().get(playerSql.getIdLevel()).getPlayer().setBewareOfTruthModel(this);
 	}
 
 	@Override
-	public void setChapter(IChapter chapter) {
+	public void setChapter(IChapter chapter) throws SQLException {
 		this.chapter = chapter;
 		this.getChapter().setBewareOfTruthModel(this);
+		this.getChapter().setLevel();
 	}
 
 	public void setDao(BewareOfTheTruthDAO dao) {
 		this.dao = dao;
-	}
-
-	@Override
-	public void setChapterByIdPlayerChapter() throws SQLException {
-		this.getChapter().setIdChapter(this.getPlayer().getChapter());
-		this.getChapter().setLevel();
 	}
 
 	public Box2DDebugRenderer getDebugRenderer() {
@@ -178,54 +149,12 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 		this.getCam().setBewareOfTruthModel(this);
 	}
 
-	public float getWidthLevel() {
-		return widthLevel;
-	}
-
-	public void setWidthLevel(float widthLevel) {
-		this.widthLevel = widthLevel;
-	}
-
-	public float getHeightLevel() {
-		return heightLevel;
-	}
-
-	public void setHeightLevel(float heightLevel) {
-		this.heightLevel = heightLevel;
-	}
-
-	public IEntity getZombie() {
-		return zombie;
-	}
-
-	public void setZombie(IEntity zombie) {
-		this.zombie = zombie;
-	}
-
 	public SpriteBatch getBatch() {
 		return batch;
 	}
 
 	public void setBatch(SpriteBatch batch) {
 		this.batch = batch;
-	}
-
-	public IEntity getZombie2() {
-		return zombie2;
-	}
-
-	public void setZombie2(IEntity zombie2) {
-		this.zombie2 = zombie2;
-	}
-
-	public OrthogonalTiledMapRenderer getTmr() {
-		return tmr;
-	}
-
-	public void setTmr(TiledMap map) {
-		this.tmr = new OrthogonalTiledMapRenderer(map, 1 / 2f);
-		// this.getTmr().setView(this.getCam().getCamera().combined,0,0,Gdx.graphics.getWidth()
-		// / PPM,Gdx.graphics.getHeight() / 128);
 	}
 
 	public ILevel getLevel() {
@@ -238,17 +167,19 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 
 	public void nextLevel() {
 		this.indexLevel += 1;
-		this.level = this.getChapter().getLevels().get(indexLevel);
-		this.setTmr(this.getLevel().getMap().getTiledMap());
-		// this.getTmr().setView(this.getCam().getCamera().combined,0,0,Gdx.graphics.getWidth()
-		// /PPM,Gdx.graphics.getHeight()/128);
+		this.setLevel(this.getChapter().getLevels().get(indexLevel));
 	}
 
-	public void initializeFirstLevelOfChapter(IChapter chapter) {
-		this.setChapter(chapter);
-		this.level = this.getChapter().getLevels().get(0);
-		this.setTmr(this.getLevel().getMap().getTiledMap());
-		// this.getTmr().setView(this.getCam().getCamera().combined,0,0,Gdx.graphics.getWidth()
-		// /PPM,Gdx.graphics.getHeight()/128);
+	public void initializeFirstLevelOfChapter() throws SQLException {
+		this.setLevel(this.getChapter().getLevels().get(this.indexLevel));
+	}
+	
+	public void initializeModel() throws SQLException {
+		this.setDao(new BewareOfTheTruthDAO());
+		this.setMainMenu(new MainMenu());
+		this.setGameMenu(new GameMenu());
+		this.setHud(new Hud());
+		this.setOptions(new Options());
+		this.setCam(new Camera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
 	}
 }

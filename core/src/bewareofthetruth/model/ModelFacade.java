@@ -31,7 +31,7 @@ public class ModelFacade implements IModelFacade {
 
 	@Override
 	public IPlayer getPlayer() {
-		return this.getBewareOfTruthModel().getPlayer();
+		return this.getBewareOfTruthModel().getLevel().getPlayer();
 	}
 
 	public Constants getConstants() {

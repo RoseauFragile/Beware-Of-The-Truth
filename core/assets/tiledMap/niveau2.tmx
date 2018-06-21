@@ -1,20 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="left-up" width="128" height="128" tilewidth="128" tileheight="128" infinite="0" nextobjectid="1">
- <tileset firstgid="1" source="Tileset Sol niveau 1 128.128.tsx"/>
- <tileset firstgid="17" source="Tileset Wall Niveau 1 128.128.tsx"/>
- <layer name="sol" width="128" height="128">
+<map version="1.0" tiledversion="1.1.3" orientation="orthogonal" renderorder="left-up" width="12" height="14" tilewidth="128" tileheight="128" infinite="0" nextobjectid="4">
+ <tileset firstgid="1" source="Tileset-Sol-niveau-1-128.128.tsx"/>
+ <tileset firstgid="17" source="Tileset-Wall-Niveau-1-128.128.tsx"/>
+ <layer name="sol" width="12" height="14">
   <data encoding="base64" compression="zlib">
-   eJzt2MEJgDAMQNEo6JyO5iiOZlEqIl4URGjegxxKLsLHQxsBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGQ0vhzaMEQsd9OXXZmp9q7nuv/1o/ncsLeer2f/fg7656Z/bvrnpn9u+uemfz5dbJ23KXf9ud/v+sdZ/7Z1p/eduyn7Rf92efsFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJ5aARCcH5Q=
+   eJxjYMAPWBkYEtgg9AKYGCOEjxUzAdWhqweZwQQ1hw2ihoENDaOrZ4Waw4bkBnzqgWYeQHcDPvXo8sNdPaHwRwaEwh8dEBP+yHoJuR0ZAwC1KROs
   </data>
  </layer>
- <layer name="mur" width="128" height="128">
+ <layer name="mur" width="12" height="14">
   <data encoding="base64" compression="zlib">
-   eJzt0cEJgDAQRcHUIIKCN/svwtL0IiQWsBH+DCxkc1p4rQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwGh75px9BKWO8X31+1J9DOX0z6Z/Nv2z6Z9N/0xrN9+/l/7Z9M+mf7Z99gEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwK/c94IHvg==
+   eJxjYGBgEMGBhRkGFogOAjeMZIAr/EHisDRCawAA5F8BGQ==
   </data>
  </layer>
- <layer name="toit" width="128" height="128">
+ <layer name="toit" width="12" height="14">
   <data encoding="base64" compression="zlib">
-   eJzt1jsKwCAQBUCvkC4fMFfN0ZMiCyIW1u4MvEKWrR6ipQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJnsg5zNfOvOscMa9J+b/nPTf276z03/uUXn15f7Ty3liXntzrHDGkZ3fmaHNeg/t/bdPyYSO6xh9P+bCQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACEF/XdCk8=
+   eJyTZmBgkMeD0YEUFjF8AFm9OBArkaBeDoIbiFVPqntGmnpc4Q8Sl4BiYswHxQssfZDqHjEgliQBAwC1ogUn
   </data>
  </layer>
+ <layer name="toit2" width="12" height="14">
+  <data encoding="base64" compression="zlib">
+   eJxjYCAeCJGgdlT90FIviUVMDoIbSLSWqgAAkC8Big==
+  </data>
+ </layer>
+ <objectgroup name="Calque d'objets 1" visible="0">
+  <object id="1" x="1029.58" y="4.12">
+   <polyline points="0,0 -3.0303,121.212 -903.03,130.303 -896.97,1651.52 503.03,1660.61 506.061,1533.33 130.303,1530.3 127.273,1387.88 363.636,1390.91 366.667,0 -3.0303,-6.06061"/>
+  </object>
+  <object id="2" x="381.09" y="382.91">
+   <polyline points="0,0 3.0303,124.242 245.455,130.303 254.545,9.09091"/>
+  </object>
+  <object id="3" x="381.09" y="1410.18">
+   <polyline points="0,0 3.0303,118.182 251.515,115.152 257.576,3.0303"/>
+  </object>
+ </objectgroup>
 </map>

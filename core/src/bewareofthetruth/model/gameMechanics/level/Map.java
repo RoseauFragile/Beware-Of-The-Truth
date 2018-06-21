@@ -15,7 +15,6 @@ public class Map implements IMap {
 	private ILevel level;
 	
 	public Map(String sourceMap) {
-		System.out.println("NOUVELLE MAP");
 		this.setTiledMapSource(sourceMap);
 		this.setTiledMap(this.getTiledMapSource());
 	}
@@ -64,7 +63,6 @@ public class Map implements IMap {
 
 	public void setTiledMap(String map) {
 		this.map = new TmxMapLoader().load("tiledMap/"+map);
-		System.out.println("nouvelle tiled map : " + this.getTiledMap().getProperties());
 	}
 	
 	public ILevel getLevel() {
