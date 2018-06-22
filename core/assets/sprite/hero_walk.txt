@@ -1,0 +1,117 @@
+hero_walk.png
+size: 473, 66
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+idleDown
+  rotate: false
+  xy: 1, 1
+  size: 23, 64
+  orig: 64, 64
+  offset: 17, 0
+  index: 0
+idleLeft
+  rotate: false
+  xy: 26, 1
+  size: 28, 64
+  orig: 64, 64
+  offset: 16, 0
+  index: 0
+idleRight
+  rotate: false
+  xy: 56, 1
+  size: 28, 64
+  orig: 64, 64
+  offset: 20, 0
+  index: 0
+idleUp
+  rotate: false
+  xy: 86, 1
+  size: 40, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+walkDown
+  rotate: false
+  xy: 128, 1
+  size: 24, 64
+  orig: 64, 64
+  offset: 17, 0
+  index: 0
+walkDown
+  rotate: false
+  xy: 154, 1
+  size: 23, 64
+  orig: 64, 64
+  offset: 17, 0
+  index: 1
+walkDown
+  rotate: false
+  xy: 179, 1
+  size: 26, 64
+  orig: 64, 64
+  offset: 16, 0
+  index: 2
+walkLeft
+  rotate: false
+  xy: 207, 1
+  size: 31, 64
+  orig: 64, 64
+  offset: 13, 0
+  index: 0
+walkLeft
+  rotate: false
+  xy: 240, 1
+  size: 29, 64
+  orig: 64, 64
+  offset: 16, 0
+  index: 1
+walkLeft
+  rotate: false
+  xy: 271, 1
+  size: 29, 64
+  orig: 64, 64
+  offset: 15, 0
+  index: 2
+walkRight
+  rotate: false
+  xy: 302, 1
+  size: 31, 64
+  orig: 64, 64
+  offset: 20, 0
+  index: 0
+walkRight
+  rotate: false
+  xy: 335, 1
+  size: 29, 64
+  orig: 64, 64
+  offset: 19, 0
+  index: 1
+walkRight
+  rotate: false
+  xy: 366, 1
+  size: 29, 64
+  orig: 64, 64
+  offset: 20, 0
+  index: 2
+walkUp
+  rotate: false
+  xy: 397, 1
+  size: 24, 64
+  orig: 64, 64
+  offset: 17, 0
+  index: 0
+walkUp
+  rotate: false
+  xy: 423, 1
+  size: 23, 64
+  orig: 64, 64
+  offset: 17, 0
+  index: 1
+walkUp
+  rotate: false
+  xy: 448, 1
+  size: 24, 64
+  orig: 64, 64
+  offset: 16, 0
+  index: 2

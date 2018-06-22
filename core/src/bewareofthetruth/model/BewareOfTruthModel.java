@@ -43,6 +43,7 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 
 		this.setChapter(new Chapter(1));
 		this.setPlayer(indexLevel, this.getChapter().getLevels().get(indexLevel).getWorld());
+		
 		//this.initializeFirstLevelOfChapter();
 		this.setLevel(this.getChapter().getLevels().get(this.indexLevel));
 		this.setDebugRenderer(new Box2DDebugRenderer());

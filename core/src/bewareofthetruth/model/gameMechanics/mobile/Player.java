@@ -1,8 +1,10 @@
 package bewareofthetruth.model.gameMechanics.mobile;
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.World;
 import bewareofthetruth.contract.model.data.IBewareOfTruthModel;
 import bewareofthetruth.contract.model.gameMecanism.IPlayer;
+import bewareofthetruth.contract.model.utils.Direction;
 import bewareofthetruth.contract.model.utils.IEnergy;
 import bewareofthetruth.contract.model.utils.IHealth;
 import bewareofthetruth.model.gameMechanics.entity.Entity;
@@ -30,6 +32,12 @@ public class Player extends Entity implements IPlayer {
 		this.setIdLevel(idLevel);
 		this.setIdInventory(idInventory);
 		this.setIdChapter(idChapter);
+		this.setAtlas(new TextureAtlas("sprite/hero_walk.txt"));
+		this.setAnimationCurrent(this.getAnimationWalkDown());
+		//this.setWalkSpeed(50);
+		this.setWalkDelta(0.15f);
+		this.setIdleDelta(0.15f);
+		this.setLastDirection(Direction.DOWN);
 		System.out.println("nouveau player créer" + this.getPlayerName());
 	}
 

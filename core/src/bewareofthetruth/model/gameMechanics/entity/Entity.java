@@ -2,7 +2,10 @@ package bewareofthetruth.model.gameMechanics.entity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -13,6 +16,7 @@ import bewareofthetruth.contract.model.gameMecanism.IEntity;
 import bewareofthetruth.contract.model.gameMecanism.behaviors.IBounceStrategy;
 import bewareofthetruth.contract.model.gameMecanism.behaviors.IDodgeStrategy;
 import bewareofthetruth.contract.model.gameMecanism.behaviors.IMoveStrategy;
+import bewareofthetruth.contract.model.utils.Direction;
 import bewareofthetruth.contract.model.utils.IAudio;
 import bewareofthetruth.contract.model.utils.IDimension;
 import bewareofthetruth.contract.model.utils.IPosition;
@@ -45,6 +49,18 @@ public class Entity implements IEntity {
 	
 	private boolean isStatic;
 	
+	private int walkSpeed;
+	
+	private float idleDelta;
+	
+	private float walkDelta;
+	
+	private TextureAtlas atlas;
+	
+	private Animation<TextureRegion> animationCurrent;
+	
+	private Direction lastDirection;
+	
 	public Entity(String sourceTexture, World world, float x, float y, boolean isStatic) {
 		this.setPosition(new Position());
 		this.setStatic(isStatic);
@@ -54,6 +70,11 @@ public class Entity implements IEntity {
 		this.setBody(this.createDynamicBody());
 		this.setTexture(new Texture(Gdx.files.internal("sprite/"+sourceTexture)));
 		this.setRegions(TextureRegion.split(this.getTexture(), 64, 64));
+		this.setWalkSpeed(0);
+		this.setIdleDelta(0f);
+		this.setWalkDelta(0f);
+		this.setAtlas(null);
+		this.setAnimationCurrent(null);
 		System.out.println(this.getBody().getType());
 	}
 
@@ -206,5 +227,133 @@ public class Entity implements IEntity {
 
 	public void setStatic(boolean isStatic) {
 		this.isStatic = isStatic;
+	}
+
+	public TextureRegion getCurrentTextureRegion(final float stateTime) {
+		return this.getAnimationCurrent().getKeyFrame(stateTime, true);
+	}
+
+	public void disposeAtlas() {
+		this.getAtlas().dispose();
+	}
+
+	private Animation<TextureRegion> instantiateNewAnimation(final float delta, final String regionsName) {
+		return new Animation<TextureRegion>(delta, this.atlas.findRegions(regionsName), PlayMode.LOOP_PINGPONG);
+	}
+
+	public Animation<TextureRegion> getAnimationIdleUp() {
+		return this.instantiateNewAnimation(this.idleDelta, "idleUp");
+	}
+
+	public Animation<TextureRegion> getAnimationIdleDown() {
+		return this.instantiateNewAnimation(this.idleDelta, "idleDown");
+	}
+
+	public Animation<TextureRegion> getAnimationIdleRight() {
+		return this.instantiateNewAnimation(this.idleDelta, "idleRight");
+	}
+
+	public Animation<TextureRegion> getAnimationIdleLeft() {
+		return this.instantiateNewAnimation(this.idleDelta, "idleLeft");
+	}
+
+	public Animation<TextureRegion> getAnimationWalkUp() {
+		return this.instantiateNewAnimation(this.walkDelta, "walkUp");
+	}
+
+	public Animation<TextureRegion> getAnimationWalkDown() {
+		return this.instantiateNewAnimation(this.walkDelta, "walkDown");
+	}
+
+	public Animation<TextureRegion> getAnimationWalkRight() {
+		return this.instantiateNewAnimation(this.walkDelta, "walkRight");
+	}
+
+	public Animation<TextureRegion> getAnimationWalkLeft() {
+		return this.instantiateNewAnimation(this.walkDelta, "walkLeft");
+	}
+
+	public void moveUp() {
+		this.setAnimationCurrent(this.getAnimationWalkUp());
+		//this.getBody().getPosition().y  += this.walkSpeed * Gdx.graphics.getDeltaTime();
+	}
+
+	public void moveDown() {
+		this.setAnimationCurrent(this.getAnimationWalkDown());
+		//this.getBody().getPosition().y -= this.walkSpeed * Gdx.graphics.getDeltaTime();
+	}
+
+	public void moveRight() {
+		this.setAnimationCurrent(this.getAnimationWalkRight());
+		//this.getBody().getPosition().x += this.walkSpeed * Gdx.graphics.getDeltaTime();
+	}
+
+	public void moveLeft() {
+		this.setAnimationCurrent(this.getAnimationWalkLeft());
+		//this.getBody().getPosition().x -= this.walkSpeed * Gdx.graphics.getDeltaTime();
+	}
+
+	public void idleUp() {
+		this.setAnimationCurrent(this.getAnimationIdleUp());
+	}
+
+	public void idleDown() {
+		this.setAnimationCurrent(this.getAnimationIdleDown());
+	}
+
+	public void idleRight() {
+		this.setAnimationCurrent(this.getAnimationIdleRight());
+	}
+
+	public void idleLeft() {
+		this.setAnimationCurrent(this.getAnimationIdleLeft());
+	}
+
+	public Animation<TextureRegion> getAnimationCurrent() {
+		return this.animationCurrent;
+	}
+
+	public void setAnimationCurrent(final Animation<TextureRegion> animationCurrent) {
+		this.animationCurrent = animationCurrent;
+	}
+
+	public int getWalkSpeed() {
+		return this.walkSpeed;
+	}
+
+	public void setWalkSpeed(final int walkSpeed) {
+		this.walkSpeed = walkSpeed;
+	}
+
+	public float getIdleDelta() {
+		return this.idleDelta;
+	}
+
+	public void setIdleDelta(final float idleDelta) {
+		this.idleDelta = idleDelta;
+	}
+
+	public float getWalkDelta() {
+		return this.walkDelta;
+	}
+
+	public void setWalkDelta(final float walkDelta) {
+		this.walkDelta = walkDelta;
+	}
+
+	public TextureAtlas getAtlas() {
+		return this.atlas;
+	}
+
+	public void setAtlas(final TextureAtlas atlas) {
+		this.atlas = atlas;
+	}
+
+	public Direction getLastDirection() {
+		return lastDirection;
+	}
+
+	public void setLastDirection(Direction lastDirection) {
+		this.lastDirection = lastDirection;
 	}
 }
