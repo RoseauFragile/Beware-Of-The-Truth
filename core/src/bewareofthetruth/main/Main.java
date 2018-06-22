@@ -18,7 +18,6 @@ public class Main implements ApplicationListener {
 
 	private IModelFacade modelFacade;
 	private Constants constant;
-	private float stateTime = 0;
 
 	@Override
 	public void create() {
