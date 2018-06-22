@@ -58,5 +58,11 @@ public interface IBewareOfTruthModel {
 	public void initializeFirstLevelOfChapter() throws SQLException;
 
 	void setPlayer(int idLevel, World world) throws SQLException;
+	
+	public float getStateTime();
+
+	public void setStateTime(float stateTime);
+	
+	public void drawBatch();
 
 }

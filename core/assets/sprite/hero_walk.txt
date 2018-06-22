@@ -1,5 +1,5 @@
 hero_walk.png
-size: 473, 66
+size: 454, 66
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -27,90 +27,90 @@ idleRight
 idleUp
   rotate: false
   xy: 86, 1
-  size: 40, 64
+  size: 23, 64
   orig: 64, 64
-  offset: 0, 0
+  offset: 17, 0
   index: 0
 walkDown
   rotate: false
-  xy: 128, 1
+  xy: 111, 1
   size: 24, 64
   orig: 64, 64
   offset: 17, 0
   index: 0
 walkDown
   rotate: false
-  xy: 154, 1
+  xy: 137, 1
   size: 23, 64
   orig: 64, 64
   offset: 17, 0
   index: 1
 walkDown
   rotate: false
-  xy: 179, 1
-  size: 26, 64
+  xy: 162, 1
+  size: 24, 64
   orig: 64, 64
   offset: 16, 0
   index: 2
 walkLeft
   rotate: false
-  xy: 207, 1
+  xy: 188, 1
   size: 31, 64
   orig: 64, 64
   offset: 13, 0
   index: 0
 walkLeft
   rotate: false
-  xy: 240, 1
+  xy: 221, 1
   size: 29, 64
   orig: 64, 64
   offset: 16, 0
   index: 1
 walkLeft
   rotate: false
-  xy: 271, 1
+  xy: 252, 1
   size: 29, 64
   orig: 64, 64
   offset: 15, 0
   index: 2
 walkRight
   rotate: false
-  xy: 302, 1
+  xy: 283, 1
   size: 31, 64
   orig: 64, 64
   offset: 20, 0
   index: 0
 walkRight
   rotate: false
-  xy: 335, 1
+  xy: 316, 1
   size: 29, 64
   orig: 64, 64
   offset: 19, 0
   index: 1
 walkRight
   rotate: false
-  xy: 366, 1
+  xy: 347, 1
   size: 29, 64
   orig: 64, 64
   offset: 20, 0
   index: 2
 walkUp
   rotate: false
-  xy: 397, 1
+  xy: 378, 1
   size: 24, 64
   orig: 64, 64
   offset: 17, 0
   index: 0
 walkUp
   rotate: false
-  xy: 423, 1
+  xy: 404, 1
   size: 23, 64
   orig: 64, 64
   offset: 17, 0
   index: 1
 walkUp
   rotate: false
-  xy: 448, 1
+  xy: 429, 1
   size: 24, 64
   orig: 64, 64
   offset: 16, 0

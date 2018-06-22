@@ -1,5 +1,7 @@
 package bewareofthetruth.model;
 
+import static bewareofthetruth.model.util.Constants.PPM;
+
 import java.sql.SQLException;
 
 import com.badlogic.gdx.Gdx;
@@ -36,6 +38,7 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	private SpriteBatch					batch;
 	private ILevel						level;
 	private int							indexLevel	= 1;
+	private float stateTime = 0;
 
 	public BewareOfTruthModel() throws SQLException {
 		
@@ -183,4 +186,20 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 		this.setOptions(new Options());
 		this.setCam(new Camera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
 	}
+	
+	public void drawBatch() {
+		this.getBatch().draw(this.getLevel().getPlayer().getCurrentTextureRegion(this.getStateTime()),
+		this.getLevel().getPlayer().getBody().getPosition().x * PPM - (this.getLevel().getPlayer().getCurrentTextureRegion(this.getStateTime()).getRegionWidth() / 2),
+		this.getLevel().getPlayer().getBody().getPosition().y * PPM - (this.getLevel().getPlayer().getCurrentTextureRegion(this.getStateTime()).getRegionHeight() / 2));
+	}
+
+	public float getStateTime() {
+		return this.stateTime;
+	}
+
+	public void setStateTime(float stateTime) {
+		this.stateTime = stateTime;
+	}
+	
+	
 }

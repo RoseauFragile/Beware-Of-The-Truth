@@ -48,9 +48,7 @@ public class Main implements ApplicationListener {
 		
 		// BATCH START
 		this.constant.BATCH.begin();
-		this.constant.BATCH.draw(this.constant.PLAYER.getCurrentTextureRegion(this.stateTime),
-				this.constant.PLAYER.getBody().getPosition().x * PPM - (this.constant.PLAYER.getCurrentTextureRegion(this.stateTime).getRegionWidth() / 2),
-				this.constant.PLAYER.getBody().getPosition().y * PPM - (this.constant.PLAYER.getCurrentTextureRegion(this.stateTime).getRegionHeight() / 2));
+		this.modelFacade.getBewareOfTruthModel().drawBatch();
 		// BATCH END
 		this.constant.BATCH.end();
 
@@ -78,8 +76,9 @@ public class Main implements ApplicationListener {
 	}
 
 	public void update(float delta) {
+		float stateTime = this.modelFacade.getBewareOfTruthModel().getStateTime();
 		this.constant.WORLD.step(1 / 60f, 6, 2);
-		this.stateTime += delta;
+		this.modelFacade.getBewareOfTruthModel().setStateTime(stateTime += delta);
 		inputUpdate(delta);
 		this.constant.CAMERA.cameraUpdate(this.constant.PLAYER.getBody().getPosition());
 		this.constant.TMR.setView( this.constant.CAMERA.getCamera().combined, 0, 0, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
