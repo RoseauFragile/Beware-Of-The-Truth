@@ -1,10 +1,7 @@
 package bewareofthetruth.model.gameMechanics.entity;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -36,20 +33,12 @@ public class Entity implements IEntity {
 	private IPosition position;
 
 	private IAudio audio;
-
-	private Sprite sprite;
-	
-	private Texture texture;
-	
-	private TextureRegion[][] regions;
 	
 	private Body body;
 	
 	private World world;
 	
 	private boolean isStatic;
-	
-	private int walkSpeed;
 	
 	private float idleDelta;
 	
@@ -68,14 +57,10 @@ public class Entity implements IEntity {
 		this.getPosition().setY(y);
 		this.setWorld(world);
 		this.setBody(this.createDynamicBody());
-		this.setTexture(new Texture(Gdx.files.internal("sprite/"+sourceTexture)));
-		this.setRegions(TextureRegion.split(this.getTexture(), 64, 64));
-		this.setWalkSpeed(0);
 		this.setIdleDelta(0f);
 		this.setWalkDelta(0f);
 		this.setAtlas(null);
 		this.setAnimationCurrent(null);
-		System.out.println(this.getBody().getType());
 	}
 
 	@Override
@@ -149,34 +134,8 @@ public class Entity implements IEntity {
 	}
 
 	@Override
-	public Sprite getSprite() {
-		return sprite;
-	}
-
-	@Override
 	public void setBounceStrategy(IBounceStrategy bounceStrategy) {
 
-	}
-
-	@Override
-	public void setSprite(Sprite sprite) {
-		this.sprite = sprite;
-	}
-
-	public Texture getTexture() {
-		return this.texture;
-	}
-
-	public void setTexture(Texture texture) {
-		this.texture = texture;
-	}
-
-	public TextureRegion[][] getRegions() {
-		return regions;
-	}
-
-	public void setRegions(TextureRegion[][] regions) {
-		this.regions = regions;
 	}
 
 	public Body getBody() {
@@ -275,22 +234,18 @@ public class Entity implements IEntity {
 
 	public void moveUp() {
 		this.setAnimationCurrent(this.getAnimationWalkUp());
-		//this.getBody().getPosition().y  += this.walkSpeed * Gdx.graphics.getDeltaTime();
 	}
 
 	public void moveDown() {
 		this.setAnimationCurrent(this.getAnimationWalkDown());
-		//this.getBody().getPosition().y -= this.walkSpeed * Gdx.graphics.getDeltaTime();
 	}
 
 	public void moveRight() {
 		this.setAnimationCurrent(this.getAnimationWalkRight());
-		//this.getBody().getPosition().x += this.walkSpeed * Gdx.graphics.getDeltaTime();
 	}
 
 	public void moveLeft() {
 		this.setAnimationCurrent(this.getAnimationWalkLeft());
-		//this.getBody().getPosition().x -= this.walkSpeed * Gdx.graphics.getDeltaTime();
 	}
 
 	public void idleUp() {
@@ -315,14 +270,6 @@ public class Entity implements IEntity {
 
 	public void setAnimationCurrent(final Animation<TextureRegion> animationCurrent) {
 		this.animationCurrent = animationCurrent;
-	}
-
-	public int getWalkSpeed() {
-		return this.walkSpeed;
-	}
-
-	public void setWalkSpeed(final int walkSpeed) {
-		this.walkSpeed = walkSpeed;
 	}
 
 	public float getIdleDelta() {

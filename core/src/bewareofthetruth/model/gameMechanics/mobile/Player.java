@@ -21,10 +21,6 @@ public class Player extends Entity implements IPlayer {
 	private String playerName;
 	private static String sourceTexture = "herosMarche.png";
 
-	public Player(World world, float x, float y, boolean isStatic) {
-		super(sourceTexture, world , x , y, isStatic);
-	}
-
 	public Player(int idPlayer, String nom, int idLevel, int idInventory, int idChapter, World world, float x, float y, boolean isStatic) {
 		super(sourceTexture, world, x, y, isStatic);
 		this.setId(idPlayer);
@@ -34,11 +30,9 @@ public class Player extends Entity implements IPlayer {
 		this.setIdChapter(idChapter);
 		this.setAtlas(new TextureAtlas("sprite/hero_walk.txt"));
 		this.setAnimationCurrent(this.getAnimationWalkDown());
-		//this.setWalkSpeed(50);
 		this.setWalkDelta(0.15f);
 		this.setIdleDelta(0.15f);
 		this.setLastDirection(Direction.DOWN);
-		System.out.println("nouveau player créer" + this.getPlayerName());
 	}
 
 	@Override
@@ -120,7 +114,4 @@ public class Player extends Entity implements IPlayer {
 	public void setPlayerName(String playerName) {
 		this.playerName = playerName;
 	}
-	
-	
-
 }

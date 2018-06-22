@@ -1,8 +1,6 @@
 package bewareofthetruth.contract.model.gameMecanism;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -43,18 +41,6 @@ public interface IEntity {
 	public IAudio getAudio();
 
 	public void setAudio(IAudio audio);
-
-	public Sprite getSprite();
-
-	public void setSprite(Sprite sprite);
-	
-	public Texture getTexture();
-
-	public void setTexture(Texture texture);
-	
-	public TextureRegion[][] getRegions();
-
-	public void setRegions(TextureRegion[][] regions);
 	
 	public World getWorld();
 
@@ -106,10 +92,6 @@ public interface IEntity {
 	public Animation<TextureRegion> getAnimationCurrent();
 
 	public void setAnimationCurrent(final Animation<TextureRegion> animationCurrent);
-	
-	public int getWalkSpeed();
-	
-	public void setWalkSpeed(final int walkSpeed);
 
 	public float getIdleDelta();
 

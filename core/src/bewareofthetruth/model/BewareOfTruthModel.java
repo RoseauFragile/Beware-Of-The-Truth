@@ -43,12 +43,9 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	public BewareOfTruthModel() throws SQLException {
 		
 		this.initializeModel();
-
 		this.setChapter(new Chapter(1));
 		this.setPlayer(indexLevel, this.getChapter().getLevels().get(indexLevel).getWorld());
-		
-		//this.initializeFirstLevelOfChapter();
-		this.setLevel(this.getChapter().getLevels().get(this.indexLevel));
+		this.initializeFirstLevelOfChapter();
 		this.setDebugRenderer(new Box2DDebugRenderer());
 		this.setBatch(new SpriteBatch());
 
@@ -175,7 +172,7 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	}
 
 	public void initializeFirstLevelOfChapter() throws SQLException {
-		this.setLevel(this.getChapter().getLevels().get(this.indexLevel));
+		this.setLevel(this.getChapter().getLevels().get(1));
 	}
 	
 	public void initializeModel() throws SQLException {
@@ -199,7 +196,5 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 
 	public void setStateTime(float stateTime) {
 		this.stateTime = stateTime;
-	}
-	
-	
+	}	
 }
