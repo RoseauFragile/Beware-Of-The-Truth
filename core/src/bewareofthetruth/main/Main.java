@@ -21,7 +21,7 @@ public class Main implements ApplicationListener {
 
 	@Override
 	public void create() {
-		
+
 		try {
 			this.modelFacade = new ModelFacade();
 		} catch (SQLException e) {
@@ -31,7 +31,7 @@ public class Main implements ApplicationListener {
 	}
 
 	@Override
-	public void resize(int width, int height) {
+	public void resize(final int width, final int height) {
 		this.constant.CAMERA.resize(width / 2, height / 2);
 	}
 
@@ -44,15 +44,17 @@ public class Main implements ApplicationListener {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		this.constant.CAMERA.getCamera().update();
 		this.constant.TMR.render();
-		
+
 		// BATCH START
 		this.constant.BATCH.begin();
 		this.modelFacade.getBewareOfTruthModel().drawBatch();
 		// BATCH END
 		this.constant.BATCH.end();
 
-		this.constant.DEBUG_RENDERER.render(this.constant.WORLD,this.constant.CAMERA.getCamera().combined.scl(PPM));
-		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) { Gdx.app.exit(); }
+		this.constant.DEBUG_RENDERER.render(this.constant.WORLD, this.constant.CAMERA.getCamera().combined.scl(PPM));
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+			Gdx.app.exit();
+		}
 	}
 
 	@Override
@@ -74,17 +76,18 @@ public class Main implements ApplicationListener {
 		this.constant.TILEDMAP.dispose();
 	}
 
-	public void update(float delta) {
+	public void update(final float delta) {
 		float stateTime = this.modelFacade.getBewareOfTruthModel().getStateTime();
 		this.constant.WORLD.step(1 / 60f, 6, 2);
 		this.modelFacade.getBewareOfTruthModel().setStateTime(stateTime += delta);
-		inputUpdate(delta);
+		this.inputUpdate(delta);
 		this.constant.CAMERA.cameraUpdate(this.constant.PLAYER.getBody().getPosition());
-		this.constant.TMR.setView( this.constant.CAMERA.getCamera().combined, 0, 0, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+		this.constant.TMR.setView(this.constant.CAMERA.getCamera().combined, 0, 0, Gdx.graphics.getWidth(),
+				Gdx.graphics.getHeight());
 		this.constant.BATCH.setProjectionMatrix(this.constant.CAMERA.getCamera().combined);
 	}
 
-	public void inputUpdate(float delta) {
+	public void inputUpdate(final float delta) {
 
 		int horizontalForce = 0;
 		int verticalForce = 0;
@@ -92,18 +95,17 @@ public class Main implements ApplicationListener {
 
 		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
 			horizontalForce -= 1;
-			
 			this.constant.PLAYER.moveLeft();
 			this.constant.PLAYER.setLastDirection(Direction.LEFT);
-			System.out.println(this.constant.PLAYER.getPosition().getX());
-			
 			moving = true;
 		} else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
 			horizontalForce += 1;
 			this.constant.PLAYER.moveRight();
 			this.constant.PLAYER.setLastDirection(Direction.RIGHT);
 			moving = true;
-		} else if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+		}
+
+		if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
 			verticalForce += 1;
 			this.constant.PLAYER.moveUp();
 			this.constant.PLAYER.setLastDirection(Direction.UP);
@@ -114,7 +116,7 @@ public class Main implements ApplicationListener {
 			this.constant.PLAYER.setLastDirection(Direction.DOWN);
 			moving = true;
 		}
-		
+
 		if (!moving) {
 			switch (this.constant.PLAYER.getLastDirection()) {
 			case UP:
@@ -129,9 +131,9 @@ public class Main implements ApplicationListener {
 			case LEFT:
 				this.constant.PLAYER.idleLeft();
 				break;
-			}}
-			
+			}
+		}
+
 		this.constant.PLAYER.getBody().setLinearVelocity(horizontalForce * 5, verticalForce * 5);
 	}
 }
-
