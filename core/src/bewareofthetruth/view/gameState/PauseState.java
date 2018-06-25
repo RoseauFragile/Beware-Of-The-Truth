@@ -1,9 +1,12 @@
-package bewareofthetruth.view.main;
+package bewareofthetruth.view.gameState;
+
+import bewareofthetruth.view.main.GameStateManager;
 
 public class PauseState extends GameState {
 
 	public PauseState(GameStateManager gsm) {
 		super(gsm);
+		init();
 	}
 
 	@Override
@@ -13,19 +16,13 @@ public class PauseState extends GameState {
 	}
 
 	@Override
-	public void update(float dt) {
+	public void update(float delta) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void draw() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void handleInput() {
+	public void render() {
 		// TODO Auto-generated method stub
 
 	}

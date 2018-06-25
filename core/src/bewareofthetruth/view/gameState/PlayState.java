@@ -1,10 +1,10 @@
-package bewareofthetruth.view.main;
+package bewareofthetruth.view.gameState;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import bewareofthetruth.view.main.GameStateManager;
 
 public class PlayState extends GameState {
-	private SpriteBatch sb;
 
 	public PlayState(GameStateManager gsm) {
 		super(gsm);
@@ -14,25 +14,18 @@ public class PlayState extends GameState {
 
 	@Override
 	public void init() {
-		super.init();
-		sb = new SpriteBatch();
-	}
-
-	@Override
-	public void update(float dt) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void draw() {
-		System.out.println("Play is drawing...");
-		sb.begin();
-		sb.end();
+	public void update(float delta) {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
-	public void handleInput() {
+	public void render() {
 		// TODO Auto-generated method stub
 
 	}
