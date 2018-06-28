@@ -31,7 +31,6 @@ public class Level implements ILevel {
 	private String sourceMap;
 	private World world;
 	private IPlayer player;
-	//private OrthogonalTiledMapRenderer	tmr;
 	private TiledMapRenderer tmr;
 
 	public Level(float id, String levelName, float height, float width, String sourceMap) throws SQLException {
@@ -42,8 +41,7 @@ public class Level implements ILevel {
 		this.setMap(new Map(sourceMap));
 		this.getMap().setLevel(this);
 		this.setWorld(new World(new Vector2(0,0), true));
-		this.setTmr(new OrthogonalTiledMapRenderer(this.getMap().getTiledMap()));
-		
+		this.setTmr(new OrthogonalTiledMapRenderer(this.getMap().getTiledMap()));	
 		TiledObjectUtil.parseTiledObjectLayer(this.getWorld(), this.getMap().getTiledMap().getLayers().get("collision-layer").getObjects());
 	}
 

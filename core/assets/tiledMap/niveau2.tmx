@@ -12,12 +12,12 @@
    eJxjYGBgEMGBhRkGFogOAjeMZIAr/EHisDRCawAA5F8BGQ==
   </data>
  </layer>
- <layer name="toit" width="12" height="14" visible="0">
+ <layer name="toit" width="12" height="14">
   <data encoding="base64" compression="zlib">
    eJyTZmBgkMeD0YEUFjF8AFm9OBArkaBeDoIbiFVPqntGmnpc4Q8Sl4BiYswHxQssfZDqHjEgliQBAwC1ogUn
   </data>
  </layer>
- <layer name="toit2" width="12" height="14" visible="0">
+ <layer name="toit2" width="12" height="14">
   <data encoding="base64" compression="zlib">
    eJxjYCAeCJGgdlT90FIviUVMDoIbSLSWqgAAkC8Big==
   </data>

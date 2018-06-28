@@ -17,10 +17,14 @@ public class Chapter implements IChapter {
 	public Chapter(int idChapter) throws SQLException {
 		this.setIdChapter(idChapter);
 		this.levels = new ArrayList<ILevel>();
+		
 	}
 
 	@Override
 	public ArrayList<ILevel> getLevels() {
+		for(int i =0; i < this.levels.size(); i++) {
+			System.out.println("debug array list levels : " + this.levels.get(i).getMap().getMapName());
+		}
 		return this.levels;
 	}
 
@@ -36,9 +40,11 @@ public class Chapter implements IChapter {
 
 	@Override
 	public void setLevel() throws SQLException {
+		
 		ArrayList<LevelSql> levelSql = this.getBewareOfTruthModel().getDao().getChapterDAO()
 				.getLevelByChapter(this.getIdChapter());
-		;
+		this.levels.add(new Level(levelSql.get(0).getId(), levelSql.get(0).getLevelName(), levelSql.get(0).getHeight(), levelSql.get(0).getWidth(), levelSql.get(0).getSourceMap()));
+		
 		for (LevelSql temp : levelSql) {
 			this.levels.add(new Level(temp.getId(), temp.getLevelName(), temp.getHeight(), temp.getWidth(),
 					temp.getSourceMap()));

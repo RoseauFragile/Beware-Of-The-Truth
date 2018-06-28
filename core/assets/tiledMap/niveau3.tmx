@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="left-up" width="12" height="14" tilewidth="128" tileheight="128" infinite="0" nextobjectid="4">
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="left-up" width="12" height="14" tilewidth="128" tileheight="128" infinite="0" nextobjectid="6">
  <tileset firstgid="1" source="Tileset-Sol-niveau-1-128.128.tsx"/>
  <tileset firstgid="17" source="Tileset-Wall-Niveau-1-128.128.tsx"/>
- <layer name="sol" width="12" height="14">
+ <layer name="sol" width="12" height="14" visible="0">
   <data encoding="base64" compression="zlib">
    eJxjYMAPWBkYEtgg9AKYGCOEjxUzAdWhqweZwQQ1hw2ihoENDaOrZ4Waw4bkBnzqgWYeQHcDPvXo8sNdPaHwRwaEwh8dEBP+yHoJuR0ZAwC1KROs
   </data>
@@ -22,7 +22,7 @@
    eJxjYCAeCJGgdlT90FIviUVMDoIbSLSWqgAAkC8Big==
   </data>
  </layer>
- <objectgroup name="collision-layer" visible="0">
+ <objectgroup name="collision-layer">
   <object id="1" x="1029.58" y="4.12">
    <polyline points="0,0 -3.0303,121.212 -903.03,130.303 -896.97,1651.52 503.03,1660.61 506.061,1533.33 130.303,1530.3 127.273,1387.88 363.636,1390.91 366.667,0 -3.0303,-6.06061"/>
   </object>
@@ -31,6 +31,12 @@
   </object>
   <object id="3" x="381.09" y="1410.18">
    <polyline points="0,0 3.0303,118.182 251.515,115.152 257.576,3.0303"/>
+  </object>
+  <object id="4" x="381" y="1410">
+   <polyline points="0,0 258,1"/>
+  </object>
+  <object id="5" x="382" y="382">
+   <polyline points="0,0 254,9"/>
   </object>
  </objectgroup>
 </map>

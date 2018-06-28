@@ -16,6 +16,8 @@ public class Map implements IMap {
 	
 	public Map(String sourceMap) {
 		this.setTiledMapSource(sourceMap);
+		this.setMapName(sourceMap);
+		System.out.println("LEVEL ACTUEL : " + this.getMapName());
 		this.setTiledMap(this.getTiledMapSource());
 	}
 	
