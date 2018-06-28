@@ -9,7 +9,7 @@ public abstract class CharacterFactory {
  public static IEntity createEntity(MobileSql mobileSql, World world) {
 	 switch(mobileSql.getMobtype()) {
 	 case ZOMBIE:
-		 return new Zombie(world, mobileSql.getX(), mobileSql.getY(), true);
+		 return new Zombie(world, mobileSql.getX(), mobileSql.getY(), false);
 	default :
 		 return null;
 	 }

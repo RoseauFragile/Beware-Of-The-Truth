@@ -92,18 +92,6 @@ public class Main implements ApplicationListener {
 		int verticalForce = 0;
 		boolean moving = false;
 
-		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-			horizontalForce -= 1;
-			this.constant.PLAYER.moveLeft();
-			this.constant.PLAYER.setLastDirection(Direction.LEFT);
-			moving = true;
-		} else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-			horizontalForce += 1;
-			this.constant.PLAYER.moveRight();
-			this.constant.PLAYER.setLastDirection(Direction.RIGHT);
-			moving = true;
-		}
-
 		if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
 			verticalForce += 1;
 			this.constant.PLAYER.moveUp();
@@ -113,6 +101,18 @@ public class Main implements ApplicationListener {
 			verticalForce -= 1;
 			this.constant.PLAYER.moveDown();
 			this.constant.PLAYER.setLastDirection(Direction.DOWN);
+			moving = true;
+		}
+		
+		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+			horizontalForce -= 1;
+			this.constant.PLAYER.moveLeft();
+			this.constant.PLAYER.setLastDirection(Direction.LEFT);
+			moving = true;
+		} else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+			horizontalForce += 1;
+			this.constant.PLAYER.moveRight();
+			this.constant.PLAYER.setLastDirection(Direction.RIGHT);
 			moving = true;
 		}
 
