@@ -82,8 +82,7 @@ public class Main implements ApplicationListener {
 		this.modelFacade.getBewareOfTruthModel().setStateTime(stateTime += delta);
 		this.inputUpdate(delta);
 		this.constant.CAMERA.cameraUpdate(this.constant.PLAYER.getBody().getPosition());
-		this.constant.TMR.setView(this.constant.CAMERA.getCamera().combined, 0, 0, Gdx.graphics.getWidth(),
-				Gdx.graphics.getHeight());
+		this.constant.TMR.setView(this.constant.CAMERA.getCamera());
 		this.constant.BATCH.setProjectionMatrix(this.constant.CAMERA.getCamera().combined);
 	}
 

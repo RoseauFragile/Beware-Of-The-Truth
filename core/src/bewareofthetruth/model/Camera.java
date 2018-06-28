@@ -24,7 +24,7 @@ public class Camera implements ICamera {
 		this.setCamera(new OrthographicCamera());
 		this.setViewport(new ScreenViewport(cam));
 
-		cam.setToOrtho(false, Gdx.graphics.getWidth() / SCALE, Gdx.graphics.getHeight() / SCALE);
+		cam.setToOrtho(false, Gdx.graphics.getWidth()/ SCALE, Gdx.graphics.getHeight() / SCALE);
 		SpriteBatch batch = new SpriteBatch();
 		batch.setProjectionMatrix(cam.combined);
 		cam.update();

@@ -2,7 +2,7 @@
 <map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="left-up" width="12" height="14" tilewidth="128" tileheight="128" infinite="0" nextobjectid="6">
  <tileset firstgid="1" source="Tileset-Sol-niveau-1-128.128.tsx"/>
  <tileset firstgid="17" source="Tileset-Wall-Niveau-1-128.128.tsx"/>
- <layer name="sol" width="12" height="14" visible="0">
+ <layer name="sol" width="12" height="14">
   <data encoding="base64" compression="zlib">
    eJxjYMAPWBkYEtgg9AKYGCOEjxUzAdWhqweZwQQ1hw2ihoENDaOrZ4Waw4bkBnzqgWYeQHcDPvXo8sNdPaHwRwaEwh8dEBP+yHoJuR0ZAwC1KROs
   </data>
