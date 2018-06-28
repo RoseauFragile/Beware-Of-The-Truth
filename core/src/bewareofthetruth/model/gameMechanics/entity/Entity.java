@@ -160,7 +160,7 @@ public class Entity implements IEntity {
 		def.fixedRotation = true;
 		pBody = this.getWorld().createBody(def);
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(44 / 2 / PPM, 64 / 2 / PPM);
+		shape.setAsBox(25 / 2 / PPM, 64 / 2 / PPM);
 		pBody.createFixture(shape, 1.0f);
 		shape.dispose();
 		System.out.println("BODY CREE");
