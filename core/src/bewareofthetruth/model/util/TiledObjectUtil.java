@@ -1,5 +1,6 @@
 package bewareofthetruth.model.util;
 
+import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.PolylineMapObject;
@@ -30,6 +31,22 @@ public class TiledObjectUtil {
 			shape.dispose();
 		}
 	}
+	
+	/*public static void parseTiledObjectLayer(World world, MapLayer mapLayer) {
+		Shape shape = null;
+		
+		
+			shape = createPolyline((PolylineMapObject) mapLayer.getObjects());
+		
+		
+		Body body;
+		BodyDef bdef = new BodyDef();
+		bdef.type = BodyDef.BodyType.StaticBody;
+		body = world.createBody(bdef);
+		body.createFixture(shape, 1.0f);
+		shape.dispose();
+	}*/
+	
 	
 	private static ChainShape createPolyline(PolylineMapObject polyline) {
 		float[] vertices = polyline.getPolyline().getTransformedVertices();
