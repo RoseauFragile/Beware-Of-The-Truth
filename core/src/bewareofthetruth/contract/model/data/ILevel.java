@@ -2,7 +2,7 @@ package bewareofthetruth.contract.model.data;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import bewareofthetruth.contract.model.gameMecanism.IEntity;
 import bewareofthetruth.contract.model.gameMecanism.IPlayer;
@@ -49,8 +49,8 @@ public interface ILevel {
 
 	public void setPlayer(IPlayer player);
 
-	public OrthogonalTiledMapRenderer getTmr();
+	public TiledMapRenderer getTmr();
 
-	public void setTmr();
+	public void setTmr(TiledMapRenderer tmr);
 
 }

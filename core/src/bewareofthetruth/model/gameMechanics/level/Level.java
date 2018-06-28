@@ -2,6 +2,8 @@ package bewareofthetruth.model.gameMechanics.level;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
@@ -29,16 +31,18 @@ public class Level implements ILevel {
 	private String sourceMap;
 	private World world;
 	private IPlayer player;
-	private OrthogonalTiledMapRenderer	tmr;
+	//private OrthogonalTiledMapRenderer	tmr;
+	private TiledMapRenderer tmr;
 
 	public Level(float id, String levelName, float height, float width, String sourceMap) throws SQLException {
+		System.out.println(sourceMap);
 		this.setLevelName(levelName);
 		this.setId(id);
 		this.setDimension(height, width);
 		this.setMap(new Map(sourceMap));
 		this.getMap().setLevel(this);
 		this.setWorld(new World(new Vector2(0,0), true));
-		this.setTmr();
+		this.setTmr(new OrthogonalTiledMapRenderer(this.getMap().getTiledMap()));
 		
 		TiledObjectUtil.parseTiledObjectLayer(this.getWorld(), this.getMap().getTiledMap().getLayers().get("collision-layer").getObjects());
 	}
@@ -137,11 +141,12 @@ public class Level implements ILevel {
 		this.player = player;
 	}
 	
-	public OrthogonalTiledMapRenderer getTmr() {
+	public TiledMapRenderer getTmr() {
 		return this.tmr;
 	}
 
-	public void setTmr() {
-		this.tmr = new OrthogonalTiledMapRenderer(this.getMap().getTiledMap(), 1 / 2f);
+	public void setTmr(TiledMapRenderer tmr) {
+		this.tmr = tmr;
+		
 	}
 }

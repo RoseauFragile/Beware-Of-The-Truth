@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="left-up" width="12" height="14" tilewidth="128" tileheight="128" infinite="0" nextobjectid="6">
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="left-up" width="12" height="14" tilewidth="128" tileheight="128" infinite="0" nextobjectid="9">
  <tileset firstgid="1" source="Tileset-Sol-niveau-1-128.128.tsx"/>
  <tileset firstgid="17" source="Tileset-Wall-Niveau-1-128.128.tsx"/>
  <layer name="sol" width="12" height="14">
   <data encoding="base64" compression="zlib">
-   eJxjYMAPWBkYEtgg9AKYGCOEjxUzAdWhqweZwQQ1hw2ihoENDaOrZ4Waw4bkBnzqgWYeQHcDPvXo8sNdPaHwRwaEwh8dEBP+yHoJuR0ZAwC1KROs
+   eJxjY2BgYMODWRkYEqD0ApgYI4SPFTNB1SGrB5kBFE8A0gdAmAm7PSjq0fmE1DNBzEZxAz71+Pw8VNQzYsF4wgce/ujqoWIHcIU/NvPR0wgs/HG5h1wMAKnXF7k=
   </data>
  </layer>
  <layer name="mur" width="12" height="14">
@@ -32,11 +32,20 @@
   <object id="3" x="381.09" y="1410.18">
    <polyline points="0,0 3.0303,118.182 251.515,115.152 257.576,3.0303"/>
   </object>
-  <object id="4" x="381" y="1410">
-   <polyline points="0,0 258,1"/>
+  <object id="4" x="381.333" y="381.333">
+   <polyline points="0,0 256,6.66667"/>
   </object>
-  <object id="5" x="382" y="382">
-   <polyline points="0,0 254,9"/>
+  <object id="5" x="382.667" y="1410.67">
+   <polyline points="0,0 257.333,0"/>
+  </object>
+  <object id="6" x="1153.33" y="1409.33">
+   <polyline points="0,0 238.667,-1.33333 240,-129.333"/>
+  </object>
+  <object id="7" x="378" y="380">
+   <polyline points="0,0 260,10"/>
+  </object>
+  <object id="8" x="382" y="1406">
+   <polyline points="0,0 254,2"/>
   </object>
  </objectgroup>
 </map>

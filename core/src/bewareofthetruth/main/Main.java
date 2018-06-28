@@ -72,7 +72,7 @@ public class Main implements ApplicationListener {
 		this.constant.WORLD.dispose();
 		this.constant.DEBUG_RENDERER.dispose();
 		this.constant.BATCH.dispose();
-		this.constant.TMR.dispose();
+		//this.constant.TMR.dispose();
 		this.constant.TILEDMAP.dispose();
 	}
 

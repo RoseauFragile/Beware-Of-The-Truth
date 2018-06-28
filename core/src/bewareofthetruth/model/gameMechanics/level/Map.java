@@ -62,7 +62,7 @@ public class Map implements IMap {
 	}
 
 	public void setTiledMap(String map) {
-		this.map = new TmxMapLoader().load("tiledMap/"+map);
+		this.map = new TmxMapLoader().load("tiledMap/" + map);//"tiledMap/"+map);
 	}
 	
 	public ILevel getLevel() {
