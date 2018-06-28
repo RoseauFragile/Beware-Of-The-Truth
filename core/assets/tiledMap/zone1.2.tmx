@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="left-up" width="128" height="128" tilewidth="128" tileheight="128" infinite="0" nextobjectid="1">
+ <tileset firstgid="1" source="tileset/sol.tsx"/>
+ <tileset firstgid="19" source="tileset/mur.tsx"/>
+ <tileset firstgid="67" source="tileset/lampe3.tsx"/>
+ <tileset firstgid="68" source="tileset/lampe2.tsx"/>
+ <tileset firstgid="69" source="tileset/lampe1.tsx"/>
+ <layer name="sol" width="128" height="128">
+  <data encoding="base64" compression="zlib">
+   eJzt1EEKgCAUBFAroiKq+98214KuSkHfg9kPDP+HAAAAAAAAAAAAAAAAAAAAAAAAAAAA35li5kyWhr2ow/5j22L2TI6GvaijtP8Z/IHelfb3B/pn/7Gl+68xd5KnWTv+lu7v1sdi/7Fdwa8HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOjZC7T0Akk=
+  </data>
+ </layer>
+ <layer name="mur" width="128" height="128">
+  <data encoding="base64" compression="zlib">
+   eJzt1LEJACAQBEGbUlOx/6J8CzBSeJAZ2PyiKwUAAAAAAAAAAAAAAAAAAAAAAAAAAN6pUTvUE3cB+fY/+IG/jWhmjwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4MoCJQcCnw==
+  </data>
+ </layer>
+ <layer name="toit" width="128" height="128">
+  <data encoding="base64" compression="zlib">
+   eJzt0zEKwkAQhtG9g3ZaBCxiZWMKEe9/rkwRQYTgFjELs+/B120x8LOlAAAAAAAAAAAAAAAAAAAAAAAAAABsZ4yuPxqWyGeqeHMv9s/qVfHmEt3+fQhNvPd/RM+Wh9BEzf8nL/v3zf59s3/f1vY/RMevyGdt/1N0/mjY6yB2ZX8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgPxmr74Gjw==
+  </data>
+ </layer>
+ <layer name="decors" width="128" height="128">
+  <data encoding="base64" compression="zlib">
+   eJztwQEBAAAAgJD+r+4ICgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGoADwAB
+  </data>
+ </layer>
+ <layer name="decors-lumiere" width="128" height="128">
+  <data encoding="base64" compression="zlib">
+   eJztzqERADAIADF2o91/JTZA9aAisW8+AgAAAAAAAAAAAAAAAAAAAAAAAAAA3rlNO2MXwK9yewAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGgV0+sAzQ==
+  </data>
+ </layer>
+ <objectgroup name="collision"/>
+</map>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="left-up" width="12" height="12" tilewidth="128" tileheight="128" infinite="0" nextobjectid="5">
+ <tileset firstgid="1" source="tileset/sol.tsx"/>
+ <tileset firstgid="19" source="tileset/mur.tsx"/>
+ <tileset firstgid="67" source="tileset/lampe3.tsx"/>
+ <tileset firstgid="68" source="tileset/lampe2.tsx"/>
+ <tileset firstgid="69" source="tileset/lampe1.tsx"/>
+ <layer name="sol" width="12" height="12">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgYwAjETEiYmYB6diDmQMKcOMyBYR4c6tHNgWFWIOaDYjYi1MPkYWqQ+djUc6O5jZB6fPbxMaC6Fd39IMyPNRQR/uHEIY8OeAmYBwAbGgJn
+  </data>
+ </layer>
+ <layer name="decors" width="12" height="12">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo4B8AAACQAAB
+  </data>
+ </layer>
+ <layer name="mur" width="12" height="12">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAOMAViMyRsTqY52ljMcqKGA8kEvEDMhkPOgQG729hJtINU9bwkqqclAADNtAMD
+  </data>
+ </layer>
+ <layer name="decors-lumiere" width="12" height="12">
+  <data encoding="base64" compression="zlib">
+   eJxjYKANcKaRuYMJODOMDH/iAwAJEwDK
+  </data>
+ </layer>
+ <layer name="toit" width="12" height="12">
+  <data encoding="base64" compression="zlib">
+   eJyTYWBgkMGCNbBgkLg6FrUmDNiBMRDrYTFHE4d6ayhtBsWEgDVhJSSptwBiKwrNlyRRvSKN1YPiRwSKRdHkhZHkRKBq1RgQ8YpulzSSnAKUBgDadghl
+  </data>
+ </layer>
+ <objectgroup name="collision">
+  <object id="3" x="1" y="452">
+   <polyline points="0,0 0,507 122,507 122,897 502,900.5 502.5,1084 897,1083.5 898,889.5 1410.5,898 1408,-254 761.5,-252.5 764.5,2 0,0.5"/>
+  </object>
+  <object id="4" x="896.667" y="830.667">
+   <polyline points="0,0 254,2.66667 252,-85.3333 1.33333,-81.3333 -0.666667,-0.666667"/>
+  </object>
+ </objectgroup>
+</map>
