@@ -42,17 +42,13 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 
 	public BewareOfTruthModel() throws SQLException {
 		
-		//System.out.println("LEVEL ACTUEL : " + this.getLevel().getSourceMap());
 		this.initializeModel();
 		this.setChapter(new Chapter(1));
 		this.setPlayer(indexLevel, this.getChapter().getLevels().get(indexLevel).getWorld());
 		this.setLevel(this.getChapter().getLevels().get(indexLevel));
 		this.initializeFirstLevelOfChapter();
-		System.out.println("LEVEL ACTUEL 1 : " + this.getLevel().getMap().getMapName());
 		this.setDebugRenderer(new Box2DDebugRenderer());
 		this.setBatch(new SpriteBatch());
-		System.out.println("LEVEL ACTUEL 2 : " + this.getLevel().getMap().getMapName());
-
 	}
 
 	@Override
