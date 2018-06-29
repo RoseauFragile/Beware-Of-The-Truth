@@ -160,8 +160,8 @@ public class Level implements ILevel {
 	public void updateEnnemiesMovement() {
 		for(int i = 0; i< this.getMobiles().size(); i++) {
 			this.getMobiles().get(i).getBody().setLinearVelocity(
-			this.getPlayer().getBody().getPosition().x - this.getMobiles().get(i).getBody().getPosition().x,
-			this.getPlayer().getBody().getPosition().y - this.getMobiles().get(i).getBody().getPosition().y);
+			(this.getPlayer().getBody().getPosition().x - this.getMobiles().get(i).getBody().getPosition().x) ,
+			(this.getPlayer().getBody().getPosition().y - this.getMobiles().get(i).getBody().getPosition().y));
 			//this.getMobiles().get(i).getBody().setLinearVelocity(this.getPlayer().getBody().getPosition());
 		}
 	}

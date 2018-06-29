@@ -53,7 +53,7 @@ public class Main implements ApplicationListener {
 
 		this.constant.TMR.render(this.constant.LEVEL.getLayerAfterBackground());
 		
-		this.constant.DEBUG_RENDERER.render(this.constant.WORLD, this.constant.CAMERA.getCamera().combined.scl(PPM));
+		//this.constant.DEBUG_RENDERER.render(this.constant.WORLD, this.constant.CAMERA.getCamera().combined.scl(PPM));
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
 			Gdx.app.exit();
 		}

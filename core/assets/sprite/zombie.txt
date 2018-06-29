@@ -1,0 +1,173 @@
+zombie.png
+size: 120, 462
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+attackDown
+  rotate: false
+  xy: 1, 265
+  size: 39, 64
+  orig: 64, 64
+  offset: 3, 0
+  index: 0
+attackDown
+  rotate: false
+  xy: 42, 265
+  size: 38, 64
+  orig: 64, 64
+  offset: 4, 0
+  index: 1
+attackLeft
+  rotate: false
+  xy: 72, 199
+  size: 33, 64
+  orig: 64, 64
+  offset: 12, 0
+  index: 0
+attackLeft
+  rotate: false
+  xy: 1, 199
+  size: 41, 64
+  orig: 64, 64
+  offset: 4, 0
+  index: 1
+attackRight
+  rotate: false
+  xy: 82, 265
+  size: 33, 64
+  orig: 64, 64
+  offset: 19, 0
+  index: 0
+attackRight
+  rotate: false
+  xy: 30, 331
+  size: 43, 64
+  orig: 64, 64
+  offset: 19, 0
+  index: 1
+attackUp
+  rotate: false
+  xy: 40, 397
+  size: 37, 64
+  orig: 64, 64
+  offset: 16, 0
+  index: 0
+attackUp
+  rotate: false
+  xy: 1, 397
+  size: 37, 64
+  orig: 64, 64
+  offset: 16, 0
+  index: 1
+idleDown
+  rotate: false
+  xy: 79, 397
+  size: 26, 64
+  orig: 64, 64
+  offset: 16, 0
+  index: 0
+idleLeft
+  rotate: false
+  xy: 75, 331
+  size: 27, 64
+  orig: 64, 64
+  offset: 18, 0
+  index: 0
+idleRight
+  rotate: false
+  xy: 1, 331
+  size: 27, 64
+  orig: 64, 64
+  offset: 19, 0
+  index: 0
+idleUp
+  rotate: false
+  xy: 44, 199
+  size: 26, 64
+  orig: 64, 64
+  offset: 19, 0
+  index: 0
+walkDown
+  rotate: false
+  xy: 90, 133
+  size: 27, 64
+  orig: 64, 64
+  offset: 15, 0
+  index: 0
+walkDown
+  rotate: false
+  xy: 90, 1
+  size: 26, 64
+  orig: 64, 64
+  offset: 21, 0
+  index: 1
+walkDown
+  rotate: false
+  xy: 1, 67
+  size: 26, 64
+  orig: 64, 64
+  offset: 27, 0
+  index: 2
+walkLeft
+  rotate: false
+  xy: 58, 1
+  size: 30, 64
+  orig: 64, 64
+  offset: 18, 0
+  index: 0
+walkLeft
+  rotate: false
+  xy: 1, 1
+  size: 26, 64
+  orig: 64, 64
+  offset: 18, 0
+  index: 1
+walkLeft
+  rotate: false
+  xy: 29, 67
+  size: 30, 64
+  orig: 64, 64
+  offset: 18, 0
+  index: 2
+walkRight
+  rotate: false
+  xy: 89, 67
+  size: 30, 64
+  orig: 64, 64
+  offset: 16, 0
+  index: 0
+walkRight
+  rotate: false
+  xy: 30, 133
+  size: 26, 64
+  orig: 64, 64
+  offset: 20, 0
+  index: 1
+walkRight
+  rotate: false
+  xy: 58, 133
+  size: 30, 64
+  orig: 64, 64
+  offset: 16, 0
+  index: 2
+walkUp
+  rotate: false
+  xy: 1, 133
+  size: 27, 64
+  orig: 64, 64
+  offset: 15, 0
+  index: 0
+walkUp
+  rotate: false
+  xy: 61, 67
+  size: 26, 64
+  orig: 64, 64
+  offset: 20, 0
+  index: 1
+walkUp
+  rotate: false
+  xy: 29, 1
+  size: 27, 64
+  orig: 64, 64
+  offset: 21, 0
+  index: 2
