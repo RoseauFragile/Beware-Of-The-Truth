@@ -2,7 +2,6 @@ package bewareofthetruth.model.gameMechanics.level;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -32,6 +31,8 @@ public class Level implements ILevel {
 	private World world;
 	private IPlayer player;
 	private TiledMapRenderer tmr;
+	private int[] layerBackground = {0,1,2,3,4};
+	private int[] layerAfterBackground = {5,6};
 
 	public Level(float id, String levelName, float height, float width, String sourceMap) throws SQLException {
 		System.out.println(sourceMap);
@@ -146,5 +147,13 @@ public class Level implements ILevel {
 	public void setTmr(TiledMapRenderer tmr) {
 		this.tmr = tmr;
 		
+	}
+
+	public int[] getLayerBackground() {
+		return layerBackground;
+	}
+
+	public int[] getLayerAfterBackground() {
+		return layerAfterBackground;
 	}
 }

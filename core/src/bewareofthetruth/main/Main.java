@@ -43,7 +43,7 @@ public class Main implements ApplicationListener {
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		this.constant.CAMERA.getCamera().update();
-		this.constant.TMR.render();
+		this.constant.TMR.render(this.constant.LEVEL.getLayerBackground());
 
 		// BATCH START
 		this.constant.BATCH.begin();
@@ -51,6 +51,8 @@ public class Main implements ApplicationListener {
 		// BATCH END
 		this.constant.BATCH.end();
 
+		this.constant.TMR.render(this.constant.LEVEL.getLayerAfterBackground());
+		
 		this.constant.DEBUG_RENDERER.render(this.constant.WORLD, this.constant.CAMERA.getCamera().combined.scl(PPM));
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
 			Gdx.app.exit();

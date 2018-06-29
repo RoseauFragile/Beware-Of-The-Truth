@@ -52,5 +52,9 @@ public interface ILevel {
 	public TiledMapRenderer getTmr();
 
 	public void setTmr(TiledMapRenderer tmr);
+	
+	public int[] getLayerBackground();
+
+	public int[] getLayerAfterBackground();
 
 }
