@@ -188,6 +188,12 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 		this.getBatch().draw(this.getLevel().getPlayer().getCurrentTextureRegion(this.getStateTime()),
 		this.getLevel().getPlayer().getBody().getPosition().x * PPM - (this.getLevel().getPlayer().getCurrentTextureRegion(this.getStateTime()).getRegionWidth() / 2),
 		this.getLevel().getPlayer().getBody().getPosition().y * PPM - (this.getLevel().getPlayer().getCurrentTextureRegion(this.getStateTime()).getRegionHeight() / 2));
+		
+		/*for(int i = 0; i < this.getLevel().getMobiles().size(); i++) {
+			this.getBatch().draw(this.getLevel().getMobiles().get(i).getCurrentTextureRegion(this.getStateTime()),
+					this.getLevel().getMobiles().get(i).getBody().getPosition().x * PPM - (this.getLevel().getMobiles().get(i).getCurrentTextureRegion(this.getStateTime()).getRegionWidth() / 2),
+					this.getLevel().getMobiles().get(i).getBody().getPosition().y * PPM - (this.getLevel().getMobiles().get(i).getCurrentTextureRegion(this.getStateTime()).getRegionHeight() / 2));
+		}*/
 	}
 
 	public float getStateTime() {

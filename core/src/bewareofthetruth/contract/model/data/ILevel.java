@@ -56,5 +56,7 @@ public interface ILevel {
 	public int[] getLayerBackground();
 
 	public int[] getLayerAfterBackground();
+	
+	public void updateEnnemiesMovement();
 
 }

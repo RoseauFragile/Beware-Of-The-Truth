@@ -86,6 +86,7 @@ public class Main implements ApplicationListener {
 		this.constant.CAMERA.cameraUpdate(this.constant.PLAYER.getBody().getPosition());
 		this.constant.TMR.setView(this.constant.CAMERA.getCamera());
 		this.constant.BATCH.setProjectionMatrix(this.constant.CAMERA.getCamera().combined);
+		this.constant.LEVEL.updateEnnemiesMovement();
 	}
 
 	public void inputUpdate(final float delta) {
