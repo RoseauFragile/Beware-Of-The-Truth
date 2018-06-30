@@ -16,19 +16,13 @@ public class Camera implements ICamera {
 
 	private OrthographicCamera	cam;
 	private Viewport			viewport;
-	private Viewport			splashViewport;
 	private float				rotationSpeed	= 0.5f;
 	private IBewareOfTruthModel	bewareOfTruthModel;
 
 	
 
 	public Camera(float width, float height) {
-		/*this.setCamera(new OrthographicCamera());
-		this.setViewport(new ScreenViewport(cam));
-		cam.setToOrtho(false, Gdx.graphics.getWidth()/ SCALE, Gdx.graphics.getHeight() / SCALE);
-		SpriteBatch batch = new SpriteBatch();
-		batch.setProjectionMatrix(cam.combined);
-		cam.update();*/
+
 	}
 
 	public void resize(int width, int height) {
@@ -82,14 +76,6 @@ public class Camera implements ICamera {
 		this.viewport = viewport;
 	}
 
-	public Viewport getSplashViewport() {
-		return splashViewport;
-	}
-
-	public void setSplashViewport(Viewport splashViewport) {
-		this.splashViewport = splashViewport;
-	}
-
 	@Override
 	public void setOrthographicCamera(OrthographicCamera orthographicCamera) {
 		this.cam = orthographicCamera;
@@ -107,10 +93,9 @@ public class Camera implements ICamera {
 
 	@Override
 	public void setSplashCamera(float aspectRatio, float gameWidth, float gameHeight) {
-		//this.setSplashCamera(aspectRatio, gameWidth, gameHeight);
 		this.setOrthographicCamera(new OrthographicCamera(32 * aspectRatio, 32 * aspectRatio));
 		this.getCamera().position.set(gameWidth / 2, gameHeight / 2, 0);
-		this.setSplashViewport(new FillViewport(gameWidth, gameHeight, this.getCamera()));
-		this.getSplashViewport().apply();
+		this.setViewport(new FillViewport(gameWidth, gameHeight, this.getCamera()));
+		this.getViewport().apply();
 	}
 }

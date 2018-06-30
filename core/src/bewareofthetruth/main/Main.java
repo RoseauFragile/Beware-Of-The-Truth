@@ -31,7 +31,7 @@ public class Main implements ApplicationListener {
 
 	@Override
 	public void resize(final int width, final int height) {
-		this.gsm.resize((int) (width / SCALE), (int) (height / SCALE));
+		this.gsm.resize(width, height);
 	}
 
 	@Override

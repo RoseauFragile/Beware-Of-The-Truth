@@ -23,10 +23,6 @@ public interface ICamera {
 
 	public Viewport getViewport();
 
-	public Viewport getSplashViewport();
-
-	public void setSplashViewport(Viewport splashViewport);
-
 	public void setOrthographicCamera(OrthographicCamera orthographicCamera);
 
 	public void setPlayCamera();

@@ -33,7 +33,7 @@ public class SplashState extends GameState {
 	public void init() {
 
 		this.getConstant().CAMERA.setSplashCamera(aspectRatio, GAME_WIDTH, GAME_HEIGHT);
-		stage = new Stage(this.getConstant().CAMERA.getSplashViewport());
+		stage = new Stage(this.getConstant().CAMERA.getViewport());
 		this.sprite = new Sprite(new Texture("sprite/Beware-Of-Truth.png"));
 		Sprite menuSprite = new Sprite(new Texture("gameMenu.png"));
 		Image menuImage = new Image(menuSprite);
@@ -106,7 +106,7 @@ public class SplashState extends GameState {
 	@Override
 	public void resize(int w, int h) {
 		this.gsm.game().getModelFacade().getBewareOfTruthModel().getCam().getCamera().setToOrtho(false, GAME_WIDTH, GAME_HEIGHT);
-		this.gsm.game().getModelFacade().getBewareOfTruthModel().getCam().getSplashViewport().update(w, h);
+		this.gsm.game().getModelFacade().getBewareOfTruthModel().getCam().getViewport().update(w, h);
 	}
 
 	@Override
