@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import bewareofthetruth.contract.model.data.IBewareOfTruthModel;
 import bewareofthetruth.contract.model.data.IModelFacade;
 import bewareofthetruth.contract.model.gameMecanism.IPlayer;
-import bewareofthetruth.main.Constants;
+import bewareofthetruth.model.util.Constants;
 
 public class ModelFacade implements IModelFacade {
 
@@ -17,8 +17,7 @@ public class ModelFacade implements IModelFacade {
 		System.out.println("ModelFacade créer");
 		this.setBewareOfTruthModel(new BewareOfTruthModel());
 		this.getBewareOfTruthModel().setModelFacade(this);
-		this.setConstants(new Constants());
-		this.getConstants().setModelFacade(this);
+		//this.setConstants(new Constants(this));
 	}
 
 	@Override
@@ -32,7 +31,7 @@ public class ModelFacade implements IModelFacade {
 
 	@Override
 	public IPlayer getPlayer() {
-		return this.getBewareOfTruthModel().getPlayer();
+		return this.getBewareOfTruthModel().getLevel().getPlayer();
 	}
 
 	public Constants getConstants() {

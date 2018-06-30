@@ -1,23 +1,24 @@
 package bewareofthetruth.model.gameMechanics.entity;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-
 import bewareofthetruth.contract.model.gameMecanism.IEntity;
 import bewareofthetruth.contract.model.gameMecanism.behaviors.IBounceStrategy;
 import bewareofthetruth.contract.model.gameMecanism.behaviors.IDodgeStrategy;
 import bewareofthetruth.contract.model.gameMecanism.behaviors.IMoveStrategy;
+import bewareofthetruth.contract.model.utils.Direction;
 import bewareofthetruth.contract.model.utils.IAudio;
 import bewareofthetruth.contract.model.utils.IDimension;
 import bewareofthetruth.contract.model.utils.IPosition;
 import bewareofthetruth.model.util.Position;
+import static bewareofthetruth.model.util.Constants.PPM;
 
 public class Entity implements IEntity {
 
@@ -32,24 +33,34 @@ public class Entity implements IEntity {
 	private IPosition position;
 
 	private IAudio audio;
-
-	private Sprite sprite;
-	
-	private Texture texture;
-	
-	private Animation animation;
-	
-	private TextureRegion[][] regions;
 	
 	private Body body;
 	
 	private World world;
 	
-	public Entity(String sourceTexture, World world) {
-		this.position = new Position();
+	private boolean isStatic;
+	
+	private float idleDelta;
+	
+	private float walkDelta;
+	
+	private TextureAtlas atlas;
+	
+	private Animation<TextureRegion> animationCurrent;
+	
+	private Direction lastDirection;
+	
+	public Entity(String sourceTexture, World world, float x, float y, boolean isStatic) {
+		this.setPosition(new Position());
+		this.setStatic(isStatic);
+		this.getPosition().setX(x);
+		this.getPosition().setY(y);
 		this.setWorld(world);
-		this.setTexture(new Texture("assets/sprite/"+sourceTexture));
-		this.setRegions(TextureRegion.split(this.getTexture(), 64, 64));
+		this.setBody(this.createDynamicBody());
+		this.setIdleDelta(0f);
+		this.setWalkDelta(0f);
+		this.setAtlas(null);
+		this.setAnimationCurrent(null);
 	}
 
 	@Override
@@ -123,42 +134,8 @@ public class Entity implements IEntity {
 	}
 
 	@Override
-	public Sprite getSprite() {
-		return sprite;
-	}
-
-	@Override
 	public void setBounceStrategy(IBounceStrategy bounceStrategy) {
 
-	}
-
-	@Override
-	public void setSprite(Sprite sprite) {
-		this.sprite = sprite;
-	}
-
-	public Texture getTexture() {
-		return this.texture;
-	}
-
-	public void setTexture(Texture texture) {
-		this.texture = texture;
-	}
-
-	public Animation getAnimation() {
-		return this.animation;
-	}
-
-	public void setAnimation(Animation animation) {
-		this.animation = animation;
-	}
-
-	public TextureRegion[][] getRegions() {
-		return regions;
-	}
-
-	public void setRegions(TextureRegion[][] regions) {
-		this.regions = regions;
 	}
 
 	public Body getBody() {
@@ -172,16 +149,21 @@ public class Entity implements IEntity {
 	public Body createDynamicBody() {
 		Body pBody;
 		BodyDef def = new BodyDef();
-		def.type = BodyDef.BodyType.DynamicBody;
-		def.position.set(0,0);
+		
+		if(this.isStatic() == false) {
+			def.type = BodyDef.BodyType.DynamicBody;
+		}else {
+			def.type = BodyDef.BodyType.StaticBody;
+		}
+		
+		def.position.set(this.getPosition().getX() / PPM,this.getPosition().getY() / PPM);
 		def.fixedRotation = true;
 		pBody = this.getWorld().createBody(def);
-		
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(32 / 2, 32 / 2);
-		
+		shape.setAsBox(25 / 2 / PPM, 64 / 2 / PPM);
 		pBody.createFixture(shape, 1.0f);
 		shape.dispose();
+		System.out.println("BODY CREE");
 		return pBody;
 	}
 
@@ -191,5 +173,134 @@ public class Entity implements IEntity {
 
 	public void setWorld(World world) {
 		this.world = world;
+	}
+	
+	public void updateEntity() {
+		this.body.getPosition().x = this.getPosition().getX();
+		this.body.getPosition().y = this.getPosition().getY();
+	}
+
+	public boolean isStatic() {
+		return isStatic;
+	}
+
+	public void setStatic(boolean isStatic) {
+		this.isStatic = isStatic;
+	}
+
+	public TextureRegion getCurrentTextureRegion(final float stateTime) {
+		return this.getAnimationCurrent().getKeyFrame(stateTime, true);
+	}
+
+	public void disposeAtlas() {
+		this.getAtlas().dispose();
+	}
+
+	private Animation<TextureRegion> instantiateNewAnimation(final float delta, final String regionsName) {
+		return new Animation<TextureRegion>(delta, this.atlas.findRegions(regionsName), PlayMode.LOOP_PINGPONG);
+	}
+
+	public Animation<TextureRegion> getAnimationIdleUp() {
+		return this.instantiateNewAnimation(this.idleDelta, "idleUp");
+	}
+
+	public Animation<TextureRegion> getAnimationIdleDown() {
+		return this.instantiateNewAnimation(this.idleDelta, "idleDown");
+	}
+
+	public Animation<TextureRegion> getAnimationIdleRight() {
+		return this.instantiateNewAnimation(this.idleDelta, "idleRight");
+	}
+
+	public Animation<TextureRegion> getAnimationIdleLeft() {
+		return this.instantiateNewAnimation(this.idleDelta, "idleLeft");
+	}
+
+	public Animation<TextureRegion> getAnimationWalkUp() {
+		return this.instantiateNewAnimation(this.walkDelta, "walkUp");
+	}
+
+	public Animation<TextureRegion> getAnimationWalkDown() {
+		return this.instantiateNewAnimation(this.walkDelta, "walkDown");
+	}
+
+	public Animation<TextureRegion> getAnimationWalkRight() {
+		return this.instantiateNewAnimation(this.walkDelta, "walkRight");
+	}
+
+	public Animation<TextureRegion> getAnimationWalkLeft() {
+		return this.instantiateNewAnimation(this.walkDelta, "walkLeft");
+	}
+
+	public void moveUp() {
+		this.setAnimationCurrent(this.getAnimationWalkUp());
+	}
+
+	public void moveDown() {
+		this.setAnimationCurrent(this.getAnimationWalkDown());
+	}
+
+	public void moveRight() {
+		this.setAnimationCurrent(this.getAnimationWalkRight());
+	}
+
+	public void moveLeft() {
+		this.setAnimationCurrent(this.getAnimationWalkLeft());
+	}
+
+	public void idleUp() {
+		this.setAnimationCurrent(this.getAnimationIdleUp());
+	}
+
+	public void idleDown() {
+		this.setAnimationCurrent(this.getAnimationIdleDown());
+	}
+
+	public void idleRight() {
+		this.setAnimationCurrent(this.getAnimationIdleRight());
+	}
+
+	public void idleLeft() {
+		this.setAnimationCurrent(this.getAnimationIdleLeft());
+	}
+
+	public Animation<TextureRegion> getAnimationCurrent() {
+		return this.animationCurrent;
+	}
+
+	public void setAnimationCurrent(final Animation<TextureRegion> animationCurrent) {
+		this.animationCurrent = animationCurrent;
+	}
+
+	public float getIdleDelta() {
+		return this.idleDelta;
+	}
+
+	public void setIdleDelta(final float idleDelta) {
+		this.idleDelta = idleDelta;
+	}
+
+	public float getWalkDelta() {
+		return this.walkDelta;
+	}
+
+	public void setWalkDelta(final float walkDelta) {
+		this.walkDelta = walkDelta;
+	}
+
+	public TextureAtlas getAtlas() {
+		return this.atlas;
+	}
+
+	public void setAtlas(final TextureAtlas atlas) {
+		this.atlas = atlas;
+	}
+
+	public Direction getLastDirection() {
+		return lastDirection;
+	}
+
+	public void setLastDirection(Direction lastDirection) {
+		this.lastDirection = lastDirection;
 	}
 }

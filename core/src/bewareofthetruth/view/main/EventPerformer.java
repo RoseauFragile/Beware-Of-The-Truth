@@ -2,9 +2,6 @@ package bewareofthetruth.view.main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-
-import org.lwjgl.input.Mouse;
-
 import bewareofthetruth.contract.maininterfaces.IOrderPerformer;
 
 public class EventPerformer implements IEventPerformer {
@@ -16,13 +13,13 @@ public class EventPerformer implements IEventPerformer {
 	@Override
 	public int getMousePosX() {
 		// TODO Auto-generated method stub
-		return Mouse.getX();
+		return 0;//Mouse.getX();
 	}
 
 	@Override
 	public int getMousePosY() {
 		// TODO Auto-generated method stub
-		return Mouse.getY();
+		return 0;//Mouse.getY();
 	}
 
 	@Override

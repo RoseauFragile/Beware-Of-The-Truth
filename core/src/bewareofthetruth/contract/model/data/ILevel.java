@@ -1,27 +1,17 @@
 package bewareofthetruth.contract.model.data;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
-
-import bewareofthetruth.contract.model.gameMecanism.ICharacter;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.physics.box2d.World;
+import bewareofthetruth.contract.model.gameMecanism.IEntity;
 import bewareofthetruth.contract.model.gameMecanism.IPlayer;
-import bewareofthetruth.contract.model.gameMecanism.IProjectile;
-import bewareofthetruth.contract.model.gameMecanism.ITile;
 import bewareofthetruth.contract.model.utils.IDimension;
 import bewareofthetruth.contract.model.utils.ISound;
 
-/* **** POUR BEN **** INTERFACE QUI SE TROUVERA DANS LE GAME CONTAINER ACTUELLEMENT LE BEWWAREOFTRUTHMODEL, LE LEVEL CONTIENT LA MAP ET PLUSIEURS ARRAYLIST */
-
 public interface ILevel {
 
-	public void addCharacters(final ICharacter character);
-
-	public void addProjectiles(final IProjectile projectile);
-
-	public void addSpecials(final ITile special);
-
 	public ISound getAudio();
-
-	public ArrayList<ICharacter> getCharacters();
 
 	public IDimension getDimension();
 
@@ -31,37 +21,11 @@ public interface ILevel {
 
 	public IPlayer getPlayer();
 
-	public ArrayList<IProjectile> getProjectiles();
-
-	public ArrayList<ITile> getSpecials();
-
-	public ArrayList<ITile> getTiles();
-
-	public void removeCharacters(final ICharacter character);
-
-	public void removeProjectiles(final IProjectile projectile);
-
-	public void removeSpecials(final ITile special);
-
 	public void setAudio(ISound audio);
-
-	public void setCharacters(ArrayList<ICharacter> arrayListCharacter);
-
-	public void setDimension(IDimension dimension);
-
-	public void setGame(final IGame game);
 
 	public void setLevelName(String levelName);
 
 	public void setMap(IMap map);
-
-	public void setPlayer(IPlayer player);
-
-	public void setProjectiles(ArrayList<IProjectile> projectiles);
-
-	public void setSpecials(ArrayList<ITile> specials);
-
-	public void setTiles(ArrayList<ITile> arrayListTiles);
 
 	public IChapter getChapter();
 
@@ -74,5 +38,25 @@ public interface ILevel {
 	public String getSourceMap();
 
 	public void setSourceMap(String sourceMap);
+	
+	public ArrayList<IEntity> getMobiles();
+
+	public void setMobiles() throws SQLException;
+	
+	public World getWorld();
+
+	public void setWorld(World world);
+
+	public void setPlayer(IPlayer player);
+
+	public TiledMapRenderer getTmr();
+
+	public void setTmr(TiledMapRenderer tmr);
+	
+	public int[] getLayerBackground();
+
+	public int[] getLayerAfterBackground();
+	
+	public void updateEnnemiesMovement();
 
 }

@@ -1,10 +1,10 @@
 package bewareofthetruth.model.gameMechanics.mobile;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.World;
-
 import bewareofthetruth.contract.model.data.IBewareOfTruthModel;
 import bewareofthetruth.contract.model.gameMecanism.IPlayer;
+import bewareofthetruth.contract.model.utils.Direction;
 import bewareofthetruth.contract.model.utils.IEnergy;
 import bewareofthetruth.contract.model.utils.IHealth;
 import bewareofthetruth.model.gameMechanics.entity.Entity;
@@ -19,20 +19,20 @@ public class Player extends Entity implements IPlayer {
 	private int id;
 	private int idInventory;
 	private String playerName;
-	private static String sourceTexture = "zombie.png";
+	private static String sourceTexture = "herosMarche.png";
 
-	public Player(World world) {
-		super(sourceTexture, world);
-	}
-
-	public Player(int idPlayer, String nom, int idLevel, int idInventory, int idChapter, World world) {
-		super(sourceTexture, world);
+	public Player(int idPlayer, String nom, int idLevel, int idInventory, int idChapter, World world, float x, float y, boolean isStatic) {
+		super(sourceTexture, world, x, y, isStatic);
 		this.setId(idPlayer);
-		this.setPlayerName(playerName);
+		this.setPlayerName(nom);
 		this.setIdLevel(idLevel);
 		this.setIdInventory(idInventory);
 		this.setIdChapter(idChapter);
-		System.out.println("nouveau player créer");
+		this.setAtlas(new TextureAtlas("sprite/hero_walk.txt"));
+		this.setAnimationCurrent(this.getAnimationWalkDown());
+		this.setWalkDelta(0.15f);
+		this.setIdleDelta(0.15f);
+		this.setLastDirection(Direction.DOWN);
 	}
 
 	@Override
@@ -114,7 +114,4 @@ public class Player extends Entity implements IPlayer {
 	public void setPlayerName(String playerName) {
 		this.playerName = playerName;
 	}
-	
-	
-
 }

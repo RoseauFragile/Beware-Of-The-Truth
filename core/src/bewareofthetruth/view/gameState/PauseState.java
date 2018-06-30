@@ -4,9 +4,14 @@ import bewareofthetruth.view.main.GameStateManager;
 
 public class PauseState extends GameState {
 
+<<<<<<< HEAD:core/src/bewareofthetruth/view/gameState/PauseState.java
 	public PauseState(GameStateManager gsm) {
 		super(gsm);
 		init();
+=======
+	public PauseState(/*GameStateManager gsm*/) {
+		//super(gsm);
+>>>>>>> model:core/src/bewareofthetruth/view/main/PauseState.java
 	}
 
 	@Override

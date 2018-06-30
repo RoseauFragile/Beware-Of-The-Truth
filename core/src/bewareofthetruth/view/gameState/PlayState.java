@@ -6,8 +6,8 @@ import bewareofthetruth.view.main.GameStateManager;
 
 public class PlayState extends GameState {
 
-	public PlayState(GameStateManager gsm) {
-		super(gsm);
+	public PlayState(/*GameStateManager gsm*/) {
+		//super(gsm);
 		init();
 		Gdx.graphics.setTitle("Beware of truth");
 	}
