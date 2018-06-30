@@ -1,6 +1,5 @@
 package bewareofthetruth.main;
 
-import static bewareofthetruth.model.util.Constants.SCALE;
 import java.sql.SQLException;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
