@@ -1,22 +1,22 @@
 package bewareofthetruth.model;
 
+import static bewareofthetruth.model.util.Constants.PPM;
+
 import java.sql.SQLException;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-
 import bewareofthetruth.contract.model.data.IBewareOfTruthModel;
 import bewareofthetruth.contract.model.data.ICamera;
 import bewareofthetruth.contract.model.data.IChapter;
 import bewareofthetruth.contract.model.data.IGameMenu;
 import bewareofthetruth.contract.model.data.IHud;
+import bewareofthetruth.contract.model.data.ILevel;
 import bewareofthetruth.contract.model.data.IMainMenu;
 import bewareofthetruth.contract.model.data.IModelFacade;
 import bewareofthetruth.contract.model.data.IOptions;
-import bewareofthetruth.contract.model.gameMecanism.IPlayer;
 import bewareofthetruth.model.dao.BewareOfTheTruthDAO;
 import bewareofthetruth.model.dao.PlayerSql;
 import bewareofthetruth.model.gameMechanics.Chapter;
@@ -24,51 +24,36 @@ import bewareofthetruth.model.gameMechanics.mobile.Player;
 
 public class BewareOfTruthModel implements IBewareOfTruthModel {
 
-	private IPlayer player;
-	private IChapter chapter;
-	private IHud hud;
-	private IGameMenu gameMenu;
-	private IOptions options;
-	private IMainMenu mainMenu;
-	private BewareOfTheTruthDAO dao;
-	private IModelFacade modelFacade;
-	private World world;
-	private Box2DDebugRenderer debugRenderer;
-	private ICamera cam;
-	private float widthLevel;
-	private float heightLevel;
-	
+	private IChapter					chapter;
+	private IHud						hud;
+	private IGameMenu					gameMenu;
+	private IOptions					options;
+	private IMainMenu					mainMenu;
+	private BewareOfTheTruthDAO			dao;
+	private IModelFacade				modelFacade;
+	private Box2DDebugRenderer			debugRenderer;
+	private ICamera						cam;
+	private static float				XPLAYER		= 800;
+	private static float				YPLAYER		= 500;
+	private SpriteBatch					batch;
+	private ILevel						level;
+	private int							indexLevel	= 1;
+	private float stateTime = 0;
 
 	public BewareOfTruthModel() throws SQLException {
-		System.out.println("Model créer");
-		this.setWorld(new World(new Vector2(0, 0), true));	
-		this.setDao(new BewareOfTheTruthDAO());
-		this.setPlayer(1, this.getWorld());
-		this.getPlayer().setBewareOfTruthModel(this);
-		this.setMainMenu(new MainMenu());
-		this.getMainMenu().setBewareOfTruthModel(this);
-		this.setGameMenu(new GameMenu());
-		this.getGameMenu().setBewareOfTruthModel(this);
-		this.setHud(new Hud());
-		this.getHud().setBewareOfTruthModel(this);
-		this.setOptions(new Options());
-		this.getOptions().setBewareOfTruthModel(this);
-		this.setChapter(new Chapter());
-		this.getChapter().setBewareOfTruthModel(this);
-		this.setChapterByIdPlayerChapter();	
-		System.out.println(Gdx.graphics.getWidth() + " " + Gdx.graphics.getHeight());
-		this.setCam(new Camera(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2));
+		
+		this.initializeModel();
+		this.setChapter(new Chapter(1));
+		this.setPlayer(indexLevel, this.getChapter().getLevels().get(indexLevel).getWorld());
+		this.setLevel(this.getChapter().getLevels().get(indexLevel));
+		this.initializeFirstLevelOfChapter();
 		this.setDebugRenderer(new Box2DDebugRenderer());
+		this.setBatch(new SpriteBatch());
 	}
 
 	@Override
 	public IChapter getChapter() {
 		return this.chapter;
-	}
-
-	@Override
-	public IPlayer getPlayer() {
-		return this.player;
 	}
 
 	@Override
@@ -79,6 +64,7 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	@Override
 	public void setOptions(IOptions options) {
 		this.options = options;
+		this.getOptions().setBewareOfTruthModel(this);
 	}
 
 	@Override
@@ -89,6 +75,7 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	@Override
 	public void setMainMenu(IMainMenu mainMenu) {
 		this.mainMenu = mainMenu;
+		this.getMainMenu().setBewareOfTruthModel(this);
 	}
 
 	public BewareOfTheTruthDAO getDao() {
@@ -103,6 +90,7 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	@Override
 	public void setHud(IHud hud) {
 		this.hud = hud;
+		this.getHud().setBewareOfTruthModel(this);
 	}
 
 	@Override
@@ -113,6 +101,7 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	@Override
 	public void setGameMenu(IGameMenu gameMenu) {
 		this.gameMenu = gameMenu;
+		this.getGameMenu().setBewareOfTruthModel(this);
 	}
 
 	@Override
@@ -128,34 +117,20 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	@Override
 	public void setPlayer(int idLevel, World world) throws SQLException {
 		PlayerSql playerSql = this.getDao().getPlayerDao().getPlayerByIdLevel(idLevel);
-		this.player = new Player(playerSql.getIdPlayer(), playerSql.getNom(), playerSql.getIdLevel(), playerSql.getIdInventaire(), playerSql.getIdChapter(), world);
+		this.getChapter().getLevels().get(playerSql.getIdLevel()).setPlayer(new Player(playerSql.getIdPlayer(), playerSql.getNom(), playerSql.getIdLevel(),
+				playerSql.getIdInventaire(), playerSql.getIdChapter(), world, XPLAYER, YPLAYER, false));
+		this.getChapter().getLevels().get(playerSql.getIdLevel()).getPlayer().setBewareOfTruthModel(this);
 	}
 
 	@Override
-	public void setChapter(IChapter chapter) {
+	public void setChapter(IChapter chapter) throws SQLException {
 		this.chapter = chapter;
+		this.getChapter().setBewareOfTruthModel(this);
+		this.getChapter().setLevel();
 	}
 
 	public void setDao(BewareOfTheTruthDAO dao) {
 		this.dao = dao;
-	}
-
-	@Override
-	public void setChapterByIdPlayerChapter() throws SQLException {
-		this.getChapter().setIdChapter(this.getPlayer().getChapter());
-		this.getChapter().setLevel();
-	}
-	
-	public void render(SpriteBatch sb) {
-		
-	}
-
-	public World getWorld() {
-		return world;
-	}
-
-	public void setWorld(World world) {
-		this.world = world;
 	}
 
 	public Box2DDebugRenderer getDebugRenderer() {
@@ -172,26 +147,60 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 
 	public void setCam(ICamera cam) {
 		this.cam = cam;
+		this.getCam().setBewareOfTruthModel(this);
 	}
 
-	public float getWidthLevel() {
-		return widthLevel;
+	public SpriteBatch getBatch() {
+		return batch;
 	}
 
-	public void setWidthLevel(float widthLevel) {
-		this.widthLevel = widthLevel;
+	public void setBatch(SpriteBatch batch) {
+		this.batch = batch;
 	}
 
-	public float getHeightLevel() {
-		return heightLevel;
+	public ILevel getLevel() {
+		return level;
 	}
 
-	public void setHeightLevel(float heightLevel) {
-		this.heightLevel = heightLevel;
+	public void setLevel(ILevel level) {
+		this.level = level;
 	}
 
-	public void loadTiledMap() {
+	public void nextLevel() {
+		this.indexLevel += 1;
+		this.setLevel(this.getChapter().getLevels().get(indexLevel));
+	}
+
+	public void initializeFirstLevelOfChapter() throws SQLException {
+		this.setLevel(this.getChapter().getLevels().get(indexLevel));
+	}
+	
+	public void initializeModel() throws SQLException {
+		this.setDao(new BewareOfTheTruthDAO());
+		this.setMainMenu(new MainMenu());
+		this.setGameMenu(new GameMenu());
+		this.setHud(new Hud());
+		this.setOptions(new Options());
+		this.setCam(new Camera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
+	}
+	
+	public void drawBatch() {
+		this.getBatch().draw(this.getLevel().getPlayer().getCurrentTextureRegion(this.getStateTime()),
+		this.getLevel().getPlayer().getBody().getPosition().x * PPM - (this.getLevel().getPlayer().getCurrentTextureRegion(this.getStateTime()).getRegionWidth() / 2),
+		this.getLevel().getPlayer().getBody().getPosition().y * PPM - (this.getLevel().getPlayer().getCurrentTextureRegion(this.getStateTime()).getRegionHeight() / 2));
 		
+		for(int i = 0; i < this.getLevel().getMobiles().size(); i++) {
+			this.getBatch().draw(this.getLevel().getMobiles().get(i).getCurrentTextureRegion(this.getStateTime()),
+					this.getLevel().getMobiles().get(i).getBody().getPosition().x * PPM - (this.getLevel().getMobiles().get(i).getCurrentTextureRegion(this.getStateTime()).getRegionWidth() / 2),
+					this.getLevel().getMobiles().get(i).getBody().getPosition().y * PPM - (this.getLevel().getMobiles().get(i).getCurrentTextureRegion(this.getStateTime()).getRegionHeight() / 2));
+		}
 	}
 
+	public float getStateTime() {
+		return this.stateTime;
+	}
+
+	public void setStateTime(float stateTime) {
+		this.stateTime = stateTime;
+	}	
 }

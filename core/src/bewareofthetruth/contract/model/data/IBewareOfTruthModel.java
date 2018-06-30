@@ -1,18 +1,14 @@
 package bewareofthetruth.contract.model.data;
 
 import java.sql.SQLException;
-
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-
-import bewareofthetruth.contract.model.gameMecanism.IPlayer;
 import bewareofthetruth.model.dao.BewareOfTheTruthDAO;
 
 public interface IBewareOfTruthModel {
 
 	IChapter getChapter();
-
-	IPlayer getPlayer();
 
 	IOptions getOptions();
 
@@ -34,17 +30,11 @@ public interface IBewareOfTruthModel {
 
 	public void setModelFacade(IModelFacade modelFacade);
 
-	public void setChapter(IChapter chapter);
-	
-	public void setChapterByIdPlayerChapter() throws SQLException;
+	public void setChapter(IChapter chapter) throws SQLException;
 
 	public void setDao(BewareOfTheTruthDAO dao);
 
 	public BewareOfTheTruthDAO getDao();
-	
-	public World getWorld();
-
-	public void setWorld(World world);
 	
 	public Box2DDebugRenderer getDebugRenderer();
 
@@ -53,15 +43,26 @@ public interface IBewareOfTruthModel {
 	public ICamera getCam();
 
 	public void setCam(ICamera cam);
+
+
+	public SpriteBatch getBatch();
+
+	public void setBatch(SpriteBatch batch);
 	
-	public float getWidthLevel();
+	public ILevel getLevel();
 
-	public void setWidthLevel(float widthLevel);
+	public void setLevel(ILevel level);
+	
+	public void nextLevel();
 
-	public float getHeightLevel();
-
-	public void setHeightLevel(float heightLevel);
+	public void initializeFirstLevelOfChapter() throws SQLException;
 
 	void setPlayer(int idLevel, World world) throws SQLException;
+	
+	public float getStateTime();
+
+	public void setStateTime(float stateTime);
+	
+	public void drawBatch();
 
 }

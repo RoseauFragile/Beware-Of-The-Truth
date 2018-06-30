@@ -7,6 +7,7 @@ public class PauseState extends GameState {
 	public PauseState(GameStateManager gsm) {
 		super(gsm);
 		init();
+
 	}
 
 	@Override

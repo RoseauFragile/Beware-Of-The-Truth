@@ -16,5 +16,8 @@ public interface IChapter {
 	public void setIdChapter(int idChapter);
 
 	void setLevel() throws SQLException;
-
+/*
+	public void setWorlds() throws SQLException;
+		
+	public World getWorldByIdLevel(int idLevel);*/
 }

@@ -1,6 +1,5 @@
 package bewareofthetruth.model;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -9,14 +8,14 @@ import bewareofthetruth.contract.model.data.IGameMenu;
 
 public class GameMenu implements IGameMenu {
 
-	private IBewareOfTruthModel bewareOfTruthModel;
-    private Sprite sprite;
-    private Texture texture;
+	private IBewareOfTruthModel	bewareOfTruthModel;
+	private Sprite				sprite;
+	private Texture				texture;
 
 	public GameMenu() {
 		System.out.println("GameMenu créer");
-		//this.setTexture(new Texture("assets/gameMenu.png"));
-		//this.setSprite(new Sprite(this.getTexture())); 
+		// this.setTexture(new Texture("assets/gameMenu.png"));
+		// this.setSprite(new Sprite(this.getTexture()));
 	}
 
 	@Override

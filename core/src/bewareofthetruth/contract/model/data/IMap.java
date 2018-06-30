@@ -1,5 +1,7 @@
 package bewareofthetruth.contract.model.data;
 
+import com.badlogic.gdx.maps.tiled.TiledMap;
+
 /* **** POUR BEN **** INTERFACE POUR LA MAP, QUI CONTIENT LA TILED MAP */
 
 public interface IMap {
@@ -15,4 +17,8 @@ public interface IMap {
 	public void setMapName(String mapName);
 
 	public void setMiniMap(IMiniMap miniMap);
+	
+	public TiledMap getTiledMap();
+
+	public void setTiledMap(String map);
 }
