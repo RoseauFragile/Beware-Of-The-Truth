@@ -18,7 +18,6 @@ public class Main implements ApplicationListener {
 
 	@Override
 	public void create() {
-
 		try {
 			this.modelFacade = new ModelFacade();
 		} catch (SQLException e) {

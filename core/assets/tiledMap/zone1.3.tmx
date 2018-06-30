@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="left-up" width="128" height="128" tilewidth="128" tileheight="128" infinite="0" nextobjectid="1">
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="left-up" width="128" height="128" tilewidth="128" tileheight="128" infinite="0" nextobjectid="2">
  <tileset firstgid="1" source="tileset/mur.tsx"/>
  <tileset firstgid="49" source="tileset/sol.tsx"/>
  <tileset firstgid="67" source="tileset/lampe3.tsx"/>
@@ -23,7 +23,11 @@
    eJztwQEBAAAAgJD+r+4ICgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGoADwAB
   </data>
  </layer>
- <objectgroup name="objets"/>
+ <objectgroup name="objets">
+  <object id="1" x="8260" y="7498.67">
+   <ellipse/>
+  </object>
+ </objectgroup>
  <layer name="toit" width="128" height="128">
   <data encoding="base64" compression="zlib">
    eJzt1TEKgDAQBMDoB0QQLNTCUv//QFOmiaSJQjID24QrDhZyIQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABACHfmfYvZkyyfbcSXpsK5s+oW/KW0/6vqFvxF/31L+x9ixkzc/zal/c8xR2bO/W+T/79v+u+b/vu2Fs7pv03LS1L6BwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHqD6A3k=

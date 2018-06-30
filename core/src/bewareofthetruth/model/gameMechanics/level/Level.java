@@ -44,6 +44,7 @@ public class Level implements ILevel {
 		this.setWorld(new World(new Vector2(0,0), true));
 		this.setTmr(new OrthogonalTiledMapRenderer(this.getMap().getTiledMap()));	
 		TiledObjectUtil.parseTiledObjectLayer(this.getWorld(), this.getMap().getTiledMap().getLayers().get("collision").getObjects());
+		//TiledObjectUtil.parseTiledObjectLayer(this.getWorld(), this.getMap().getTiledMap().getLayers().get("objets").getObjects());
 	}
 
 	@Override
