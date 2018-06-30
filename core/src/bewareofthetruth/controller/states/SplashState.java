@@ -69,12 +69,17 @@ public class SplashState extends GameState {
 
 	@Override
 	public void render() {
-		Gdx.gl.glClearColor(0, 0, 0, 0);
+		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		this.getConstant().CAMERA.getCamera().update();
+		
+		this.getConstant().BATCH.begin();
+		
 		stage.draw();
 		System.out.println("CameraX : " + splashImage.getX() + " CameraY : " + splashImage.getY());
-		this.getConstant().BATCH.setProjectionMatrix(this.getConstant().CAMERA.getCamera().combined);
+		//this.getConstant().BATCH.setProjectionMatrix(this.getConstant().CAMERA.getCamera().combined);
+		
+		this.getConstant().BATCH.end();
 	}
 
 	@Override

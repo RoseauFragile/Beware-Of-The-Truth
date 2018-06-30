@@ -2,7 +2,7 @@ package bewareofthetruth.controller.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.graphics.GL20;
 
 import bewareofthetruth.contract.model.utils.Direction;
 import bewareofthetruth.controller.managers.GameStateManager;
@@ -38,6 +38,10 @@ public class PlayState extends GameState {
 
 	@Override
 	public void render() {
+		
+		Gdx.gl.glClearColor(0, 0, 0, 0);
+		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		this.getConstant().CAMERA.getCamera().update();
 		this.getConstant().TMR.render(this.getConstant().LEVEL.getLayerBackground());
