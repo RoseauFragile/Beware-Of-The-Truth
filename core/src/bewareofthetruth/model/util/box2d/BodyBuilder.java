@@ -14,7 +14,7 @@ import static bewareofthetruth.model.util.Constants.BIT_DOOR;
 
 public class BodyBuilder {
 
-	public static Body createEntityBody(World world, float x, float y, boolean isStatic, boolean fixedRotation, short cBits, short mBits, short gIndex) {
+	public static Body createEntityBody(World world, float x, float y, int width, int height, boolean isStatic, boolean fixedRotation, short cBits, short mBits, short gIndex) {
 		BodyDef def = new BodyDef();
 		def.fixedRotation = fixedRotation;
 		def.position.set(x / PPM,  y / PPM);
@@ -26,7 +26,7 @@ public class BodyBuilder {
 		}
 		
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(25 / 2 / PPM, 64 / 2 / PPM);
+		shape.setAsBox(width / 2 / PPM, height / 2 / PPM);
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;
 		fixtureDef.density = 1.0f;

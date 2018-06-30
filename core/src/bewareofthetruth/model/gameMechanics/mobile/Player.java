@@ -25,6 +25,8 @@ public class Player extends Entity implements IPlayer {
 	private String playerName;
 	private static String sourceTexture = "herosMarche.png";
 	private static boolean fixedRotation = true;
+	private static int WIDTH = 25;
+	private static int HEIGHT = 64;
 
 
 	public Player(int idPlayer, String nom, int idLevel, int idInventory, int idChapter, World world, float x, float y, boolean isStatic) {
@@ -34,7 +36,7 @@ public class Player extends Entity implements IPlayer {
 		this.setIdLevel(idLevel);
 		this.setIdInventory(idInventory);
 		this.setIdChapter(idChapter);
-		this.setBody(BodyBuilder.createEntityBody(this.getWorld(), x, y, isStatic, fixedRotation, BIT_PLAYER, (short) (BIT_ENNEMY | BIT_WALL), (short) 0));
+		this.setBody(BodyBuilder.createEntityBody(this.getWorld(), x, y, WIDTH, HEIGHT, isStatic, fixedRotation, BIT_PLAYER, (short) (BIT_ENNEMY | BIT_WALL), (short) 0));
 		this.setAtlas(new TextureAtlas("sprite/hero_walk.txt"));
 		this.setAnimationCurrent(this.getAnimationWalkDown());
 		this.setWalkDelta(0.15f);
