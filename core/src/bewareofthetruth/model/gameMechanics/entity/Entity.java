@@ -56,7 +56,7 @@ public class Entity implements IEntity {
 		this.getPosition().setX(x);
 		this.getPosition().setY(y);
 		this.setWorld(world);
-		this.setBody(this.createDynamicBody());
+		//this.setBody(this.createDynamicBody());
 		this.setIdleDelta(0f);
 		this.setWalkDelta(0f);
 		this.setAtlas(null);
@@ -144,27 +144,6 @@ public class Entity implements IEntity {
 
 	public void setBody(Body body) {
 		this.body = body;
-	}
-	
-	public Body createDynamicBody() {
-		Body pBody;
-		BodyDef def = new BodyDef();
-		
-		if(this.isStatic() == false) {
-			def.type = BodyDef.BodyType.DynamicBody;
-		}else {
-			def.type = BodyDef.BodyType.StaticBody;
-		}
-		
-		def.position.set(this.getPosition().getX() / PPM,this.getPosition().getY() / PPM);
-		def.fixedRotation = true;
-		pBody = this.getWorld().createBody(def);
-		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(25 / 2 / PPM, 64 / 2 / PPM);
-		pBody.createFixture(shape, 1.0f);
-		shape.dispose();
-		System.out.println("BODY CREE");
-		return pBody;
 	}
 
 	public World getWorld() {

@@ -1,4 +1,4 @@
-package bewareofthetruth.model.util;
+package bewareofthetruth.model.util.box2d;
 
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
@@ -13,9 +13,14 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
+import static bewareofthetruth.model.util.Constants.BIT_ENNEMY;
+import static bewareofthetruth.model.util.Constants.BIT_PLAYER;
+import static bewareofthetruth.model.util.Constants.BIT_WALL;
+import bewareofthetruth.model.util.Constants;
 
 
 
@@ -46,7 +51,13 @@ public class TiledObjectUtil {
 			body = world.createBody(bdef);
 			System.out.println(body.toString());
 			System.out.println(shape.toString());
-			body.createFixture(shape, 1.0f);
+			FixtureDef fixtureDef = new FixtureDef();
+			fixtureDef.shape = shape;
+			fixtureDef.density = 1.0f;			
+			fixtureDef.filter.categoryBits = BIT_WALL;
+			fixtureDef.filter.maskBits = (short) (BIT_ENNEMY | BIT_PLAYER);
+			fixtureDef.filter.groupIndex = (short) 0;
+			body.createFixture(fixtureDef);
 			shape.dispose();
 		}
 	}

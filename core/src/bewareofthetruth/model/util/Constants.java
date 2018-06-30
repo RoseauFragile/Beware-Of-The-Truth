@@ -15,6 +15,11 @@ public final class Constants {
 	private IModelFacade modelFacade;
 	public static final float PPM = 32;
 	public static final float SCALE = 2.0f;
+	public static final short BIT_WALL = 1;
+	public static final short BIT_PLAYER = 2;
+	public static final short BIT_DOOR = 4;
+	public static final short BIT_ENNEMY = 8;
+	public static final short BIT_BREAKABLE = 16;
 	public ICamera CAMERA;
 	public TiledMapRenderer TMR;
 	public SpriteBatch BATCH;

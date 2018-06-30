@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="left-up" width="128" height="128" tilewidth="128" tileheight="128" infinite="0" nextobjectid="2">
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="left-up" width="128" height="128" tilewidth="128" tileheight="128" infinite="0" nextobjectid="3">
  <tileset firstgid="1" source="tileset/mur.tsx"/>
  <tileset firstgid="49" source="tileset/sol.tsx"/>
  <tileset firstgid="67" source="tileset/lampe3.tsx"/>
@@ -24,9 +24,7 @@
   </data>
  </layer>
  <objectgroup name="objets">
-  <object id="1" x="8260" y="7498.67">
-   <ellipse/>
-  </object>
+  <object id="2" x="8285.33" y="7481.33" width="58.6667" height="52"/>
  </objectgroup>
  <layer name="toit" width="128" height="128">
   <data encoding="base64" compression="zlib">

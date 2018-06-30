@@ -16,7 +16,7 @@ import bewareofthetruth.contract.model.utils.ISound;
 import bewareofthetruth.model.dao.MobileSql;
 import bewareofthetruth.model.gameMechanics.mobile.CharacterFactory;
 import bewareofthetruth.model.util.Dimension;
-import bewareofthetruth.model.util.TiledObjectUtil;
+import bewareofthetruth.model.util.box2d.TiledObjectUtil;
 
 public class Level implements ILevel {
 
@@ -44,7 +44,7 @@ public class Level implements ILevel {
 		this.setWorld(new World(new Vector2(0,0), true));
 		this.setTmr(new OrthogonalTiledMapRenderer(this.getMap().getTiledMap()));	
 		TiledObjectUtil.parseTiledObjectLayer(this.getWorld(), this.getMap().getTiledMap().getLayers().get("collision").getObjects());
-		//TiledObjectUtil.parseTiledObjectLayer(this.getWorld(), this.getMap().getTiledMap().getLayers().get("objets").getObjects());
+		TiledObjectUtil.parseTiledObjectLayer(this.getWorld(), this.getMap().getTiledMap().getLayers().get("objets").getObjects());
 	}
 
 	@Override
