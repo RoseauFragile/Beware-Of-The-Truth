@@ -2,10 +2,10 @@ package bewareofthetruth.controller.managers;
 
 import java.util.Stack;
 import bewareofthetruth.controller.states.GameState;
+import bewareofthetruth.controller.states.PlayState;
 import bewareofthetruth.controller.states.SplashState;
 import bewareofthetruth.controller.states.State;
 import bewareofthetruth.main.Main;
-import bewareofthetruth.view.gameState.PlayState;
 
 public class GameStateManager {
 
@@ -62,5 +62,13 @@ public class GameStateManager {
 	
 	public void resize(int w, int h) {
 		states.peek().resize(w,h);
+	}
+
+	public void pause() {
+		states.peek().pause();
+	}
+
+	public void resume() {
+		states.peek().resume();
 	}
 }

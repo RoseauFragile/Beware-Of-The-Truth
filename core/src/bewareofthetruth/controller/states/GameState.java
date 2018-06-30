@@ -34,4 +34,7 @@ public abstract class GameState {
 
 	public abstract void resize(int w, int h);
 
+	public abstract void pause();
+
+	public abstract void resume();
 }

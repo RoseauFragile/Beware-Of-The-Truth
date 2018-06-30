@@ -108,4 +108,12 @@ public class SplashState extends GameState {
 		this.gsm.game().getModelFacade().getBewareOfTruthModel().getCam().getCamera().setToOrtho(false, GAME_WIDTH, GAME_HEIGHT);
 		this.gsm.game().getModelFacade().getBewareOfTruthModel().getCam().getSplashViewport().update(w, h);
 	}
+
+	@Override
+	public void pause() {
+	}
+
+	@Override
+	public void resume() {
+	}
 }

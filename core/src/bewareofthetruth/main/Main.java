@@ -52,12 +52,12 @@ public class Main implements ApplicationListener {
 
 	@Override
 	public void pause() {
-
+		this.gsm.pause();
 	}
 
 	@Override
 	public void resume() {
-
+		this.gsm.resume();
 	}
 
 	@Override

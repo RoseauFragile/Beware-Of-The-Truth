@@ -1,10 +1,9 @@
-package bewareofthetruth.view.gameState;
+package bewareofthetruth.controller.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import bewareofthetruth.contract.model.utils.Direction;
 import bewareofthetruth.controller.managers.GameStateManager;
-import bewareofthetruth.controller.states.GameState;
 import bewareofthetruth.model.util.Constants;
 import static bewareofthetruth.model.util.Constants.PPM;
 
@@ -110,5 +109,13 @@ public class PlayState extends GameState {
 		}
 
 		this.constant.PLAYER.getBody().setLinearVelocity(horizontalForce * 5, verticalForce * 5);
+	}
+
+	@Override
+	public void pause() {
+	}
+
+	@Override
+	public void resume() {
 	}
 }
