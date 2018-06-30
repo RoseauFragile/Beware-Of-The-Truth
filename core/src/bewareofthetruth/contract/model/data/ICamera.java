@@ -29,5 +29,9 @@ public interface ICamera {
 
 	public void setOrthographicCamera(OrthographicCamera orthographicCamera);
 
+	public void setPlayCamera();
+
+	public void setSplashCamera(float aspectRatio, float gameWidth, float gameHeight);
+
 
 }

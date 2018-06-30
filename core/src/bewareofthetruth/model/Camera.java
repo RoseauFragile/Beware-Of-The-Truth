@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import bewareofthetruth.contract.model.data.IBewareOfTruthModel;
@@ -22,12 +23,12 @@ public class Camera implements ICamera {
 	
 
 	public Camera(float width, float height) {
-		this.setCamera(new OrthographicCamera());
+		/*this.setCamera(new OrthographicCamera());
 		this.setViewport(new ScreenViewport(cam));
 		cam.setToOrtho(false, Gdx.graphics.getWidth()/ SCALE, Gdx.graphics.getHeight() / SCALE);
 		SpriteBatch batch = new SpriteBatch();
 		batch.setProjectionMatrix(cam.combined);
-		cam.update();
+		cam.update();*/
 	}
 
 	public void resize(int width, int height) {
@@ -92,5 +93,24 @@ public class Camera implements ICamera {
 	@Override
 	public void setOrthographicCamera(OrthographicCamera orthographicCamera) {
 		this.cam = orthographicCamera;
+	}
+	
+	@Override
+	public void setPlayCamera() {
+		this.setCamera(new OrthographicCamera());
+		this.setViewport(new ScreenViewport(cam));
+		cam.setToOrtho(false, Gdx.graphics.getWidth()/ SCALE, Gdx.graphics.getHeight() / SCALE);
+		SpriteBatch batch = new SpriteBatch();
+		batch.setProjectionMatrix(cam.combined);
+		cam.update();
+	}
+
+	@Override
+	public void setSplashCamera(float aspectRatio, float gameWidth, float gameHeight) {
+		//this.setSplashCamera(aspectRatio, gameWidth, gameHeight);
+		this.setOrthographicCamera(new OrthographicCamera(32 * aspectRatio, 32 * aspectRatio));
+		this.getCamera().position.set(gameWidth / 2, gameHeight / 2, 0);
+		this.setSplashViewport(new FillViewport(gameWidth, gameHeight, this.getCamera()));
+		this.getSplashViewport().apply();
 	}
 }

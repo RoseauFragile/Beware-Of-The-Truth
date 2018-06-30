@@ -3,13 +3,11 @@ package bewareofthetruth.controller.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import bewareofthetruth.controller.managers.GameStateManager;
@@ -34,11 +32,8 @@ public class SplashState extends GameState {
 
 	public void init() {
 
-		this.gsm.game().getModelFacade().getBewareOfTruthModel().getCam().setOrthographicCamera(new OrthographicCamera(32 * aspectRatio, 32 * aspectRatio));
-		this.gsm.game().getModelFacade().getBewareOfTruthModel().getCam().getCamera().position.set(GAME_WIDTH / 2, GAME_HEIGHT / 2, 0);
-		this.gsm.game().getModelFacade().getBewareOfTruthModel().getCam().setSplashViewport(new FillViewport(GAME_WIDTH, GAME_HEIGHT, this.gsm.game().getModelFacade().getBewareOfTruthModel().getCam().getCamera()));
-		this.gsm.game().getModelFacade().getBewareOfTruthModel().getCam().getSplashViewport().apply();
-		stage = new Stage(game.getModelFacade().getBewareOfTruthModel().getCam().getSplashViewport());
+		this.getConstant().CAMERA.setSplashCamera(aspectRatio, GAME_WIDTH, GAME_HEIGHT);
+		stage = new Stage(this.getConstant().CAMERA.getSplashViewport());
 		this.sprite = new Sprite(new Texture("sprite/Beware-Of-Truth.png"));
 		Sprite menuSprite = new Sprite(new Texture("gameMenu.png"));
 		Image menuImage = new Image(menuSprite);
@@ -76,10 +71,10 @@ public class SplashState extends GameState {
 	public void render() {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		camera.update();
+		this.getConstant().CAMERA.getCamera().update();
 		stage.draw();
 		System.out.println("CameraX : " + splashImage.getX() + " CameraY : " + splashImage.getY());
-		batch.setProjectionMatrix(camera.combined);
+		this.getConstant().BATCH.setProjectionMatrix(this.getConstant().CAMERA.getCamera().combined);
 	}
 
 	@Override
