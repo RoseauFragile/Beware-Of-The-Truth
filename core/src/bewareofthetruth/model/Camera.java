@@ -1,7 +1,6 @@
 package bewareofthetruth.model;
 
 import static bewareofthetruth.model.util.Constants.SCALE;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -9,7 +8,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-
 import bewareofthetruth.contract.model.data.IBewareOfTruthModel;
 import bewareofthetruth.contract.model.data.ICamera;
 
@@ -17,13 +15,15 @@ public class Camera implements ICamera {
 
 	private OrthographicCamera	cam;
 	private Viewport			viewport;
+	private Viewport			splashViewport;
 	private float				rotationSpeed	= 0.5f;
 	private IBewareOfTruthModel	bewareOfTruthModel;
+
+	
 
 	public Camera(float width, float height) {
 		this.setCamera(new OrthographicCamera());
 		this.setViewport(new ScreenViewport(cam));
-
 		cam.setToOrtho(false, Gdx.graphics.getWidth()/ SCALE, Gdx.graphics.getHeight() / SCALE);
 		SpriteBatch batch = new SpriteBatch();
 		batch.setProjectionMatrix(cam.combined);
@@ -81,4 +81,16 @@ public class Camera implements ICamera {
 		this.viewport = viewport;
 	}
 
+	public Viewport getSplashViewport() {
+		return splashViewport;
+	}
+
+	public void setSplashViewport(Viewport splashViewport) {
+		this.splashViewport = splashViewport;
+	}
+
+	@Override
+	public void setOrthographicCamera(OrthographicCamera orthographicCamera) {
+		this.cam = orthographicCamera;
+	}
 }

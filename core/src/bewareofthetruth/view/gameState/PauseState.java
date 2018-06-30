@@ -1,6 +1,7 @@
 package bewareofthetruth.view.gameState;
 
-import bewareofthetruth.view.main.GameStateManager;
+import bewareofthetruth.controller.managers.GameStateManager;
+import bewareofthetruth.controller.states.GameState;
 
 public class PauseState extends GameState {
 
@@ -34,4 +35,7 @@ public class PauseState extends GameState {
 
 	}
 
+	@Override
+	public void resize(int w, int h) {
+	}
 }

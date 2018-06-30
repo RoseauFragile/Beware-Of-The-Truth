@@ -1,16 +1,17 @@
 package bewareofthetruth.main;
 
-import static bewareofthetruth.model.util.Constants.PPM;
-
+import static bewareofthetruth.model.util.Constants.SCALE;
 import java.sql.SQLException;
-
+import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
-
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import bewareofthetruth.contract.model.data.IModelFacade;
 import bewareofthetruth.contract.model.utils.Direction;
+import bewareofthetruth.controller.managers.GameStateManager;
 import bewareofthetruth.model.ModelFacade;
 import bewareofthetruth.model.util.Constants;
 
@@ -18,6 +19,9 @@ public class Main implements ApplicationListener {
 
 	private IModelFacade modelFacade;
 	private Constants constant;
+	private GameStateManager gsm;
+	public static Engine			ashley;
+	public static AssetManager		assets;
 
 	@Override
 	public void create() {
@@ -28,32 +32,24 @@ public class Main implements ApplicationListener {
 			e.printStackTrace();
 		}
 		this.constant = new Constants(this.modelFacade);
+		this.gsm = new GameStateManager(this);
 	}
 
 	@Override
 	public void resize(final int width, final int height) {
-		this.constant.CAMERA.resize(width / 2, height / 2);
+		this.gsm.resize((int) (width / SCALE), (int) (height / SCALE));
 	}
 
 	@Override
 	public void render() {
 
 		this.update(Gdx.graphics.getDeltaTime());
+		
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		this.constant.CAMERA.getCamera().update();
-		this.constant.TMR.render(this.constant.LEVEL.getLayerBackground());
-
-		// BATCH START
-		this.constant.BATCH.begin();
-		this.modelFacade.getBewareOfTruthModel().drawBatch();
-		// BATCH END
-		this.constant.BATCH.end();
-
-		this.constant.TMR.render(this.constant.LEVEL.getLayerAfterBackground());
 		
-		//this.constant.DEBUG_RENDERER.render(this.constant.WORLD, this.constant.CAMERA.getCamera().combined.scl(PPM));
+		this.gsm.render();
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
 			Gdx.app.exit();
 		}
@@ -71,14 +67,19 @@ public class Main implements ApplicationListener {
 
 	@Override
 	public void dispose() {
-		this.constant.WORLD.dispose();
-		this.constant.DEBUG_RENDERER.dispose();
+		this.gsm.dispose();
 		this.constant.BATCH.dispose();
+		//this.constant.BATCH.dispose();
+		//this.constant.WORLD.dispose();
+		//this.constant.DEBUG_RENDERER.dispose();
+		//this.constant.BATCH.dispose();
 		//this.constant.TMR.dispose();
-		this.constant.TILEDMAP.dispose();
+		//this.constant.TILEDMAP.dispose();
 	}
 
 	public void update(final float delta) {
+		this.gsm.update(delta);
+		/*
 		float stateTime = this.modelFacade.getBewareOfTruthModel().getStateTime();
 		this.constant.WORLD.step(1 / 60f, 6, 2);
 		this.modelFacade.getBewareOfTruthModel().setStateTime(stateTime += delta);
@@ -86,7 +87,7 @@ public class Main implements ApplicationListener {
 		this.constant.CAMERA.cameraUpdate(this.constant.PLAYER.getBody().getPosition());
 		this.constant.TMR.setView(this.constant.CAMERA.getCamera());
 		this.constant.BATCH.setProjectionMatrix(this.constant.CAMERA.getCamera().combined);
-		this.constant.LEVEL.updateEnnemiesMovement();
+		this.constant.LEVEL.updateEnnemiesMovement();*/
 	}
 
 	public void inputUpdate(final float delta) {
@@ -137,5 +138,13 @@ public class Main implements ApplicationListener {
 		}
 
 		this.constant.PLAYER.getBody().setLinearVelocity(horizontalForce * 5, verticalForce * 5);
+	}
+	
+	public IModelFacade getModelFacade() {
+		return this.modelFacade;
+	}
+	
+	public SpriteBatch getBatch() {
+		return this.constant.BATCH;
 	}
 }

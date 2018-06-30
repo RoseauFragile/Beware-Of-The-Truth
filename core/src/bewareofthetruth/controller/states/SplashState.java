@@ -1,15 +1,19 @@
-package bewareofthetruth.view.gameState;
+package bewareofthetruth.controller.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import bewareofthetruth.view.main.BewareOfTruth;
-import bewareofthetruth.view.main.GameStateManager;
+import bewareofthetruth.controller.managers.GameStateManager;
+
 
 public class SplashState extends GameState {
 
@@ -17,6 +21,10 @@ public class SplashState extends GameState {
 	private Sprite				sprite;
 	private Image				splashImage;
 	protected Viewport			viewport;
+	float aspectRatio = (float) Gdx.graphics.getWidth() / (float) Gdx.graphics.getHeight();
+	public static final float		GAME_WIDTH	= 64;
+	public static final float		GAME_HEIGHT	= 32;
+	protected Stage					stage;
 
 	public SplashState(GameStateManager gsm) {
 		super(gsm);
@@ -25,6 +33,12 @@ public class SplashState extends GameState {
 	}
 
 	public void init() {
+
+		this.gsm.game().getModelFacade().getBewareOfTruthModel().getCam().setOrthographicCamera(new OrthographicCamera(32 * aspectRatio, 32 * aspectRatio));
+		this.gsm.game().getModelFacade().getBewareOfTruthModel().getCam().getCamera().position.set(GAME_WIDTH / 2, GAME_HEIGHT / 2, 0);
+		this.gsm.game().getModelFacade().getBewareOfTruthModel().getCam().setSplashViewport(new FillViewport(GAME_WIDTH, GAME_HEIGHT, this.gsm.game().getModelFacade().getBewareOfTruthModel().getCam().getCamera()));
+		this.gsm.game().getModelFacade().getBewareOfTruthModel().getCam().getSplashViewport().apply();
+		stage = new Stage(game.getModelFacade().getBewareOfTruthModel().getCam().getSplashViewport());
 		this.sprite = new Sprite(new Texture("sprite/Beware-Of-Truth.png"));
 		Sprite menuSprite = new Sprite(new Texture("gameMenu.png"));
 		Image menuImage = new Image(menuSprite);
@@ -60,7 +74,7 @@ public class SplashState extends GameState {
 
 	@Override
 	public void render() {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		camera.update();
 		stage.draw();
@@ -71,6 +85,9 @@ public class SplashState extends GameState {
 	@Override
 	public void update(float delta) {
 		stage.act(delta);
+		if(Gdx.input.isKeyJustPressed(Input.Keys.BACKSPACE)) {
+			this.gsm.setState(State.PLAY);
+		}
 	}
 
 	@Override
@@ -79,11 +96,16 @@ public class SplashState extends GameState {
 	}
 
 	private float getGlobalHeight() {
-		return BewareOfTruth.GAME_HEIGHT;
+		return GAME_HEIGHT;
 	}
 
 	private float getGlobalWidth() {
-		return BewareOfTruth.GAME_WIDTH;
+		return GAME_WIDTH;
 	}
 
+	@Override
+	public void resize(int w, int h) {
+		this.gsm.game().getModelFacade().getBewareOfTruthModel().getCam().getCamera().setToOrtho(false, GAME_WIDTH, GAME_HEIGHT);
+		this.gsm.game().getModelFacade().getBewareOfTruthModel().getCam().getSplashViewport().update(w, h);
+	}
 }

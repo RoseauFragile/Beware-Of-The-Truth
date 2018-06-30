@@ -1,25 +1,26 @@
-package bewareofthetruth.view.main;
+package bewareofthetruth.controller.managers;
 
 import java.util.Stack;
-
-import bewareofthetruth.view.gameState.GameState;
-import bewareofthetruth.view.gameState.SplashState;
-import bewareofthetruth.view.gameState.State;
+import bewareofthetruth.controller.states.GameState;
+import bewareofthetruth.controller.states.SplashState;
+import bewareofthetruth.controller.states.State;
+import bewareofthetruth.main.Main;
+import bewareofthetruth.view.gameState.PlayState;
 
 public class GameStateManager {
 
 	// Application Reference
-	private final BewareOfTruth	game;
+	private final Main game;
 
 	private Stack <GameState>	states;
 
-	public GameStateManager(final BewareOfTruth game) {
-		this.game = game;
+	public GameStateManager(final Main main) {
+		this.game = main;
 		this.states = new Stack <GameState>();
 		this.setState(State.SPLASHSCREEN);
 	}
 
-	public BewareOfTruth game() {
+	public Main game() {
 		return game;
 	}
 
@@ -51,9 +52,15 @@ public class GameStateManager {
 			return new SplashState(this);
 		case MAINMENUSCREEN:
 			return new SplashState(this);
+		case PLAY:
+			return new PlayState(this);
 		default:
 			break;
 		}
 		return null;
+	}
+	
+	public void resize(int w, int h) {
+		states.peek().resize(w,h);
 	}
 }

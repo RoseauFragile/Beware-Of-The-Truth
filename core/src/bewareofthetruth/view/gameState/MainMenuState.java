@@ -6,7 +6,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-import bewareofthetruth.view.main.GameStateManager;
+import bewareofthetruth.controller.managers.GameStateManager;
+import bewareofthetruth.controller.states.GameState;
 
 public class MainMenuState extends GameState {
 
@@ -44,4 +45,7 @@ public class MainMenuState extends GameState {
 		batch.dispose();
 	}
 
+	@Override
+	public void resize(int w, int h) {
+	}
 }

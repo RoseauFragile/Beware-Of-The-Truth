@@ -44,7 +44,6 @@ public interface IBewareOfTruthModel {
 
 	public void setCam(ICamera cam);
 
-
 	public SpriteBatch getBatch();
 
 	public void setBatch(SpriteBatch batch);

@@ -1,17 +1,17 @@
-package bewareofthetruth.view.gameState;
+package bewareofthetruth.controller.states;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
-import bewareofthetruth.view.main.BewareOfTruth;
-import bewareofthetruth.view.main.GameStateManager;
+import bewareofthetruth.controller.managers.GameStateManager;
+import bewareofthetruth.main.Main;
 
 public abstract class GameState {
 
 	// References
 	protected GameStateManager		gsm;
-	protected BewareOfTruth			game;
+	protected Main			game;
 	protected SpriteBatch			batch;
 	protected OrthographicCamera	camera;
 	protected Stage					stage;
@@ -20,8 +20,8 @@ public abstract class GameState {
 		this.gsm = gsm;
 		this.game = gsm.game();
 		batch = game.getBatch();
-		camera = game.getCamera();
-		stage = new Stage(game.viewport);
+		camera = game.getModelFacade().getBewareOfTruthModel().getCam().getCamera();
+		stage = new Stage(game.getModelFacade().getBewareOfTruthModel().getCam().getViewport());
 	}
 
 	public abstract void init();
@@ -31,5 +31,7 @@ public abstract class GameState {
 	public abstract void render();
 
 	public abstract void dispose();
+
+	public abstract void resize(int w, int h);
 
 }

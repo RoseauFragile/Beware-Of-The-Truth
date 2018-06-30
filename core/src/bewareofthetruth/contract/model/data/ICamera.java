@@ -2,6 +2,7 @@ package bewareofthetruth.contract.model.data;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public interface ICamera {
 	public OrthographicCamera getCamera();
@@ -19,4 +20,14 @@ public interface ICamera {
 	public IBewareOfTruthModel getBewareOfTruthModel();
 
 	public void setBewareOfTruthModel(IBewareOfTruthModel bewareOfTruthModel);
+
+	public Viewport getViewport();
+
+	public Viewport getSplashViewport();
+
+	public void setSplashViewport(Viewport splashViewport);
+
+	public void setOrthographicCamera(OrthographicCamera orthographicCamera);
+
+
 }
