@@ -8,6 +8,7 @@ import bewareofthetruth.contract.model.gameMecanism.IEntity;
 import bewareofthetruth.contract.model.gameMecanism.IPlayer;
 import bewareofthetruth.contract.model.utils.IDimension;
 import bewareofthetruth.contract.model.utils.ISound;
+import box2dLight.RayHandler;
 
 public interface ILevel {
 
@@ -58,5 +59,7 @@ public interface ILevel {
 	public int[] getLayerAfterBackground();
 	
 	public void updateEnnemiesMovement();
+	
+	public RayHandler getRayHandler();
 
 }

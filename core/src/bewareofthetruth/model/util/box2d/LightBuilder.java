@@ -33,7 +33,7 @@ public class LightBuilder {
 	}
 	
 	public static ConeLight createConeLight(RayHandler rayHandler, float x, float y, Color c, float dist, float dir, float cone) {
-		ConeLight cl = new ConeLight(rayHandler, 120, c, dist, x / PPM, x /PPM, dir, cone);
+		ConeLight cl = new ConeLight(rayHandler, 120, c, dist, x /PPM , y /PPM, dir, cone);
 		cl.setSoftnessLength(0f);
 		cl.setXray(false);
 		return cl;

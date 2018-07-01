@@ -17,6 +17,7 @@ import bewareofthetruth.model.dao.MobileSql;
 import bewareofthetruth.model.gameMechanics.mobile.CharacterFactory;
 import bewareofthetruth.model.util.Dimension;
 import bewareofthetruth.model.util.box2d.TiledObjectUtil;
+import box2dLight.RayHandler;
 
 public class Level implements ILevel {
 
@@ -33,6 +34,7 @@ public class Level implements ILevel {
 	private TiledMapRenderer tmr;
 	private int[] layerBackground = {0,1,2,3,4};
 	private int[] layerAfterBackground = {5,6};
+	private RayHandler rayHandler;
 
 	public Level(float id, String levelName, float height, float width, String sourceMap) throws SQLException {
 		System.out.println(sourceMap);
@@ -43,8 +45,16 @@ public class Level implements ILevel {
 		this.getMap().setLevel(this);
 		this.setWorld(new World(new Vector2(0,0), true));
 		this.setTmr(new OrthogonalTiledMapRenderer(this.getMap().getTiledMap()));
-		TiledObjectUtil.parseTiledObjectLayer(this.getWorld(), this.getMap().getTiledMap().getLayers().get("collision").getObjects());
-		TiledObjectUtil.parseTiledObjectLayer(this.getWorld(), this.getMap().getTiledMap().getLayers().get("objets").getObjects());
+		this.rayHandler = new RayHandler(this.getWorld());
+		this.getRayHandler().setAmbientLight(0.5f);
+		
+		TiledObjectUtil.buildShapes(this.getWorld(), this.getMap().getTiledMap().getLayers().get("collision").getObjects());
+		TiledObjectUtil.parseLightObjectLayer(this.getWorld(), this.getMap().getTiledMap().getLayers().get("objets").getObjects(), this.getRayHandler());
+
+	}
+
+	public RayHandler getRayHandler() {
+		return this.rayHandler;
 	}
 
 	@Override

@@ -11,6 +11,7 @@ import static bewareofthetruth.model.util.Constants.BIT_ENNEMY;
 import static bewareofthetruth.model.util.Constants.BIT_PLAYER;
 import static bewareofthetruth.model.util.Constants.BIT_WALL;
 import static bewareofthetruth.model.util.Constants.BIT_DOOR;
+import static bewareofthetruth.model.util.Constants.BIT_LIGHT;
 
 public class BodyBuilder {
 
@@ -58,7 +59,7 @@ public class BodyBuilder {
         fd.shape = shape;
         fd.density = 1.0f;
         fd.filter.categoryBits = BIT_WALL;
-        fd.filter.maskBits = BIT_PLAYER | BIT_WALL | BIT_ENNEMY;
+        fd.filter.maskBits = BIT_PLAYER | BIT_WALL | BIT_ENNEMY | BIT_LIGHT;
         fd.filter.groupIndex = 0;
         pBody.createFixture(fd);
         shape.dispose();

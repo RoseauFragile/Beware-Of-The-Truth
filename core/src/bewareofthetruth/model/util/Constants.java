@@ -9,6 +9,7 @@ import bewareofthetruth.contract.model.data.ICamera;
 import bewareofthetruth.contract.model.data.ILevel;
 import bewareofthetruth.contract.model.data.IModelFacade;
 import bewareofthetruth.contract.model.gameMecanism.IPlayer;
+import box2dLight.RayHandler;
 
 public final class Constants {
 
@@ -20,6 +21,7 @@ public final class Constants {
 	public static final short BIT_DOOR = 4;
 	public static final short BIT_ENNEMY = 8;
 	public static final short BIT_BREAKABLE = 16;
+	public static final short BIT_LIGHT = 32;
 	public ICamera CAMERA;
 	public TiledMapRenderer TMR;
 	public SpriteBatch BATCH;
@@ -28,6 +30,7 @@ public final class Constants {
 	public World WORLD;
 	public TiledMap TILEDMAP;
 	public ILevel LEVEL;
+	public RayHandler RAYHANDLER;
 	
 	public Constants(IModelFacade modelFacade) {
 	this.setModelFacade(modelFacade);
@@ -39,6 +42,7 @@ public final class Constants {
 	this.WORLD = this.modelFacade.getBewareOfTruthModel().getLevel().getWorld();
 	this.TILEDMAP = this.modelFacade.getBewareOfTruthModel().getLevel().getMap().getTiledMap();
 	this.LEVEL = this.modelFacade.getBewareOfTruthModel().getLevel();
+	this.RAYHANDLER = this.modelFacade.getBewareOfTruthModel().getLevel().getRayHandler();
 	}
 
 	public IModelFacade getModelFacade() {

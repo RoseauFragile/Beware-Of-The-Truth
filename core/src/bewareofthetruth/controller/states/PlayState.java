@@ -2,22 +2,13 @@ package bewareofthetruth.controller.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-
 import bewareofthetruth.contract.model.utils.Direction;
 import bewareofthetruth.controller.managers.GameStateManager;
-import bewareofthetruth.model.util.box2d.LightBuilder;
-import box2dLight.ConeLight;
-import box2dLight.PointLight;
-import box2dLight.RayHandler;
 
 import static bewareofthetruth.model.util.Constants.PPM;
 
 public class PlayState extends GameState {
-
-	private ConeLight myLight;
-	private RayHandler rayHandler;
 
 	public PlayState(GameStateManager gsm) {
 		super(gsm);
@@ -29,19 +20,7 @@ public class PlayState extends GameState {
 	public void init() {
 		
 		this.getConstant().CAMERA.setPlayCamera();
-		this.setRayHandler(new RayHandler(this.getConstant().WORLD));
-		this.getRayHandler().setAmbientLight(0.5f);
-		myLight = LightBuilder.createConeLight(this.getRayHandler(), this.getConstant().PLAYER.getBody(), Color.WHITE, 6, this.getConstant().PLAYER.getBody().getAngle(), 180);
 		
-		//stage = new Stage(this.getConstant().CAMERA.getSplashViewport());
-	}
-
-	private RayHandler getRayHandler() {
-		return this.rayHandler;
-	}
-
-	private void setRayHandler(RayHandler rayHandler) {
-		this.rayHandler = rayHandler;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -63,8 +42,8 @@ public class PlayState extends GameState {
 		//this.myLight.setDirection(this.getConstant().PLAYER.getBody().getAngle());
 		//this.myLight.setDirection(this.getConstant().PLAYER.getDirection());
 
-		this.rayHandler.update();
-		this.getRayHandler().setCombinedMatrix(this.getConstant().CAMERA.getCamera().combined.cpy().scl(PPM));
+		this.getConstant().RAYHANDLER.update();
+		this.getConstant().RAYHANDLER.setCombinedMatrix(this.getConstant().CAMERA.getCamera().combined.cpy().scl(PPM));
 		this.getConstant().LEVEL.updateEnnemiesMovement();
 	}
 
@@ -80,8 +59,8 @@ public class PlayState extends GameState {
 		this.game.getModelFacade().getBewareOfTruthModel().drawBatch();
 		this.getConstant().BATCH.end();
 		this.getConstant().TMR.render(this.getConstant().LEVEL.getLayerAfterBackground());
-		this.getConstant().DEBUG_RENDERER.render(this.getConstant().WORLD, this.getConstant().CAMERA.getCamera().combined.scl(PPM));
-		this.getRayHandler().render();
+		//this.getConstant().DEBUG_RENDERER.render(this.getConstant().WORLD, this.getConstant().CAMERA.getCamera().combined.scl(PPM));
+		this.getConstant().RAYHANDLER.render();
 	}
 
 	@Override
@@ -90,7 +69,7 @@ public class PlayState extends GameState {
 		this.getConstant().WORLD.dispose();
 		this.getConstant().DEBUG_RENDERER.dispose();
 		this.getConstant().TILEDMAP.dispose();
-		this.getRayHandler().dispose();
+		this.getConstant().RAYHANDLER.dispose();
 	}
 
 	@Override

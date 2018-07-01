@@ -1,6 +1,7 @@
 package bewareofthetruth.model.gameMechanics.mobile;
 
 import static bewareofthetruth.model.util.Constants.BIT_ENNEMY;
+import static bewareofthetruth.model.util.Constants.BIT_LIGHT;
 import static bewareofthetruth.model.util.Constants.BIT_PLAYER;
 import static bewareofthetruth.model.util.Constants.BIT_WALL;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -36,7 +37,7 @@ public class Player extends Entity implements IPlayer {
 		this.setIdLevel(idLevel);
 		this.setIdInventory(idInventory);
 		this.setIdChapter(idChapter);
-		this.setBody(BodyBuilder.createEntityBody(this.getWorld(), x, y, WIDTH, HEIGHT, isStatic, fixedRotation, BIT_PLAYER, (short) (BIT_ENNEMY | BIT_WALL), (short) 0));
+		this.setBody(BodyBuilder.createEntityBody(this.getWorld(), x, y, WIDTH, HEIGHT, isStatic, fixedRotation, BIT_PLAYER, (short) (BIT_ENNEMY | BIT_WALL | BIT_LIGHT), (short) 0));
 		this.setAtlas(new TextureAtlas("sprite/hero_walk.txt"));
 		this.setAnimationCurrent(this.getAnimationWalkDown());
 		this.setWalkDelta(0.15f);
