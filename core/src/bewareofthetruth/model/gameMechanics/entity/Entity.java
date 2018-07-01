@@ -12,9 +12,9 @@ import bewareofthetruth.contract.model.gameMecanism.behaviors.IBounceStrategy;
 import bewareofthetruth.contract.model.gameMecanism.behaviors.IDodgeStrategy;
 import bewareofthetruth.contract.model.gameMecanism.behaviors.IMoveStrategy;
 import bewareofthetruth.contract.model.utils.Direction;
-import bewareofthetruth.contract.model.utils.IAudio;
 import bewareofthetruth.contract.model.utils.IDimension;
 import bewareofthetruth.contract.model.utils.IPosition;
+import bewareofthetruth.contract.model.utils.ISound;
 import bewareofthetruth.model.util.Position;
 
 public class Entity implements IEntity {
@@ -29,7 +29,7 @@ public class Entity implements IEntity {
 
 	private IPosition position;
 
-	private IAudio audio;
+	private ISound audio;
 	
 	private Body body;
 	
@@ -123,12 +123,12 @@ public class Entity implements IEntity {
 	}
 
 	@Override
-	public IAudio getAudio() {
+	public ISound getAudio() {
 		return audio;
 	}
 
 	@Override
-	public void setAudio(IAudio audio) {
+	public void setAudio(ISound audio) {
 		this.audio = audio;
 	}
 

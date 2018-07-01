@@ -10,9 +10,9 @@ import bewareofthetruth.contract.model.gameMecanism.behaviors.IBounceStrategy;
 import bewareofthetruth.contract.model.gameMecanism.behaviors.IDodgeStrategy;
 import bewareofthetruth.contract.model.gameMecanism.behaviors.IMoveStrategy;
 import bewareofthetruth.contract.model.utils.Direction;
-import bewareofthetruth.contract.model.utils.IAudio;
 import bewareofthetruth.contract.model.utils.IDimension;
 import bewareofthetruth.contract.model.utils.IPosition;
+import bewareofthetruth.contract.model.utils.ISound;
 
 public interface IEntity {
 
@@ -38,9 +38,9 @@ public interface IEntity {
 
 	public void addVector(Vector2 vectorToAdd);
 
-	public IAudio getAudio();
+	public ISound getAudio();
 
-	public void setAudio(IAudio audio);
+	public void setAudio(ISound audio);
 	
 	public World getWorld();
 
