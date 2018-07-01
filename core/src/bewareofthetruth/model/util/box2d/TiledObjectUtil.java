@@ -61,6 +61,40 @@ public class TiledObjectUtil {
 			shape.dispose();
 		}
 	}
+	
+	public static void parseLightObjectLayer(World world, MapObjects objects) {
+		for(MapObject object : objects) {
+			
+			Shape shape = null;
+			System.out.println("parse Tiled");
+			if(object instanceof PolylineMapObject) {
+				shape = createPolyline((PolylineMapObject) object);
+			}else if(object instanceof CircleMapObject) {
+				System.out.println("tentative circle shape");
+				shape = createCircle((CircleMapObject) object);
+			}else if (object instanceof RectangleMapObject) {
+                shape = createRectangle((RectangleMapObject)object);
+                System.out.println("Creation rectangle !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            } else if (object instanceof PolygonMapObject) {
+                shape = createPolygon((PolygonMapObject)object);
+            }
+			
+			Body body;
+			BodyDef bdef = new BodyDef();
+			bdef.type = BodyDef.BodyType.StaticBody;
+			body = world.createBody(bdef);
+			System.out.println(body.toString());
+			System.out.println(shape.toString());
+			FixtureDef fixtureDef = new FixtureDef();
+			fixtureDef.shape = shape;
+			fixtureDef.density = 1.0f;			
+			fixtureDef.filter.categoryBits = BIT_WALL;
+			fixtureDef.filter.maskBits = (short) (BIT_ENNEMY | BIT_PLAYER);
+			fixtureDef.filter.groupIndex = (short) 0;
+			body.createFixture(fixtureDef);
+			shape.dispose();
+		}
+	}
 		
 	private static ChainShape createPolyline(PolylineMapObject polyline) {
 		float[] vertices = polyline.getPolyline().getTransformedVertices();

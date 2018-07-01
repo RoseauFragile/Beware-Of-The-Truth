@@ -36,4 +36,6 @@ public interface IPlayer extends IEntity{
 	public String getPlayerName();
 
 	public void setPlayerName(String playerName);
+
+	public void setDirection(float i);
 }

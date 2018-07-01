@@ -42,7 +42,7 @@ public class Level implements ILevel {
 		this.setMap(new Map(sourceMap));
 		this.getMap().setLevel(this);
 		this.setWorld(new World(new Vector2(0,0), true));
-		this.setTmr(new OrthogonalTiledMapRenderer(this.getMap().getTiledMap()));	
+		this.setTmr(new OrthogonalTiledMapRenderer(this.getMap().getTiledMap()));
 		TiledObjectUtil.parseTiledObjectLayer(this.getWorld(), this.getMap().getTiledMap().getLayers().get("collision").getObjects());
 		TiledObjectUtil.parseTiledObjectLayer(this.getWorld(), this.getMap().getTiledMap().getLayers().get("objets").getObjects());
 	}
@@ -163,7 +163,6 @@ public class Level implements ILevel {
 			this.getMobiles().get(i).getBody().setLinearVelocity(
 			(this.getPlayer().getBody().getPosition().x - this.getMobiles().get(i).getBody().getPosition().x) ,
 			(this.getPlayer().getBody().getPosition().y - this.getMobiles().get(i).getBody().getPosition().y));
-			//this.getMobiles().get(i).getBody().setLinearVelocity(this.getPlayer().getBody().getPosition());
 		}
 	}
 }

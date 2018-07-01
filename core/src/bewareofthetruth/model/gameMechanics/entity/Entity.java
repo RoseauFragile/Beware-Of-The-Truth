@@ -47,6 +47,8 @@ public class Entity implements IEntity {
 	
 	private Direction lastDirection;
 	
+	private float Direction;
+	
 	public Entity(String sourceTexture, World world, float x, float y, boolean isStatic) {
 		this.setPosition(new Position());
 		this.setStatic(isStatic);
@@ -278,5 +280,13 @@ public class Entity implements IEntity {
 
 	public void setLastDirection(Direction lastDirection) {
 		this.lastDirection = lastDirection;
+	}
+
+	public float getDirection() {
+		return Direction;
+	}
+
+	public void setDirection(float direction) {
+		this.Direction = direction;
 	}
 }

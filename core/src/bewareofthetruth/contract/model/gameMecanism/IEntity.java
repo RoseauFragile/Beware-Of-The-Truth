@@ -104,4 +104,6 @@ public interface IEntity {
 	public Direction getLastDirection();
 
 	public void setLastDirection(Direction lastDirection);
+	
+	public float getDirection();
 }
