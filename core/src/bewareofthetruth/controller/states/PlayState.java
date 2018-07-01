@@ -59,6 +59,8 @@ public class PlayState extends GameState {
 		this.game.getModelFacade().getBewareOfTruthModel().drawBatch();
 		this.getConstant().BATCH.end();
 		this.getConstant().TMR.render(this.getConstant().LEVEL.getLayerAfterBackground());
+		
+		//DEBUG RENDERER
 		//this.getConstant().DEBUG_RENDERER.render(this.getConstant().WORLD, this.getConstant().CAMERA.getCamera().combined.scl(PPM));
 		this.getConstant().RAYHANDLER.render();
 	}
