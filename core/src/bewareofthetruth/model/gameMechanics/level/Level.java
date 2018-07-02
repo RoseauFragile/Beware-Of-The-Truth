@@ -35,6 +35,7 @@ public class Level implements ILevel {
 	private int[] layerBackground = {0,1,2,3,4};
 	private int[] layerAfterBackground = {5,6};
 	private RayHandler rayHandler;
+	private ArrayList<String> musicsPath;
 
 	public Level(float id, String levelName, float height, float width, String sourceMap) throws SQLException {
 		System.out.println(sourceMap);
@@ -47,7 +48,9 @@ public class Level implements ILevel {
 		this.setTmr(new OrthogonalTiledMapRenderer(this.getMap().getTiledMap()));
 		this.rayHandler = new RayHandler(this.getWorld());
 		this.getRayHandler().setAmbientLight(0.5f);
-		
+		ArrayList<String> list = new ArrayList<String>();
+        list.add("bar1.wav");
+		this.setMusicsPath(list);
 		TiledObjectUtil.buildShapes(this.getWorld(), this.getMap().getTiledMap().getLayers().get("collision").getObjects());
 		TiledObjectUtil.parseLightObjectLayer(this.getWorld(), this.getMap().getTiledMap().getLayers().get("objets").getObjects(), this.getRayHandler());
 
@@ -174,5 +177,13 @@ public class Level implements ILevel {
 			(this.getPlayer().getBody().getPosition().x - this.getMobiles().get(i).getBody().getPosition().x) ,
 			(this.getPlayer().getBody().getPosition().y - this.getMobiles().get(i).getBody().getPosition().y));
 		}
+	}
+
+	public ArrayList<String> getMusicsPath() {
+		return musicsPath;
+	}
+
+	public void setMusicsPath(ArrayList<String> musicsPath) {
+		this.musicsPath = musicsPath;
 	}
 }

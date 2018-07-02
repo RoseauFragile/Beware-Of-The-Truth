@@ -18,8 +18,6 @@ public class Main implements ApplicationListener {
 	private IModelFacade modelFacade;
 	private Constants constant;
 	private GameStateManager gsm;
-    private Sound msc;
-    private int track;
 
 	@Override
 	public void create() {
@@ -30,9 +28,6 @@ public class Main implements ApplicationListener {
 		}
 		this.constant = new Constants(this.modelFacade);
 		this.gsm = new GameStateManager(this);
-        ArrayList<String> list = new ArrayList<String>();
-        list.add("bar1.wav");
-        this.msc = new Sound(list);
 	}
 
 	@Override
@@ -64,7 +59,7 @@ public class Main implements ApplicationListener {
 	public void dispose() {
 		this.gsm.dispose();
 		this.constant.BATCH.dispose();
-		this.msc.dispose();
+		this.constant.SOUNDREADER.dispose();
 	}
 
 	public void update(final float delta) {

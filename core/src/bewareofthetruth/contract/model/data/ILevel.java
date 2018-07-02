@@ -61,5 +61,7 @@ public interface ILevel {
 	public void updateEnnemiesMovement();
 	
 	public RayHandler getRayHandler();
+	
+	public ArrayList<String> getMusicsPath();
 
 }

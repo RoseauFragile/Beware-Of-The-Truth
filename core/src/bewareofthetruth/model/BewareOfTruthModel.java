@@ -1,8 +1,8 @@
 package bewareofthetruth.model;
 
 import static bewareofthetruth.model.util.Constants.PPM;
-
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,10 +17,13 @@ import bewareofthetruth.contract.model.data.ILevel;
 import bewareofthetruth.contract.model.data.IMainMenu;
 import bewareofthetruth.contract.model.data.IModelFacade;
 import bewareofthetruth.contract.model.data.IOptions;
+import bewareofthetruth.contract.model.utils.ISound;
 import bewareofthetruth.model.dao.BewareOfTheTruthDAO;
 import bewareofthetruth.model.dao.PlayerSql;
 import bewareofthetruth.model.gameMechanics.Chapter;
 import bewareofthetruth.model.gameMechanics.mobile.Player;
+import bewareofthetruth.model.util.Sound;
+
 
 public class BewareOfTruthModel implements IBewareOfTruthModel {
 
@@ -39,6 +42,7 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	private ILevel						level;
 	private int							indexLevel	= 1;
 	private float stateTime = 0;
+	private ISound soundReader;
 
 	public BewareOfTruthModel() throws SQLException {
 		
@@ -49,6 +53,7 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 		this.initializeFirstLevelOfChapter();
 		this.setDebugRenderer(new Box2DDebugRenderer());
 		this.setBatch(new SpriteBatch());
+		this.setSoundReader(this.getLevel().getMusicsPath());
 	}
 
 	@Override
@@ -204,5 +209,13 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 
 	public void setStateTime(float stateTime) {
 		this.stateTime = stateTime;
+	}
+
+	public ISound getSoundReader() {
+		return this.soundReader;
+	}
+
+	public void setSoundReader(ArrayList<String> musicsPath) {
+		this.soundReader = new Sound(musicsPath);
 	}	
 }
