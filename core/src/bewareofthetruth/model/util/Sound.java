@@ -46,7 +46,7 @@ public class Sound implements ISound {
 
 	    private void loadMusic(final ArrayList<String> list) {
 	        for(String path : list) {
-	            this.getMusicList().add(Gdx.audio.newMusic(Gdx.files.internal(path)));
+	            this.getMusicList().add(Gdx.audio.newMusic(Gdx.files.local("sons/Musiques/" +path)));
 	        }
 	    }
 

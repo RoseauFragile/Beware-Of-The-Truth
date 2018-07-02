@@ -1,6 +1,8 @@
 package bewareofthetruth.main;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -9,12 +11,15 @@ import bewareofthetruth.contract.model.data.IModelFacade;
 import bewareofthetruth.controller.managers.GameStateManager;
 import bewareofthetruth.model.ModelFacade;
 import bewareofthetruth.model.util.Constants;
+import bewareofthetruth.model.util.Sound;
 
 public class Main implements ApplicationListener {
 
 	private IModelFacade modelFacade;
 	private Constants constant;
 	private GameStateManager gsm;
+    private Sound msc;
+    private int track;
 
 	@Override
 	public void create() {
@@ -25,6 +30,9 @@ public class Main implements ApplicationListener {
 		}
 		this.constant = new Constants(this.modelFacade);
 		this.gsm = new GameStateManager(this);
+        ArrayList<String> list = new ArrayList<String>();
+        list.add("bar1.wav");
+        this.msc = new Sound(list);
 	}
 
 	@Override
@@ -56,6 +64,7 @@ public class Main implements ApplicationListener {
 	public void dispose() {
 		this.gsm.dispose();
 		this.constant.BATCH.dispose();
+		this.msc.dispose();
 	}
 
 	public void update(final float delta) {
