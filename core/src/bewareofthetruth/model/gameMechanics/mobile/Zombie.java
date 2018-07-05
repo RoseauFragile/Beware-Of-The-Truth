@@ -15,8 +15,8 @@ public class Zombie extends Mob{
 
 	private static boolean fixedRotation = true;
 	private static String sourceTexture = "zombieMarche.png";
-	private static int WIDTH = 25;
-	private static int HEIGHT = 64;
+	private static int WIDTH = 20;
+	private static int HEIGHT = 58;
 	
 	public Zombie(World world, float x, float y, boolean isStatic) {
 		super(sourceTexture, world, x, y, isStatic);	

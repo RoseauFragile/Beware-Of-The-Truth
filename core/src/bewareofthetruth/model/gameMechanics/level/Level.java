@@ -151,7 +151,7 @@ public class Level implements ILevel {
 	}
 
 	@Override
-	public void setMobiles() throws SQLException {
+	public void setMobiles() throws SQLException { //TODO Pour RYO ici on instancie l'array List de Mobiles
 		ArrayList<MobileSql> mobileSql = this.getChapter().getBewareOfTruthModel().getDao().getLevelDAO()
 				.getMobilesByLevelId((int) this.getId());
 		this.mobiles = new ArrayList<>();

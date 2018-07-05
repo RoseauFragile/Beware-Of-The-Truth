@@ -26,8 +26,8 @@ public class Player extends Entity implements IPlayer {
 	private String playerName;
 	private static String sourceTexture = "herosMarche.png";
 	private static boolean fixedRotation = true;
-	private static int WIDTH = 25;
-	private static int HEIGHT = 64;
+	private static int WIDTH = 20;
+	private static int HEIGHT = 58;
 
 
 	public Player(int idPlayer, String nom, int idLevel, int idInventory, int idChapter, World world, float x, float y, boolean isStatic) {

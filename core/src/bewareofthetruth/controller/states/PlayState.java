@@ -49,12 +49,12 @@ public class PlayState extends GameState {
 		this.getConstant().CAMERA.getCamera().update();
 		this.getConstant().TMR.render(this.getConstant().LEVEL.getLayerBackground());
 		this.getConstant().BATCH.begin();
-		this.game.getModelFacade().getBewareOfTruthModel().drawBatch();
+		this.game.getModelFacade().getBewareOfTruthModel().drawBatch(); //TODO pour Ryo finalement c'est dans ce state que l'on appelle la méthode d'affichage du player et des zombies
 		this.getConstant().BATCH.end();
 		this.getConstant().TMR.render(this.getConstant().LEVEL.getLayerAfterBackground());
 		
 		//DEBUG RENDERER
-		this.getConstant().DEBUG_RENDERER.render(this.getConstant().WORLD, this.getConstant().CAMERA.getCamera().combined.scl(PPM));
+		//this.getConstant().DEBUG_RENDERER.render(this.getConstant().WORLD, this.getConstant().CAMERA.getCamera().combined.scl(PPM));
 		this.getConstant().RAYHANDLER.render();
 	}
 
