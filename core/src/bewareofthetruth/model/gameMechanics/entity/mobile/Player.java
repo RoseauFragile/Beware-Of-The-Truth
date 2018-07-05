@@ -1,4 +1,4 @@
-package bewareofthetruth.model.gameMechanics.mobile;
+package bewareofthetruth.model.gameMechanics.entity.mobile;
 
 import static bewareofthetruth.model.util.Constants.BIT_ENNEMY;
 import static bewareofthetruth.model.util.Constants.BIT_LIGHT;

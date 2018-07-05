@@ -21,7 +21,7 @@ import bewareofthetruth.contract.model.utils.ISound;
 import bewareofthetruth.model.dao.BewareOfTheTruthDAO;
 import bewareofthetruth.model.dao.PlayerSql;
 import bewareofthetruth.model.gameMechanics.Chapter;
-import bewareofthetruth.model.gameMechanics.mobile.Player;
+import bewareofthetruth.model.gameMechanics.entity.mobile.Player;
 import bewareofthetruth.model.util.Sound;
 
 

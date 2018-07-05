@@ -1,4 +1,4 @@
-package bewareofthetruth.model.gameMechanics.mobile;
+package bewareofthetruth.model.gameMechanics.entity.mobile;
 
 import java.util.ArrayList;
 

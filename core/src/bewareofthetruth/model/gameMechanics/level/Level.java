@@ -19,7 +19,7 @@ import bewareofthetruth.contract.model.utils.ISound;
 import bewareofthetruth.model.dao.MobileSql;
 import bewareofthetruth.model.dao.TeleporterSql;
 import bewareofthetruth.model.gameMechanics.entity.handlers.MyContactListener;
-import bewareofthetruth.model.gameMechanics.mobile.CharacterFactory;
+import bewareofthetruth.model.gameMechanics.entity.mobile.CharacterFactory;
 import bewareofthetruth.model.gameMechanics.tiles.Teleporter;
 import bewareofthetruth.model.util.Dimension;
 import bewareofthetruth.model.util.box2d.TiledObjectUtil;

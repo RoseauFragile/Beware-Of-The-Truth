@@ -1,4 +1,4 @@
-package bewareofthetruth.model.gameMechanics.mobile;
+package bewareofthetruth.model.gameMechanics.entity.mobile;
 
 import com.badlogic.gdx.physics.box2d.World;
 import bewareofthetruth.contract.model.gameMecanism.IEntity;
