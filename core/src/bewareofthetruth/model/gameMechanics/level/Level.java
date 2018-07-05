@@ -2,10 +2,12 @@ package bewareofthetruth.model.gameMechanics.level;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+
 import bewareofthetruth.contract.model.data.IChapter;
 import bewareofthetruth.contract.model.data.ILevel;
 import bewareofthetruth.contract.model.data.IMap;
@@ -31,7 +33,7 @@ public class Level implements ILevel {
 	private IDimension dimension;
 	private String levelName;
 	private IChapter chapter;
-	private float id; 
+	private float id;
 	private String sourceMap;
 	private World world;
 	private IPlayer player;
@@ -42,7 +44,8 @@ public class Level implements ILevel {
 	private ArrayList<String> musicsPath;
 	private ArrayList<ITeleporter> teleporter = new ArrayList<ITeleporter>();
 
-	public Level(float id, String levelName, float height, float width, String sourceMap) throws SQLException {
+	public Level(final float id, final String levelName, final float height, final float width, final String sourceMap)
+			throws SQLException {
 		System.out.println(sourceMap);
 		this.setLevelName(levelName);
 		this.setId(id);
@@ -60,18 +63,21 @@ public class Level implements ILevel {
 		TiledObjectUtil.buildShapes(this.getWorld(), this.getMap().getTiledMap().getLayers().get("collision").getObjects());
 		TiledObjectUtil.parseLightObjectLayer(this.getWorld(), this.getMap().getTiledMap().getLayers().get("objets-lumiere").getObjects(), this.getRayHandler());
 
+
 	}
 
+	@Override
 	public RayHandler getRayHandler() {
 		return this.rayHandler;
 	}
 
 	@Override
 	public String getLevelName() {
-		return levelName;
+		return this.levelName;
 	}
 
-	public void setLevelName(String levelName) {
+	@Override
+	public void setLevelName(final String levelName) {
 		this.levelName = levelName;
 	}
 
@@ -82,10 +88,10 @@ public class Level implements ILevel {
 
 	@Override
 	public IDimension getDimension() {
-		return dimension;
+		return this.dimension;
 	}
 
-	public void setDimension(float height, float width) {
+	public void setDimension(final float height, final float width) {
 		this.dimension = new Dimension(height, width);
 	}
 
@@ -100,96 +106,114 @@ public class Level implements ILevel {
 	}
 
 	@Override
-	public void setAudio(ISound audio) {
+	public void setAudio(final ISound audio) {
 		this.audio = audio;
 	}
 
 	@Override
-	public void setMap(IMap map) {
+	public void setMap(final IMap map) {
 		this.map = map;
 	}
 
 	@Override
 	public IChapter getChapter() {
-		return chapter;
+		return this.chapter;
 	}
 
 	@Override
-	public void setChapter(IChapter chapter) {
+	public void setChapter(final IChapter chapter) {
 		this.chapter = chapter;
 	}
 
+	@Override
 	public float getId() {
 		return this.id;
 	}
 
-	public void setId(float id) {
+	@Override
+	public void setId(final float id) {
 		this.id = id;
 	}
 
+	@Override
 	public String getSourceMap() {
-		return sourceMap;
+		return this.sourceMap;
 	}
 
-	public void setSourceMap(String sourceMap) {
+	@Override
+	public void setSourceMap(final String sourceMap) {
 		this.sourceMap = sourceMap;
 	}
 
+	@Override
 	public ArrayList<IEntity> getMobiles() {
-		return mobiles;
+		return this.mobiles;
 	}
 
+	@Override
 	public void setMobiles() throws SQLException {
-		ArrayList<MobileSql> mobileSql = this.getChapter().getBewareOfTruthModel().getDao().getLevelDAO().getMobilesByLevelId((int) this.getId());
+		ArrayList<MobileSql> mobileSql = this.getChapter().getBewareOfTruthModel().getDao().getLevelDAO()
+				.getMobilesByLevelId((int) this.getId());
 		this.mobiles = new ArrayList<>();
-		for( MobileSql temp : mobileSql) {
+		for (MobileSql temp : mobileSql) {
 			this.mobiles.add(CharacterFactory.createEntity(temp, this.getWorld()));
 		}
 	}
 
+	@Override
 	public World getWorld() {
 		return this.world;
 	}
 
-	public void setWorld(World world) {
+	@Override
+	public void setWorld(final World world) {
 		this.world = world;
 	}
 
 	@Override
-	public void setPlayer(IPlayer player) {
+	public void setPlayer(final IPlayer player) {
 		this.player = player;
 	}
-	
+
+	@Override
 	public TiledMapRenderer getTmr() {
 		return this.tmr;
 	}
 
-	public void setTmr(TiledMapRenderer tmr) {
+	@Override
+	public void setTmr(final TiledMapRenderer tmr) {
 		this.tmr = tmr;
-		
+
 	}
 
+	@Override
 	public int[] getLayerBackground() {
-		return layerBackground;
+		return this.layerBackground;
 	}
 
+	@Override
 	public int[] getLayerAfterBackground() {
-		return layerAfterBackground;
+		return this.layerAfterBackground;
 	}
-	
+
+	@Override
 	public void updateEnnemiesMovement() {
-		for(int i = 0; i< this.getMobiles().size(); i++) {
-			this.getMobiles().get(i).getBody().setLinearVelocity(
-			(this.getPlayer().getBody().getPosition().x - this.getMobiles().get(i).getBody().getPosition().x) ,
-			(this.getPlayer().getBody().getPosition().y - this.getMobiles().get(i).getBody().getPosition().y));
+		for (int i = 0; i < this.getMobiles().size(); i++) {
+			Vector2 movement = new Vector2(
+					(this.getPlayer().getBody().getPosition().x - this.getMobiles().get(i).getBody().getPosition().x),
+					(this.getPlayer().getBody().getPosition().y - this.getMobiles().get(i).getBody().getPosition().y));
+			movement.nor();
+			movement.scl(3.75f); // TODO POUR BEN : LIMITE VECTEUR, MAGIC NUMBER << NEED ATTRIBUT
+			this.getMobiles().get(i).getBody().setLinearVelocity(movement);
 		}
 	}
 
+	@Override
 	public ArrayList<String> getMusicsPath() {
-		return musicsPath;
+		return this.musicsPath;
 	}
 
-	public void setMusicsPath(ArrayList<String> musicsPath) {
+	public void setMusicsPath(final ArrayList<String> musicsPath) {
 		this.musicsPath = musicsPath;
 	}
 
