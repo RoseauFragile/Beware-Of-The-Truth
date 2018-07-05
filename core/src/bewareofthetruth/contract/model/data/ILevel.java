@@ -6,6 +6,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import bewareofthetruth.contract.model.gameMecanism.IEntity;
 import bewareofthetruth.contract.model.gameMecanism.IPlayer;
+import bewareofthetruth.contract.model.gameMecanism.ITeleporter;
 import bewareofthetruth.contract.model.utils.IDimension;
 import bewareofthetruth.contract.model.utils.ISound;
 import box2dLight.RayHandler;
@@ -63,5 +64,9 @@ public interface ILevel {
 	public RayHandler getRayHandler();
 	
 	public ArrayList<String> getMusicsPath();
+	
+	public ArrayList<ITeleporter> getTeleporter();
+	
+	public void setTeleporter() throws SQLException;
 
 }

@@ -11,10 +11,14 @@ import bewareofthetruth.contract.model.data.ILevel;
 import bewareofthetruth.contract.model.data.IMap;
 import bewareofthetruth.contract.model.gameMecanism.IEntity;
 import bewareofthetruth.contract.model.gameMecanism.IPlayer;
+import bewareofthetruth.contract.model.gameMecanism.ITeleporter;
 import bewareofthetruth.contract.model.utils.IDimension;
 import bewareofthetruth.contract.model.utils.ISound;
 import bewareofthetruth.model.dao.MobileSql;
+import bewareofthetruth.model.dao.TeleporterSql;
+import bewareofthetruth.model.gameMechanics.entity.handlers.MyContactListener;
 import bewareofthetruth.model.gameMechanics.mobile.CharacterFactory;
+import bewareofthetruth.model.gameMechanics.tiles.Teleporter;
 import bewareofthetruth.model.util.Dimension;
 import bewareofthetruth.model.util.box2d.TiledObjectUtil;
 import box2dLight.RayHandler;
@@ -32,10 +36,11 @@ public class Level implements ILevel {
 	private World world;
 	private IPlayer player;
 	private TiledMapRenderer tmr;
-	private int[] layerBackground = {0,1,2,3,4};
-	private int[] layerAfterBackground = {5,6};
+	private int[] layerBackground = {0,1,2,3,4,5};
+	private int[] layerAfterBackground = {6,7,8};
 	private RayHandler rayHandler;
 	private ArrayList<String> musicsPath;
+	private ArrayList<ITeleporter> teleporter = new ArrayList<ITeleporter>();
 
 	public Level(float id, String levelName, float height, float width, String sourceMap) throws SQLException {
 		System.out.println(sourceMap);
@@ -45,14 +50,15 @@ public class Level implements ILevel {
 		this.setMap(new Map(sourceMap));
 		this.getMap().setLevel(this);
 		this.setWorld(new World(new Vector2(0,0), true));
+		this.getWorld().setContactListener(new MyContactListener());
 		this.setTmr(new OrthogonalTiledMapRenderer(this.getMap().getTiledMap()));
 		this.rayHandler = new RayHandler(this.getWorld());
 		this.getRayHandler().setAmbientLight(0.5f);
 		ArrayList<String> list = new ArrayList<String>();
-        list.add("bar1.wav");
+        list.add("bar2.mp3");
 		this.setMusicsPath(list);
 		TiledObjectUtil.buildShapes(this.getWorld(), this.getMap().getTiledMap().getLayers().get("collision").getObjects());
-		TiledObjectUtil.parseLightObjectLayer(this.getWorld(), this.getMap().getTiledMap().getLayers().get("objets").getObjects(), this.getRayHandler());
+		TiledObjectUtil.parseLightObjectLayer(this.getWorld(), this.getMap().getTiledMap().getLayers().get("objets-lumiere").getObjects(), this.getRayHandler());
 
 	}
 
@@ -185,5 +191,17 @@ public class Level implements ILevel {
 
 	public void setMusicsPath(ArrayList<String> musicsPath) {
 		this.musicsPath = musicsPath;
+	}
+
+	public ArrayList<ITeleporter> getTeleporter() {
+		return teleporter;
+	}
+
+	public void setTeleporter() throws SQLException {
+		ArrayList<TeleporterSql> teleporterSql = this.getChapter().getBewareOfTruthModel().getDao().getTeleporterDAO().getTeleportersByIdLevel((int) this.getId());
+		this.teleporter = new ArrayList<>();
+		for( TeleporterSql temp : teleporterSql) {
+			this.teleporter.add(new Teleporter(temp.getIdTeleporter(), temp.getIdLevel(), temp.getIdNextLevel(), temp.getX(), temp.getY(), this.getWorld()));
+		}
 	}
 }

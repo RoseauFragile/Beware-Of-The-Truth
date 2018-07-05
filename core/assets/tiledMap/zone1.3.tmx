@@ -23,13 +23,19 @@
    eJztwQEBAAAAgJD+r+4ICgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGoADwAB
   </data>
  </layer>
- <objectgroup name="objets">
-  <object id="2" x="8285.33" y="7481.33" width="58.6667" height="52"/>
- </objectgroup>
+ <objectgroup name="objets"/>
+ <layer name="calque64" width="128" height="128">
+  <data encoding="base64" compression="zlib">
+   eJztwQEBAAAAgJD+r+4ICgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGoADwAB
+  </data>
+ </layer>
  <layer name="toit" width="128" height="128">
   <data encoding="base64" compression="zlib">
    eJzt1TEKgDAQBMDoB0QQLNTCUv//QFOmiaSJQjID24QrDhZyIQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABACHfmfYvZkyyfbcSXpsK5s+oW/KW0/6vqFvxF/31L+x9ixkzc/zal/c8xR2bO/W+T/79v+u+b/vu2Fs7pv03LS1L6BwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHqD6A3k=
   </data>
  </layer>
+ <objectgroup name="objets-lumiere">
+  <object id="2" x="8285.33" y="7481.33" width="58.6667" height="52"/>
+ </objectgroup>
  <objectgroup name="collision"/>
 </map>

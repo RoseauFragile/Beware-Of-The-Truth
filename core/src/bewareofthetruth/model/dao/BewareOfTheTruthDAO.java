@@ -9,6 +9,7 @@ public class BewareOfTheTruthDAO extends AbstractDAO {
 	private MainMenuDAO	mainMenuDAO;
 	private PlayerDAO	playerDao;
 	private OptionsDAO	optionsDAO;
+	private TeleporterDAO teleporterDAO;
 	private static int	idColumnIndex	= 1;
 
 	public BewareOfTheTruthDAO() throws SQLException {
@@ -21,6 +22,7 @@ public class BewareOfTheTruthDAO extends AbstractDAO {
 		this.setMainMenuDAO(new MainMenuDAO());
 		this.setPlayerDao(new PlayerDAO());
 		this.setOptionsDAO(new OptionsDAO());
+		this.setTeleporterDAO(new TeleporterDAO());
 	}
 
 	public ChapterDAO getChapterDAO() {
@@ -76,5 +78,13 @@ public class BewareOfTheTruthDAO extends AbstractDAO {
 	public static int getIdColumnIndex() {
 
 		return idColumnIndex;
+	}
+
+	public TeleporterDAO getTeleporterDAO() {
+		return this.teleporterDAO;
+	}
+
+	public void setTeleporterDAO(TeleporterDAO teleporterDAO) {
+		this.teleporterDAO = teleporterDAO;
 	}
 }

@@ -30,18 +30,11 @@ public class PlayState extends GameState {
 		System.out.println("DIRECTION BODY = " + this.getConstant().PLAYER.getBody().getAngle());
 		float stateTime = this.game.getModelFacade().getBewareOfTruthModel().getStateTime();
 		this.getConstant().WORLD.step(1 / 60f, 6, 2);
-		//this.myLight.setDirection(this.getConstant().PLAYER.getDirection());
-		//this.rayHandler.update();
-		//this.myLight.setConeDegree(this.getConstant().PLAYER.getBody().getAngle());
 		this.game.getModelFacade().getBewareOfTruthModel().setStateTime(stateTime += delta);
 		this.inputUpdate(delta);
 		this.getConstant().CAMERA.cameraUpdate(this.getConstant().PLAYER.getBody().getPosition());
 		this.getConstant().TMR.setView(this.getConstant().CAMERA.getCamera());
 		this.getConstant().BATCH.setProjectionMatrix(this.getConstant().CAMERA.getCamera().combined);
-		//this.rayHandler.update();
-		//this.myLight.setDirection(this.getConstant().PLAYER.getBody().getAngle());
-		//this.myLight.setDirection(this.getConstant().PLAYER.getDirection());
-
 		this.getConstant().RAYHANDLER.update();
 		this.getConstant().RAYHANDLER.setCombinedMatrix(this.getConstant().CAMERA.getCamera().combined.cpy().scl(PPM));
 		this.getConstant().LEVEL.updateEnnemiesMovement();
@@ -61,7 +54,7 @@ public class PlayState extends GameState {
 		this.getConstant().TMR.render(this.getConstant().LEVEL.getLayerAfterBackground());
 		
 		//DEBUG RENDERER
-		//this.getConstant().DEBUG_RENDERER.render(this.getConstant().WORLD, this.getConstant().CAMERA.getCamera().combined.scl(PPM));
+		this.getConstant().DEBUG_RENDERER.render(this.getConstant().WORLD, this.getConstant().CAMERA.getCamera().combined.scl(PPM));
 		this.getConstant().RAYHANDLER.render();
 	}
 

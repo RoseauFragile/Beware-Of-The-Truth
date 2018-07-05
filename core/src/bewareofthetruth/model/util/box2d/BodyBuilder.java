@@ -6,6 +6,9 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+
+import bewareofthetruth.contract.model.gameMecanism.IPlayer;
+
 import static bewareofthetruth.model.util.Constants.PPM;
 import static bewareofthetruth.model.util.Constants.BIT_ENNEMY;
 import static bewareofthetruth.model.util.Constants.BIT_PLAYER;
@@ -34,7 +37,30 @@ public class BodyBuilder {
 		fixtureDef.filter.categoryBits = cBits;
 		fixtureDef.filter.maskBits = mBits;
 		fixtureDef.filter.groupIndex = gIndex;
+		return world.createBody(def).createFixture(fixtureDef).getBody();
+	}
+	
+	public static Body createPlayerBody(World world, float x, float y, int width, int height, boolean isStatic, boolean fixedRotation, short cBits, short mBits, short gIndex, IPlayer player) {
+		BodyDef def = new BodyDef();
+		def.fixedRotation = fixedRotation;
+		def.position.set(x / PPM,  y / PPM);
 		
+		if(isStatic == false) {
+			def.type = BodyDef.BodyType.DynamicBody;
+		}else {
+			def.type = BodyDef.BodyType.StaticBody;
+		}
+		
+		PolygonShape shape = new PolygonShape();
+		shape.setAsBox(width / 2 / PPM, height / 2 / PPM);
+		FixtureDef fixtureDef = new FixtureDef();
+		fixtureDef.shape = shape;
+		fixtureDef.density = 1.0f;
+		fixtureDef.filter.categoryBits = cBits;
+		fixtureDef.filter.maskBits = mBits;
+		fixtureDef.filter.groupIndex = gIndex;
+		//fixtureDef.
+		//Body body = world.createBody(def).createFixture(fixtureDef).setUserData(player);
 		return world.createBody(def).createFixture(fixtureDef).getBody();
 	}
 	

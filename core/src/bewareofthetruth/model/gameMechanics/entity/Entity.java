@@ -55,11 +55,18 @@ public class Entity implements IEntity {
 		this.getPosition().setX(x);
 		this.getPosition().setY(y);
 		this.setWorld(world);
-		//this.setBody(this.createDynamicBody());
 		this.setIdleDelta(0f);
 		this.setWalkDelta(0f);
 		this.setAtlas(null);
 		this.setAnimationCurrent(null);
+	}
+	
+	public Entity(World world, float x, float y, boolean isStatic) {
+		this.setPosition(new Position());
+		this.setStatic(isStatic);
+		this.getPosition().setX(x);
+		this.getPosition().setY(y);
+		this.setWorld(world);
 	}
 
 	@Override

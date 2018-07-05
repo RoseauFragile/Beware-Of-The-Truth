@@ -52,6 +52,7 @@ public class Chapter implements IChapter {
 		for (ILevel temp : this.levels) {
 			temp.setChapter(this);
 			temp.setMobiles();
+			temp.setTeleporter();
 		}
 	}
 

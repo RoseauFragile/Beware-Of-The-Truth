@@ -43,6 +43,7 @@ public class Player extends Entity implements IPlayer {
 		this.setWalkDelta(0.15f);
 		this.setIdleDelta(0.15f);
 		this.setLastDirection(Direction.DOWN);
+		
 	}
 
 	@Override
