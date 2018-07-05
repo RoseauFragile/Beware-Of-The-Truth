@@ -15,9 +15,9 @@ public class MyContactListener implements ContactListener{
 		Fixture fb = contact.getFixtureB();
 		
 		if( fa == null || fb ==null) return;
-		//if(fa.getUserData() == null || fb.getUserData() == null) return;
+		if(fa.getUserData() == null || fb.getUserData() == null) return;
 		
-		System.out.println(" !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Collision happened");
+		System.out.println("Collision happened");
 	}
 
 	@Override

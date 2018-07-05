@@ -27,7 +27,7 @@ public class PlayState extends GameState {
 	@Override
 	public void update(float delta) {
 		
-		System.out.println("DIRECTION BODY = " + this.getConstant().PLAYER.getBody().getAngle());
+		//System.out.println("DIRECTION BODY = " + this.getConstant().PLAYER.getBody().getAngle());
 		float stateTime = this.game.getModelFacade().getBewareOfTruthModel().getStateTime();
 		this.getConstant().WORLD.step(1 / 60f, 6, 2);
 		this.game.getModelFacade().getBewareOfTruthModel().setStateTime(stateTime += delta);

@@ -7,18 +7,17 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import bewareofthetruth.contract.model.gameMecanism.IEntity;
 import bewareofthetruth.contract.model.gameMecanism.IPlayer;
-
 import static bewareofthetruth.model.util.Constants.PPM;
 import static bewareofthetruth.model.util.Constants.BIT_ENNEMY;
 import static bewareofthetruth.model.util.Constants.BIT_PLAYER;
 import static bewareofthetruth.model.util.Constants.BIT_WALL;
-import static bewareofthetruth.model.util.Constants.BIT_DOOR;
 import static bewareofthetruth.model.util.Constants.BIT_LIGHT;
 
 public class BodyBuilder {
 
-	public static Body createEntityBody(World world, float x, float y, int width, int height, boolean isStatic, boolean fixedRotation, short cBits, short mBits, short gIndex) {
+	public static Body createEntityBody(World world, float x, float y, int width, int height, boolean isStatic, boolean fixedRotation, short cBits, short mBits, short gIndex, IEntity entity) {
 		BodyDef def = new BodyDef();
 		def.fixedRotation = fixedRotation;
 		def.position.set(x / PPM,  y / PPM);
@@ -37,7 +36,9 @@ public class BodyBuilder {
 		fixtureDef.filter.categoryBits = cBits;
 		fixtureDef.filter.maskBits = mBits;
 		fixtureDef.filter.groupIndex = gIndex;
-		return world.createBody(def).createFixture(fixtureDef).getBody();
+		Body body = world.createBody(def);
+		body.createFixture(fixtureDef).setUserData(entity);
+		return body;
 	}
 	
 	public static Body createPlayerBody(World world, float x, float y, int width, int height, boolean isStatic, boolean fixedRotation, short cBits, short mBits, short gIndex, IPlayer player) {
@@ -59,9 +60,10 @@ public class BodyBuilder {
 		fixtureDef.filter.categoryBits = cBits;
 		fixtureDef.filter.maskBits = mBits;
 		fixtureDef.filter.groupIndex = gIndex;
-		//fixtureDef.
-		//Body body = world.createBody(def).createFixture(fixtureDef).setUserData(player);
-		return world.createBody(def).createFixture(fixtureDef).getBody();
+		
+		Body body = world.createBody(def);
+		body.createFixture(fixtureDef).setUserData(player);
+		return body;
 	}
 	
     public static Body createBox(World world, float x, float y, int width, int height, boolean isStatic, boolean fixedRotation) {

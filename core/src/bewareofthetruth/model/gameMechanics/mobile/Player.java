@@ -37,7 +37,7 @@ public class Player extends Entity implements IPlayer {
 		this.setIdLevel(idLevel);
 		this.setIdInventory(idInventory);
 		this.setIdChapter(idChapter);
-		this.setBody(BodyBuilder.createEntityBody(this.getWorld(), x, y, WIDTH, HEIGHT, isStatic, fixedRotation, BIT_PLAYER, (short) (BIT_ENNEMY | BIT_WALL | BIT_LIGHT), (short) 0));
+		this.setBody(BodyBuilder.createPlayerBody(this.getWorld(), x, y, WIDTH, HEIGHT, isStatic, fixedRotation, BIT_PLAYER, (short) (BIT_ENNEMY | BIT_WALL | BIT_LIGHT), (short) 0, this));
 		this.setAtlas(new TextureAtlas("sprite/hero_walk.txt"));
 		this.setAnimationCurrent(this.getAnimationWalkDown());
 		this.setWalkDelta(0.15f);
