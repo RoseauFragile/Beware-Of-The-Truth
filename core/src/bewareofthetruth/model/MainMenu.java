@@ -12,7 +12,7 @@ public class MainMenu implements IMainMenu {
 
 	@Override
 	public void loadCinema() {
-		// TODO Auto-generated method stub
+		// 
 
 	}
 

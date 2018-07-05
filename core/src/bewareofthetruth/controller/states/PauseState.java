@@ -12,25 +12,25 @@ public class PauseState extends GameState {
 
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	public void update(float delta) {
-		// TODO Auto-generated method stub
+
 
 	}
 
 	@Override
 	public void render() {
-		// TODO Auto-generated method stub
+	
 
 	}
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
+		
 
 	}
 

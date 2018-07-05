@@ -6,6 +6,9 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
+import bewareofthetruth.model.gameMechanics.entity.mobile.Player;
+import bewareofthetruth.model.gameMechanics.tiles.Teleporter;
+
 public class MyContactListener implements ContactListener{
 
 	//TODO ISSOU
@@ -16,8 +19,13 @@ public class MyContactListener implements ContactListener{
 		
 		if( fa == null || fb ==null) return;
 		if(fa.getUserData() == null || fb.getUserData() == null) return;
-		
 		System.out.println("Collision happened");
+		if(isContactPlayerWithTeleporter(fa, fb)) {
+			Player pa = (Player) fa.getUserData();
+			pa.getBewareOfTruthModel().nextLevel();
+		}
+		
+		
 	}
 
 	@Override
@@ -39,4 +47,8 @@ public class MyContactListener implements ContactListener{
 	public void postSolve(Contact contact, ContactImpulse impulse) {
 	}
 
+	private boolean isContactPlayerWithTeleporter(Fixture a, Fixture b) {
+		return (a.getUserData() instanceof Player && b.getUserData() instanceof Teleporter);
+		
+	}
 }

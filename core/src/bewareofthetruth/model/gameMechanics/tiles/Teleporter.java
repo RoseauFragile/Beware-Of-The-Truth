@@ -3,7 +3,7 @@ package bewareofthetruth.model.gameMechanics.tiles;
 import com.badlogic.gdx.physics.box2d.World;
 import static bewareofthetruth.model.util.Constants.BIT_ENNEMY;
 import static bewareofthetruth.model.util.Constants.BIT_DOOR;
-
+import static bewareofthetruth.model.util.Constants.BIT_PLAYER;
 import bewareofthetruth.contract.model.gameMecanism.ITeleporter;
 import bewareofthetruth.model.gameMechanics.entity.Entity;
 import bewareofthetruth.model.util.box2d.BodyBuilder;
@@ -28,7 +28,7 @@ public class Teleporter extends Entity implements ITeleporter{
 		this.setIdTeleporter(idTeleporter);
 		this.setIdLevel(idLevel);
 		this.setIdNextLevel(idNextLevel);
-		this.setBody(BodyBuilder.createBox(world, idNextLevel, y, WIDTH, HEIGHT, IS_STATIC, CAN_ROTATE, BIT_DOOR, (short) (BIT_ENNEMY), (short) 0));
+		this.setBody(BodyBuilder.createTeleporter(world, idNextLevel, y, WIDTH, HEIGHT, IS_STATIC, CAN_ROTATE, BIT_DOOR, (short) (BIT_ENNEMY | BIT_PLAYER), (short) 0, this));
 	}
 
 	public int getIdLevel() {

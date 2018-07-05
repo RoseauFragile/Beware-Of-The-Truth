@@ -9,6 +9,8 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import bewareofthetruth.contract.model.gameMecanism.IEntity;
 import bewareofthetruth.contract.model.gameMecanism.IPlayer;
+import bewareofthetruth.model.gameMechanics.tiles.Teleporter;
+
 import static bewareofthetruth.model.util.Constants.PPM;
 import static bewareofthetruth.model.util.Constants.BIT_ENNEMY;
 import static bewareofthetruth.model.util.Constants.BIT_PLAYER;
@@ -143,4 +145,31 @@ public class BodyBuilder {
 
         return world.createBody(bodyDef).createFixture(fixtureDef).getBody();
     }
+    
+    public static Body createTeleporter(final World world, float x, float y, float w, float h,
+            boolean isStatic, boolean canRotate, short cBits, short mBits, short gIndex, Teleporter teleporter) {
+		BodyDef bodyDef = new BodyDef();
+		bodyDef.fixedRotation = canRotate;
+		bodyDef.position.set(x / PPM, y / PPM);
+		
+		if(isStatic) {
+		bodyDef.type = BodyDef.BodyType.StaticBody;
+		} else {
+		bodyDef.type = BodyDef.BodyType.DynamicBody;
+		}
+		
+		PolygonShape shape = new PolygonShape();
+		shape.setAsBox(w / PPM / 2, h / PPM / 2);
+		
+		FixtureDef fixtureDef = new FixtureDef();
+		fixtureDef.shape = shape;
+		fixtureDef.density = 1.0f;
+		fixtureDef.filter.categoryBits = cBits; // Is a
+		fixtureDef.filter.maskBits = mBits; // Collides with
+		fixtureDef.filter.groupIndex = gIndex;
+
+		Body body = world.createBody(bodyDef);
+		body.createFixture(fixtureDef).setUserData(teleporter);
+		return body;
+    	}
 }
