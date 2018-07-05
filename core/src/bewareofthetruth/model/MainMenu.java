@@ -8,7 +8,6 @@ public class MainMenu implements IMainMenu {
 	private IBewareOfTruthModel bewareOfTruthModel;
 
 	public MainMenu() {
-		System.out.println("MainMenu créer");
 	}
 
 	@Override

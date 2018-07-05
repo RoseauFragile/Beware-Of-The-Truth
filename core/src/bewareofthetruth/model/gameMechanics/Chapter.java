@@ -22,9 +22,6 @@ public class Chapter implements IChapter {
 
 	@Override
 	public ArrayList<ILevel> getLevels() {
-		for(int i =0; i < this.levels.size(); i++) {
-			System.out.println("debug array list levels : " + this.levels.get(i).getMap().getMapName());
-		}
 		return this.levels;
 	}
 

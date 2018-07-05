@@ -84,15 +84,12 @@ public class TiledObjectUtil {
 		for(MapObject object : objects) {
 			
 			Shape shape = null;
-			System.out.println("parse Tiled");
 			if(object instanceof PolylineMapObject) {
 				shape = createPolyline((PolylineMapObject) object);
 			}else if(object instanceof CircleMapObject) {
-				System.out.println("tentative circle shape");
 				shape = createCircle((CircleMapObject) object);
 			}else if (object instanceof RectangleMapObject) {
                 shape = createRectangle((RectangleMapObject)object);
-                System.out.println("Creation rectangle !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             } else if (object instanceof PolygonMapObject) {
                 shape = createPolygon((PolygonMapObject)object);
             }
@@ -101,8 +98,6 @@ public class TiledObjectUtil {
 			BodyDef bdef = new BodyDef();
 			bdef.type = BodyDef.BodyType.StaticBody;
 			body = world.createBody(bdef);
-			System.out.println(body.toString());
-			System.out.println(shape.toString());
 			FixtureDef fixtureDef = new FixtureDef();
 			fixtureDef.shape = shape;
 			fixtureDef.density = 1.0f;			
@@ -145,8 +140,6 @@ public class TiledObjectUtil {
 			BodyDef bdef = new BodyDef();
 			bdef.type = BodyDef.BodyType.StaticBody;
 			body = world.createBody(bdef);
-			System.out.println(body.toString());
-			System.out.println(shape.toString());
 			FixtureDef fixtureDef = new FixtureDef();
 			fixtureDef.shape = shape;
 			fixtureDef.density = 1.0f;			
@@ -184,7 +177,6 @@ public class TiledObjectUtil {
 	private static CircleShape createCircle(CircleMapObject circleObject) {
 		Circle circle = circleObject.getCircle();	
 		CircleShape cs = new CircleShape();
-		System.out.println("new circle shape");
 		cs.setRadius(circle.radius / Constants.PPM);
 		cs.setPosition(new Vector2(circle.x /Constants.PPM, circle.y /Constants.PPM));
 		return cs;
@@ -198,7 +190,6 @@ public class TiledObjectUtil {
         float[] worldVertices = new float[vertices.length];
 
         for (int i = 0; i < vertices.length; ++i) {
-            System.out.println(vertices[i]);
             worldVertices[i] = vertices[i] / ppt;
         }
 

@@ -35,7 +35,6 @@ public class SqlLiteConnector {
 
 		Connection c = null;
 		try {
-			System.out.println("test create DB");
 			Class.forName("org.sqlite.JDBC");
 			c = DriverManager.getConnection(url);
 			this.setConnection(c);
@@ -46,7 +45,6 @@ public class SqlLiteConnector {
 			System.exit(0);
 			return false;
 		}
-		System.out.println("Opened database successfully");
 		return true;
 	}
 

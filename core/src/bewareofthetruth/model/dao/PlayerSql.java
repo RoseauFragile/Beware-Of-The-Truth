@@ -15,7 +15,6 @@ public class PlayerSql {
 		this.setIdInventaire(idInventaire);
 		this.setIdLevel(idLevel);
 		this.setIdChapter(idChapter);
-		System.out.println("nouveau playerSql");
 	}
 	public String getNom() {
 		return this.nom;

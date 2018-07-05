@@ -8,7 +8,6 @@ public class Hud implements IHud {
 	private IBewareOfTruthModel bewareOfTruthModel;
 
 	public Hud() {
-		System.out.println("Hud créer");
 	}
 
 	@Override

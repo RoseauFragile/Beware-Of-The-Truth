@@ -8,7 +8,6 @@ public class Options implements IOptions {
 	private IBewareOfTruthModel bewareOfTruthModel;
 
 	public Options() {
-		System.out.println("Options créer");
 	}
 
 	@Override

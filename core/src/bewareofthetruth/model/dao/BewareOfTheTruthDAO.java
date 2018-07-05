@@ -15,7 +15,6 @@ public class BewareOfTheTruthDAO extends AbstractDAO {
 	public BewareOfTheTruthDAO() throws SQLException {
 
 		super();
-		System.out.println("DAO créer");
 		this.setChapterDAO(new ChapterDAO());
 		this.getChapterDAO().setBewareOfTheTruthDAO(this);
 		this.setLevelDAO(new LevelDAO());

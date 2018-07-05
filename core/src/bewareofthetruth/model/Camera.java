@@ -52,7 +52,6 @@ public class Camera implements ICamera {
 	}
 
 	public void cameraUpdate(Vector2 target) {
-		//System.out.println((target.x + "   " + target.y));
 		Vector3 position = this.getCamera().position;
 		position.x = cam.position.x + (target.x * 32 - cam.position.x) * .05f;
 		position.y = cam.position.y + (target.y * 32 - cam.position.y) * .05f;

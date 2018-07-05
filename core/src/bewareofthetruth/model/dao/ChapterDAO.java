@@ -10,7 +10,6 @@ public class ChapterDAO extends AbstractDAO {
 	
 	public ChapterDAO() {
 		super();
-		System.out.println("chapterDAO");
 	}
 
 	public ArrayList<LevelSql> getLevelByChapter(int id) throws SQLException {

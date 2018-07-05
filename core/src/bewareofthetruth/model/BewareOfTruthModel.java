@@ -160,9 +160,7 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	}
 
 	public void setBatch(SpriteBatch batch) {
-		System.out.println("DEBUG BATCH");
 		this.batch = batch;
-		System.out.println("DEBUG BATCH OK");
 	}
 
 	public ILevel getLevel() {

@@ -46,7 +46,6 @@ public class Level implements ILevel {
 
 	public Level(final float id, final String levelName, final float height, final float width, final String sourceMap)
 			throws SQLException {
-		System.out.println(sourceMap);
 		this.setLevelName(levelName);
 		this.setId(id);
 		this.setDimension(height, width);

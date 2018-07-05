@@ -14,10 +14,8 @@ public class ModelFacade implements IModelFacade {
 
 	public ModelFacade() throws SQLException {
 		super();
-		System.out.println("ModelFacade créer");
 		this.setBewareOfTruthModel(new BewareOfTruthModel());
 		this.getBewareOfTruthModel().setModelFacade(this);
-		//this.setConstants(new Constants(this));
 	}
 
 	@Override

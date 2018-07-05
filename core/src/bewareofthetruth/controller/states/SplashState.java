@@ -76,7 +76,6 @@ public class SplashState extends GameState {
 		this.getConstant().BATCH.begin();
 		
 		stage.draw();
-		System.out.println("CameraX : " + splashImage.getX() + " CameraY : " + splashImage.getY());
 		//this.getConstant().BATCH.setProjectionMatrix(this.getConstant().CAMERA.getCamera().combined);
 		
 		this.getConstant().BATCH.end();

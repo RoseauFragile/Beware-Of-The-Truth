@@ -13,7 +13,6 @@ public class GameMenu implements IGameMenu {
 	private Texture				texture;
 
 	public GameMenu() {
-		System.out.println("GameMenu créer");
 		// this.setTexture(new Texture("assets/gameMenu.png"));
 		// this.setSprite(new Sprite(this.getTexture()));
 	}
