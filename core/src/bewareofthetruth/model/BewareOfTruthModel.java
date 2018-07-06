@@ -3,7 +3,6 @@ package bewareofthetruth.model;
 import static bewareofthetruth.model.util.Constants.PPM;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -183,7 +182,7 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 	}
 	
 	public void goToLevel(int idLevel, int xSpawn, int ySpawn){
-		int lastIndex = this.indexLevel;
+		//int lastIndex = this.indexLevel;
 		this.indexLevel = idLevel;
 		
 		IPlayer player = this.getLevel().getPlayer();
