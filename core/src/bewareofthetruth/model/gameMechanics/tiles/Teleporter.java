@@ -17,18 +17,22 @@ public class Teleporter extends Entity implements ITeleporter{
 	private static int WIDTH = 64;
 	private static int HEIGHT = 64;
 	private boolean CAN_ROTATE = false;
+	private int xSpawn;
+	private int ySpawn;
 	
 	public Teleporter(String sourceTexture, World world, float x, float y) {
 		super(sourceTexture, world, x, y, IS_STATIC);
 		
 	}
 
-	public Teleporter(int idTeleporter, int idLevel, int idNextLevel, int x, int y, World world) {
+	public Teleporter(int idTeleporter, int idLevel, int idNextLevel, int x, int y, World world, int xSpawn, int ySpawn) {
 		super(world, x, y, IS_STATIC);
 		this.setIdTeleporter(idTeleporter);
 		this.setIdLevel(idLevel);
 		this.setIdNextLevel(idNextLevel);
-		this.setBody(BodyBuilder.createTeleporter(world, idNextLevel, y, WIDTH, HEIGHT, IS_STATIC, CAN_ROTATE, BIT_DOOR, (short) (BIT_ENNEMY | BIT_PLAYER), (short) 0, this));
+		this.setxSpawn(xSpawn);
+		this.setySpawn(ySpawn);
+		this.setBody(BodyBuilder.createTeleporter(world,  x, y, WIDTH, HEIGHT, IS_STATIC, CAN_ROTATE, BIT_DOOR, (short) (BIT_ENNEMY | BIT_PLAYER), (short) 0, this));
 	}
 
 	public int getIdLevel() {
@@ -53,6 +57,22 @@ public class Teleporter extends Entity implements ITeleporter{
 
 	public void setIdTeleporter(int idTeleporter) {
 		this.idTeleporter = idTeleporter;
+	}
+
+	public int getxSpawn() {
+		return xSpawn;
+	}
+
+	public void setxSpawn(int xSpawn) {
+		this.xSpawn = xSpawn;
+	}
+
+	public int getySpawn() {
+		return ySpawn;
+	}
+
+	public void setySpawn(int ySpawn) {
+		this.ySpawn = ySpawn;
 	}
 
 }

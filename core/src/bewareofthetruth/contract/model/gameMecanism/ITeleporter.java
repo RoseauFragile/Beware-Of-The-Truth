@@ -1,6 +1,6 @@
 package bewareofthetruth.contract.model.gameMecanism;
 
-public interface ITeleporter {
+public interface ITeleporter extends IEntity{
 
 	public int getIdLevel();
 
@@ -13,4 +13,12 @@ public interface ITeleporter {
 	public int getIdTeleporter();
 
 	public void setIdTeleporter(int idTeleporter);
+	
+	public int getxSpawn();
+
+	public void setxSpawn(int xSpawn);
+
+	public int getySpawn();
+
+	public void setySpawn(int ySpawn);
 }

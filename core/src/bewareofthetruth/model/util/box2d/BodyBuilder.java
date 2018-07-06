@@ -159,7 +159,7 @@ public class BodyBuilder {
 		}
 		
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(w / PPM / 2, h / PPM / 2);
+		shape.setAsBox(w / 2 / PPM, h / 2 / PPM);
 		
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;

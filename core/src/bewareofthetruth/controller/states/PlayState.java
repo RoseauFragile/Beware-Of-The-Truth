@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import bewareofthetruth.contract.model.utils.Direction;
 import bewareofthetruth.controller.managers.GameStateManager;
+import bewareofthetruth.model.util.Constants;
 
 import static bewareofthetruth.model.util.Constants.PPM;
 
@@ -27,6 +28,7 @@ public class PlayState extends GameState {
 	@Override
 	public void update(float delta) {
 		
+		this.setConstant(new Constants(this.game.getModelFacade()));
 		float stateTime = this.game.getModelFacade().getBewareOfTruthModel().getStateTime();
 		this.getConstant().WORLD.step(1 / 60f, 6, 2);
 		this.game.getModelFacade().getBewareOfTruthModel().setStateTime(stateTime += delta);
@@ -45,6 +47,7 @@ public class PlayState extends GameState {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		System.out.println(" LEVEL DE l'UPDATE =" + this.getConstant().LEVEL.getId());
 		this.getConstant().CAMERA.getCamera().update();
 		this.getConstant().TMR.render(this.getConstant().LEVEL.getLayerBackground());
 		this.getConstant().BATCH.begin();
@@ -53,7 +56,7 @@ public class PlayState extends GameState {
 		this.getConstant().TMR.render(this.getConstant().LEVEL.getLayerAfterBackground());
 		
 		//DEBUG RENDERER
-		//this.getConstant().DEBUG_RENDERER.render(this.getConstant().WORLD, this.getConstant().CAMERA.getCamera().combined.scl(PPM));
+		this.getConstant().DEBUG_RENDERER.render(this.getConstant().WORLD, this.getConstant().CAMERA.getCamera().combined.scl(PPM));
 		this.getConstant().RAYHANDLER.render();
 	}
 

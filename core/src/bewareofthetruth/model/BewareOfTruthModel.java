@@ -17,6 +17,7 @@ import bewareofthetruth.contract.model.data.ILevel;
 import bewareofthetruth.contract.model.data.IMainMenu;
 import bewareofthetruth.contract.model.data.IModelFacade;
 import bewareofthetruth.contract.model.data.IOptions;
+import bewareofthetruth.contract.model.gameMecanism.IPlayer;
 import bewareofthetruth.contract.model.utils.ISound;
 import bewareofthetruth.model.dao.BewareOfTheTruthDAO;
 import bewareofthetruth.model.dao.PlayerSql;
@@ -171,9 +172,26 @@ public class BewareOfTruthModel implements IBewareOfTruthModel {
 		this.level = level;
 	}
 
-	public void nextLevel() {
+	public void nextLevel(){
 		this.indexLevel += 1;
+		System.out.println(indexLevel);
+		IPlayer player = this.getLevel().getPlayer();		
 		this.setLevel(this.getChapter().getLevels().get(indexLevel));
+		this.getLevel().setPlayer(new Player(player.getId(), player.getPlayerName(), player.getIdLevel() +1, 1,1, this.getLevel().getWorld(), player.getBody().getPosition().x, player.getBody().getPosition().y, false));
+		this.getLevel().getPlayer().setBewareOfTruthModel(this);
+		System.out.println("ID DU LEVEL DU BOTMODEL : " +this.getLevel().getId());
+	}
+	
+	public void goToLevel(int idLevel, int xSpawn, int ySpawn){
+		int lastIndex = this.indexLevel;
+		this.indexLevel = idLevel;
+		
+		IPlayer player = this.getLevel().getPlayer();
+		//this.getLevel().getWorld().destroyBody(this.getLevel().getPlayer().getBody());
+		this.setLevel(this.getChapter().getLevelById(idLevel));
+		this.getLevel().setPlayer(new Player(player.getId(), player.getPlayerName(), player.getIdLevel() +1, 1,1, this.getLevel().getWorld(), xSpawn, ySpawn, false));
+		this.getLevel().getPlayer().setBewareOfTruthModel(this);
+		System.out.println("ID DU LEVEL DU BOTMODEL : " +this.getLevel().getId());
 	}
 
 	public void initializeFirstLevelOfChapter() throws SQLException {

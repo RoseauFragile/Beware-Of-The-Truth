@@ -62,4 +62,13 @@ public class Chapter implements IChapter {
 	public void setIdChapter( int idChapter) {
 		this.idChapter = idChapter;
 	}
+	
+	public ILevel getLevelById(int idLevel) {
+		for(int i = 0; i < this.getLevels().size(); i++) {
+			if(this.getLevels().get(i).getId() == idLevel) {
+				return this.getLevels().get(i);
+			}
+		}
+		return null;	
+	}
 }

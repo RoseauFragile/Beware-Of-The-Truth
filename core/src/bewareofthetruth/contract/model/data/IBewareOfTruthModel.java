@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-
 import bewareofthetruth.contract.model.utils.ISound;
 import bewareofthetruth.model.dao.BewareOfTheTruthDAO;
 
@@ -67,5 +66,7 @@ public interface IBewareOfTruthModel {
 	public void drawBatch();
 
 	public ISound getSoundReader();
+	
+	public void goToLevel(int idLevel, int xSpawn, int ySpawn);
 
 }

@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="left-up" width="128" height="128" tilewidth="128" tileheight="128" infinite="0" nextobjectid="3">
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="left-up" width="11" height="11" tilewidth="128" tileheight="128" infinite="0" nextobjectid="3">
  <tileset firstgid="1" source="tileset/mur.tsx"/>
  <tileset firstgid="49" source="tileset/sol.tsx"/>
  <tileset firstgid="67" source="tileset/lampe3.tsx"/>
- <layer name="sol" width="128" height="128">
+ <layer name="sol" width="11" height="11">
   <data encoding="base64" compression="zlib">
-   eJzt1EkKgDAQRcFcSQUHRO9/LCMihOA6AbsK/r7hQacEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI8hbyw29T2Hxpa8tdjW9xwaq/vvyT+IpO5fzz/4N/1j0z82/WPTPzb9Yzvyzo/NSf/I3r+gPwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcLsAnHUSiA==
+   eJxjYGBgMARiIyRszIAbmAOxBRK2JEGtNR570NWiY8sRotYWiO2wYDMsanEBmH0wtQA/MxKI
   </data>
  </layer>
- <layer name="decors" width="128" height="128">
+ <layer name="decors" width="11" height="11">
   <data encoding="base64" compression="zlib">
-   eJztwQEBAAAAgJD+r+4ICgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGoADwAB
+   eJxjYBgFwx0AAAHkAAE=
   </data>
  </layer>
- <layer name="mur" width="128" height="128">
+ <layer name="mur" width="11" height="11">
   <data encoding="base64" compression="zlib">
-   eJzt1rEJACAMAMGsYa3uv6IKio2tCHIH3wdSJBEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGepV2b18SwAwH059u1f8b+xd78eAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALA0q1MBgg==
+   eJxjYKAcSAKxChSrUsE8WgJlBoRbYRibmsHuD1IAALcvAYI=
   </data>
  </layer>
- <layer name="decors-lumiere" width="128" height="128">
+ <layer name="decors-lumiere" width="11" height="11">
   <data encoding="base64" compression="zlib">
-   eJztwQEBAAAAgJD+r+4ICgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGoADwAB
+   eJxjYBgFwx0AAAHkAAE=
   </data>
  </layer>
  <objectgroup name="objets"/>
- <layer name="calque64" width="128" height="128">
+ <layer name="calque64" width="11" height="11">
   <data encoding="base64" compression="zlib">
-   eJztwQEBAAAAgJD+r+4ICgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGoADwAB
+   eJxjYBgFwx0AAAHkAAE=
   </data>
  </layer>
- <layer name="toit" width="128" height="128">
+ <layer name="toit" width="11" height="11">
   <data encoding="base64" compression="zlib">
-   eJzt1TEKgDAQBMDoB0QQLNTCUv//QFOmiaSJQjID24QrDhZyIQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABACHfmfYvZkyyfbcSXpsK5s+oW/KW0/6vqFvxF/31L+x9ixkzc/zal/c8xR2bO/W+T/79v+u+b/vu2Fs7pv03LS1L6BwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHqD6A3k=
+   eJzTYsAOpIFYBgmLADE/DrXoQJEEtZoUqGUEYiYcGN29gkAsO8DuJaRWnAS1IngwuloALbEDeQ==
   </data>
  </layer>
  <objectgroup name="objets-lumiere">
-  <object id="2" x="8285.33" y="7481.33" width="58.6667" height="52"/>
+  <object id="2" x="861.33" y="185.33" width="58.6667" height="52"/>
  </objectgroup>
  <objectgroup name="collision"/>
 </map>

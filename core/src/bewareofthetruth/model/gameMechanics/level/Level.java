@@ -48,6 +48,7 @@ public class Level implements ILevel {
 			throws SQLException {
 		this.setLevelName(levelName);
 		this.setId(id);
+		System.out.println("Création du level : " + this.getId());
 		this.setDimension(height, width);
 		this.setMap(new Map(sourceMap));
 		this.getMap().setLevel(this);
@@ -223,8 +224,19 @@ public class Level implements ILevel {
 	public void setTeleporter() throws SQLException {
 		ArrayList<TeleporterSql> teleporterSql = this.getChapter().getBewareOfTruthModel().getDao().getTeleporterDAO().getTeleportersByIdLevel((int) this.getId());
 		this.teleporter = new ArrayList<>();
+		
+		for(TeleporterSql temp : teleporterSql) {
+			System.out.println("DEBUG1 DEBUG1 x = " +temp.getX() + " y  = " + temp.getY());
+			
+		}
 		for( TeleporterSql temp : teleporterSql) {
-			this.teleporter.add(new Teleporter(temp.getIdTeleporter(), temp.getIdLevel(), temp.getIdNextLevel(), temp.getX(), temp.getY(), this.getWorld()));
+			this.teleporter.add(new Teleporter(temp.getIdTeleporter(), temp.getIdLevel(), temp.getIdNextLevel(), temp.getX(), temp.getY(), this.getWorld(), temp.getxSpawn(), temp.getySpawn()));
+			System.out.println("porte : " +temp.getX() + " " + temp.getY());
+		}
+		
+		for(int i = 0; i< this.teleporter.size(); i++) {
+			System.out.println("DEBUG2 DEBUG2 x = " +this.teleporter.get(i).getBody().getPosition().x + " y  = " + this.teleporter.get(i).getBody().getPosition().y);
+			
 		}
 	}
 }
