@@ -48,11 +48,7 @@ public class MyContactListener implements ContactListener{
 	}
 
 	private void isContactPlayerWithTeleporter(Fixture fa, Fixture fb) throws SQLException {
-		/*if((fa.getUserData() instanceof Player && fb.getUserData() instanceof Teleporter)) {
-			Player pa = (Player) fa.getUserData();
-			pa.getBewareOfTruthModel().nextLevel();
-		
-		}*/
+
 		if((fb.getUserData() instanceof Player && fa.getUserData() instanceof Teleporter)) {
 			Player pa = (Player) fb.getUserData();
 			Teleporter ta = (Teleporter) fa.getUserData();
