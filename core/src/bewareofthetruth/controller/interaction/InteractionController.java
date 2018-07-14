@@ -10,7 +10,7 @@ import bewareofthetruth.contract.model.gameMecanism.IInteract;
 public class InteractionController {
 
 	public InteractionController() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public void interact(final IInteract interactive) {

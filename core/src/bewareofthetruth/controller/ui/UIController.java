@@ -10,7 +10,7 @@ package bewareofthetruth.controller.ui;
 public class UIController {
 
 	public UIController() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public void performOrder(final UserOrder userOrder) {

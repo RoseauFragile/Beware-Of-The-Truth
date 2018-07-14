@@ -9,7 +9,7 @@ import bewareofthetruth.contract.model.gameMecanism.IProjectile;
 public class ProjectileController {
 
 	public ProjectileController() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public void removeProjectile(final IProjectile projectile) {

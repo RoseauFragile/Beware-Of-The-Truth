@@ -16,7 +16,7 @@ import bewareofthetruth.contract.model.gameMecanism.ICharacter;
 public class StatusController {
 
 	public StatusController() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	private void changeAmmo(final int amount, final ICharacter character) {

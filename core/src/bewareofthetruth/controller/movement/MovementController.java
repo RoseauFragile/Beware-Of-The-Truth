@@ -5,7 +5,7 @@ import bewareofthetruth.contract.model.gameMecanism.IMobile;
 public class MovementController {
 
 	public MovementController() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public void applyMovement(final Movement movement, final IMobile target) {

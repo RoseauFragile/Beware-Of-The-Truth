@@ -47,11 +47,11 @@ public class PlayState extends GameState {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		System.out.println(" LEVEL DE l'UPDATE =" + this.getConstant().LEVEL.getId());
+		//System.out.println(" LEVEL DE l'UPDATE =" + this.getConstant().LEVEL.getId());
 		this.getConstant().CAMERA.getCamera().update();
 		this.getConstant().TMR.render(this.getConstant().LEVEL.getLayerBackground());
 		this.getConstant().BATCH.begin();
-		this.game.getModelFacade().getBewareOfTruthModel().drawBatch(); //TODO pour Ryo finalement c'est dans ce state que l'on appelle la méthode d'affichage du player et des zombies
+		this.game.getModelFacade().getBewareOfTruthModel().drawBatch(); 
 		this.getConstant().BATCH.end();
 		this.getConstant().TMR.render(this.getConstant().LEVEL.getLayerAfterBackground());
 		

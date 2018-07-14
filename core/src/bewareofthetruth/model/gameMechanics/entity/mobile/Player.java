@@ -30,7 +30,7 @@ public class Player extends Entity implements IPlayer {
 	private static int WIDTH = 20;
 	private static int HEIGHT = 58;
 
-
+	//TODO Ryo, ici aussi il faut coder de quoi tuer le player, genre l'animation de mort, les pdv a 0 et une animation pour taper.
 	public Player(int idPlayer, String nom, int idLevel, int idInventory, int idChapter, World world, float x, float y, boolean isStatic) {
 		super(sourceTexture, world, x, y, isStatic);
 		this.setId(idPlayer);
@@ -125,5 +125,9 @@ public class Player extends Entity implements IPlayer {
 
 	public void setPlayerName(String playerName) {
 		this.playerName = playerName;
+	}
+	
+	public void hit() {
+		System.out.println("Hit");
 	}
 }

@@ -10,7 +10,7 @@ import bewareofthetruth.contract.model.gameMecanism.IPlayer;
 public class CharacterController {
 
 	public CharacterController() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public ICharacter getCharacterByPos(final float x, final float y) {

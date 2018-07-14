@@ -6,7 +6,7 @@ import bewareofthetruth.contract.model.gameMecanism.IItem;
 public class ItemController {
 
 	public ItemController() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	public void removeItem(final IItem item) {

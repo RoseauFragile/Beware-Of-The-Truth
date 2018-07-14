@@ -24,6 +24,7 @@ public class SplashState extends GameState {
 	public static final float		GAME_HEIGHT	= 32;
 	protected Stage					stage;
 
+	//TODO Julien, ici il faut coder de quoi pouvoir appuyer sur un bouton, je m'occuperai de faire le relai avec le model ! Si tu peux coder deux trois states ce serait pas mal !
 	public SplashState(GameStateManager gsm) {
 		super(gsm);
 		this.gsm = gsm;

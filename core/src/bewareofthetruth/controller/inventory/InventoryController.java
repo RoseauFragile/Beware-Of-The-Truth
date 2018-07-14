@@ -6,7 +6,7 @@ import bewareofthetruth.contract.model.gameMecanism.IUsable;
 public class InventoryController {
 
 	public InventoryController() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public void addToInventory(final IStorable storable) {
