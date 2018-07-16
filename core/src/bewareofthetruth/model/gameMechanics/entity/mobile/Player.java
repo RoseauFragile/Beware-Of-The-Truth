@@ -1,12 +1,14 @@
 package bewareofthetruth.model.gameMechanics.entity.mobile;
 
+import static bewareofthetruth.model.util.Constants.BIT_DOOR;
 import static bewareofthetruth.model.util.Constants.BIT_ENNEMY;
 import static bewareofthetruth.model.util.Constants.BIT_LIGHT;
 import static bewareofthetruth.model.util.Constants.BIT_PLAYER;
 import static bewareofthetruth.model.util.Constants.BIT_WALL;
-import static bewareofthetruth.model.util.Constants.BIT_DOOR;
+
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.World;
+
 import bewareofthetruth.contract.model.data.IBewareOfTruthModel;
 import bewareofthetruth.contract.model.gameMecanism.IPlayer;
 import bewareofthetruth.contract.model.utils.Direction;
@@ -25,26 +27,28 @@ public class Player extends Entity implements IPlayer {
 	private int id;
 	private int idInventory;
 	private String playerName;
-	private static String sourceTexture = "herosMarche.png";
 	private static boolean fixedRotation = true;
 	private static int WIDTH = 20;
 	private static int HEIGHT = 58;
 
-	//TODO Ryo, ici aussi il faut coder de quoi tuer le player, genre l'animation de mort, les pdv a 0 et une animation pour taper.
-	public Player(int idPlayer, String nom, int idLevel, int idInventory, int idChapter, World world, float x, float y, boolean isStatic) {
-		super(sourceTexture, world, x, y, isStatic);
+	// TODO Ryo, ici aussi il faut coder de quoi tuer le player, genre l'animation
+	// de mort, les pdv a 0 et une animation pour taper.
+	public Player(final int idPlayer, final String nom, final int idLevel, final int idInventory, final int idChapter,
+			final World world, final float x, final float y, final boolean isStatic) {
+		super(world, x, y, isStatic);
 		this.setId(idPlayer);
 		this.setPlayerName(nom);
 		this.setIdLevel(idLevel);
 		this.setIdInventory(idInventory);
 		this.setIdChapter(idChapter);
-		this.setBody(BodyBuilder.createPlayerBody(this.getWorld(), x, y, WIDTH, HEIGHT, isStatic, fixedRotation, BIT_PLAYER, (short) (BIT_ENNEMY | BIT_WALL | BIT_LIGHT | BIT_DOOR), (short) 0, this));
+		this.setBody(BodyBuilder.createPlayerBody(this.getWorld(), x, y, WIDTH, HEIGHT, isStatic, fixedRotation,
+				BIT_PLAYER, (short) (BIT_ENNEMY | BIT_WALL | BIT_LIGHT | BIT_DOOR), (short) 0, this));
 		this.setAtlas(new TextureAtlas("sprite/hero_walk.txt"));
 		this.setAnimationCurrent(this.getAnimationWalkDown());
 		this.setWalkDelta(0.15f);
 		this.setIdleDelta(0.15f);
 		this.setLastDirection(Direction.DOWN);
-		
+
 	}
 
 	@Override
@@ -53,7 +57,7 @@ public class Player extends Entity implements IPlayer {
 	}
 
 	@Override
-	public void setEnergy(IEnergy energy) {
+	public void setEnergy(final IEnergy energy) {
 		this.energy = energy;
 	}
 
@@ -63,17 +67,17 @@ public class Player extends Entity implements IPlayer {
 	}
 
 	@Override
-	public void setChapter(int idChapter) {
+	public void setChapter(final int idChapter) {
 		this.idChapter = idChapter;
 	}
 
 	@Override
 	public IHealth getHealth() {
-		return health;
+		return this.health;
 	}
 
 	@Override
-	public void setHealth(IHealth health) {
+	public void setHealth(final IHealth health) {
 		this.health = health;
 	}
 
@@ -83,7 +87,7 @@ public class Player extends Entity implements IPlayer {
 	}
 
 	@Override
-	public void setBewareOfTruthModel(IBewareOfTruthModel bewareOfTruthModel) {
+	public void setBewareOfTruthModel(final IBewareOfTruthModel bewareOfTruthModel) {
 		this.bewareOfTruthModel = bewareOfTruthModel;
 	}
 
@@ -91,42 +95,50 @@ public class Player extends Entity implements IPlayer {
 		return this.idChapter;
 	}
 
-	public void setIdChapter(int idChapter) {
+	public void setIdChapter(final int idChapter) {
 		this.idChapter = idChapter;
 	}
 
+	@Override
 	public int getIdLevel() {
 		return this.idLevel;
 	}
 
-	public void setIdLevel(int idLevel) {
+	@Override
+	public void setIdLevel(final int idLevel) {
 		this.idLevel = idLevel;
 	}
 
+	@Override
 	public int getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	@Override
+	public void setId(final int id) {
 		this.id = id;
 	}
 
+	@Override
 	public int getIdInventory() {
 		return this.idInventory;
 	}
 
-	public void setIdInventory(int idInventory) {
+	@Override
+	public void setIdInventory(final int idInventory) {
 		this.idInventory = idInventory;
 	}
 
+	@Override
 	public String getPlayerName() {
 		return this.playerName;
 	}
 
-	public void setPlayerName(String playerName) {
+	@Override
+	public void setPlayerName(final String playerName) {
 		this.playerName = playerName;
 	}
-	
+
 	public void hit() {
 		System.out.println("Hit");
 	}
