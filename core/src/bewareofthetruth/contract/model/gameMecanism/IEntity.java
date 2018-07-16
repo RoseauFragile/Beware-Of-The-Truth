@@ -58,38 +58,6 @@ public interface IEntity {
 
 	public void disposeAtlas();
 
-	public Animation<TextureRegion> getAnimationIdleUp();
-
-	public Animation<TextureRegion> getAnimationIdleDown();
-
-	public Animation<TextureRegion> getAnimationIdleRight();
-
-	public Animation<TextureRegion> getAnimationIdleLeft();
-
-	public Animation<TextureRegion> getAnimationWalkUp();
-
-	public Animation<TextureRegion> getAnimationWalkDown();
-
-	public Animation<TextureRegion> getAnimationWalkRight();
-
-	public Animation<TextureRegion> getAnimationWalkLeft();
-
-	public void moveUp();
-
-	public void moveDown();
-
-	public void moveRight();
-
-	public void moveLeft();
-
-	public void idleUp();
-
-	public void idleDown();
-
-	public void idleRight();
-
-	public void idleLeft();
-
 	public TextureAtlas getAtlas();
 
 	public void setAtlas(final TextureAtlas atlas);
@@ -115,4 +83,10 @@ public interface IEntity {
 	public void setLastDirection(Direction lastDirection);
 
 	public Direction getDirection();
+
+	public boolean isAttacking();
+
+	public void attack();
+
+	public void update();
 }

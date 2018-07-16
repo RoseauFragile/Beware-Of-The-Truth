@@ -52,6 +52,8 @@ public class Entity implements IEntity {
 
 	private Direction direction;
 
+	private boolean isAttacking;
+
 	public Entity(final World world, final float x, final float y, final boolean isStatic) {
 		this.setPosition(new Position());
 		this.setStatic(isStatic);
@@ -215,84 +217,100 @@ public class Entity implements IEntity {
 		return new Animation<TextureRegion>(delta, this.atlas.findRegions(regionsName), PlayMode.LOOP_PINGPONG);
 	}
 
-	@Override
 	public Animation<TextureRegion> getAnimationIdleUp() {
 		return this.instantiateNewAnimation(this.idleDelta, "idleUp");
 	}
 
-	@Override
 	public Animation<TextureRegion> getAnimationIdleDown() {
 		return this.instantiateNewAnimation(this.idleDelta, "idleDown");
 	}
 
-	@Override
 	public Animation<TextureRegion> getAnimationIdleRight() {
 		return this.instantiateNewAnimation(this.idleDelta, "idleRight");
 	}
 
-	@Override
 	public Animation<TextureRegion> getAnimationIdleLeft() {
 		return this.instantiateNewAnimation(this.idleDelta, "idleLeft");
 	}
 
-	@Override
 	public Animation<TextureRegion> getAnimationWalkUp() {
 		return this.instantiateNewAnimation(this.walkDelta, "walkUp");
 	}
 
-	@Override
 	public Animation<TextureRegion> getAnimationWalkDown() {
 		return this.instantiateNewAnimation(this.walkDelta, "walkDown");
 	}
 
-	@Override
 	public Animation<TextureRegion> getAnimationWalkRight() {
 		return this.instantiateNewAnimation(this.walkDelta, "walkRight");
 	}
 
-	@Override
 	public Animation<TextureRegion> getAnimationWalkLeft() {
 		return this.instantiateNewAnimation(this.walkDelta, "walkLeft");
 	}
 
-	@Override
-	public void moveUp() {
+	public Animation<TextureRegion> getAnimationAttackUp() {
+		return this.instantiateNewAnimation(this.walkDelta, "attackUp");
+	}
+
+	public Animation<TextureRegion> getAnimationAttackDown() {
+		return this.instantiateNewAnimation(this.walkDelta, "attackDown");
+	}
+
+	public Animation<TextureRegion> getAnimationAttackRight() {
+		return this.instantiateNewAnimation(this.walkDelta, "attackRight");
+	}
+
+	public Animation<TextureRegion> getAnimationAttackLeft() {
+		return this.instantiateNewAnimation(this.walkDelta, "attackLeft");
+	}
+
+	private void walkUp() {
 		this.setAnimationCurrent(this.getAnimationWalkUp());
 	}
 
-	@Override
-	public void moveDown() {
+	private void walkDown() {
 		this.setAnimationCurrent(this.getAnimationWalkDown());
 	}
 
-	@Override
-	public void moveRight() {
+	private void walkRight() {
 		this.setAnimationCurrent(this.getAnimationWalkRight());
 	}
 
-	@Override
-	public void moveLeft() {
+	private void walkLeft() {
 		this.setAnimationCurrent(this.getAnimationWalkLeft());
 	}
 
-	@Override
-	public void idleUp() {
+	private void idleUp() {
 		this.setAnimationCurrent(this.getAnimationIdleUp());
 	}
 
-	@Override
-	public void idleDown() {
+	private void idleDown() {
 		this.setAnimationCurrent(this.getAnimationIdleDown());
 	}
 
-	@Override
-	public void idleRight() {
+	private void idleRight() {
 		this.setAnimationCurrent(this.getAnimationIdleRight());
 	}
 
-	@Override
-	public void idleLeft() {
+	private void idleLeft() {
 		this.setAnimationCurrent(this.getAnimationIdleLeft());
+	}
+
+	private void attackUp() {
+		this.setAnimationCurrent(this.getAnimationAttackUp());
+	}
+
+	private void attackDown() {
+		this.setAnimationCurrent(this.getAnimationAttackDown());
+	}
+
+	private void attackRight() {
+		this.setAnimationCurrent(this.getAnimationAttackRight());
+	}
+
+	private void attackLeft() {
+		this.setAnimationCurrent(this.getAnimationAttackLeft());
 	}
 
 	@Override
@@ -362,5 +380,88 @@ public class Entity implements IEntity {
 
 	public void setDirection(final Direction direction) {
 		this.direction = direction;
+	}
+
+	@Override
+	public boolean isAttacking() {
+		return this.isAttacking;
+	}
+
+	private void setAttacking(final boolean isAttacking) {
+		this.isAttacking = isAttacking;
+	}
+
+	@Override
+	public void attack() {
+		this.setAttacking(true);
+	}
+
+	private void defineDirectionByMovement() {
+		Vector2 velocity = this.getBody().getLinearVelocity();
+
+		if (velocity.y > 0f) {
+			this.setLastDirection(Direction.UP);
+		} else if (velocity.y < 0f) {
+			this.setLastDirection(Direction.DOWN);
+		}
+
+		if (velocity.x > 1.0f) { // TODO MAGIC NUMBERS
+			this.setLastDirection(Direction.RIGHT);
+		} else if (velocity.x < -1.0f) {
+			this.setLastDirection(Direction.LEFT);
+		}
+	}
+
+	@Override
+	public void update() {
+
+		if (this.isAttacking()) {
+			switch (this.getLastDirection()) {
+			case UP:
+				this.attackUp();
+				break;
+			case DOWN:
+				this.attackDown();
+				break;
+			case RIGHT:
+				this.attackRight();
+				break;
+			case LEFT:
+				this.attackLeft();
+				break;
+			}
+		} else if (this.getBody().getLinearVelocity().len() < 1.0f) {
+			switch (this.getLastDirection()) {
+			case UP:
+				this.idleUp();
+				break;
+			case DOWN:
+				this.idleDown();
+				break;
+			case RIGHT:
+				this.idleRight();
+				break;
+			case LEFT:
+				this.idleLeft();
+				break;
+			}
+		} else {
+			switch (this.getLastDirection()) {
+			case UP:
+				this.walkUp();
+				break;
+			case DOWN:
+				this.walkDown();
+				break;
+			case RIGHT:
+				this.walkRight();
+				break;
+			case LEFT:
+				this.walkLeft();
+				break;
+			}
+		}
+
+		this.defineDirectionByMovement();
 	}
 }

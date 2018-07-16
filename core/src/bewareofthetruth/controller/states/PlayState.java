@@ -6,7 +6,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 
-import bewareofthetruth.contract.model.utils.Direction;
 import bewareofthetruth.controller.managers.GameStateManager;
 import bewareofthetruth.model.util.Constants;
 
@@ -39,6 +38,7 @@ public class PlayState extends GameState {
 		this.getConstant().BATCH.setProjectionMatrix(this.getConstant().CAMERA.getCamera().combined);
 		this.getConstant().RAYHANDLER.update();
 		this.getConstant().RAYHANDLER.setCombinedMatrix(this.getConstant().CAMERA.getCamera().combined.cpy().scl(PPM));
+		this.getConstant().PLAYER.update();
 		this.getConstant().LEVEL.updateEnnemiesMovement();
 	}
 
@@ -81,49 +81,21 @@ public class PlayState extends GameState {
 
 		int horizontalForce = 0;
 		int verticalForce = 0;
-		boolean moving = false;
 
 		if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
 			verticalForce += 1;
-			this.getConstant().PLAYER.moveUp();
-			this.getConstant().PLAYER.setLastDirection(Direction.UP);
-			moving = true;
 		} else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
 			verticalForce -= 1;
-			this.getConstant().PLAYER.moveDown();
-			this.getConstant().PLAYER.setLastDirection(Direction.DOWN);
-			moving = true;
 		}
 
 		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
 			horizontalForce -= 1;
-			this.getConstant().PLAYER.moveLeft();
-			this.getConstant().PLAYER.setLastDirection(Direction.LEFT);
-			moving = true;
 		} else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
 			horizontalForce += 1;
-			this.getConstant().PLAYER.moveRight();
-			this.getConstant().PLAYER.setLastDirection(Direction.RIGHT);
-			moving = true;
 		}
 
-		if (!moving) {
-			switch (this.getConstant().PLAYER.getLastDirection()) {
-			case UP:
-				this.getConstant().PLAYER.idleUp();
-				break;
-			case DOWN:
-				this.getConstant().PLAYER.idleDown();
-				break;
-			case RIGHT:
-				this.getConstant().PLAYER.idleRight();
-				break;
-			case LEFT:
-				this.getConstant().PLAYER.idleLeft();
-				break;
-			}
-		}
-		this.getConstant().PLAYER.getBody().setLinearVelocity(horizontalForce * 5, verticalForce * 5);
+		this.getConstant().PLAYER.getBody().setLinearVelocity(horizontalForce * 5, verticalForce * 5); // TODO MAGIC
+																										// NUMBER
 	}
 
 	@Override
