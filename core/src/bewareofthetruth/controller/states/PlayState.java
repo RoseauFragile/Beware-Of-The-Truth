@@ -39,7 +39,7 @@ public class PlayState extends GameState {
 		this.getConstant().RAYHANDLER.update();
 		this.getConstant().RAYHANDLER.setCombinedMatrix(this.getConstant().CAMERA.getCamera().combined.cpy().scl(PPM));
 		this.getConstant().PLAYER.update();
-		this.getConstant().LEVEL.updateEnnemiesMovement();
+		this.getConstant().LEVEL.updateEnemiesMovement();
 	}
 
 	@Override

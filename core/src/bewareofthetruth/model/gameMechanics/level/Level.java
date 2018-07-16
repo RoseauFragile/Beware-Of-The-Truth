@@ -198,14 +198,16 @@ public class Level implements ILevel {
 	}
 
 	@Override
-	public void updateEnnemiesMovement() {
+	public void updateEnemiesMovement() {
 		for (IEntity entity : this.getMobiles()) {
-			Vector2 movement = new Vector2(
-					(this.getPlayer().getBody().getPosition().x - entity.getBody().getPosition().x),
-					(this.getPlayer().getBody().getPosition().y - entity.getBody().getPosition().y));
-			movement.nor();
-			movement.scl(3.75f); // TODO POUR BEN : LIMITE VECTEUR, MAGIC NUMBER << NEED ATTRIBUT
-			entity.getBody().setLinearVelocity(movement);
+			if (!entity.isAttacking()) {
+				Vector2 movement = new Vector2(
+						(this.getPlayer().getBody().getPosition().x - entity.getBody().getPosition().x),
+						(this.getPlayer().getBody().getPosition().y - entity.getBody().getPosition().y));
+				movement.nor();
+				movement.scl(3.00f); // TODO POUR BEN : LIMITE VECTEUR, MAGIC NUMBER << NEED ATTRIBUT
+				entity.getBody().setLinearVelocity(movement);
+			}
 			entity.update();
 		}
 	}

@@ -1,5 +1,8 @@
 package bewareofthetruth.model.gameMechanics.entity;
 
+import java.util.Random;
+
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -54,7 +57,12 @@ public class Entity implements IEntity {
 
 	private boolean isAttacking;
 
+	private float stateTime;
+
+	Random random;
+
 	public Entity(final World world, final float x, final float y, final boolean isStatic) {
+		this.random = new Random();
 		this.setPosition(new Position());
 		this.setStatic(isStatic);
 		this.getPosition().setX(x);
@@ -62,6 +70,9 @@ public class Entity implements IEntity {
 		this.setWorld(world);
 		this.setIdleDelta(0f);
 		this.setWalkDelta(0f);
+		this.setAttackDelta(0f);
+		this.setAttacking(false);
+		this.setRandomStateTime();
 		this.setAtlas(null);
 		this.setAnimationCurrent(null);
 	}
@@ -93,6 +104,10 @@ public class Entity implements IEntity {
 			this.setAnimationCurrent(this.getAnimationIdleLeft());
 			break;
 		}
+	}
+
+	private void setRandomStateTime() {
+		this.setStateTime(this.random.nextFloat());
 	}
 
 	@Override
@@ -213,56 +228,57 @@ public class Entity implements IEntity {
 		this.getAtlas().dispose();
 	}
 
-	private Animation<TextureRegion> instantiateNewAnimation(final float delta, final String regionsName) {
-		return new Animation<TextureRegion>(delta, this.atlas.findRegions(regionsName), PlayMode.LOOP_PINGPONG);
+	private Animation<TextureRegion> instantiateNewAnimation(final float delta, final String regionsName,
+			final PlayMode playMode) {
+		return new Animation<TextureRegion>(delta, this.atlas.findRegions(regionsName), playMode);
 	}
 
 	public Animation<TextureRegion> getAnimationIdleUp() {
-		return this.instantiateNewAnimation(this.idleDelta, "idleUp");
+		return this.instantiateNewAnimation(this.idleDelta, "idleUp", PlayMode.LOOP_PINGPONG);
 	}
 
 	public Animation<TextureRegion> getAnimationIdleDown() {
-		return this.instantiateNewAnimation(this.idleDelta, "idleDown");
+		return this.instantiateNewAnimation(this.idleDelta, "idleDown", PlayMode.LOOP_PINGPONG);
 	}
 
 	public Animation<TextureRegion> getAnimationIdleRight() {
-		return this.instantiateNewAnimation(this.idleDelta, "idleRight");
+		return this.instantiateNewAnimation(this.idleDelta, "idleRight", PlayMode.LOOP_PINGPONG);
 	}
 
 	public Animation<TextureRegion> getAnimationIdleLeft() {
-		return this.instantiateNewAnimation(this.idleDelta, "idleLeft");
+		return this.instantiateNewAnimation(this.idleDelta, "idleLeft", PlayMode.LOOP_PINGPONG);
 	}
 
 	public Animation<TextureRegion> getAnimationWalkUp() {
-		return this.instantiateNewAnimation(this.walkDelta, "walkUp");
+		return this.instantiateNewAnimation(this.walkDelta, "walkUp", PlayMode.LOOP_PINGPONG);
 	}
 
 	public Animation<TextureRegion> getAnimationWalkDown() {
-		return this.instantiateNewAnimation(this.walkDelta, "walkDown");
+		return this.instantiateNewAnimation(this.walkDelta, "walkDown", PlayMode.LOOP_PINGPONG);
 	}
 
 	public Animation<TextureRegion> getAnimationWalkRight() {
-		return this.instantiateNewAnimation(this.walkDelta, "walkRight");
+		return this.instantiateNewAnimation(this.walkDelta, "walkRight", PlayMode.LOOP_PINGPONG);
 	}
 
 	public Animation<TextureRegion> getAnimationWalkLeft() {
-		return this.instantiateNewAnimation(this.walkDelta, "walkLeft");
+		return this.instantiateNewAnimation(this.walkDelta, "walkLeft", PlayMode.LOOP_PINGPONG);
 	}
 
 	public Animation<TextureRegion> getAnimationAttackUp() {
-		return this.instantiateNewAnimation(this.walkDelta, "attackUp");
+		return this.instantiateNewAnimation(this.attackDelta, "attackUp", PlayMode.NORMAL);
 	}
 
 	public Animation<TextureRegion> getAnimationAttackDown() {
-		return this.instantiateNewAnimation(this.walkDelta, "attackDown");
+		return this.instantiateNewAnimation(this.attackDelta, "attackDown", PlayMode.NORMAL);
 	}
 
 	public Animation<TextureRegion> getAnimationAttackRight() {
-		return this.instantiateNewAnimation(this.walkDelta, "attackRight");
+		return this.instantiateNewAnimation(this.attackDelta, "attackRight", PlayMode.NORMAL);
 	}
 
 	public Animation<TextureRegion> getAnimationAttackLeft() {
-		return this.instantiateNewAnimation(this.walkDelta, "attackLeft");
+		return this.instantiateNewAnimation(this.attackDelta, "attackLeft", PlayMode.NORMAL);
 	}
 
 	private void walkUp() {
@@ -391,9 +407,40 @@ public class Entity implements IEntity {
 		this.isAttacking = isAttacking;
 	}
 
+	private float getStateTime() {
+		return this.stateTime;
+	}
+
+	private void setStateTime(final float stateTime) {
+		this.stateTime = stateTime;
+	}
+
+	private void resetStateTime() {
+		this.setStateTime(0f);
+	}
+
 	@Override
 	public void attack() {
-		this.setAttacking(true);
+		if (!this.isAttacking()) {
+			this.setAttacking(true);
+			this.resetStateTime();
+			this.getBody().getLinearVelocity().scl(0.5f); // TODO MAGIC NUMBER
+			switch (this.getLastDirection()) {
+			case UP:
+				this.attackUp();
+				break;
+			case DOWN:
+				this.attackDown();
+				break;
+			case RIGHT:
+				this.attackRight();
+				break;
+			case LEFT:
+				this.attackLeft();
+				break;
+			}
+		}
+
 	}
 
 	private void defineDirectionByMovement() {
@@ -414,51 +461,43 @@ public class Entity implements IEntity {
 
 	@Override
 	public void update() {
+		this.setStateTime(this.getStateTime() + Gdx.graphics.getDeltaTime());
 
 		if (this.isAttacking()) {
-			switch (this.getLastDirection()) {
-			case UP:
-				this.attackUp();
-				break;
-			case DOWN:
-				this.attackDown();
-				break;
-			case RIGHT:
-				this.attackRight();
-				break;
-			case LEFT:
-				this.attackLeft();
-				break;
-			}
-		} else if (this.getBody().getLinearVelocity().len() < 1.0f) {
-			switch (this.getLastDirection()) {
-			case UP:
-				this.idleUp();
-				break;
-			case DOWN:
-				this.idleDown();
-				break;
-			case RIGHT:
-				this.idleRight();
-				break;
-			case LEFT:
-				this.idleLeft();
-				break;
+			if (this.animationCurrent.isAnimationFinished(this.getStateTime())) {
+				this.setAttacking(false);
 			}
 		} else {
-			switch (this.getLastDirection()) {
-			case UP:
-				this.walkUp();
-				break;
-			case DOWN:
-				this.walkDown();
-				break;
-			case RIGHT:
-				this.walkRight();
-				break;
-			case LEFT:
-				this.walkLeft();
-				break;
+			if (this.getBody().getLinearVelocity().len() < 1.0f) {
+				switch (this.getLastDirection()) {
+				case UP:
+					this.idleUp();
+					break;
+				case DOWN:
+					this.idleDown();
+					break;
+				case RIGHT:
+					this.idleRight();
+					break;
+				case LEFT:
+					this.idleLeft();
+					break;
+				}
+			} else {
+				switch (this.getLastDirection()) {
+				case UP:
+					this.walkUp();
+					break;
+				case DOWN:
+					this.walkDown();
+					break;
+				case RIGHT:
+					this.walkRight();
+					break;
+				case LEFT:
+					this.walkLeft();
+					break;
+				}
 			}
 		}
 

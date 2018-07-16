@@ -21,7 +21,7 @@ public class Zombie extends Mob {
 		super(world, x, y, isStatic);
 		this.setBody(BodyBuilder.createEntityBody(this.getWorld(), x, y, WIDTH, HEIGHT, isStatic, fixedRotation,
 				BIT_ENNEMY, (short) (BIT_PLAYER | BIT_WALL | BIT_LIGHT | BIT_ENNEMY | BIT_DOOR), (short) 0, this));
-		this.initAnimation("sprite/zombie.txt", Direction.DOWN, 0.15f, 0.15f, 0.15f);
+		this.initAnimation("sprite/zombie.txt", Direction.DOWN, 0.25f, 0.25f, 0.15f);
 	}
 
 }
