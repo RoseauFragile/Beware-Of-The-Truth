@@ -12,14 +12,18 @@ import bewareofthetruth.model.gameMechanics.entity.mobile.Player;
 import bewareofthetruth.model.gameMechanics.entity.mobile.Zombie;
 import bewareofthetruth.model.gameMechanics.tiles.Teleporter;
 
-public class MyContactListener implements ContactListener{
+public class MyContactListener implements ContactListener {
 
 	@Override
-	public void beginContact(Contact contact) {
+	public void beginContact(final Contact contact) {
 		Fixture fa = contact.getFixtureA();
 		Fixture fb = contact.getFixtureB();
-		if( fa == null || fb ==null) return;
-		if(fa.getUserData() == null || fb.getUserData() == null) return;
+		if ((fa == null) || (fb == null)) {
+			return;
+		}
+		if ((fa.getUserData() == null) || (fb.getUserData() == null)) {
+			return;
+		}
 		System.out.println("Collision happened");
 		try {
 			this.isContactPlayerWithTeleporter(fa, fb);
@@ -30,50 +34,56 @@ public class MyContactListener implements ContactListener{
 	}
 
 	@Override
-	public void endContact(Contact contact) {
+	public void endContact(final Contact contact) {
 		Fixture fa = contact.getFixtureA();
 		Fixture fb = contact.getFixtureB();
-		
-		if( fa == null || fb ==null) return;
-		if(fa.getUserData() == null || fb.getUserData() == null) return;
-		
+
+		if ((fa == null) || (fb == null)) {
+			return;
+		}
+		if ((fa.getUserData() == null) || (fb.getUserData() == null)) {
+			return;
+		}
+
 		System.out.println("Collision stopped");
 	}
 
 	@Override
-	public void preSolve(Contact contact, Manifold oldManifold) {
+	public void preSolve(final Contact contact, final Manifold oldManifold) {
 	}
 
 	@Override
-	public void postSolve(Contact contact, ContactImpulse impulse) {
+	public void postSolve(final Contact contact, final ContactImpulse impulse) {
 	}
 
-	private void isContactPlayerWithTeleporter(Fixture fa, Fixture fb) throws SQLException {
+	private void isContactPlayerWithTeleporter(final Fixture fa, final Fixture fb) throws SQLException {
 
-		if((fb.getUserData() instanceof Player && fa.getUserData() instanceof Teleporter)) {
+		if (((fb.getUserData() instanceof Player) && (fa.getUserData() instanceof Teleporter))) {
 			Player pa = (Player) fb.getUserData();
 			Teleporter ta = (Teleporter) fa.getUserData();
 			pa.getBewareOfTruthModel().goToLevel(ta.getIdNextLevel(), ta.getxSpawn(), ta.getySpawn());
-			
-		}else {
+
+		} else {
 			System.out.println("FALSE");
 		}
-		
+
 	}
-	
-	private void isContactPLayerWithEnnemies(Fixture fa, Fixture fb){
-		
-		if((fa.getUserData() instanceof Player && fb.getUserData() instanceof Zombie)) {
+
+	private void isContactPLayerWithEnnemies(final Fixture fa, final Fixture fb) {
+
+		if (((fa.getUserData() instanceof Player) && (fb.getUserData() instanceof Zombie))) {
 			Player pa = (Player) fa.getUserData();
 			Zombie zb = (Zombie) fb.getUserData();
+			zb.attack();
 			pa.hit();
 			System.out.println("Fa player");
-		}else if((fa.getUserData() instanceof Zombie && fb.getUserData() instanceof Player)) {
+		} else if (((fa.getUserData() instanceof Zombie) && (fb.getUserData() instanceof Player))) {
 			Zombie za = (Zombie) fa.getUserData();
 			Player pb = (Player) fb.getUserData();
+			za.attack();
 			pb.hit();
 			System.out.println("Fb player");
-		}else {
+		} else {
 			System.out.println("No collision with a zombie");
 		}
 	}

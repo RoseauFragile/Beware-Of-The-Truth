@@ -2,8 +2,10 @@ package bewareofthetruth.contract.model.data;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+
 import bewareofthetruth.contract.model.gameMecanism.IEntity;
 import bewareofthetruth.contract.model.gameMecanism.IPlayer;
 import bewareofthetruth.contract.model.gameMecanism.ITeleporter;
@@ -32,19 +34,19 @@ public interface ILevel {
 	public IChapter getChapter();
 
 	public void setChapter(IChapter chapter);
-	
+
 	public float getId();
 
 	public void setId(float id);
-	
+
 	public String getSourceMap();
 
 	public void setSourceMap(String sourceMap);
-	
+
 	public ArrayList<IEntity> getMobiles();
 
 	public void setMobiles() throws SQLException;
-	
+
 	public World getWorld();
 
 	public void setWorld(World world);
@@ -54,19 +56,19 @@ public interface ILevel {
 	public TiledMapRenderer getTmr();
 
 	public void setTmr(TiledMapRenderer tmr);
-	
+
 	public int[] getLayerBackground();
 
 	public int[] getLayerAfterBackground();
-	
-	public void updateEnnemiesMovement();
-	
+
+	public void updateEnemiesMovement();
+
 	public RayHandler getRayHandler();
-	
+
 	public ArrayList<String> getMusicsPath();
-	
+
 	public ArrayList<ITeleporter> getTeleporter();
-	
+
 	public void setTeleporter() throws SQLException;
 
 }

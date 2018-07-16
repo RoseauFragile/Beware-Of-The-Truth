@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
+
 import bewareofthetruth.contract.model.gameMecanism.behaviors.IBounceStrategy;
 import bewareofthetruth.contract.model.gameMecanism.behaviors.IDodgeStrategy;
 import bewareofthetruth.contract.model.gameMecanism.behaviors.IMoveStrategy;
@@ -15,6 +16,9 @@ import bewareofthetruth.contract.model.utils.IPosition;
 import bewareofthetruth.contract.model.utils.ISound;
 
 public interface IEntity {
+
+	public void initAnimation(final String textureAtlasPath, final Direction lastDirection, final float walkDelta,
+			final float idleDelta, final float attackDelta);
 
 	public IMoveStrategy getMoveStrategy();
 
@@ -41,49 +45,18 @@ public interface IEntity {
 	public ISound getAudio();
 
 	public void setAudio(ISound audio);
-	
+
 	public World getWorld();
 
 	public void setWorld(World world);
-	
+
 	public Body getBody();
 
 	public void setBody(Body body);
-	
+
 	public TextureRegion getCurrentTextureRegion(final float stateTime);
 
 	public void disposeAtlas();
-
-	public Animation<TextureRegion> getAnimationIdleUp();
-
-	public Animation<TextureRegion> getAnimationIdleDown();
-
-	public Animation<TextureRegion> getAnimationIdleRight();
-
-	public Animation<TextureRegion> getAnimationIdleLeft();
-
-	public Animation<TextureRegion> getAnimationWalkUp();
-
-	public Animation<TextureRegion> getAnimationWalkDown();
-
-	public Animation<TextureRegion> getAnimationWalkRight();
-
-	public Animation<TextureRegion> getAnimationWalkLeft();
-	public void moveUp();
-
-	public void moveDown();
-
-	public void moveRight();
-
-	public void moveLeft();
-
-	public void idleUp();
-
-	public void idleDown();
-
-	public void idleRight();
-
-	public void idleLeft();
 
 	public TextureAtlas getAtlas();
 
@@ -100,10 +73,20 @@ public interface IEntity {
 	public float getWalkDelta();
 
 	public void setWalkDelta(final float walkDelta);
-	
+
+	public float getAttackDelta();
+
+	public void setAttackDelta(float attackDelta);
+
 	public Direction getLastDirection();
 
 	public void setLastDirection(Direction lastDirection);
-	
-	public float getDirection();
+
+	public Direction getDirection();
+
+	public boolean isAttacking();
+
+	public void attack();
+
+	public void update();
 }

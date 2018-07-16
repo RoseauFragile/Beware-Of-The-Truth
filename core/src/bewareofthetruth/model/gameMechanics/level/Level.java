@@ -38,8 +38,8 @@ public class Level implements ILevel {
 	private World world;
 	private IPlayer player;
 	private TiledMapRenderer tmr;
-	private int[] layerBackground = {0,1,2,3,4,5};
-	private int[] layerAfterBackground = {6,7,8};
+	private int[] layerBackground = { 0, 1, 2, 3, 4, 5 };
+	private int[] layerAfterBackground = { 6, 7, 8 };
 	private RayHandler rayHandler;
 	private ArrayList<String> musicsPath;
 	private ArrayList<ITeleporter> teleporter = new ArrayList<ITeleporter>();
@@ -52,17 +52,18 @@ public class Level implements ILevel {
 		this.setDimension(height, width);
 		this.setMap(new Map(sourceMap));
 		this.getMap().setLevel(this);
-		this.setWorld(new World(new Vector2(0,0), true));
+		this.setWorld(new World(new Vector2(0, 0), true));
 		this.getWorld().setContactListener(new MyContactListener());
 		this.setTmr(new OrthogonalTiledMapRenderer(this.getMap().getTiledMap()));
 		this.rayHandler = new RayHandler(this.getWorld());
 		this.getRayHandler().setAmbientLight(0.5f);
 		ArrayList<String> list = new ArrayList<String>();
-        list.add("bar2.mp3");
+		list.add("bar2.mp3");
 		this.setMusicsPath(list);
-		TiledObjectUtil.buildShapes(this.getWorld(), this.getMap().getTiledMap().getLayers().get("collision").getObjects());
-		TiledObjectUtil.parseLightObjectLayer(this.getWorld(), this.getMap().getTiledMap().getLayers().get("objets-lumiere").getObjects(), this.getRayHandler());
-
+		TiledObjectUtil.buildShapes(this.getWorld(),
+				this.getMap().getTiledMap().getLayers().get("collision").getObjects());
+		TiledObjectUtil.parseLightObjectLayer(this.getWorld(),
+				this.getMap().getTiledMap().getLayers().get("objets-lumiere").getObjects(), this.getRayHandler());
 
 	}
 
@@ -151,7 +152,7 @@ public class Level implements ILevel {
 	}
 
 	@Override
-	public void setMobiles() throws SQLException { //TODO Pour RYO ici on instancie l'array List de Mobiles
+	public void setMobiles() throws SQLException { // TODO Pour RYO ici on instancie l'array List de Mobiles
 		ArrayList<MobileSql> mobileSql = this.getChapter().getBewareOfTruthModel().getDao().getLevelDAO()
 				.getMobilesByLevelId((int) this.getId());
 		this.mobiles = new ArrayList<>();
@@ -197,14 +198,17 @@ public class Level implements ILevel {
 	}
 
 	@Override
-	public void updateEnnemiesMovement() {
-		for (int i = 0; i < this.getMobiles().size(); i++) {
-			Vector2 movement = new Vector2(
-					(this.getPlayer().getBody().getPosition().x - this.getMobiles().get(i).getBody().getPosition().x),
-					(this.getPlayer().getBody().getPosition().y - this.getMobiles().get(i).getBody().getPosition().y));
-			movement.nor();
-			movement.scl(3.75f); // TODO POUR BEN : LIMITE VECTEUR, MAGIC NUMBER << NEED ATTRIBUT
-			this.getMobiles().get(i).getBody().setLinearVelocity(movement);
+	public void updateEnemiesMovement() {
+		for (IEntity entity : this.getMobiles()) {
+			if (!entity.isAttacking()) {
+				Vector2 movement = new Vector2(
+						(this.getPlayer().getBody().getPosition().x - entity.getBody().getPosition().x),
+						(this.getPlayer().getBody().getPosition().y - entity.getBody().getPosition().y));
+				movement.nor();
+				movement.scl(3.00f); // TODO POUR BEN : LIMITE VECTEUR, MAGIC NUMBER << NEED ATTRIBUT
+				entity.getBody().setLinearVelocity(movement);
+			}
+			entity.update();
 		}
 	}
 
@@ -217,26 +221,31 @@ public class Level implements ILevel {
 		this.musicsPath = musicsPath;
 	}
 
+	@Override
 	public ArrayList<ITeleporter> getTeleporter() {
-		return teleporter;
+		return this.teleporter;
 	}
 
+	@Override
 	public void setTeleporter() throws SQLException {
-		ArrayList<TeleporterSql> teleporterSql = this.getChapter().getBewareOfTruthModel().getDao().getTeleporterDAO().getTeleportersByIdLevel((int) this.getId());
+		ArrayList<TeleporterSql> teleporterSql = this.getChapter().getBewareOfTruthModel().getDao().getTeleporterDAO()
+				.getTeleportersByIdLevel((int) this.getId());
 		this.teleporter = new ArrayList<>();
-		
-		for(TeleporterSql temp : teleporterSql) {
-			System.out.println("DEBUG1 DEBUG1 x = " +temp.getX() + " y  = " + temp.getY());
-			
+
+		for (TeleporterSql temp : teleporterSql) {
+			System.out.println("DEBUG1 DEBUG1 x = " + temp.getX() + " y  = " + temp.getY());
+
 		}
-		for( TeleporterSql temp : teleporterSql) {
-			this.teleporter.add(new Teleporter(temp.getIdTeleporter(), temp.getIdLevel(), temp.getIdNextLevel(), temp.getX(), temp.getY(), this.getWorld(), temp.getxSpawn(), temp.getySpawn()));
-			System.out.println("porte : " +temp.getX() + " " + temp.getY());
+		for (TeleporterSql temp : teleporterSql) {
+			this.teleporter.add(new Teleporter(temp.getIdTeleporter(), temp.getIdLevel(), temp.getIdNextLevel(),
+					temp.getX(), temp.getY(), this.getWorld(), temp.getxSpawn(), temp.getySpawn()));
+			System.out.println("porte : " + temp.getX() + " " + temp.getY());
 		}
-		
-		for(int i = 0; i< this.teleporter.size(); i++) {
-			System.out.println("DEBUG2 DEBUG2 x = " +this.teleporter.get(i).getBody().getPosition().x + " y  = " + this.teleporter.get(i).getBody().getPosition().y);
-			
+
+		for (int i = 0; i < this.teleporter.size(); i++) {
+			System.out.println("DEBUG2 DEBUG2 x = " + this.teleporter.get(i).getBody().getPosition().x + " y  = "
+					+ this.teleporter.get(i).getBody().getPosition().y);
+
 		}
 	}
 }

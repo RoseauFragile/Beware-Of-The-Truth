@@ -1,33 +1,33 @@
 package bewareofthetruth.controller.states;
 
+import static bewareofthetruth.model.util.Constants.PPM;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
-import bewareofthetruth.contract.model.utils.Direction;
+
 import bewareofthetruth.controller.managers.GameStateManager;
 import bewareofthetruth.model.util.Constants;
 
-import static bewareofthetruth.model.util.Constants.PPM;
-
 public class PlayState extends GameState {
 
-	public PlayState(GameStateManager gsm) {
+	public PlayState(final GameStateManager gsm) {
 		super(gsm);
-		init();
+		this.init();
 		Gdx.graphics.setTitle("Beware of -The- truth");
 	}
 
 	@Override
 	public void init() {
-		
+
 		this.getConstant().CAMERA.setPlayCamera();
-		
+
 	}
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void update(float delta) {
-		
+	public void update(final float delta) {
+
 		this.setConstant(new Constants(this.game.getModelFacade()));
 		float stateTime = this.game.getModelFacade().getBewareOfTruthModel().getStateTime();
 		this.getConstant().WORLD.step(1 / 60f, 6, 2);
@@ -38,25 +38,28 @@ public class PlayState extends GameState {
 		this.getConstant().BATCH.setProjectionMatrix(this.getConstant().CAMERA.getCamera().combined);
 		this.getConstant().RAYHANDLER.update();
 		this.getConstant().RAYHANDLER.setCombinedMatrix(this.getConstant().CAMERA.getCamera().combined.cpy().scl(PPM));
-		this.getConstant().LEVEL.updateEnnemiesMovement();
+		this.getConstant().PLAYER.update();
+		this.getConstant().LEVEL.updateEnemiesMovement();
 	}
 
 	@Override
 	public void render() {
-		
+
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		//System.out.println(" LEVEL DE l'UPDATE =" + this.getConstant().LEVEL.getId());
+		// System.out.println(" LEVEL DE l'UPDATE =" +
+		// this.getConstant().LEVEL.getId());
 		this.getConstant().CAMERA.getCamera().update();
 		this.getConstant().TMR.render(this.getConstant().LEVEL.getLayerBackground());
 		this.getConstant().BATCH.begin();
-		this.game.getModelFacade().getBewareOfTruthModel().drawBatch(); 
+		this.game.getModelFacade().getBewareOfTruthModel().drawBatch();
 		this.getConstant().BATCH.end();
 		this.getConstant().TMR.render(this.getConstant().LEVEL.getLayerAfterBackground());
-		
-		//DEBUG RENDERER
-		//this.getConstant().DEBUG_RENDERER.render(this.getConstant().WORLD, this.getConstant().CAMERA.getCamera().combined.scl(PPM));
+
+		// DEBUG RENDERER
+		// this.getConstant().DEBUG_RENDERER.render(this.getConstant().WORLD,
+		// this.getConstant().CAMERA.getCamera().combined.scl(PPM));
 		this.getConstant().RAYHANDLER.render();
 	}
 
@@ -70,58 +73,29 @@ public class PlayState extends GameState {
 	}
 
 	@Override
-	public void resize(int w, int h) {
+	public void resize(final int w, final int h) {
 		this.getConstant().CAMERA.resize(w / 2, h / 2);
 	}
-	
+
 	public void inputUpdate(final float delta) {
 
 		int horizontalForce = 0;
 		int verticalForce = 0;
-		boolean moving = false;
 
 		if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
 			verticalForce += 1;
-			this.getConstant().PLAYER.setDirection(90);
-			this.getConstant().PLAYER.moveUp();
-			this.getConstant().PLAYER.setLastDirection(Direction.UP);
-			moving = true;
 		} else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
 			verticalForce -= 1;
-			this.getConstant().PLAYER.moveDown();
-			this.getConstant().PLAYER.setLastDirection(Direction.DOWN);
-			moving = true;
-		}
-		
-		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-			horizontalForce -= 1;
-			this.getConstant().PLAYER.moveLeft();
-			this.getConstant().PLAYER.setLastDirection(Direction.LEFT);
-			moving = true;
-		} else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-			horizontalForce += 1;
-			this.getConstant().PLAYER.moveRight();
-			this.getConstant().PLAYER.setLastDirection(Direction.RIGHT);
-			moving = true;
 		}
 
-		if (!moving) {
-			switch (this.getConstant().PLAYER.getLastDirection()) {
-			case UP:
-				this.getConstant().PLAYER.idleUp();
-				break;
-			case DOWN:
-				this.getConstant().PLAYER.idleDown();
-				break;
-			case RIGHT:
-				this.getConstant().PLAYER.idleRight();
-				break;
-			case LEFT:
-				this.getConstant().PLAYER.idleLeft();
-				break;
-			}
+		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+			horizontalForce -= 1;
+		} else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+			horizontalForce += 1;
 		}
-		this.getConstant().PLAYER.getBody().setLinearVelocity(horizontalForce * 5, verticalForce * 5);
+
+		this.getConstant().PLAYER.getBody().setLinearVelocity(horizontalForce * 5, verticalForce * 5); // TODO MAGIC
+																										// NUMBER
 	}
 
 	@Override

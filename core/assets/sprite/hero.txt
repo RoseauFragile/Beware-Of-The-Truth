@@ -1,4 +1,4 @@
-hero_walk.png
+hero.png
 size: 454, 66
 format: RGBA8888
 filter: Linear,Linear
