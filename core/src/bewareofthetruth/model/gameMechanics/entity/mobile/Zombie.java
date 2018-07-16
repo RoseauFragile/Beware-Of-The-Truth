@@ -6,7 +6,6 @@ import static bewareofthetruth.model.util.Constants.BIT_LIGHT;
 import static bewareofthetruth.model.util.Constants.BIT_PLAYER;
 import static bewareofthetruth.model.util.Constants.BIT_WALL;
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.World;
 
 import bewareofthetruth.contract.model.utils.Direction;
@@ -22,9 +21,7 @@ public class Zombie extends Mob {
 		super(world, x, y, isStatic);
 		this.setBody(BodyBuilder.createEntityBody(this.getWorld(), x, y, WIDTH, HEIGHT, isStatic, fixedRotation,
 				BIT_ENNEMY, (short) (BIT_PLAYER | BIT_WALL | BIT_LIGHT | BIT_ENNEMY | BIT_DOOR), (short) 0, this));
-		this.setAtlas(new TextureAtlas("sprite/zombie.txt"));
-		this.setAnimationCurrent(this.getAnimationWalkDown());
-		this.setLastDirection(Direction.DOWN);
+		this.initAnimation("sprite/zombie.txt", Direction.DOWN, 0.15f, 0.15f, 0.15f);
 	}
 
 }

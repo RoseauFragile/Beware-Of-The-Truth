@@ -42,13 +42,15 @@ public class Entity implements IEntity {
 
 	private float walkDelta;
 
+	private float attackDelta;
+
 	private TextureAtlas atlas;
 
 	private Animation<TextureRegion> animationCurrent;
 
 	private Direction lastDirection;
 
-	private float Direction;
+	private Direction direction;
 
 	public Entity(final World world, final float x, final float y, final boolean isStatic) {
 		this.setPosition(new Position());
@@ -60,6 +62,35 @@ public class Entity implements IEntity {
 		this.setWalkDelta(0f);
 		this.setAtlas(null);
 		this.setAnimationCurrent(null);
+	}
+
+	@Override
+	public void initAnimation(final String textureAtlasPath, final Direction lastDirection, final float walkDelta,
+			final float idleDelta, final float attackDelta) {
+		this.setAtlas(new TextureAtlas(textureAtlasPath));
+		System.out.println("done");
+		this.setLastDirection(lastDirection);
+		this.setWalkDelta(walkDelta);
+		this.setIdleDelta(idleDelta);
+		this.setAttackDelta(attackDelta);
+		this.defineAnimationCurrentByLastDirection();
+	}
+
+	private void defineAnimationCurrentByLastDirection() {
+		switch (this.lastDirection) {
+		case UP:
+			this.setAnimationCurrent(this.getAnimationIdleUp());
+			break;
+		case DOWN:
+			this.setAnimationCurrent(this.getAnimationIdleDown());
+			break;
+		case RIGHT:
+			this.setAnimationCurrent(this.getAnimationIdleRight());
+			break;
+		case LEFT:
+			this.setAnimationCurrent(this.getAnimationIdleLeft());
+			break;
+		}
 	}
 
 	@Override
@@ -295,6 +326,16 @@ public class Entity implements IEntity {
 	}
 
 	@Override
+	public float getAttackDelta() {
+		return this.attackDelta;
+	}
+
+	@Override
+	public void setAttackDelta(final float attackDelta) {
+		this.attackDelta = attackDelta;
+	}
+
+	@Override
 	public TextureAtlas getAtlas() {
 		return this.atlas;
 	}
@@ -315,11 +356,11 @@ public class Entity implements IEntity {
 	}
 
 	@Override
-	public float getDirection() {
-		return this.Direction;
+	public Direction getDirection() {
+		return this.direction;
 	}
 
-	public void setDirection(final float direction) {
-		this.Direction = direction;
+	public void setDirection(final Direction direction) {
+		this.direction = direction;
 	}
 }

@@ -4,7 +4,7 @@ import bewareofthetruth.contract.model.data.IBewareOfTruthModel;
 import bewareofthetruth.contract.model.utils.IEnergy;
 import bewareofthetruth.contract.model.utils.IHealth;
 
-public interface IPlayer extends IEntity{
+public interface IPlayer extends IEntity {
 
 	public IEnergy getEnergy();
 
@@ -21,8 +21,9 @@ public interface IPlayer extends IEntity{
 	public IBewareOfTruthModel getBewareOfTruthModel();
 
 	public void setBewareOfTruthModel(IBewareOfTruthModel bewareOfTruthModel);
-	
+
 	public int getIdLevel();
+
 	public void setIdLevel(int idLevel);
 
 	public int getId();
@@ -37,5 +38,5 @@ public interface IPlayer extends IEntity{
 
 	public void setPlayerName(String playerName);
 
-	public void setDirection(float i);
+	// public void setDirection(float i); TODO ??????
 }

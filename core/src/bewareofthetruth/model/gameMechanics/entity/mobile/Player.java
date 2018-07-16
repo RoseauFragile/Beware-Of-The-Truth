@@ -6,7 +6,6 @@ import static bewareofthetruth.model.util.Constants.BIT_LIGHT;
 import static bewareofthetruth.model.util.Constants.BIT_PLAYER;
 import static bewareofthetruth.model.util.Constants.BIT_WALL;
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.World;
 
 import bewareofthetruth.contract.model.data.IBewareOfTruthModel;
@@ -43,12 +42,7 @@ public class Player extends Entity implements IPlayer {
 		this.setIdChapter(idChapter);
 		this.setBody(BodyBuilder.createPlayerBody(this.getWorld(), x, y, WIDTH, HEIGHT, isStatic, fixedRotation,
 				BIT_PLAYER, (short) (BIT_ENNEMY | BIT_WALL | BIT_LIGHT | BIT_DOOR), (short) 0, this));
-		this.setAtlas(new TextureAtlas("sprite/hero_walk.txt"));
-		this.setAnimationCurrent(this.getAnimationWalkDown());
-		this.setWalkDelta(0.15f);
-		this.setIdleDelta(0.15f);
-		this.setLastDirection(Direction.DOWN);
-
+		this.initAnimation("sprite/hero.txt", Direction.DOWN, 0.15f, 0.15f, 0.15f);
 	}
 
 	@Override

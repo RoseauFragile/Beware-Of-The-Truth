@@ -1,33 +1,34 @@
 package bewareofthetruth.controller.states;
 
+import static bewareofthetruth.model.util.Constants.PPM;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
+
 import bewareofthetruth.contract.model.utils.Direction;
 import bewareofthetruth.controller.managers.GameStateManager;
 import bewareofthetruth.model.util.Constants;
 
-import static bewareofthetruth.model.util.Constants.PPM;
-
 public class PlayState extends GameState {
 
-	public PlayState(GameStateManager gsm) {
+	public PlayState(final GameStateManager gsm) {
 		super(gsm);
-		init();
+		this.init();
 		Gdx.graphics.setTitle("Beware of -The- truth");
 	}
 
 	@Override
 	public void init() {
-		
+
 		this.getConstant().CAMERA.setPlayCamera();
-		
+
 	}
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void update(float delta) {
-		
+	public void update(final float delta) {
+
 		this.setConstant(new Constants(this.game.getModelFacade()));
 		float stateTime = this.game.getModelFacade().getBewareOfTruthModel().getStateTime();
 		this.getConstant().WORLD.step(1 / 60f, 6, 2);
@@ -43,20 +44,22 @@ public class PlayState extends GameState {
 
 	@Override
 	public void render() {
-		
+
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		//System.out.println(" LEVEL DE l'UPDATE =" + this.getConstant().LEVEL.getId());
+		// System.out.println(" LEVEL DE l'UPDATE =" +
+		// this.getConstant().LEVEL.getId());
 		this.getConstant().CAMERA.getCamera().update();
 		this.getConstant().TMR.render(this.getConstant().LEVEL.getLayerBackground());
 		this.getConstant().BATCH.begin();
-		this.game.getModelFacade().getBewareOfTruthModel().drawBatch(); 
+		this.game.getModelFacade().getBewareOfTruthModel().drawBatch();
 		this.getConstant().BATCH.end();
 		this.getConstant().TMR.render(this.getConstant().LEVEL.getLayerAfterBackground());
-		
-		//DEBUG RENDERER
-		//this.getConstant().DEBUG_RENDERER.render(this.getConstant().WORLD, this.getConstant().CAMERA.getCamera().combined.scl(PPM));
+
+		// DEBUG RENDERER
+		// this.getConstant().DEBUG_RENDERER.render(this.getConstant().WORLD,
+		// this.getConstant().CAMERA.getCamera().combined.scl(PPM));
 		this.getConstant().RAYHANDLER.render();
 	}
 
@@ -70,10 +73,10 @@ public class PlayState extends GameState {
 	}
 
 	@Override
-	public void resize(int w, int h) {
+	public void resize(final int w, final int h) {
 		this.getConstant().CAMERA.resize(w / 2, h / 2);
 	}
-	
+
 	public void inputUpdate(final float delta) {
 
 		int horizontalForce = 0;
@@ -82,7 +85,6 @@ public class PlayState extends GameState {
 
 		if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
 			verticalForce += 1;
-			this.getConstant().PLAYER.setDirection(90);
 			this.getConstant().PLAYER.moveUp();
 			this.getConstant().PLAYER.setLastDirection(Direction.UP);
 			moving = true;
@@ -92,7 +94,7 @@ public class PlayState extends GameState {
 			this.getConstant().PLAYER.setLastDirection(Direction.DOWN);
 			moving = true;
 		}
-		
+
 		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
 			horizontalForce -= 1;
 			this.getConstant().PLAYER.moveLeft();
