@@ -1,8 +1,6 @@
 package bewareofthetruth.main;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -11,7 +9,7 @@ import bewareofthetruth.contract.model.data.IModelFacade;
 import bewareofthetruth.controller.managers.GameStateManager;
 import bewareofthetruth.model.ModelFacade;
 import bewareofthetruth.model.util.Constants;
-import bewareofthetruth.model.util.Sound;
+
 
 public class Main implements ApplicationListener {
 

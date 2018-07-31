@@ -11,6 +11,8 @@ import bewareofthetruth.model.util.Constants;
 
 public class PlayState extends GameState {
 
+	private static int VELOCITY_PLAYER_COEFFECIENT = 5;
+	
 	public PlayState(final GameStateManager gsm) {
 		super(gsm);
 		this.init();
@@ -94,8 +96,7 @@ public class PlayState extends GameState {
 			horizontalForce += 1;
 		}
 
-		this.getConstant().PLAYER.getBody().setLinearVelocity(horizontalForce * 5, verticalForce * 5); // TODO MAGIC
-																										// NUMBER
+		this.getConstant().PLAYER.getBody().setLinearVelocity(horizontalForce * VELOCITY_PLAYER_COEFFECIENT, verticalForce * VELOCITY_PLAYER_COEFFECIENT);
 	}
 
 	@Override

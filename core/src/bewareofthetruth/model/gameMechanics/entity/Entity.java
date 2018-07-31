@@ -60,6 +60,12 @@ public class Entity implements IEntity {
 	private float stateTime;
 
 	Random random;
+	
+	private static float SCALE = 0.5f;
+	
+	private static float VELOCITY_NULL = 0f;
+	
+	private static float VELOCITY_TRUE = 1.0f;
 
 	public Entity(final World world, final float x, final float y, final boolean isStatic) {
 		this.random = new Random();
@@ -424,7 +430,7 @@ public class Entity implements IEntity {
 		if (!this.isAttacking()) {
 			this.setAttacking(true);
 			this.resetStateTime();
-			this.getBody().getLinearVelocity().scl(0.5f); // TODO MAGIC NUMBER
+			this.getBody().getLinearVelocity().scl(SCALE); 
 			switch (this.getLastDirection()) {
 			case UP:
 				this.attackUp();
@@ -446,13 +452,13 @@ public class Entity implements IEntity {
 	private void defineDirectionByMovement() {
 		Vector2 velocity = this.getBody().getLinearVelocity();
 
-		if (velocity.y > 0f) {
+		if (velocity.y > VELOCITY_NULL) {
 			this.setLastDirection(Direction.UP);
 		} else if (velocity.y < 0f) {
 			this.setLastDirection(Direction.DOWN);
 		}
 
-		if (velocity.x > 1.0f) { // TODO MAGIC NUMBERS
+		if (velocity.x > VELOCITY_TRUE) { 
 			this.setLastDirection(Direction.RIGHT);
 		} else if (velocity.x < -1.0f) {
 			this.setLastDirection(Direction.LEFT);
