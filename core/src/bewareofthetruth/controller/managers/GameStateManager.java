@@ -13,6 +13,7 @@ public class GameStateManager {
 	private final Main game;
 
 	private Stack <GameState>	states;
+	private boolean paused;
 
 	public GameStateManager(final Main main) {
 		this.game = main;
@@ -66,9 +67,11 @@ public class GameStateManager {
 
 	public void pause() {
 		states.peek().pause();
+		this.paused = true;
 	}
 
 	public void resume() {
 		states.peek().resume();
+		this.paused = false;
 	}
 }
