@@ -1,4 +1,4 @@
-package bewareofthetruth.model.gameMechanics.items;
+package bewareofthetruth.model.gameMechanics.playerItems;
 
 import bewareofthetruth.contract.model.gameMecanism.IItem;
 
