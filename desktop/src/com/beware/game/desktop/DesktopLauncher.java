@@ -1,5 +1,7 @@
 package com.beware.game.desktop;
 
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import bewareofthetruth.main.Main;
@@ -11,7 +13,9 @@ public class DesktopLauncher {
 		config.height = 1080;
 		config.backgroundFPS = 60;
 		config.title = "Zombie/heros et tiledMap";
-		new LwjglApplication(new Main(), config);
+		Application app = new LwjglApplication(new Main(), config);
+		Gdx.app = app;
+		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
 	}
 }
