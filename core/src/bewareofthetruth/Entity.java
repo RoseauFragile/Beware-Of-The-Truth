@@ -14,7 +14,7 @@ public class Entity {
 
 	private static final String TAG = Entity.class.getSimpleName();
 	//TODO a faire ici
-	private static final String defaultSpritePath = "sprites/characters/Warrior.png";
+	private static final String defaultSpritePath = "sprite/zombie_test.png";
 	
 	private Vector2 velocity;
 	@SuppressWarnings("unused")
@@ -46,8 +46,8 @@ public class Entity {
 	 protected TextureRegion _currentFrame = null;
 	 
 	 //TODO a faire ici
-	 public final int FRAME_WIDTH = 16;
-	 public final int FRAME_HEIGHT = 16;
+	 public final int FRAME_WIDTH = 64;
+	 public final int FRAME_HEIGHT = 64;
 	 public static Rectangle boundingBox;
 	 
 	 public enum State {
@@ -140,10 +140,12 @@ public class Entity {
 		 //walk animation
 		 Texture texture =Utility.getTextureAsset(defaultSpritePath);
 		 TextureRegion[][] textureFrames = TextureRegion.split(texture, FRAME_WIDTH, FRAME_HEIGHT);
+		/*
 		 walkDownFrames = new Array<TextureRegion>(4);
 		 walkLeftFrames = new Array<TextureRegion>(4);
 		 walkRightFrames = new Array<TextureRegion>(4);
 		 walkUpFrames = new Array<TextureRegion>(4);
+		 
 		 
 		 for (int i = 0; i < 4; i++) {
 			 for (int j = 0; j < 4; j++) {
@@ -166,7 +168,44 @@ public class Entity {
 						break;
 				 }
 			 }
-		 }
+		 }*/
+		 
+		 walkDownFrames = new Array<TextureRegion>(4);
+		 walkLeftFrames = new Array<TextureRegion>(4);
+		 walkRightFrames = new Array<TextureRegion>(4);
+		 walkUpFrames = new Array<TextureRegion>(4);
+		 
+		 
+		 //for (int i = 0; i < 1; i++) {
+			 for (int j = 0; j < 4; j++) {
+				 Gdx.app.debug(TAG, "j =" + j);
+				 TextureRegion region = textureFrames[0][j];
+				 if( region == null ){
+					 Gdx.app.debug(TAG, "Got null animation frame " + 0 + "," + j);
+					 } else if (j == 0){
+						walkDownFrames.insert(j, region);
+						walkUpFrames.insert(j, region);
+						walkLeftFrames.insert(j, region);
+						walkRightFrames.insert(j, region);
+				} else if (j == 1){
+					walkDownFrames.insert(j, region);
+					walkUpFrames.insert(j, region);
+					walkLeftFrames.insert(j, region);
+					walkRightFrames.insert(j, region);
+				} else if (j == 2){
+					walkDownFrames.insert(j, region);
+					walkUpFrames.insert(j, region);
+					walkLeftFrames.insert(j, region);
+					walkRightFrames.insert(j, region);
+				} else if (j == 3){
+					walkDownFrames.insert(j, region);
+					walkUpFrames.insert(j, region);
+					walkLeftFrames.insert(j, region);
+					walkRightFrames.insert(j, region);
+				 }
+			 }
+			 Gdx.app.debug(TAG, "j = DONE" );
+		// }
 		 
 		 _walkDownAnimation = new Animation (0.25f, walkDownFrames, Animation.PlayMode.LOOP);
 		 _walkLeftAnimation = new Animation (0.25f, walkLeftFrames, Animation.PlayMode.LOOP);
