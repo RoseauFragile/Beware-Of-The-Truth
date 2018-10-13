@@ -2,7 +2,7 @@ package bewareofthetruth.main;
 
 import com.badlogic.gdx.Game;
 
-import bewareofthetruth.MainGameScreen;
+import bewareofthetruth.screens.MainGameScreen;
 
 public class Main extends Game {
 
