@@ -45,9 +45,9 @@ public class MapManager {
 		playerStart = new Vector2(0,0);
 		mapTable = new Hashtable();
 		
-		mapTable.put(TOP_WORLD, "maps/topworld.tmx");
-		mapTable.put(TOWN, "map.town.tmx");
-		mapTable.put(CASTLE_OF_DOOM, "maps.castle_of_doom.tmx");
+		mapTable.put(TOP_WORLD, "zone1.1.tmx");
+		mapTable.put(TOWN, "tiledMap/zone1.2.tmx");
+		mapTable.put(CASTLE_OF_DOOM, "tiledMap/zone1.3.tmx");
 		
 		playerStartLocationTable = new Hashtable();
 		playerStartLocationTable.put(TOP_WORLD, playerStart.cpy());
@@ -133,6 +133,7 @@ public class MapManager {
 		float shortestDistance =0f;
 		
 		for( MapObject object : spawnsLayer.getObjects()) {
+			Gdx.app.debug(TAG, "debug spawn :" + object.getName());
 			if(object.getName().equalsIgnoreCase(PLAYER_START)) {
 				((RectangleMapObject)object).getRectangle().getPosition(playerStartPositionRect);
 				float distance = position.dst2(playerStartPositionRect);
