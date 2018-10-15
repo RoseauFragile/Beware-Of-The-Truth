@@ -1,19 +1,30 @@
-package bewareofthetruth;
+package bewareofthetruth.entity.components;
+
 
 import java.util.UUID;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array; 
+import com.badlogic.gdx.utils.Array;
+import bewareofthetruth.MapManager;
+import bewareofthetruth.Utility;
+import bewareofthetruth.entity.Entity;
 
-public class Entity {
 
-	private static final String TAG = Entity.class.getSimpleName();
-	//TODO a faire ici
+public abstract class PhysicsComponent implements Component{
+
+
+	private static final String TAG = PhysicsComponent.class.getSimpleName();
+
+	//TODO a faire ici pour les sprites
 	private static final String defaultSpritePath = "sprite/zombie_test.png";
 	
 	private Vector2 velocity;
@@ -38,36 +49,46 @@ public class Entity {
 	 private Array<TextureRegion> walkUpFrames;
 	 private Array<TextureRegion> walkDownFrames;
 	 
-	 protected Vector2 nextPlayerPosition;
-	 protected Vector2 currentPlayerPosition;
+	 protected Vector2 nextEntityPosition;
+	 protected Vector2 currentEntityPosition;
 	 protected State state = State.IDLE;
 	 protected float frameTime = 0f;
 	 protected Sprite frameSprite = null;
 	 protected TextureRegion _currentFrame = null;
 	 
-	 //TODO a faire ici
+	 //TODO a faire ici pour les dimensions
 	 public final int FRAME_WIDTH = 64;
 	 public final int FRAME_HEIGHT = 64;
-	 public static Rectangle boundingBox;
+	 public static Rectangle _boundingBox;
+	 protected BoundingBoxLocation _boundingBoxLocation;
 	 
+	 public static enum BoundingBoxLocation{
+		 BOTTOM_LEFT,
+		 BOTTOM_CENTER,
+		 CENTER,
+		 
+	 }
+
 	 public enum State {
 		 IDLE, WALKING
 	 }
 	 
-	 public enum Direction {
-		 UP, RIGHT, LEFT, DOWN
-	 }
+
 	 
-	 public Entity() {
-		 initEntity();
+	 public enum Direction {
+		 UP, RIGHT, LEFT, DOWN;
+		 }	 
+	 
+	 public PhysicsComponent() {
+		 initPhysicsComponent();
 	 }
 	 
 	 @SuppressWarnings("static-access")
-	public void initEntity() {
+	public void initPhysicsComponent() {
 		 this.entityID = UUID.randomUUID().toString();
-		 this.nextPlayerPosition = new Vector2();
-		 this.currentPlayerPosition = new Vector2();
-		 this.boundingBox = new Rectangle();
+		 this.nextEntityPosition = new Vector2();
+		 this.currentEntityPosition = new Vector2();
+		 this._boundingBox = new Rectangle();
 		 this.velocity = new Vector2(2f,2f);
 		 
 		 Utility.loadTextureAsset(defaultSpritePath);
@@ -75,17 +96,17 @@ public class Entity {
 		 loadAllAnimations();
 	 }
 	 
-	 public void update(float delta) {
+	 public void update(Entity entity, MapManager mapManager, Batch batch, float delta) {
 		 frameTime = (frameTime + delta)%5; //avoid overflow
 		 setBoundingBoxSize(0f, 0.5f); //hitbox au pied
 	 }	
 	 
 	 public void init(float startX, float startY) {
-		 this.currentPlayerPosition.x = startX;
-		 this.currentPlayerPosition.y = startY;
+		 this.currentEntityPosition.x = startX;
+		 this.currentEntityPosition.y = startY;
 		 
-		 this.nextPlayerPosition.x = startX;
-		 this.nextPlayerPosition.y = startY;
+		 this.nextEntityPosition.x = startX;
+		 this.nextEntityPosition.y = startY;
 	 }
 	 
 	 @SuppressWarnings("unused")
@@ -118,13 +139,13 @@ public class Entity {
 		 float minX;
 		 float minY;
 		 if(MapManager.UNIT_SCALE > 0) {
-			 minX = nextPlayerPosition.x / MapManager.UNIT_SCALE;
-			 minY = nextPlayerPosition.y / MapManager.UNIT_SCALE;
+			 minX = nextEntityPosition.x / MapManager.UNIT_SCALE;
+			 minY = nextEntityPosition.y / MapManager.UNIT_SCALE;
 		 } else {
-			 minX = nextPlayerPosition.x;
-			 minY = nextPlayerPosition.y;
+			 minX = nextEntityPosition.x;
+			 minY = nextEntityPosition.y;
 		 }
-		 boundingBox.set(minX, minY, width, height);
+		 _boundingBox.set(minX, minY, width, height);
 	 }
 	 
 	 private void loadDefaultSprite() {
@@ -134,7 +155,7 @@ public class Entity {
 		 _currentFrame = textureFrames[0][0];
 	 }
 	 
-	 //TODO à faire ici
+	 //TODO à faire ici pour les animations
 	 @SuppressWarnings({ "unchecked", "rawtypes" })
 	private void loadAllAnimations() {
 		 //walk animation
@@ -230,14 +251,14 @@ public class Entity {
 	 }
 	 
 	 public Vector2 getCurrentPosition() {
-		 return currentPlayerPosition;
+		 return currentEntityPosition;
 	 }
 	 
 	 public void setCurrentPosition(float currentPositionX, float currentPositionY) {
 		 frameSprite.setX(currentPositionX);
 		 frameSprite.setY(currentPositionY);
-		 this.currentPlayerPosition.x = currentPositionX;
-		 this.currentPlayerPosition.y = currentPositionY;
+		 this.currentEntityPosition.x = currentPositionX;
+		 this.currentEntityPosition.y = currentPositionY;
 	 }
 	 
 	 public void setDirection(Direction direction, float deltaTime) {
@@ -262,13 +283,13 @@ public class Entity {
 		 }
 	 }
 	 
-	 public void setNextPositionToCurrent() {
-		 setCurrentPosition(nextPlayerPosition.x,nextPlayerPosition.y);
+	 public void setNextPositionToCurrent(Entity entity) {
+		 setCurrentPosition(entity.nextPlayerPosition.x,entity.nextPlayerPosition.y);
 	 }
 	 
 	 public void calculateNextPosition(Direction currentDirection, float deltaTime) {
-		 float testX = currentPlayerPosition.x;
-		 float testY = currentPlayerPosition.y;
+		 float testX = currentEntityPosition.x;
+		 float testY = currentEntityPosition.y;
 		 velocity.scl(deltaTime);
 		 
 		 switch(currentDirection) {
@@ -293,9 +314,147 @@ public class Entity {
 			 break;
 		 }
 		 
-		 nextPlayerPosition.x = testX;
-		 nextPlayerPosition.y = testY;
+		 nextEntityPosition.x = testX;
+		 nextEntityPosition.y = testY;
 		 
 		 velocity.scl(1 / deltaTime);
 	 }
+	 
+	 protected boolean isCollisionWithMapEntities(Entity entity, MapManager mapManager) {
+		 Array<Entity> entities = mapManager.getCurrentMapEntites();
+		 boolean isCollisionWithMapEntities = false;
+		 
+		 for(Entity mapEntity : entities) {
+			 //check for testing again self
+			 if(mapEntity.equals(entity)) {
+				 continue;
+			 }
+			 
+			 Rectangle targetRect = mapEntity.getCurrentBoundingBox();
+			 if(this._boundingBox.overlaps(targetRect)) {
+				 //Collision
+				 entity.sendMessage(MESSAGE.COLLISION_WITH_ENTITY);
+				 isCollisionWithMapEntities = true;
+				 break;
+			 }
+		 }
+		 return isCollisionWithMapEntities;
+	 }
+	 
+	 protected boolean isCollision(Entity entitySource, Entity entityTarget) {
+		 boolean isCollisionWithMapEntities = false;
+		 
+		 if( entitySource.equals(entityTarget)) {
+			 return false;
+		 }
+		 
+		 if(entitySource.getCurrentBoundingBox().overlaps(entityTarget.getCurrentBoundingBox())) {
+			 //Collsion
+			 entitySource.sendMessage(MESSAGE.COLLISION_WITH_ENTITY);
+			 isCollisionWithMapEntities = true;
+		 }
+		 return isCollisionWithMapEntities;
+	 }
+	 
+		protected boolean isCollisionWithMapLayer (Entity entity, MapManager mapManager) {
+			MapLayer mapCollisionLayer = mapManager.getCollisionLayer();
+			
+			if(mapCollisionLayer == null) {
+				return false;
+			}
+			
+			Rectangle rectangle = null;
+			
+			for(MapObject object : mapCollisionLayer.getObjects()) {
+				if(object instanceof RectangleMapObject) {
+					rectangle = ((RectangleMapObject)object).getRectangle();
+					if(entity.boundingBox.overlaps(rectangle)) {
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+		
+		protected void initBoundingBox(float percentageWidthReduced, float percentageHeightReduced) {
+			
+			float width;
+		 	float height;
+		 	
+		 	float origWidth = Entity.FRAME_WIDTH;
+		 	float origHeight = Entity.FRAME_HEIGHT;
+		 	
+		 	float widthReductionAmount = 1.0f - percentageWidthReduced;
+		 	float heightReductionAmount = 1.0f - percentageHeightReduced;
+		 	
+		 	if( widthReductionAmount > 0 && widthReductionAmount < 1) {
+		 		width = Entity.FRAME_WIDTH * widthReductionAmount;
+		 	}else {
+		 		width = Entity.FRAME_WIDTH;
+		 	}
+		 	
+		 	if(heightReductionAmount >  0 && heightReductionAmount < 1) {
+		 		height = Entity.FRAME_HEIGHT * heightReductionAmount;
+		 	}else {
+		 		height = Entity.FRAME_HEIGHT;
+		 	}
+		 	
+		 	if (width == 0 || height ==0) {
+		 		Gdx.app.debug(TAG, "Width and Height are 0!!" + width + ":" + height);
+		 	}
+		 	
+		 	//Need to account for the unitscale, since the map coordinates will be in pixels
+		 	float minX;
+		 	float minY;
+		 	
+		 	if(Map.UNIT_SCALE > 0) {
+		 		minX = nextEntityPosition.x / Map.UNIT_SCALE;
+		 		minY = nextEntityPosition.Y / Map.UNIT_SCALE;
+		 	} else {
+		 		minX = nextEntityPosition.x;
+		 		minY = nextEntityPosition.y;
+		 	}
+		 	
+		 	_boundingBox.setWidth(width);
+		 	_boundingBox.setHeight(height);
+		 	
+		 	switch(_boundingBoxLocation) {
+		 	case BOTTOM_LEFT:
+		 		_boundingBox.set(minX, minY, width, height);
+		 		break;
+		 	case BOTTOM_CENTER:
+		 		_boundingBox.setCenter(minX + origWidth/2, minY + origHeight/4);
+		 		break;
+		 	case CENTER:
+		 		_boundingBox.setCenter(minX + origWidth/2, minY + origHeight/2);
+		 		break;
+		 	
+		 	}
+		}
+		
+		protected void updateBoundingBoxPosition(Vector2 position) {
+			float minX;
+		 float minY;
+		 
+		 if(Map.UNIT_SCALE > 0) {
+			 minX = position.x / Map.UNIT_SCALE:
+				 minY = position.y / Map.UNIT_SCALE;
+		 }else {
+			 minX = position.x;
+			 minY = position.y;
+		 }
+		 
+		 switch(_boundingBoxLocation) {
+		 case BOTTOM_LEFT:
+			 _boundingBox.set(minX, minY, _boundingBox.getWidth(), _boundingBox.getHeight());
+			 break;
+		 case BOTTOM_CENTER:
+			 _boundingBox.setCenter(minX + Entity.FRAME_WIDTH/2, minY + Entity.FRAME_HEIGHT / 4);
+			 break;
+		 case CENTER:
+			 _boundingBox.setCenter(minX + Entity.FRAME_WIDTH/2, minY+Entity.FRAME_HEIGHT/2);
+			 break;
+		 }
+		}
 }
+
