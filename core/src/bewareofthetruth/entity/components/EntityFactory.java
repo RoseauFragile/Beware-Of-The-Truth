@@ -1,4 +1,4 @@
-package bewareofthetruth.entity;
+package bewareofthetruth.entity.components;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Json;

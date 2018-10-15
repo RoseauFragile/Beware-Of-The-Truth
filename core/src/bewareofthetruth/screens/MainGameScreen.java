@@ -14,7 +14,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 import bewareofthetruth.MapManager;
 import bewareofthetruth.PlayerController;
-import bewareofthetruth.entity.Entity;
+import bewareofthetruth.entity.components.Entity;
 
 public class MainGameScreen implements Screen {
 	

@@ -16,7 +16,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import bewareofthetruth.MapManager;
 import bewareofthetruth.Utility;
-import bewareofthetruth.entity.Entity;
 
 
 public abstract class PhysicsComponent implements Component{
@@ -49,8 +48,8 @@ public abstract class PhysicsComponent implements Component{
 	 private Array<TextureRegion> walkUpFrames;
 	 private Array<TextureRegion> walkDownFrames;
 	 
-	 protected Vector2 nextEntityPosition;
-	 protected Vector2 currentEntityPosition;
+	 protected Vector2 _nextEntityPosition;
+	 protected Vector2 _currentEntityPosition;
 	 protected State state = State.IDLE;
 	 protected float frameTime = 0f;
 	 protected Sprite frameSprite = null;
@@ -86,8 +85,8 @@ public abstract class PhysicsComponent implements Component{
 	 @SuppressWarnings("static-access")
 	public void initPhysicsComponent() {
 		 this.entityID = UUID.randomUUID().toString();
-		 this.nextEntityPosition = new Vector2();
-		 this.currentEntityPosition = new Vector2();
+		 this._nextEntityPosition = new Vector2();
+		 this._currentEntityPosition = new Vector2();
 		 this._boundingBox = new Rectangle();
 		 this.velocity = new Vector2(2f,2f);
 		 
@@ -96,17 +95,14 @@ public abstract class PhysicsComponent implements Component{
 		 loadAllAnimations();
 	 }
 	 
-	 public void update(Entity entity, MapManager mapManager, Batch batch, float delta) {
-		 frameTime = (frameTime + delta)%5; //avoid overflow
-		 setBoundingBoxSize(0f, 0.5f); //hitbox au pied
-	 }	
+	 public abstract void update(Entity entity, MapManager mapManager, float delta);	
 	 
 	 public void init(float startX, float startY) {
-		 this.currentEntityPosition.x = startX;
-		 this.currentEntityPosition.y = startY;
+		 this._currentEntityPosition.x = startX;
+		 this._currentEntityPosition.y = startY;
 		 
-		 this.nextEntityPosition.x = startX;
-		 this.nextEntityPosition.y = startY;
+		 this._nextEntityPosition.x = startX;
+		 this._nextEntityPosition.y = startY;
 	 }
 	 
 	 @SuppressWarnings("unused")
@@ -139,11 +135,11 @@ public abstract class PhysicsComponent implements Component{
 		 float minX;
 		 float minY;
 		 if(MapManager.UNIT_SCALE > 0) {
-			 minX = nextEntityPosition.x / MapManager.UNIT_SCALE;
-			 minY = nextEntityPosition.y / MapManager.UNIT_SCALE;
+			 minX = _nextEntityPosition.x / MapManager.UNIT_SCALE;
+			 minY = _nextEntityPosition.y / MapManager.UNIT_SCALE;
 		 } else {
-			 minX = nextEntityPosition.x;
-			 minY = nextEntityPosition.y;
+			 minX = _nextEntityPosition.x;
+			 minY = _nextEntityPosition.y;
 		 }
 		 _boundingBox.set(minX, minY, width, height);
 	 }
@@ -251,14 +247,14 @@ public abstract class PhysicsComponent implements Component{
 	 }
 	 
 	 public Vector2 getCurrentPosition() {
-		 return currentEntityPosition;
+		 return _currentEntityPosition;
 	 }
 	 
 	 public void setCurrentPosition(float currentPositionX, float currentPositionY) {
 		 frameSprite.setX(currentPositionX);
 		 frameSprite.setY(currentPositionY);
-		 this.currentEntityPosition.x = currentPositionX;
-		 this.currentEntityPosition.y = currentPositionY;
+		 this._currentEntityPosition.x = currentPositionX;
+		 this._currentEntityPosition.y = currentPositionY;
 	 }
 	 
 	 public void setDirection(Direction direction, float deltaTime) {
@@ -284,12 +280,12 @@ public abstract class PhysicsComponent implements Component{
 	 }
 	 
 	 public void setNextPositionToCurrent(Entity entity) {
-		 setCurrentPosition(entity.nextPlayerPosition.x,entity.nextPlayerPosition.y);
+		 setCurrentPosition(entity._nextEntityPosition.x,entity._nextEntityPosition.y);
 	 }
 	 
 	 public void calculateNextPosition(Direction currentDirection, float deltaTime) {
-		 float testX = currentEntityPosition.x;
-		 float testY = currentEntityPosition.y;
+		 float testX = _currentEntityPosition.x;
+		 float testY = _currentEntityPosition.y;
 		 velocity.scl(deltaTime);
 		 
 		 switch(currentDirection) {
@@ -314,8 +310,8 @@ public abstract class PhysicsComponent implements Component{
 			 break;
 		 }
 		 
-		 nextEntityPosition.x = testX;
-		 nextEntityPosition.y = testY;
+		 _nextEntityPosition.x = testX;
+		 _nextEntityPosition.y = testY;
 		 
 		 velocity.scl(1 / deltaTime);
 	 }
@@ -408,11 +404,11 @@ public abstract class PhysicsComponent implements Component{
 		 	float minY;
 		 	
 		 	if(Map.UNIT_SCALE > 0) {
-		 		minX = nextEntityPosition.x / Map.UNIT_SCALE;
-		 		minY = nextEntityPosition.Y / Map.UNIT_SCALE;
+		 		minX = _nextEntityPosition.x / Map.UNIT_SCALE;
+		 		minY = _nextEntityPosition.Y / Map.UNIT_SCALE;
 		 	} else {
-		 		minX = nextEntityPosition.x;
-		 		minY = nextEntityPosition.y;
+		 		minX = _nextEntityPosition.x;
+		 		minY = _nextEntityPosition.y;
 		 	}
 		 	
 		 	_boundingBox.setWidth(width);

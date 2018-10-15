@@ -7,7 +7,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector3;
 
-import bewareofthetruth.entity.Entity; 
+import bewareofthetruth.entity.components.Entity; 
 
 public class PlayerController implements InputProcessor {
 
