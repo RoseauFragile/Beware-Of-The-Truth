@@ -4,6 +4,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
 
+import bewareofthetruth.MapManager;
+
 public class PlayerPhysicsComponent extends PhysicsComponent{
 
 	private Vector3 _mouseSelectCoordinates;
@@ -29,6 +31,10 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
 		if (string[0].equalsIgnoreCase(MESSAGE.INIT_START_POSITION.toString())) {
 			_currentEntityPosition = _json.fromJson(Vector2.class, string [1]);
 		}
+	}
+
+	@Override
+	public void update(Entity entity, MapManager mapManager, float delta) {
 	}
 
 }

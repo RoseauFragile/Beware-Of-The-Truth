@@ -68,7 +68,7 @@ public class Entity{
 	private GraphicsComponent _graphicsComponent;
 	private PhysicsComponent _physicsComponent;
 	
-	public Entity(InputComponent inputComponent, GraphicsComponent graphicsComponent, PhysicsComponent physicsComponent) {
+	public Entity(InputComponent inputComponent, PhysicsComponent physicsComponent, GraphicsComponent graphicsComponent) {
 		
 		_entityConfig = new EntityConfig();
 		_json = new Json();

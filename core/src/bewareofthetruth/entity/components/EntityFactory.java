@@ -27,14 +27,14 @@ public class EntityFactory {
 					Entity.getEntityConfig(
 							EntityFactory.PLAYER_CONFIG));
 			entity.sendMessage(
-					Component.MESSAGE.LOAD_ANIMATION,
+					Component.MESSAGE.LOAD_ANIMATIONS,
 					json.toJson(entity.getEntityConfig()));
 			return entity;
 		case DEMO_PLAYER:
 			entity = new Entity(
 					new NPCInputComponent(),
 					new PlayerPhysicsComponent(),
-					new PLayerGraphicsComponent());
+					new PlayerGraphicsComponent());
 			return entity;
 		case NPC:
 			entity = new Entity(
