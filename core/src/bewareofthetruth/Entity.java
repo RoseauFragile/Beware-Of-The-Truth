@@ -273,16 +273,21 @@ public class Entity {
 		 
 		 switch(currentDirection) {
 		 case LEFT:
+			 Gdx.app.debug(TAG, "touche gauche " + currentDirection);
 			 testX -= velocity.x;
 			 break;
 		 case RIGHT:
+			 Gdx.app.debug(TAG, "touche droite " + currentDirection);
 			 testX += velocity.x;
 			 break;
 		 case UP:
+			 Gdx.app.debug(TAG, "touche haut " + currentDirection);
+
 			 testY += velocity.y;
 			 break;
 		 case DOWN:
-			 testX -= velocity.y;
+			 Gdx.app.debug(TAG, "touche bas " + currentDirection);
+			 testY -= velocity.y;
 			 break;
 		 default:
 			 break;

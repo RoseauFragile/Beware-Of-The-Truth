@@ -37,7 +37,7 @@ public class MapManager {
 	private MapLayer portalLayer = null;
 	private MapLayer spawnsLayer = null;
 	
-	public final static float UNIT_SCALE = 1/16f;
+	public final static float UNIT_SCALE = 1/64f;
 	
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
