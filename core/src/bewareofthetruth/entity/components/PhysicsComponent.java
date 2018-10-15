@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -30,9 +31,9 @@ public abstract class PhysicsComponent implements Component{
 	@SuppressWarnings("unused")
 	private String entityID;
 	
-	private Direction currentDirection = Direction.LEFT;
+	private Direction _currentDirection = Direction.LEFT;
 	@SuppressWarnings("unused")
-	private Direction previousDirection = Direction.UP;
+	private Direction _previousDirection = Direction.UP;
 	
 	@SuppressWarnings("rawtypes")
 	private Animation _walkLeftAnimation;
@@ -50,7 +51,7 @@ public abstract class PhysicsComponent implements Component{
 	 
 	 protected Vector2 _nextEntityPosition;
 	 protected Vector2 _currentEntityPosition;
-	 protected State state = State.IDLE;
+	 protected State _state = State.IDLE;
 	 protected float frameTime = 0f;
 	 protected Sprite frameSprite = null;
 	 protected TextureRegion _currentFrame = null;
@@ -58,9 +59,14 @@ public abstract class PhysicsComponent implements Component{
 	 //TODO a faire ici pour les dimensions
 	 public final int FRAME_WIDTH = 64;
 	 public final int FRAME_HEIGHT = 64;
+	 
+	 //OK
 	 public static Rectangle _boundingBox;
+	 
+	 //OK
 	 protected BoundingBoxLocation _boundingBoxLocation;
 	 
+	 //OK
 	 public static enum BoundingBoxLocation{
 		 BOTTOM_LEFT,
 		 BOTTOM_CENTER,
@@ -89,18 +95,14 @@ public abstract class PhysicsComponent implements Component{
 		 this._currentEntityPosition = new Vector2();
 		 this._boundingBox = new Rectangle();
 		 this.velocity = new Vector2(2f,2f);
-		 
-		 Utility.loadTextureAsset(defaultSpritePath);
-		 loadDefaultSprite();
-		 loadAllAnimations();
 	 }
 	 
+	 //OK
 	 public abstract void update(Entity entity, MapManager mapManager, float delta);	
 	 
 	 public void init(float startX, float startY) {
 		 this._currentEntityPosition.x = startX;
 		 this._currentEntityPosition.y = startY;
-		 
 		 this._nextEntityPosition.x = startX;
 		 this._nextEntityPosition.y = startY;
 	 }
@@ -143,107 +145,14 @@ public abstract class PhysicsComponent implements Component{
 		 }
 		 _boundingBox.set(minX, minY, width, height);
 	 }
-	 
-	 private void loadDefaultSprite() {
-		 Texture texture = Utility.getTextureAsset(defaultSpritePath);
-		 TextureRegion[][] textureFrames = TextureRegion.split(texture, FRAME_WIDTH, FRAME_WIDTH);
-		 frameSprite = new Sprite(textureFrames[0][0].getTexture(),0,0,FRAME_WIDTH,FRAME_HEIGHT);
-		 _currentFrame = textureFrames[0][0];
-	 }
-	 
-	 //TODO à faire ici pour les animations
-	 @SuppressWarnings({ "unchecked", "rawtypes" })
-	private void loadAllAnimations() {
-		 //walk animation
-		 Texture texture =Utility.getTextureAsset(defaultSpritePath);
-		 TextureRegion[][] textureFrames = TextureRegion.split(texture, FRAME_WIDTH, FRAME_HEIGHT);
-		/*
-		 walkDownFrames = new Array<TextureRegion>(4);
-		 walkLeftFrames = new Array<TextureRegion>(4);
-		 walkRightFrames = new Array<TextureRegion>(4);
-		 walkUpFrames = new Array<TextureRegion>(4);
-		 
-		 
-		 for (int i = 0; i < 4; i++) {
-			 for (int j = 0; j < 4; j++) {
-				 TextureRegion region = textureFrames[i][j];
-				 if( region == null ){
-					 Gdx.app.debug(TAG, "Got null animation frame " + i + "," + j);
-					 }
-				 switch(i){
-					case 0:
-						walkDownFrames.insert(j, region);
-						break;
-					case 1:
-						walkLeftFrames.insert(j, region);
-						break;          
-					case 2:
-						walkRightFrames.insert(j, region);
-						break;
-					case 3:
-						walkUpFrames.insert(j, region);
-						break;
-				 }
-			 }
-		 }*/
-		 
-		 walkDownFrames = new Array<TextureRegion>(4);
-		 walkLeftFrames = new Array<TextureRegion>(4);
-		 walkRightFrames = new Array<TextureRegion>(4);
-		 walkUpFrames = new Array<TextureRegion>(4);
-		 
-		 
-		 //for (int i = 0; i < 1; i++) {
-			 for (int j = 0; j < 4; j++) {
-				 Gdx.app.debug(TAG, "j =" + j);
-				 TextureRegion region = textureFrames[0][j];
-				 if( region == null ){
-					 Gdx.app.debug(TAG, "Got null animation frame " + 0 + "," + j);
-					 } else if (j == 0){
-						walkDownFrames.insert(j, region);
-						walkUpFrames.insert(j, region);
-						walkLeftFrames.insert(j, region);
-						walkRightFrames.insert(j, region);
-				} else if (j == 1){
-					walkDownFrames.insert(j, region);
-					walkUpFrames.insert(j, region);
-					walkLeftFrames.insert(j, region);
-					walkRightFrames.insert(j, region);
-				} else if (j == 2){
-					walkDownFrames.insert(j, region);
-					walkUpFrames.insert(j, region);
-					walkLeftFrames.insert(j, region);
-					walkRightFrames.insert(j, region);
-				} else if (j == 3){
-					walkDownFrames.insert(j, region);
-					walkUpFrames.insert(j, region);
-					walkLeftFrames.insert(j, region);
-					walkRightFrames.insert(j, region);
-				 }
-			 }
-			 Gdx.app.debug(TAG, "j = DONE" );
-		// }
-		 
-		 _walkDownAnimation = new Animation (0.25f, walkDownFrames, Animation.PlayMode.LOOP);
-		 _walkLeftAnimation = new Animation (0.25f, walkLeftFrames, Animation.PlayMode.LOOP);
-		 _walkRightAnimation = new Animation (0.25f, walkRightFrames, Animation.PlayMode.LOOP);
-		 _walkUpAnimation = new Animation (0.25f, walkUpFrames, Animation.PlayMode.LOOP);
-	 }
+	
 	 
 	 public void dispose() {
 		 Utility.unloadAsset(defaultSpritePath);
 	 }
 	 
 	 public void setState(State state) {
-		 this.state = state;
-	 }
-	 
-	 public Sprite getFrameSprite() {
-		 return frameSprite;
-	 }
-	 
-	 public TextureRegion getFrame() {
-		 return _currentFrame;
+		 this._state = state;
 	 }
 	 
 	 public Vector2 getCurrentPosition() {
@@ -258,10 +167,10 @@ public abstract class PhysicsComponent implements Component{
 	 }
 	 
 	 public void setDirection(Direction direction, float deltaTime) {
-		 this.previousDirection = this.currentDirection;
-		 this.currentDirection = direction;
+		 this._previousDirection = this._currentDirection;
+		 this._currentDirection = direction;
 		 //TODO a check si il y a un bug, les cast
-		 switch(currentDirection) {
+		 switch(_currentDirection) {
 		 case DOWN :
 			 _currentFrame = (TextureRegion) _walkDownAnimation.getKeyFrame(frameTime);
 			 break;
@@ -279,10 +188,14 @@ public abstract class PhysicsComponent implements Component{
 		 }
 	 }
 	 
+	 //OK
+	 //TODO si bug position regarder ici
 	 public void setNextPositionToCurrent(Entity entity) {
-		 setCurrentPosition(entity._nextEntityPosition.x,entity._nextEntityPosition.y);
+		 setCurrentPosition(_nextEntityPosition.x,_nextEntityPosition.y);
 	 }
 	 
+	 //OK
+	 //TODO si bug vitesse regarder ici
 	 public void calculateNextPosition(Direction currentDirection, float deltaTime) {
 		 float testX = _currentEntityPosition.x;
 		 float testY = _currentEntityPosition.y;
@@ -316,8 +229,10 @@ public abstract class PhysicsComponent implements Component{
 		 velocity.scl(1 / deltaTime);
 	 }
 	 
+	 //OK
+	 //TODO Régler ça
 	 protected boolean isCollisionWithMapEntities(Entity entity, MapManager mapManager) {
-		 Array<Entity> entities = mapManager.getCurrentMapEntites();
+		 Array<Entity> entities = mapManager.getCurrentMapEntities();
 		 boolean isCollisionWithMapEntities = false;
 		 
 		 for(Entity mapEntity : entities) {
@@ -337,6 +252,7 @@ public abstract class PhysicsComponent implements Component{
 		 return isCollisionWithMapEntities;
 	 }
 	 
+	 //OK
 	 protected boolean isCollision(Entity entitySource, Entity entityTarget) {
 		 boolean isCollisionWithMapEntities = false;
 		 
@@ -352,7 +268,8 @@ public abstract class PhysicsComponent implements Component{
 		 return isCollisionWithMapEntities;
 	 }
 	 
-		protected boolean isCollisionWithMapLayer (Entity entity, MapManager mapManager) {
+	 //OK
+	protected boolean isCollisionWithMapLayer (Entity entity, MapManager mapManager) {
 			MapLayer mapCollisionLayer = mapManager.getCollisionLayer();
 			
 			if(mapCollisionLayer == null) {
@@ -364,7 +281,8 @@ public abstract class PhysicsComponent implements Component{
 			for(MapObject object : mapCollisionLayer.getObjects()) {
 				if(object instanceof RectangleMapObject) {
 					rectangle = ((RectangleMapObject)object).getRectangle();
-					if(entity.boundingBox.overlaps(rectangle)) {
+					//TODO si bug COllision regarder ici
+					if(_boundingBox.overlaps(rectangle)) {
 						return true;
 					}
 				}
@@ -372,6 +290,8 @@ public abstract class PhysicsComponent implements Component{
 			return false;
 		}
 		
+	//OK
+	//TODO a régler
 		protected void initBoundingBox(float percentageWidthReduced, float percentageHeightReduced) {
 			
 			float width;
@@ -403,9 +323,9 @@ public abstract class PhysicsComponent implements Component{
 		 	float minX;
 		 	float minY;
 		 	
-		 	if(Map.UNIT_SCALE > 0) {
-		 		minX = _nextEntityPosition.x / Map.UNIT_SCALE;
-		 		minY = _nextEntityPosition.Y / Map.UNIT_SCALE;
+		 	if(MapManager.UNIT_SCALE > 0) {
+		 		minX = _nextEntityPosition.x / MapManager.UNIT_SCALE;
+		 		minY = _nextEntityPosition.y / MapManager.UNIT_SCALE;
 		 	} else {
 		 		minX = _nextEntityPosition.x;
 		 		minY = _nextEntityPosition.y;
@@ -428,13 +348,15 @@ public abstract class PhysicsComponent implements Component{
 		 	}
 		}
 		
+		//OK 
+		//TODO a régler
 		protected void updateBoundingBoxPosition(Vector2 position) {
 			float minX;
 		 float minY;
 		 
-		 if(Map.UNIT_SCALE > 0) {
-			 minX = position.x / Map.UNIT_SCALE:
-				 minY = position.y / Map.UNIT_SCALE;
+		 if(MapManager.UNIT_SCALE > 0) {
+			 minX = position.x / MapManager.UNIT_SCALE;
+				 minY = position.y / MapManager.UNIT_SCALE;
 		 }else {
 			 minX = position.x;
 			 minY = position.y;

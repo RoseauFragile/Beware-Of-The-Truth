@@ -5,7 +5,7 @@ import com.badlogic.gdx.utils.Json;
 
 public class EntityFactory {
 
-	public static Json json = new Json();
+	private static Json _json = new Json();
 	private final static String TAG = EntityFactory.class.getSimpleName();
 	public static enum EntityType{
 		PLAYER,
@@ -28,7 +28,7 @@ public class EntityFactory {
 							EntityFactory.PLAYER_CONFIG));
 			entity.sendMessage(
 					Component.MESSAGE.LOAD_ANIMATIONS,
-					json.toJson(entity.getEntityConfig()));
+					_json.toJson(entity.getEntityConfig()));
 			return entity;
 		case DEMO_PLAYER:
 			entity = new Entity(

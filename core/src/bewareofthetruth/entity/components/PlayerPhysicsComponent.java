@@ -30,6 +30,14 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
 		
 		if (string[0].equalsIgnoreCase(MESSAGE.INIT_START_POSITION.toString())) {
 			_currentEntityPosition = _json.fromJson(Vector2.class, string [1]);
+			_nextEntityPosition.set(_currentEntityPosition.x, _currentEntityPosition.y);
+		}else if(string[0].equalsIgnoreCase(MESSAGE.CURRENT_STATE.toString())) {
+			_state = _json.fromJson(Entity.State.class, string[1]);
+		}else if(string[0].equalsIgnoreCase(MESSAGE.CURRENT_DIRECTION.toString())) {
+			_currentDirection = _json.fromJson(Entity.Direction.class,string[1]);
+		}else if(string[0].equalsIgnoreCase(MESSAGE.INIT_SELECT_ENTITY.toString())) {
+			_mouseSelectCoordinates = _json.fromJson(Vector3.class, string[1]);
+			_isMouseSelectEnabled = true;
 		}
 	}
 
