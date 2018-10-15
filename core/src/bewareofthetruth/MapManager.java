@@ -45,8 +45,8 @@ public class MapManager {
 		playerStart = new Vector2(0,0);
 		mapTable = new Hashtable();
 		
-		mapTable.put(TOP_WORLD, "zone1.1.tmx");
-		mapTable.put(TOWN, "tiledMap/zone1.2.tmx");
+		mapTable.put(TOP_WORLD, "tiledMap/zone1.2.tmx");
+		mapTable.put(TOWN, "tiledMap/zone1.1.tmx");
 		mapTable.put(CASTLE_OF_DOOM, "tiledMap/zone1.3.tmx");
 		
 		playerStartLocationTable = new Hashtable();
@@ -127,24 +127,58 @@ public class MapManager {
 		return playerStart;
 	}
 	
-	private void setClosestStartPosition(final Vector2 position) {
+	/*private void setClosestStartPosition(final Vector2 position) {
+		
 		playerStartPositionRect.set(0,0);
 		closestPlayerStartPosition.set(0,0);
 		float shortestDistance =0f;
-		
+		//Go through all player start positions and choose closest to
+		//last known positio
 		for( MapObject object : spawnsLayer.getObjects()) {
 			Gdx.app.debug(TAG, "debug spawn :" + object.getName());
 			if(object.getName().equalsIgnoreCase(PLAYER_START)) {
 				((RectangleMapObject)object).getRectangle().getPosition(playerStartPositionRect);
-				float distance = position.dst2(playerStartPositionRect);
 				
+				float distance = position.dst2(playerStartPositionRect);
+				Gdx.app.debug(TAG, "shortestdistance spawn :" + shortestDistance);
 				if(distance < shortestDistance || shortestDistance == 0) {
 					closestPlayerStartPosition.set(playerStartPositionRect);
+					Gdx.app.debug(TAG, "distance spawn :" + distance);
 					shortestDistance = distance;
 				}
 			}
 		}
 		playerStartLocationTable.put(currentMapName, closestPlayerStartPosition.cpy());
+	}*/
+	//TODO a modifier pour inclure la première position d'une prochaine map, explications ci dessous
+	//en effet pour déduire le bon start quand on revient sur un map, le jeu garde en mémoire l'ancienne position, c'est à dire
+	//que si nous n'avons jamais été une fois dans un map, le calcul est un gros aléatoire, donc il faut rajouter un objet first start sur tiled,
+	//Le prendre en compte et rajouter le calcul
+	private void setClosestStartPosition(final Vector2 position){
+		//Get last known position on this map
+		playerStartPositionRect.set(0,0);
+		closestPlayerStartPosition.set(0,0);
+		float shortestDistance = 0f;
+		
+		//Go through all player start positions and choose closest to
+		//last known position
+		for( MapObject object: spawnsLayer.getObjects()){
+			if( object.getName().equalsIgnoreCase(PLAYER_START) ){
+				((RectangleMapObject)object).getRectangle().
+				getPosition(playerStartPositionRect);
+				float distance = position.dst2(playerStartPositionRect);
+			
+		
+		         if( distance < shortestDistance ||
+		        		 shortestDistance == 0 ){
+		        	 closestPlayerStartPosition.set(
+		        			 playerStartPositionRect);
+		         shortestDistance = distance;
+		         }
+			}
+		}
+		playerStartLocationTable.put(
+				currentMapName, closestPlayerStartPosition.cpy()); 
 	}
 	
 	@SuppressWarnings("unused")
