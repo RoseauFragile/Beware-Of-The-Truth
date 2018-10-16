@@ -28,26 +28,11 @@ public abstract class PhysicsComponent implements Component{
 	private static final String defaultSpritePath = "sprite/zombie_test.png";
 	
 	private Vector2 velocity;
-	@SuppressWarnings("unused")
 	private String entityID;
 	
 	private Direction _currentDirection = Direction.LEFT;
-	@SuppressWarnings("unused")
 	private Direction _previousDirection = Direction.UP;
-	
-	@SuppressWarnings("rawtypes")
-	private Animation _walkLeftAnimation;
-	@SuppressWarnings("rawtypes")
-	private Animation _walkRightAnimation;
-	@SuppressWarnings("rawtypes")
-	private Animation _walkUpAnimation;
-	@SuppressWarnings("rawtypes")
-	private Animation _walkDownAnimation;
-	
-	 private Array<TextureRegion> walkLeftFrames;
-	 private Array<TextureRegion> walkRightFrames;
-	 private Array<TextureRegion> walkUpFrames;
-	 private Array<TextureRegion> walkDownFrames;
+
 	 
 	 protected Vector2 _nextEntityPosition;
 	 protected Vector2 _currentEntityPosition;
@@ -166,27 +151,7 @@ public abstract class PhysicsComponent implements Component{
 		 this._currentEntityPosition.y = currentPositionY;
 	 }
 	 
-	 public void setDirection(Direction direction, float deltaTime) {
-		 this._previousDirection = this._currentDirection;
-		 this._currentDirection = direction;
-		 //TODO a check si il y a un bug, les cast
-		 switch(_currentDirection) {
-		 case DOWN :
-			 _currentFrame = (TextureRegion) _walkDownAnimation.getKeyFrame(frameTime);
-			 break;
-		 case LEFT :
-			 _currentFrame = (TextureRegion) _walkLeftAnimation.getKeyFrame(frameTime);
-			 break;
-		 case UP :
-			 _currentFrame = (TextureRegion) _walkUpAnimation.getKeyFrame(frameTime);
-			 break;
-		 case RIGHT :
-			 _currentFrame = (TextureRegion) _walkRightAnimation.getKeyFrame(frameTime);
-			 break;
-		 default:
-			 break;	 
-		 }
-	 }
+
 	 
 	 //OK
 	 //TODO si bug position regarder ici

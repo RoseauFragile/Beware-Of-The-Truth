@@ -6,6 +6,9 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
+
+import bewareofthetruth.entity.components.Entity;
 
 import java.util.Hashtable;
 
@@ -190,4 +193,9 @@ public class MapManager {
 			setClosestStartPosition(convertedUnits);
 		}
 	}
+	
+	//TODO Il faut changer la class de currentMap en un objet Map
+    public final Array<Entity> getCurrentMapEntities(){
+        return currentMap.getMapEntities();
+    }
 }
