@@ -15,6 +15,8 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Json;
+
 import bewareofthetruth.MapManager;
 import bewareofthetruth.Utility;
 
@@ -27,16 +29,25 @@ public abstract class PhysicsComponent implements Component{
 	//TODO a faire ici pour les sprites
 	private static final String defaultSpritePath = "sprite/zombie_test.png";
 	
-	private Vector2 velocity;
+
 	private String entityID;
 	
-	private Direction _currentDirection = Direction.LEFT;
-	private Direction _previousDirection = Direction.UP;
+	
+	 private Direction _previousDirection = Direction.UP;
 
 	 
 	 protected Vector2 _nextEntityPosition;
 	 protected Vector2 _currentEntityPosition;
-	 protected State _state = State.IDLE;
+	 protected Entity.Direction  _currentDirection;
+	 protected Json _json;
+	 protected Vector2 velocity;
+	 
+	 
+	 public Rectangle _boundingBox;
+	 
+	 protected Entity.State _state;
+	 
+	 
 	 protected float frameTime = 0f;
 	 protected Sprite frameSprite = null;
 	 protected TextureRegion _currentFrame = null;
@@ -45,8 +56,6 @@ public abstract class PhysicsComponent implements Component{
 	 public final int FRAME_WIDTH = 64;
 	 public final int FRAME_HEIGHT = 64;
 	 
-	 //OK
-	 public static Rectangle _boundingBox;
 	 
 	 //OK
 	 protected BoundingBoxLocation _boundingBoxLocation;

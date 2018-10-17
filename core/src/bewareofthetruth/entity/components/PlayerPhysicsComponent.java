@@ -8,6 +8,7 @@ import bewareofthetruth.MapManager;
 
 public class PlayerPhysicsComponent extends PhysicsComponent{
 
+
 	private Vector3 _mouseSelectCoordinates;
 	private boolean _isMouseSelectEnabled = false;
 	private Ray _selectionRay;
