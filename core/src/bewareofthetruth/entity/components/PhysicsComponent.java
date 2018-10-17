@@ -336,5 +336,39 @@ public abstract class PhysicsComponent implements Component{
 			 break;
 		 }
 		}
+		
+	    protected void calculateNextPosition(float deltaTime){
+	        if( _currentDirection == null ) return;
+
+	        if( deltaTime > .7) return;
+
+	        float testX = _currentEntityPosition.x;
+	        float testY = _currentEntityPosition.y;
+
+	        _velocity.scl(deltaTime);
+
+	        switch (_currentDirection) {
+	            case LEFT :
+	                testX -=  _velocity.x;
+	                break;
+	            case RIGHT :
+	                testX += _velocity.x;
+	                break;
+	            case UP :
+	                testY += _velocity.y;
+	                break;
+	            case DOWN :
+	                testY -= _velocity.y;
+	                break;
+	            default:
+	                break;
+	        }
+
+	        _nextEntityPosition.x = testX;
+	        _nextEntityPosition.y = testY;
+
+	        //velocity
+	        _velocity.scl(1 / deltaTime);
+	    }
 }
 

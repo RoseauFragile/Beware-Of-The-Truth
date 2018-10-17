@@ -1,5 +1,6 @@
 package bewareofthetruth.entity.components;
 
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
@@ -44,6 +45,40 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
 
 	@Override
 	public void update(Entity entity, MapManager mapManager, float delta) {
+        //We want the hitbox to be at the feet for a better feel
+        updateBoundingBoxPosition(_nextEntityPosition);
+        //updatePortalLayerActivation(mapManager);
+        updateDiscoverLayerActivation(mapManager);
+        //updateEnemySpawnLayerActivation(mapManager);
+
+        if( _isMouseSelectEnabled ){
+            selectMapEntityCandidate(mapManager);
+            _isMouseSelectEnabled = false;
+        }
+
+        if (    !isCollisionWithMapLayer(entity, mapManager) &&
+                !isCollisionWithMapEntities(entity, mapManager) &&
+                _state == Entity.State.WALKING){
+            setNextPositionToCurrent(entity);
+
+            Camera camera = mapManager.getCamera();
+            camera.position.set(_currentEntityPosition.x, _currentEntityPosition.y, 0f);
+            camera.update();
+        }else{
+            updateBoundingBoxPosition(_currentEntityPosition);
+        }
+
+        calculateNextPosition(delta);
 	}
+	
+    private void selectMapEntityCandidate(MapManager mapManager) {
+	}
+
+	private boolean updateDiscoverLayerActivation(MapManager mapManager){
+       // MapLayer mapDiscoverLayer =  mapManager.getQuestDiscoverLayer();
+
+        //if( mapDiscoverLayer == null ){
+            return false;
+        }
 
 }

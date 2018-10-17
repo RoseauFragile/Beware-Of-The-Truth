@@ -7,7 +7,6 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-
 import bewareofthetruth.entity.components.Entity;
 
 import java.util.Hashtable;
@@ -198,4 +197,12 @@ public class MapManager {
     public final Array<Entity> getCurrentMapEntities(){
         return currentMap.getMapEntities();
     }
+
+	public com.badlogic.gdx.graphics.Camera getCamera() {
+		return null;
+	}
+
+	public bewareofthetruth.entity.components.MapLayer getQuestDiscoverLayer() {
+		return null;
+	}
 }
