@@ -14,6 +14,8 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 
@@ -29,10 +31,6 @@ public abstract class PhysicsComponent implements Component{
 	//TODO a faire ici pour les sprites
 	private static final String defaultSpritePath = "sprite/zombie_test.png";
 	
-
-	private String entityID;
-	
-	
 	 private Direction _previousDirection = Direction.UP;
 
 	 
@@ -40,25 +38,14 @@ public abstract class PhysicsComponent implements Component{
 	 protected Vector2 _currentEntityPosition;
 	 protected Entity.Direction  _currentDirection;
 	 protected Json _json;
-	 protected Vector2 velocity;
+	 protected Vector2 _velocity;
 	 
+	 protected Array<Entity> _tempEntities;
 	 
 	 public Rectangle _boundingBox;
-	 
-	 protected Entity.State _state;
-	 
-	 
-	 protected float frameTime = 0f;
-	 protected Sprite frameSprite = null;
-	 protected TextureRegion _currentFrame = null;
-	 
-	 //TODO a faire ici pour les dimensions
-	 public final int FRAME_WIDTH = 64;
-	 public final int FRAME_HEIGHT = 64;
-	 
-	 
-	 //OK
 	 protected BoundingBoxLocation _boundingBoxLocation;
+	 protected Ray _selectionRay;
+	 protected final float _selectRayMaximumDistance = 32.0f;
 	 
 	 //OK
 	 public static enum BoundingBoxLocation{
@@ -84,11 +71,20 @@ public abstract class PhysicsComponent implements Component{
 	 
 	 @SuppressWarnings("static-access")
 	public void initPhysicsComponent() {
-		 this.entityID = UUID.randomUUID().toString();
+		 /*this.entityID = UUID.randomUUID().toString();
 		 this._nextEntityPosition = new Vector2();
 		 this._currentEntityPosition = new Vector2();
 		 this._boundingBox = new Rectangle();
-		 this.velocity = new Vector2(2f,2f);
+		 this.velocity = new Vector2(2f,2f);*/
+		 
+	        this._nextEntityPosition = new Vector2(0,0);
+	        this._currentEntityPosition = new Vector2(0,0);
+	        this._velocity = new Vector2(2f,2f);
+	        this._boundingBox = new Rectangle();
+	        this._json = new Json();
+	        this._tempEntities = new Array<Entity>();
+	        _boundingBoxLocation = BoundingBoxLocation.BOTTOM_LEFT;
+	        _selectionRay = new Ray(new Vector3(), new Vector3());
 	 }
 	 
 	 //OK
@@ -112,15 +108,15 @@ public abstract class PhysicsComponent implements Component{
 		//.8f for 20% (1 - .20)
 		
 		 if(widthReductionAmount > 0 && widthReductionAmount < 1) {
-			 width = FRAME_WIDTH * widthReductionAmount;
+			 width = Entity.FRAME_WIDTH * widthReductionAmount;
 		 } else {
-			 width = FRAME_WIDTH;
+			 width = Entity.FRAME_WIDTH;
 		 }
 		 
 		 if(heightReductionAmount > 0 && heightReductionAmount < 1) {
-			 height = FRAME_HEIGHT * heightReductionAmount;
+			 height = Entity.FRAME_HEIGHT * heightReductionAmount;
 		 } else {
-			 height = FRAME_HEIGHT;
+			 height = Entity.FRAME_HEIGHT;
 		 }
 		 
 		 if( width == 0 || height == 0) {
@@ -145,27 +141,19 @@ public abstract class PhysicsComponent implements Component{
 		 Utility.unloadAsset(defaultSpritePath);
 	 }
 	 
-	 public void setState(State state) {
-		 this._state = state;
-	 }
-	 
 	 public Vector2 getCurrentPosition() {
 		 return _currentEntityPosition;
 	 }
-	 
-	 public void setCurrentPosition(float currentPositionX, float currentPositionY) {
-		 frameSprite.setX(currentPositionX);
-		 frameSprite.setY(currentPositionY);
-		 this._currentEntityPosition.x = currentPositionX;
-		 this._currentEntityPosition.y = currentPositionY;
-	 }
-	 
-
-	 
+	
+	  
 	 //OK
 	 //TODO si bug position regarder ici
 	 public void setNextPositionToCurrent(Entity entity) {
-		 setCurrentPosition(_nextEntityPosition.x,_nextEntityPosition.y);
+		 
+	        this._currentEntityPosition.x = _nextEntityPosition.x;
+	        this._currentEntityPosition.y = _nextEntityPosition.y;
+	        Gdx.app.debug(TAG, "SETTING Current Position " + entity.getEntityConfig().getEntityID() + ": (" + _currentEntityPosition.x + "," + _currentEntityPosition.y + ")");
+	        entity.sendMessage(MESSAGE.CURRENT_POSITION, _json.toJson(_currentEntityPosition));
 	 }
 	 
 	 //OK
@@ -173,25 +161,25 @@ public abstract class PhysicsComponent implements Component{
 	 public void calculateNextPosition(Direction currentDirection, float deltaTime) {
 		 float testX = _currentEntityPosition.x;
 		 float testY = _currentEntityPosition.y;
-		 velocity.scl(deltaTime);
+		 _velocity.scl(deltaTime);
 		 
 		 switch(currentDirection) {
 		 case LEFT:
 			 //Gdx.app.debug(TAG, "touche gauche " + currentDirection);
-			 testX -= velocity.x;
+			 testX -= _velocity.x;
 			 break;
 		 case RIGHT:
 			 //Gdx.app.debug(TAG, "touche droite " + currentDirection);
-			 testX += velocity.x;
+			 testX += _velocity.x;
 			 break;
 		 case UP:
 			// Gdx.app.debug(TAG, "touche haut " + currentDirection);
 
-			 testY += velocity.y;
+			 testY += _velocity.y;
 			 break;
 		 case DOWN:
 			 //Gdx.app.debug(TAG, "touche bas " + currentDirection);
-			 testY -= velocity.y;
+			 testY -= _velocity.y;
 			 break;
 		 default:
 			 break;
@@ -200,7 +188,7 @@ public abstract class PhysicsComponent implements Component{
 		 _nextEntityPosition.x = testX;
 		 _nextEntityPosition.y = testY;
 		 
-		 velocity.scl(1 / deltaTime);
+		 _velocity.scl(1 / deltaTime);
 	 }
 	 
 	 //OK
