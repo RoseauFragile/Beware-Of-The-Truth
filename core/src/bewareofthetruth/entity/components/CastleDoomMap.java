@@ -1,6 +1,6 @@
 package bewareofthetruth.entity.components;
 
-import bewareofthetruth.entity.components.MapFactory.MapType;
+
 
 public class CastleDoomMap extends Map {
 	//TODO a modif
