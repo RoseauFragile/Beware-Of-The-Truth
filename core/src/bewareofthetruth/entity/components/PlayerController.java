@@ -1,16 +1,7 @@
-package bewareofthetruth;
+package bewareofthetruth.entity.components;
 
-import java.util.HashMap;
-import java.util.Map;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.math.Vector3;
-
-import bewareofthetruth.entity.components.Entity; 
-
-public class PlayerController implements InputProcessor {
-
+public class PlayerController {
+/*
 	private final static String TAG = PlayerController.class.getSimpleName();
 	
 	enum Keys {
@@ -38,11 +29,11 @@ public class PlayerController implements InputProcessor {
 		mouseButtons.put(Mouse.DOACTION, false);
 	}
 	
-	private Entity player;
+	private Entity _player;
 	
 	public PlayerController(Entity player) {
 		this.lastMouseCoordinates = new Vector3();
-		this.player = player;
+		this._player = player;
 	}
 
 	  @Override
@@ -215,25 +206,25 @@ public class PlayerController implements InputProcessor {
 		
 		//Keyboard input
 		if(keys.get(Keys.LEFT)) {
-			player.calculateNextPosition(Entity.Direction.LEFT, delta);
-			player.setState(Entity.State.WALKING);
-			player.setDirection(Entity.Direction.LEFT, delta);
+			_player.calculateNextPosition(Entity.Direction.LEFT, delta);
+			_player.setState(Entity.State.WALKING);
+			_player.setDirection(Entity.Direction.LEFT, delta);
 		} else if (keys.get(Keys.RIGHT)) {
-			player.calculateNextPosition(Entity.Direction.RIGHT, delta);
-			player.setState(Entity.State.WALKING);
-			player.setDirection(Entity.Direction.RIGHT, delta);
+			_player.calculateNextPosition(Entity.Direction.RIGHT, delta);
+			_player.setState(Entity.State.WALKING);
+			_player.setDirection(Entity.Direction.RIGHT, delta);
 		} else if (keys.get(Keys.UP)) {
-			player.calculateNextPosition(Entity.Direction.UP, delta);
-			player.setState(Entity.State.WALKING);
-			player.setDirection(Entity.Direction.UP, delta);
+			_player.calculateNextPosition(Entity.Direction.UP, delta);
+			_player.setState(Entity.State.WALKING);
+			_player.setDirection(Entity.Direction.UP, delta);
 		} else if (keys.get(Keys.DOWN)) {
-			player.calculateNextPosition(Entity.Direction.DOWN, delta);
-			player.setState(Entity.State.WALKING);
-			player.setDirection(Entity.Direction.DOWN, delta);
+			_player.calculateNextPosition(Entity.Direction.DOWN, delta);
+			_player.setState(Entity.State.WALKING);
+			_player.setDirection(Entity.Direction.DOWN, delta);
 		} else if(keys.get(Keys.QUIT)) {
 			Gdx.app.exit();
 		} else {
-			player.setState(Entity.State.IDLE);
+			_player.setState(Entity.State.IDLE);
 		}
 		
 		//Mouse Input
@@ -241,4 +232,15 @@ public class PlayerController implements InputProcessor {
 			mouseButtons.put(Mouse.SELECT, false);
 		}
 	}
+	
+
+
+	public static void clear(){
+		keys.put(Keys.LEFT, false);
+		keys.put(Keys.RIGHT, false);
+		keys.put(Keys.UP, false);
+		keys.put(Keys.DOWN, false);
+		keys.put(Keys.QUIT, false);
+	}
+}*/
 }

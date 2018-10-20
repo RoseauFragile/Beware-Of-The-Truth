@@ -13,8 +13,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 
 import bewareofthetruth.MapManager;
-import bewareofthetruth.PlayerController;
 import bewareofthetruth.entity.components.Entity;
+import bewareofthetruth.entity.components.PlayerController;
 
 public class MainGameScreen implements Screen {
 	

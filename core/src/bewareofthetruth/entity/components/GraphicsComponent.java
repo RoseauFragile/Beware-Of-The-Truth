@@ -22,19 +22,20 @@ public abstract class GraphicsComponent implements Component {
 	private static final String TAG = GraphicsComponent.class.getSimpleName();
 	private static final String defaultSpritePath = "sprite/zombie_test.png";
 	
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unused" })
 	private Animation _walkLeftAnimation;
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unused" })
 	private Animation _walkRightAnimation;
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unused" })
 	private Animation _walkUpAnimation;
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unused" })
 	private Animation _walkDownAnimation;
 	
 	 private Array<TextureRegion> walkLeftFrames;
 	 private Array<TextureRegion> walkRightFrames;
 	 private Array<TextureRegion> walkUpFrames;
 	 private Array<TextureRegion> walkDownFrames;
+	@SuppressWarnings("rawtypes")
 	protected Hashtable<Entity.AnimationType, Animation>
 	_animations;
 	protected ShapeRenderer _shapeRenderer;
@@ -142,7 +143,8 @@ public abstract class GraphicsComponent implements Component {
 		 _walkUpAnimation = new Animation (0.25f, walkUpFrames, Animation.PlayMode.LOOP);
 	 }
 	 
-	 protected void updateAnimations(float delta) {
+	 @SuppressWarnings("rawtypes")
+	protected void updateAnimations(float delta) {
 		 //want to avoid overrflow
 		 _frameTime = (_frameTime + delta)%5;
 		 
@@ -212,7 +214,8 @@ public abstract class GraphicsComponent implements Component {
 		 }
 	 }
 	 
-	 protected Animation loadAnimation(String firstTexture, String secondTexture, Array<GridPoint2> points, float frameDuration) {
+	 @SuppressWarnings({ "unchecked", "rawtypes" })
+	protected Animation loadAnimation(String firstTexture, String secondTexture, Array<GridPoint2> points, float frameDuration) {
 		 Utility.loadTextureAsset(firstTexture);
 		 Texture texture1 = Utility.getTextureAsset(firstTexture);
 		 Utility.loadTextureAsset(secondTexture);
@@ -229,7 +232,8 @@ public abstract class GraphicsComponent implements Component {
 		 return new Animation(frameDuration, animationKeyFrames, Animation.PlayMode.LOOP);
 	 }
 	 
-	 protected Animation loadAnimation(String textureName, Array<GridPoint2> points, float frameDuration) {
+	 @SuppressWarnings({ "unchecked", "rawtypes" })
+	protected Animation loadAnimation(String textureName, Array<GridPoint2> points, float frameDuration) {
 		 Utility.loadTextureAsset(textureName);
 		 Texture texture = Utility.getTextureAsset(textureName);
 		 

@@ -1,11 +1,11 @@
 package bewareofthetruth.entity.components;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Json;
 
 public class EntityFactory {
 
 	private static Json _json = new Json();
+	@SuppressWarnings("unused")
 	private final static String TAG = EntityFactory.class.getSimpleName();
 	public static enum EntityType{
 		PLAYER,

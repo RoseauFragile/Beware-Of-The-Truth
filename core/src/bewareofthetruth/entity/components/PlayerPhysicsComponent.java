@@ -10,9 +10,12 @@ import bewareofthetruth.MapManager;
 public class PlayerPhysicsComponent extends PhysicsComponent{
 
 	private Entity.State _state;
+	@SuppressWarnings("unused")
 	private Vector3 _mouseSelectCoordinates;
 	private boolean _isMouseSelectEnabled = false;
+	@SuppressWarnings("unused")
 	private Ray _selectionRay;
+	@SuppressWarnings("unused")
 	private float _selectRayMaximumDistance = 32.0f;
 	
 	public PlayerPhysicsComponent() {

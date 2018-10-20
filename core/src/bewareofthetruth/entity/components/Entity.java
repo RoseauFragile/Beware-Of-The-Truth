@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
@@ -12,7 +11,9 @@ import bewareofthetruth.MapManager;
 import java.util.ArrayList;
 
 public class Entity{
+	@SuppressWarnings("unused")
 	private static final String TAG = Entity.class.getSimpleName();
+	@SuppressWarnings("unused")
 	private Json _json;
 	private EntityConfig _entityConfig;
 	
@@ -125,6 +126,7 @@ public class Entity{
 		return json.fromJson(EntityConfig.class, Gdx.files.internal(configFilePath));
 	}
 	
+	@SuppressWarnings("unchecked")
 	static public Array<EntityConfig> getEntityConfigs(String configFilePath){
 		Json json = new Json();
 		Array<EntityConfig> configs = new Array<EntityConfig>();

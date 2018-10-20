@@ -1,14 +1,8 @@
 package bewareofthetruth.entity.components;
 
 
-import java.util.UUID;
+
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -31,7 +25,8 @@ public abstract class PhysicsComponent implements Component{
 	//TODO a faire ici pour les sprites
 	private static final String defaultSpritePath = "sprite/zombie_test.png";
 	
-	 private Direction _previousDirection = Direction.UP;
+	 @SuppressWarnings("unused")
+	private Direction _previousDirection = Direction.UP;
 
 	 
 	 protected Vector2 _nextEntityPosition;
@@ -254,6 +249,7 @@ public abstract class PhysicsComponent implements Component{
 		
 	//OK
 	//TODO a régler
+		@SuppressWarnings("unused")
 		protected void initBoundingBox(float percentageWidthReduced, float percentageHeightReduced) {
 			
 			float width;
@@ -312,6 +308,7 @@ public abstract class PhysicsComponent implements Component{
 		
 		//OK 
 		//TODO a régler
+		@SuppressWarnings("unused")
 		protected void updateBoundingBoxPosition(Vector2 position) {
 			float minX;
 		 float minY;
