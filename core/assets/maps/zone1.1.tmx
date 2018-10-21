@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="left-up" width="13" height="13" tilewidth="128" tileheight="128" infinite="0" nextobjectid="53">
+ <tileset firstgid="1" source="tileset/sol.tsx"/>
+ <tileset firstgid="19" source="tileset/mur.tsx"/>
+ <tileset firstgid="67" source="tileset/lampe3.tsx"/>
+ <tileset firstgid="68" source="tileset/lampe2.tsx"/>
+ <tileset firstgid="69" source="tileset/lampe1.tsx"/>
+ <tileset firstgid="70" source="tileset/Tileset2.tsx"/>
+ <layer name="sol" width="13" height="13">
+  <data encoding="base64" compression="zlib">
+   eJzFj80OgCAMg6eiIP7w/jcf1S1hydLA5GaT7wCjayH6XxMzG5YBT2SSYXf2KWfHk4mewCSYCytzVzbIueodeuybCOdWd+GAniMeL1f72e74H6FQX5qJez1JZvjY21J2Zi/N2AOv
+  </data>
+ </layer>
+ <layer name="decors" width="13" height="13">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2BwAwACpAAB
+  </data>
+ </layer>
+ <layer name="mur" width="13" height="13">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAuMAViMyRsTqF52ljMdKLQTHoAB4ah4c6hAACWEwLV
+  </data>
+ </layer>
+ <layer name="decors-lumiere" width="13" height="13">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAtcKax+YMVODOMXL9TGwAARzsAyg==
+  </data>
+ </layer>
+ <objectgroup name="objets"/>
+ <layer name="calque64" width="13" height="13" offsetx="34" offsety="0">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAdcBsiZo6CgQfueOQAMt8A1A==
+  </data>
+ </layer>
+ <layer name="toit" width="13" height="13">
+  <data encoding="base64" compression="zlib">
+   eJxTY2BgkMGBNbBgkLgaEKtjUW/CgB0YQ/XoYTFPE4ceayDWxyGHC4D0mJOhhxCwAGIrND2SZNijRqI+mB5FOukBxaEIFIuiqRFGkhNhQKQDmD4ZLHZKI8kpoOlBxjC7hBmwp0MAUi0LGg==
+  </data>
+ </layer>
+ <objectgroup name="objets-lumiere">
+  <object id="38" x="1083.82" y="810.727" width="9.45455" height="12.7273"/>
+  <object id="39" x="1211.64" y="811.636" width="10.5455" height="11.8182"/>
+  <object id="40" x="1468" y="170.667" width="10" height="13.3333"/>
+ </objectgroup>
+ <objectgroup name="MAP_COLLISION_LAYER">
+  <object id="32" x="1027.33" y="675" width="252" height="162.5"/>
+  <object id="36" x="128" y="454">
+   <polyline points="0,0 766,-2 766,-257 1409,-257 1410,867 897,868 897,1107 773.5,1107 774.375,1207.5 637.094,1207.63 636.813,1107.75 508.25,1106 509,870 127,871 128,470 -3,469 -4,339.5 -127,338.667 -127.667,185.167 -1.66667,186.417 0.333333,1"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="MAP_PORTAL_LAYER">
+  <object id="41" name="TOP_WORLD" x="0.666667" y="682" width="3.33333" height="64.6667"/>
+ </objectgroup>
+ <objectgroup name="MAP_SPAWNS_LAYER">
+  <object id="42" name="NPC_START" x="17.3333" y="684.667" width="40" height="61.3333"/>
+  <object id="43" name="PLAYER_START" x="800" y="1613.33" width="72.6667" height="36.6667"/>
+  <object id="44" name="TOWN_FOLK2" x="573" y="656" width="64" height="64"/>
+  <object id="45" name="TOWN_FOLK1" x="170" y="500" width="64" height="64"/>
+  <object id="46" name="TOWN_FOLK3" x="471" y="977" width="60" height="41"/>
+  <object id="47" name="NPC_START" x="738" y="889" width="54" height="52"/>
+  <object id="48" name="NPC_START" x="783" y="740" width="64" height="64"/>
+  <object id="49" name="NPC_START" x="799" y="1316" width="75" height="75"/>
+  <object id="50" name="NPC_START" x="1033" y="1099" width="27" height="28"/>
+  <object id="51" name="NPC_START" x="1098" y="545" width="41" height="41"/>
+ </objectgroup>
+</map>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="left-up" width="12" height="12" tilewidth="128" tileheight="128" infinite="0" nextobjectid="18">
+ <tileset firstgid="1" source="tileset/sol.tsx"/>
+ <tileset firstgid="19" source="tileset/mur.tsx"/>
+ <tileset firstgid="67" source="tileset/lampe3.tsx"/>
+ <tileset firstgid="68" source="tileset/lampe2.tsx"/>
+ <tileset firstgid="69" source="tileset/lampe1.tsx"/>
+ <tileset firstgid="70" source="tileset/Tileset2.tsx"/>
+ <layer name="sol" width="12" height="12">
+  <data encoding="base64" compression="zlib">
+   eJxjYCAdMAIxEw7MTAX17EDMgQNzkqieG4s9+NTDMAsDQwIXEBOrnhOP+axAzIeG+fGox+ZHfP4lpJ4XaicLFrvxAS4i1AAAP4UDDg==
+  </data>
+ </layer>
+ <layer name="decors" width="12" height="12">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo4B8AAACQAAB
+  </data>
+ </layer>
+ <layer name="mur" width="12" height="12">
+  <data encoding="base64" compression="zlib">
+   eJxjYCAdmAKxGQ5sToZ55NiPbo8DEDsR0KdNE9eMbAAA/DgCyg==
+  </data>
+ </layer>
+ <layer name="decors-lumiere" width="12" height="12">
+  <data encoding="base64" compression="zlib">
+   eJxjYCAduOKRcyHDPHKAM53sGQX4AQB54wDN
+  </data>
+ </layer>
+ <objectgroup name="objets"/>
+ <layer name="calque64" width="12" height="12" offsetx="34" offsety="0">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFowA7cCdCDQAMPABI
+  </data>
+ </layer>
+ <layer name="toit" width="12" height="12">
+  <data encoding="base64" compression="zlib">
+   eJxTZ2Bg0CCAFZCwCQNhYIyk3oYI9cpArIem3gKIrQjo0yXSfGRAS/XSVFQvDMQiaFgBj3qQWTJIWIFM9SAsB8SiSO6QQ5NHxgBYEgj2
+  </data>
+ </layer>
+ <objectgroup name="objets-lumiere">
+  <object id="7" x="1081.33" y="168" width="10.6667" height="10.6667"/>
+  <object id="8" x="1336" y="421.33" width="13.3333" height="20"/>
+  <object id="9" x="186.67" y="166.67" width="17.3333" height="6.66667"/>
+ </objectgroup>
+ <objectgroup name="MAP_COLLISION_LAYER">
+  <object id="10" x="1534.67" y="638.667">
+   <polyline points="0,0 -126,1.33333 -126.667,-126.667 -380.667,-127.333 -381.333,-382.667 -1406.67,-382.667 -1406.67,790.667 -1152.67,791.333 -1152,896.667 -1022.67,896 -1022,791.333 -766.667,792 -767.333,402.667 -126,404.667 -126,129.333 1.33333,130 0.666667,-0.666667"/>
+  </object>
+  <object id="11" x="258" y="639.333">
+   <polyline points="0,0 252.667,0 252,-226 -0.666667,-224.667 0,0"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="MAP_SPAWNS_LAYER">
+  <object id="15" name="PLAYER_START" x="1461" y="689" width="33" height="36"/>
+  <object id="16" name="PLAYER_START" x="437" y="1455" width="30" height="37"/>
+ </objectgroup>
+ <objectgroup name="MAP_PORTAL_LAYER">
+  <object id="14" x="1526" y="684" width="6" height="40"/>
+  <object id="17" x="438" y="1511" width="28" height="14"/>
+ </objectgroup>
+</map>

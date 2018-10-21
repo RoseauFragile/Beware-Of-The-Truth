@@ -30,6 +30,7 @@ public class ProfileManager extends ProfileSubject {
         _profiles.clear();
         _profileName = DEFAULT_PROFILE;
         storeAllProfiles();
+
     }
 
     public static final ProfileManager getInstance(){
@@ -65,7 +66,7 @@ public class ProfileManager extends ProfileSubject {
     public void storeAllProfiles(){
         if( Gdx.files.isLocalStorageAvailable() ){
             FileHandle[] files = Gdx.files.local(".").list(SAVEGAME_SUFFIX);
-
+            
             for(FileHandle file: files) {
                 _profiles.put(file.nameWithoutExtension(), file);
             }

@@ -1,5 +1,6 @@
 package bewareofthetruth.entity.components;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -18,6 +19,8 @@ public class PlayerGraphicsComponent extends GraphicsComponent {
 
     public PlayerGraphicsComponent(){
         _previousPosition = new Vector2(0,0);
+    	Gdx.app.debug(TAG, "player creer");
+
     }
 
     @Override

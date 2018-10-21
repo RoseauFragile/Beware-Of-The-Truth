@@ -3,6 +3,8 @@ package bewareofthetruth.entity.components;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.Array;
 
+import bewareofthetruth.entity.components.audio.AudioObserver;
+
 
 public class GameScreen implements Screen{
     private Array<AudioObserver> _observers;

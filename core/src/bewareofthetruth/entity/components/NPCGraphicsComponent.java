@@ -2,6 +2,7 @@ package bewareofthetruth.entity.components;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -22,6 +23,7 @@ public class NPCGraphicsComponent extends GraphicsComponent {
     private boolean _sentHideCoversationMessage = false;
 
     public NPCGraphicsComponent(){
+    	Gdx.app.debug(TAG, "NPC creer");
     }
 
     @Override
@@ -101,15 +103,15 @@ public class NPCGraphicsComponent extends GraphicsComponent {
         batch.end();
 
         //Used to graphically debug boundingboxes
-        /*
-        Rectangle rect = entity.getCurrentBoundingBox();
+        
+       /* Rectangle rect = entity.getCurrentBoundingBox();
         Camera camera = mapMgr.getCamera();
         _shapeRenderer.setProjectionMatrix(camera.combined);
         _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         _shapeRenderer.setColor(Color.BLACK);
         _shapeRenderer.rect(rect.getX() * Map.UNIT_SCALE, rect.getY() * Map.UNIT_SCALE, rect.getWidth() * Map.UNIT_SCALE, rect.getHeight() * Map.UNIT_SCALE);
-        _shapeRenderer.end();
-        */
+        _shapeRenderer.end();*/
+        
     }
 
     private void drawSelected(Entity entity, MapManager mapMgr){

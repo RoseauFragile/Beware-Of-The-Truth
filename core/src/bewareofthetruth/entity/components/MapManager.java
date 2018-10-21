@@ -22,7 +22,7 @@ public class MapManager implements ProfileObserver {
     private Entity _currentSelectedEntity = null;
     private MapLayer _currentLightMap = null;
     private MapLayer _previousLightMap = null;
-   // private ClockActor.TimeOfDay _timeOfDay = null;
+    //private ClockActor.TimeOfDay _timeOfDay = null;
     private float _currentLightMapOpacity = 0;
     private float _previousLightMapOpacity = 1;
     private boolean _timeOfDayChanged = false;
@@ -195,7 +195,7 @@ public class MapManager implements ProfileObserver {
         return _currentLightMap;
     }
 
-   /* public void updateLightMaps(ClockActor.TimeOfDay timeOfDay){
+    /*public void updateLightMaps(ClockActor.TimeOfDay timeOfDay){
         if( _timeOfDay != timeOfDay ){
             _currentLightMapOpacity = 0;
             _previousLightMapOpacity = 1;

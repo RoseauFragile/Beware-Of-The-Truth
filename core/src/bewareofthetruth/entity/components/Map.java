@@ -14,13 +14,16 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.maps.MapObject;
 
 import bewareofthetruth.Utility;
+import bewareofthetruth.entity.components.audio.AudioManager;
+import bewareofthetruth.entity.components.audio.AudioObserver;
+import bewareofthetruth.entity.components.audio.AudioSubject;
 
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 
 public abstract class Map implements AudioSubject{
     private static final String TAG = Map.class.getSimpleName();
 
-    public final static float UNIT_SCALE  = 1/64f;
+    public final static float UNIT_SCALE  = 1/16f;
 
     private Array<AudioObserver> _observers;
 
@@ -118,50 +121,50 @@ public abstract class Map implements AudioSubject{
 
         _questItemSpawnLayer = _currentMap.getLayers().get(QUEST_ITEM_SPAWN_LAYER);
         if( _questItemSpawnLayer == null ){
-            Gdx.app.debug(TAG, "No quest item spawn layer!");
+           // Gdx.app.debug(TAG, "No quest item spawn layer!");
         }
 
         _questDiscoverLayer = _currentMap.getLayers().get(QUEST_DISCOVER_LAYER);
         if( _questDiscoverLayer == null ){
-            Gdx.app.debug(TAG, "No quest discover layer!");
+           // Gdx.app.debug(TAG, "No quest discover layer!");
         }
 
         _enemySpawnLayer = _currentMap.getLayers().get(ENEMY_SPAWN_LAYER);
         if( _enemySpawnLayer == null ){
-            Gdx.app.debug(TAG, "No enemy layer found!");
+           // Gdx.app.debug(TAG, "No enemy layer found!");
         }
 
         _lightMapDawnLayer = _currentMap.getLayers().get(LIGHTMAP_DAWN_LAYER);
         if( _lightMapDawnLayer == null ){
-            Gdx.app.debug(TAG, "No dawn lightmap layer found!");
+           // Gdx.app.debug(TAG, "No dawn lightmap layer found!");
         }
 
         _lightMapAfternoonLayer = _currentMap.getLayers().get(LIGHTMAP_AFTERNOON_LAYER);
         if( _lightMapAfternoonLayer == null ){
-            Gdx.app.debug(TAG, "No afternoon lightmap layer found!");
+           // Gdx.app.debug(TAG, "No afternoon lightmap layer found!");
         }
 
 
         _lightMapDuskLayer = _currentMap.getLayers().get(LIGHTMAP_DUSK_LAYER);
         if( _lightMapDuskLayer == null ){
-            Gdx.app.debug(TAG, "No dusk lightmap layer found!");
+           // Gdx.app.debug(TAG, "No dusk lightmap layer found!");
         }
 
         _lightMapNightLayer = _currentMap.getLayers().get(LIGHTMAP_NIGHT_LAYER);
         if( _lightMapNightLayer == null ){
-            Gdx.app.debug(TAG, "No night lightmap layer found!");
+           // Gdx.app.debug(TAG, "No night lightmap layer found!");
         }
 
         _particleEffectSpawnLayer = _currentMap.getLayers().get(PARTICLE_EFFECT_SPAWN_LAYER);
         if( _particleEffectSpawnLayer == null ){
-            Gdx.app.debug(TAG, "No particle effect spawn layer!");
+           // Gdx.app.debug(TAG, "No particle effect spawn layer!");
         }
 
         _npcStartPositions = getNPCStartPositions();
         _specialNPCStartPositions = getSpecialNPCStartPositions();
 
         //Observers
-        //this.addObserver(AudioManager.getInstance());
+        this.addObserver(AudioManager.getInstance());
     }
 
     public MapLayer getLightMapDawnLayer(){
@@ -242,7 +245,7 @@ public abstract class Map implements AudioSubject{
     }
 
     public Array<ParticleEffect> getMapParticleEffects(){
-        return null;
+        return _mapParticleEffects;
     }
 
     public void addMapQuestEntities(Array<Entity> entities){
@@ -273,7 +276,7 @@ public abstract class Map implements AudioSubject{
     protected void updateMapEffects(MapManager mapMgr, Batch batch, float delta){
         for( int i=0; i < _mapParticleEffects.size; i++){
             batch.begin();
-            //mapParticleEffects.get(i).draw(batch, delta);
+            _mapParticleEffects.get(i).draw(batch, delta);
             batch.end();
         }
     }
@@ -286,7 +289,7 @@ public abstract class Map implements AudioSubject{
             _mapQuestEntities.get(i).dispose();
         }
         for( int i=0; i < _mapParticleEffects.size; i++){
-           // _mapParticleEffects.get(i).dispose();
+            _mapParticleEffects.get(i).dispose();
         }
     }
 
@@ -322,17 +325,15 @@ public abstract class Map implements AudioSubject{
 
     private Array<Vector2> getNPCStartPositions(){
         Array<Vector2> npcStartPositions = new Array<Vector2>();
-        Gdx.app.debug(TAG, "TRY NPX POSITION ----------------------------------------------------------------------------------------------------------");
+
         for( MapObject object: _spawnsLayer.getObjects()){
             String objectName = object.getName();
-            Gdx.app.debug(TAG, "boucle for npc position : " + object.getName());
 
             if( objectName == null || objectName.isEmpty() ){
                 continue;
             }
 
             if( objectName.equalsIgnoreCase(NPC_START) ){
-            	Gdx.app.debug(TAG, "boucle for npc start : " + object.getName());
                 //Get center of rectangle
                 float x = ((RectangleMapObject)object).getRectangle().getX();
                 float y = ((RectangleMapObject)object).getRectangle().getY();
@@ -377,7 +378,7 @@ public abstract class Map implements AudioSubject{
     }
 
     private void setClosestStartPosition(final Vector2 position){
-         Gdx.app.debug(TAG, "setClosestStartPosition INPUT: (" + position.x + "," + position.y + ") " + _currentMapType.toString());
+         //Gdx.app.debug(TAG, "setClosestStartPosition INPUT: (" + position.x + "," + position.y + ") " + _currentMapType.toString());
 
         //Get last known position on this map
         _playerStartPositionRect.set(0,0);
@@ -396,12 +397,12 @@ public abstract class Map implements AudioSubject{
                 ((RectangleMapObject)object).getRectangle().getPosition(_playerStartPositionRect);
                 float distance = position.dst2(_playerStartPositionRect);
 
-                Gdx.app.debug(TAG, "DISTANCE: " + distance + " for " + _currentMapType.toString());
+               // Gdx.app.debug(TAG, "DISTANCE: " + distance + " for " + _currentMapType.toString());
 
                 if( distance < shortestDistance || shortestDistance == 0 ){
                     _closestPlayerStartPosition.set(_playerStartPositionRect);
                     shortestDistance = distance;
-                    Gdx.app.debug(TAG, "closest START is: (" + _closestPlayerStartPosition.x + "," + _closestPlayerStartPosition.y + ") " +  _currentMapType.toString());
+                   // Gdx.app.debug(TAG, "closest START is: (" + _closestPlayerStartPosition.x + "," + _closestPlayerStartPosition.y + ") " +  _currentMapType.toString());
                 }
             }
         }
@@ -419,24 +420,25 @@ public abstract class Map implements AudioSubject{
     abstract public void unloadMusic();
     abstract public void loadMusic();
 
+    @Override
     public void addObserver(AudioObserver audioObserver) {
-        //_observers.add(audioObserver);
+        _observers.add(audioObserver);
     }
 
-   
+    @Override
     public void removeObserver(AudioObserver audioObserver) {
         _observers.removeValue(audioObserver, true);
     }
 
-    
+    @Override
     public void removeAllObservers() {
         _observers.removeAll(_observers, true);
     }
 
-    
+    @Override
     public void notify(AudioObserver.AudioCommand command, AudioObserver.AudioTypeEvent event) {
         for(AudioObserver observer: _observers){
-            //observer.onNotify(command, event);
+            observer.onNotify(command, event);
         }
     }
 }

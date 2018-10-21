@@ -133,7 +133,7 @@ public abstract class GraphicsComponent extends ComponentSubject implements Comp
         Utility.loadTextureAsset(textureName);
         Texture texture = Utility.getTextureAsset(textureName);
 
-        Gdx.app.debug(TAG, textureName);
+        //Gdx.app.debug(TAG, textureName);
         TextureRegion[][] textureFrames = TextureRegion.split(texture, Entity.FRAME_WIDTH, Entity.FRAME_HEIGHT);
 
         TextureRegion[] animationKeyFrames = new TextureRegion[points.size];

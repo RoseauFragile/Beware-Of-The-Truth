@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="left-up" width="11" height="11" tilewidth="128" tileheight="128" infinite="0" nextobjectid="7">
+ <tileset firstgid="1" source="tileset/mur.tsx"/>
+ <tileset firstgid="49" source="tileset/sol.tsx"/>
+ <tileset firstgid="67" source="tileset/lampe3.tsx"/>
+ <layer name="sol" width="11" height="11">
+  <data encoding="base64" compression="zlib">
+   eJxjYGBgMARiIyRszIAbmAOxBRK2JEGtNR570NWiY8sRotYWiO2wYDMsanEBmH0wtQA/MxKI
+  </data>
+ </layer>
+ <layer name="decors" width="11" height="11">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFwx0AAAHkAAE=
+  </data>
+ </layer>
+ <layer name="mur" width="11" height="11">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAcSAKxChSrUsE8WgJlBoRbYRibmsHuD1IAALcvAYI=
+  </data>
+ </layer>
+ <layer name="decors-lumiere" width="11" height="11">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFwx0AAAHkAAE=
+  </data>
+ </layer>
+ <objectgroup name="objets"/>
+ <layer name="calque64" width="11" height="11">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFwx0AAAHkAAE=
+  </data>
+ </layer>
+ <layer name="toit" width="11" height="11">
+  <data encoding="base64" compression="zlib">
+   eJzTYsAOpIFYBgmLADE/DrXoQJEEtZoUqGUEYiYcGN29gkAsO8DupaZakP/YsGB2LGoBIS0DHg==
+  </data>
+ </layer>
+ <objectgroup name="objets-lumiere">
+  <object id="2" x="861.33" y="185.33" width="58.6667" height="52"/>
+ </objectgroup>
+ <objectgroup name="MAP_COLLISION_LAYER" visible="0">
+  <object id="4" x="126.667" y="1.33333">
+   <polyline points="0,0 1.33333,1278.67 2,1302.67 768.667,1304 769.333,1406.67 1153.33,1406.67 1153.33,766.667 513.333,766.667 513.333,894.667 257.333,894.667 257.333,638.667 257.333,540.667 1153.33,544.667 1153.33,254.667 641.333,254.667 641.333,-1.33333 1.33333,-1.33333"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="MAP_PORTAL_LAYER">
+  <object id="5" name="TOP_WORLD" x="384" y="1.33333" width="129.333" height="22.6667"/>
+ </objectgroup>
+ <objectgroup name="MAP_SPAWNS_LAYER">
+  <object id="6" name="PLAYER_START" x="382.667" y="38.6667" width="130.667" height="44"/>
+ </objectgroup>
+</map>
