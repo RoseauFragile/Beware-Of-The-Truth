@@ -6,16 +6,17 @@ import bewareofthetruth.screens.MainGameScreen;
 
 public class Main extends Game {
 
-	public static final MainGameScreen MAIN_GAME_SCREEN = new MainGameScreen();
+	private static MainGameScreen _mainGameScreen;
 	
 	@Override
 	public void create() {
-		setScreen(MAIN_GAME_SCREEN);
+		_mainGameScreen = new MainGameScreen(this);
+		setScreen(_mainGameScreen);
 	}
 
 	@Override
 	public void dispose() {
-		MAIN_GAME_SCREEN.dispose();
+		_mainGameScreen.dispose();
 	}
 }
 

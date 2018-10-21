@@ -26,6 +26,10 @@ public abstract class Map {
     protected final static String PLAYER_START = "PLAYER_START";
     protected final static String NPC_START = "NPC_START";
     
+    public final static String BACKGROUND_LAYER = "Background_Layer";
+    public final static String GROUND_LAYER = "Ground_Layer";
+    public final static String DECORATION_LAYER = "Decoration_Layer";
+    
     protected Json _json;
 
     protected Vector2 _playerStartPositionRect;
@@ -103,7 +107,7 @@ public abstract class Map {
         this._playerStart = playerStart;
     }
 
-    protected void updateMapEntities(MapManager mapMgr, Batch batch, float delta){
+    public void updateMapEntities(MapManager mapMgr, Batch batch, float delta){
         for( int i=0; i < _mapEntities.size; i++){
             _mapEntities.get(i).update(mapMgr, batch, delta);
         }

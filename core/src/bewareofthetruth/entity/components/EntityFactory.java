@@ -14,6 +14,7 @@ public class EntityFactory {
 	}
 	
 	public static String PLAYER_CONFIG = "scripts/player.json";
+	private static EntityFactory _instance = null;
 	
 	static public Entity getEntity(EntityType entityType) {
 		Entity entity = null;
@@ -47,4 +48,12 @@ public class EntityFactory {
 			
 		}
 	}
+	
+    public static EntityFactory getInstance() {
+        if (_instance == null) {
+            _instance = new EntityFactory();
+        }
+
+        return _instance;
+    }
 }
