@@ -4,11 +4,9 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-import bewareofthetruth.MapManager;
-
 public class TownMap extends Map {
-	//TODO a modif
-	private static String _mapPath = "maps/town.tmx";
+	
+	private static String _mapPath = "tiledMap/zone1.1.tmx";
 	private static String _townGuardWalking = "scripts/town_guardwalking.json";
 	private static String _townBlacksmith = "scripts/town_blacksmith.json";
 	private static String _townMage = "scripts/town_mage.json";
@@ -18,6 +16,7 @@ public class TownMap extends Map {
 	TownMap() {
 		super(MapFactory.MapType.TOWN, _mapPath);
 		
+		/*
 		for(Vector2 position : _npcStartPositions) {
 			_mapEntities.add(initEntity(Entity.getEntityConfig(_townGuardWalking),position));
 		}
@@ -32,7 +31,7 @@ public class TownMap extends Map {
 		Array<EntityConfig> configs = Entity.getEntityConfigs(_townFolk);
 		for(EntityConfig config : configs) {
 			_mapEntities.add(initSpecialEntity(config));
-		}
+		}*/
 
 	}
 	
@@ -60,6 +59,14 @@ public class TownMap extends Map {
 		entity.sendMessage(Component.MESSAGE.INIT_DIRECTION, _json.toJson(entity.getEntityConfig().getDirection()));
 
 		return entity;
+	}
+
+	@Override
+	public void unloadMusic() {
+	}
+
+	@Override
+	public void loadMusic() {
 	}
 
 }

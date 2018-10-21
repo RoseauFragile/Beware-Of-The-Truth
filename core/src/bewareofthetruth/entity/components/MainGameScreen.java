@@ -1,4 +1,4 @@
-package bewareofthetruth.screens;
+package bewareofthetruth.entity.components;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -15,13 +15,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Json;
-import bewareofthetruth.entity.components.Component;
-import bewareofthetruth.MapManager;
-import bewareofthetruth.entity.components.Entity;
-import bewareofthetruth.entity.components.EntityFactory;
-import bewareofthetruth.entity.components.Map;
-import bewareofthetruth.entity.components.MapFactory;
-import bewareofthetruth.entity.components.PlayerController;
+
 import bewareofthetruth.main.Main;
 
 public class MainGameScreen implements Screen {
@@ -114,30 +108,7 @@ public class MainGameScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		/*
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		camera.position.set(currentPlayerSprite.getX(), currentPlayerSprite.getY(), 0f);
-		camera.update();
-		
-		player.update(delta);
-		currentPlayerFrame = player.getFrame();
-		
-		updatePortalLayerActivation(player.boundingBox);
-		
-		if (!isCollisionWithMapLayer(player.boundingBox)) {
-			player.setNextPositionToCurrent();
-		}
-		
-		controller.update(delta);
-		
-		mapRenderer.setView(camera);
-		mapRenderer.render();
-		
-		mapRenderer.getBatch().begin();
-		mapRenderer.getBatch().draw(currentPlayerFrame, currentPlayerSprite.getX(), currentPlayerSprite.getY(), 1,1);
-		mapRenderer.getBatch().end();*/
+
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 

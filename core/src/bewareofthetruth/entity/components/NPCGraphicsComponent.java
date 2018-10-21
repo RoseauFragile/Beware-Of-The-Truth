@@ -2,8 +2,6 @@ package bewareofthetruth.entity.components;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 
-import bewareofthetruth.MapManager;
-
 public class NPCGraphicsComponent extends GraphicsComponent {
 
 	@Override

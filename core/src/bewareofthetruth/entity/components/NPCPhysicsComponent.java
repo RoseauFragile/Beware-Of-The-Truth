@@ -1,7 +1,5 @@
 package bewareofthetruth.entity.components;
 
-import bewareofthetruth.MapManager;
-
 public class NPCPhysicsComponent extends PhysicsComponent {
 
 	@Override
@@ -10,6 +8,10 @@ public class NPCPhysicsComponent extends PhysicsComponent {
 
 	@Override
 	public void receiveMessage(String message) {
+	}
+
+	@Override
+	public void dispose() {
 	}
 
 }

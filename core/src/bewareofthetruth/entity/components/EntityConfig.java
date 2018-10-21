@@ -5,10 +5,11 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 
 import bewareofthetruth.entity.components.Entity.AnimationType;
+import bewareofthetruth.entity.components.InventoryItem.ItemTypeID;
 
 public class EntityConfig {
     private Array<AnimationConfig> animationConfig;
-   // private Array<ItemTypeID> inventory;
+    private Array<ItemTypeID> inventory;
     private Entity.State state = Entity.State.IDLE;
     private Entity.Direction direction = Entity.Direction.DOWN;
     private String entityID;
@@ -29,8 +30,8 @@ public class EntityConfig {
     }
 
     EntityConfig(){
-       animationConfig = new Array<AnimationConfig>();
-        /*inventory = new Array<ItemTypeID>();*/
+        animationConfig = new Array<AnimationConfig>();
+        inventory = new Array<ItemTypeID>();
         entityProperties = new ObjectMap<String, String>();
     }
 
@@ -46,8 +47,8 @@ public class EntityConfig {
         animationConfig = new Array<AnimationConfig>();
         animationConfig.addAll(config.getAnimationConfig());
 
-       // inventory = new Array<ItemTypeID>();
-        //inventory.addAll(config.getInventory());
+        inventory = new Array<ItemTypeID>();
+        inventory.addAll(config.getInventory());
 
         entityProperties = new ObjectMap<String, String>();
         entityProperties.putAll(config.entityProperties);
@@ -135,13 +136,13 @@ public class EntityConfig {
         this.animationConfig.add(animationConfig);
     }
 
-    /*public Array<ItemTypeID> getInventory() {
+    public Array<ItemTypeID> getInventory() {
         return inventory;
     }
 
     public void setInventory(Array<ItemTypeID> inventory) {
         this.inventory = inventory;
-    }*/
+    }
 
     static public class AnimationConfig{
         private float frameDuration = 1.0f;

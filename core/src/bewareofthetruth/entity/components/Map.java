@@ -4,32 +4,48 @@ import java.util.Hashtable;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.maps.MapObject;
-import bewareofthetruth.MapManager;
+
 import bewareofthetruth.Utility;
 
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 
-public abstract class Map {
-
+public abstract class Map implements AudioSubject{
     private static final String TAG = Map.class.getSimpleName();
+
     public final static float UNIT_SCALE  = 1/64f;
+
+    private Array<AudioObserver> _observers;
+
+    //Map layers
     protected final static String COLLISION_LAYER = "MAP_COLLISION_LAYER";
     protected final static String SPAWNS_LAYER = "MAP_SPAWNS_LAYER";
     protected final static String PORTAL_LAYER = "MAP_PORTAL_LAYER";
-    //Starting locations
-    protected final static String PLAYER_START = "PLAYER_START";
-    protected final static String NPC_START = "NPC_START";
-    
+    protected final static String QUEST_ITEM_SPAWN_LAYER = "MAP_QUEST_ITEM_SPAWN_LAYER";
+    protected final static String QUEST_DISCOVER_LAYER = "MAP_QUEST_DISCOVER_LAYER";
+    protected final static String ENEMY_SPAWN_LAYER = "MAP_ENEMY_SPAWN_LAYER";
+    protected final static String PARTICLE_EFFECT_SPAWN_LAYER = "PARTICLE_EFFECT_SPAWN_LAYER";
+
     public final static String BACKGROUND_LAYER = "Background_Layer";
     public final static String GROUND_LAYER = "Ground_Layer";
     public final static String DECORATION_LAYER = "Decoration_Layer";
-    
+
+    public final static String LIGHTMAP_DAWN_LAYER = "MAP_LIGHTMAP_LAYER_DAWN";
+    public final static String LIGHTMAP_AFTERNOON_LAYER = "MAP_LIGHTMAP_LAYER_AFTERNOON";
+    public final static String LIGHTMAP_DUSK_LAYER = "MAP_LIGHTMAP_LAYER_DUSK";
+    public final static String LIGHTMAP_NIGHT_LAYER = "MAP_LIGHTMAP_LAYER_NIGHT";
+
+    //Starting locations
+    protected final static String PLAYER_START = "PLAYER_START";
+    protected final static String NPC_START = "NPC_START";
+
     protected Json _json;
 
     protected Vector2 _playerStartPositionRect;
@@ -43,13 +59,27 @@ public abstract class Map {
     protected MapLayer _collisionLayer = null;
     protected MapLayer _portalLayer = null;
     protected MapLayer _spawnsLayer = null;
-    
+    protected MapLayer _questItemSpawnLayer = null;
+    protected MapLayer _questDiscoverLayer = null;
+    protected MapLayer _enemySpawnLayer = null;
+    protected MapLayer _particleEffectSpawnLayer = null;
+
+    protected MapLayer _lightMapDawnLayer = null;
+    protected MapLayer _lightMapAfternoonLayer = null;
+    protected MapLayer _lightMapDuskLayer = null;
+    protected MapLayer _lightMapNightLayer = null;
+
     protected MapFactory.MapType _currentMapType;
     protected Array<Entity> _mapEntities;
-    
+    protected Array<Entity> _mapQuestEntities;
+    protected Array<ParticleEffect> _mapParticleEffects;
+
     Map( MapFactory.MapType mapType, String fullMapPath){
         _json = new Json();
         _mapEntities = new Array<Entity>(10);
+        _observers = new Array<AudioObserver>();
+        _mapQuestEntities = new Array<Entity>();
+        _mapParticleEffects = new Array<ParticleEffect>();
         _currentMapType = mapType;
         _playerStart = new Vector2(0,0);
         _playerStartPositionRect = new Vector2(0,0);
@@ -86,13 +116,137 @@ public abstract class Map {
             setClosestStartPosition(_playerStart);
         }
 
+        _questItemSpawnLayer = _currentMap.getLayers().get(QUEST_ITEM_SPAWN_LAYER);
+        if( _questItemSpawnLayer == null ){
+            Gdx.app.debug(TAG, "No quest item spawn layer!");
+        }
+
+        _questDiscoverLayer = _currentMap.getLayers().get(QUEST_DISCOVER_LAYER);
+        if( _questDiscoverLayer == null ){
+            Gdx.app.debug(TAG, "No quest discover layer!");
+        }
+
+        _enemySpawnLayer = _currentMap.getLayers().get(ENEMY_SPAWN_LAYER);
+        if( _enemySpawnLayer == null ){
+            Gdx.app.debug(TAG, "No enemy layer found!");
+        }
+
+        _lightMapDawnLayer = _currentMap.getLayers().get(LIGHTMAP_DAWN_LAYER);
+        if( _lightMapDawnLayer == null ){
+            Gdx.app.debug(TAG, "No dawn lightmap layer found!");
+        }
+
+        _lightMapAfternoonLayer = _currentMap.getLayers().get(LIGHTMAP_AFTERNOON_LAYER);
+        if( _lightMapAfternoonLayer == null ){
+            Gdx.app.debug(TAG, "No afternoon lightmap layer found!");
+        }
+
+
+        _lightMapDuskLayer = _currentMap.getLayers().get(LIGHTMAP_DUSK_LAYER);
+        if( _lightMapDuskLayer == null ){
+            Gdx.app.debug(TAG, "No dusk lightmap layer found!");
+        }
+
+        _lightMapNightLayer = _currentMap.getLayers().get(LIGHTMAP_NIGHT_LAYER);
+        if( _lightMapNightLayer == null ){
+            Gdx.app.debug(TAG, "No night lightmap layer found!");
+        }
+
+        _particleEffectSpawnLayer = _currentMap.getLayers().get(PARTICLE_EFFECT_SPAWN_LAYER);
+        if( _particleEffectSpawnLayer == null ){
+            Gdx.app.debug(TAG, "No particle effect spawn layer!");
+        }
+
         _npcStartPositions = getNPCStartPositions();
         _specialNPCStartPositions = getSpecialNPCStartPositions();
 
-
+        //Observers
+        //this.addObserver(AudioManager.getInstance());
     }
+
+    public MapLayer getLightMapDawnLayer(){
+        return _lightMapDawnLayer;
+    }
+
+    public MapLayer getLightMapAfternoonLayer(){
+        return _lightMapAfternoonLayer;
+    }
+
+    public MapLayer getLightMapDuskLayer(){
+        return _lightMapDuskLayer;
+    }
+
+    public MapLayer getLightMapNightLayer(){
+        return _lightMapNightLayer;
+    }
+
+    public Array<Vector2> getParticleEffectSpawnPositions(ParticleEffectFactory.ParticleEffectType particleEffectType) {
+        Array<MapObject> objects = new Array<MapObject>();
+        Array<Vector2> positions = new Array<Vector2>();
+
+        for( MapObject object: _particleEffectSpawnLayer.getObjects()){
+            String name = object.getName();
+
+            if(     name == null || name.isEmpty() ||
+                    !name.equalsIgnoreCase(particleEffectType.toString())){
+                continue;
+            }
+
+            Rectangle rect = ((RectangleMapObject)object).getRectangle();
+            //Get center of rectangle
+            float x = rect.getX() + (rect.getWidth()/2);
+            float y = rect.getY() + (rect.getHeight()/2);
+
+            //scale by the unit to convert from map coordinates
+            x *= UNIT_SCALE;
+            y *= UNIT_SCALE;
+
+            positions.add(new Vector2(x,y));
+        }
+        return positions;
+    }
+
+    public Array<Vector2> getQuestItemSpawnPositions(String objectName, String objectTaskID) {
+        Array<MapObject> objects = new Array<MapObject>();
+        Array<Vector2> positions = new Array<Vector2>();
+
+        for( MapObject object: _questItemSpawnLayer.getObjects()){
+            String name = object.getName();
+            String taskID = (String)object.getProperties().get("taskID");
+
+            if(        name == null || taskID == null ||
+                       name.isEmpty() || taskID.isEmpty() ||
+                       !name.equalsIgnoreCase(objectName) ||
+                       !taskID.equalsIgnoreCase(objectTaskID)){
+                continue;
+            }
+            //Get center of rectangle
+            float x = ((RectangleMapObject)object).getRectangle().getX();
+            float y = ((RectangleMapObject)object).getRectangle().getY();
+
+            //scale by the unit to convert from map coordinates
+            x *= UNIT_SCALE;
+            y *= UNIT_SCALE;
+
+            positions.add(new Vector2(x,y));
+        }
+        return positions;
+    }
+
     public Array<Entity> getMapEntities(){
         return _mapEntities;
+    }
+
+    public Array<Entity> getMapQuestEntities(){
+        return _mapQuestEntities;
+    }
+
+    public Array<ParticleEffect> getMapParticleEffects(){
+        return null;
+    }
+
+    public void addMapQuestEntities(Array<Entity> entities){
+        _mapQuestEntities.addAll(entities);
     }
 
     public MapFactory.MapType getCurrentMapType(){
@@ -107,26 +261,33 @@ public abstract class Map {
         this._playerStart = playerStart;
     }
 
-    public void updateMapEntities(MapManager mapMgr, Batch batch, float delta){
+    protected void updateMapEntities(MapManager mapMgr, Batch batch, float delta){
         for( int i=0; i < _mapEntities.size; i++){
             _mapEntities.get(i).update(mapMgr, batch, delta);
         }
-        /*for( int i=0; i < _mapQuestEntities.size; i++){
+        for( int i=0; i < _mapQuestEntities.size; i++){
             _mapQuestEntities.get(i).update(mapMgr, batch, delta);
-        }*/
+        }
     }
 
+    protected void updateMapEffects(MapManager mapMgr, Batch batch, float delta){
+        for( int i=0; i < _mapParticleEffects.size; i++){
+            batch.begin();
+            //mapParticleEffects.get(i).draw(batch, delta);
+            batch.end();
+        }
+    }
 
     protected void dispose(){
         for( int i=0; i < _mapEntities.size; i++){
             _mapEntities.get(i).dispose();
         }
-       /* for( int i=0; i < _mapQuestEntities.size; i++){
+        for( int i=0; i < _mapQuestEntities.size; i++){
             _mapQuestEntities.get(i).dispose();
         }
         for( int i=0; i < _mapParticleEffects.size; i++){
-            _mapParticleEffects.get(i).dispose();
-        }*/
+           // _mapParticleEffects.get(i).dispose();
+        }
     }
 
     public MapLayer getCollisionLayer(){
@@ -135,6 +296,18 @@ public abstract class Map {
 
     public MapLayer getPortalLayer(){
         return _portalLayer;
+    }
+
+    public MapLayer getQuestItemSpawnLayer(){
+        return _questItemSpawnLayer;
+    }
+
+    public MapLayer getQuestDiscoverLayer(){
+        return _questDiscoverLayer;
+    }
+
+    public MapLayer getEnemySpawnLayer() {
+        return _enemySpawnLayer;
     }
 
     public TiledMap getCurrentTiledMap() {
@@ -233,8 +406,7 @@ public abstract class Map {
         _playerStart =  _closestPlayerStartPosition.cpy();
     }
 
-    @SuppressWarnings("unused")
-	public void setClosestStartPositionFromScaledUnits(Vector2 position){
+    public void setClosestStartPositionFromScaledUnits(Vector2 position){
         if( UNIT_SCALE <= 0 )
             return;
 
@@ -242,4 +414,27 @@ public abstract class Map {
         setClosestStartPosition(_convertedUnits);
     }
 
+    abstract public void unloadMusic();
+    abstract public void loadMusic();
+
+    public void addObserver(AudioObserver audioObserver) {
+        //_observers.add(audioObserver);
+    }
+
+   
+    public void removeObserver(AudioObserver audioObserver) {
+        _observers.removeValue(audioObserver, true);
+    }
+
+    
+    public void removeAllObservers() {
+        _observers.removeAll(_observers, true);
+    }
+
+    
+    public void notify(AudioObserver.AudioCommand command, AudioObserver.AudioTypeEvent event) {
+        for(AudioObserver observer: _observers){
+            //observer.onNotify(command, event);
+        }
+    }
 }
