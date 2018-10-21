@@ -18,223 +18,272 @@ import com.badlogic.gdx.utils.Json;
 
 import bewareofthetruth.main.Main;
 
-public class MainGameScreen implements Screen {
 	
-	private static final String TAG = MainGameScreen.class.getSimpleName();
-	private PlayerController controller;
-	private TextureRegion currentPlayerFrame;
-	private Sprite currentPlayerSprite;
-	private OrthogonalTiledMapRenderer mapRenderer = null;
-	private OrthographicCamera camera = null;
-	private static Entity layer;
-	
-	public static enum GameState {
-		SAVING,
-		LOADING,
-		RUNNING,
-		PAUSED,
-		GAME_OVER
-	}
-	private static GameState _gameState;
+	public class MainGameScreen extends GameScreen {
+		private static final String TAG = MainGameScreen.class.getSimpleName();
 
-	protected OrthogonalTiledMapRenderer _mapRenderer = null;
-	protected MapManager _mapMgr;
-	protected OrthographicCamera _camera = null;
-	protected OrthographicCamera _hudCamera = null;
-
-	private Json _json;
-	private InputMultiplexer _multiplexer;
-	private Main _game;
-	private Entity _player;
-	//private PlayerHUD _playerHUD;
-	
-	public static class VIEWPORT {
-		public static float viewportWidth;
-		public static float viewportHeight;
-		public static float virtualWidth;
-		public static float virtualHeight;
-		public static float physicalWidth;
-		public static float physicalHeight;
-		public static float aspectRatio;
-	}
-	
-	public MainGameScreen(Main main) {
-
-		_game = main;
-		_mapMgr = new MapManager();
-		_json = new Json();
-
-		//setGameState(GameState.RUNNING);
-
-		//_camera setup
-		setupViewport(10, 10);
-
-		//get the current size
-		_camera = new OrthographicCamera();
-		_camera.setToOrtho(false, VIEWPORT.viewportWidth, VIEWPORT.viewportHeight);
-
-		_player = EntityFactory.getInstance().getEntity(EntityFactory.EntityType.PLAYER);
-		_mapMgr.setPlayer(_player);
-		_mapMgr.setCamera(_camera);
-	}
-	
-	@Override
-	public void show() {
-		/*
-		//camera setup
-		setupViewport(10 ,10);
-		
-		//get the current size
-		camera = new OrthographicCamera();
-		camera.setToOrtho(false, VIEWPORT.viewportWidth, VIEWPORT.viewportHeight);
-		
-		mapRenderer = new OrthogonalTiledMapRenderer(_mapMgr.getCurrentMap(), MapManager.UNIT_SCALE);
-		mapRenderer.setView(camera);
-		
-		Gdx.app.debug(TAG, "Unit Scale value is: " + mapRenderer.getUnitScale());
-		
-		_player = new Entity();
-		_player.init(_mapMgr.getPlayerStartUnitScaled().x, _mapMgr.getPlayerStartUnitScaled().y);
-		
-		currentPlayerSprite = _player.getFrameSprite();
-		
-		controller = new PlayerController(_player);
-		Gdx.input.setInputProcessor(controller);*/
-		
-		if( _mapRenderer == null ){
-			_mapRenderer = new OrthogonalTiledMapRenderer(_mapMgr.getCurrentTiledMap(), Map.UNIT_SCALE);
-		}
-	}
-
-	@Override
-	public void render(float delta) {
-
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-		_mapRenderer.setView(_camera);
-
-		_mapRenderer.getBatch().enableBlending();
-		_mapRenderer.getBatch().setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-
-		if( _mapMgr.hasMapChanged() ){
-			_mapRenderer.setMap(_mapMgr.getCurrentTiledMap());
-			_player.sendMessage(Component.MESSAGE.INIT_START_POSITION, _json.toJson(_mapMgr.getPlayerStartUnitScaled()));
-
-			_camera.position.set(_mapMgr.getPlayerStartUnitScaled().x, _mapMgr.getPlayerStartUnitScaled().y, 0f);
-			_camera.update();
-
-
-			_mapMgr.setMapChanged(false);
-
+		public static class VIEWPORT {
+			public static float viewportWidth;
+			public static float viewportHeight;
+			public static float virtualWidth;
+			public static float virtualHeight;
+			public static float physicalWidth;
+			public static float physicalHeight;
+			public static float aspectRatio;
 		}
 
-		
-		TiledMapImageLayer lightMap = (TiledMapImageLayer)_mapMgr.getCurrentLightMapLayer();
-		TiledMapImageLayer previousLightMap = (TiledMapImageLayer)_mapMgr.getPreviousLightMapLayer();
+		public static enum GameState {
+			SAVING,
+			LOADING,
+			RUNNING,
+			PAUSED,
+			GAME_OVER
+		}
+		private static GameState _gameState;
 
-		if( lightMap != null) {
-			_mapRenderer.getBatch().begin();
-			TiledMapTileLayer backgroundMapLayer = (TiledMapTileLayer)_mapMgr.getCurrentTiledMap().getLayers().get(Map.BACKGROUND_LAYER);
-			if( backgroundMapLayer != null ){
-				_mapRenderer.renderTileLayer(backgroundMapLayer);
+		protected OrthogonalTiledMapRenderer _mapRenderer = null;
+		protected MapManager _mapMgr;
+		protected OrthographicCamera _camera = null;
+		protected OrthographicCamera _hudCamera = null;
+
+		private Json _json;
+		private Main _game;
+		private InputMultiplexer _multiplexer;
+
+		private Entity _player;
+		//private PlayerHUD _playerHUD;
+
+		public MainGameScreen(Main game){
+			_game = game;
+			_mapMgr = new MapManager();
+			_json = new Json();
+
+			setGameState(GameState.RUNNING);
+
+			//_camera setup
+			setupViewport(10, 10);
+
+			//get the current size
+			_camera = new OrthographicCamera();
+			_camera.setToOrtho(false, VIEWPORT.viewportWidth, VIEWPORT.viewportHeight);
+
+			_player = EntityFactory.getInstance().getEntity(EntityFactory.EntityType.PLAYER);
+			_mapMgr.setPlayer(_player);
+			_mapMgr.setCamera(_camera);
+
+			_hudCamera = new OrthographicCamera();
+			_hudCamera.setToOrtho(false, VIEWPORT.physicalWidth, VIEWPORT.physicalHeight);
+
+			//_playerHUD = new PlayerHUD(_hudCamera, _player, _mapMgr);
+
+			_multiplexer = new InputMultiplexer();
+			//_multiplexer.addProcessor(_playerHUD.getStage());
+			_multiplexer.addProcessor(_player.getInputProcessor());
+			Gdx.input.setInputProcessor(_multiplexer);
+
+			//Gdx.app.debug(TAG, "UnitScale value is: " + _mapRenderer.getUnitScale());
+		}
+
+		@Override
+		public void show() {
+			ProfileManager.getInstance().addObserver(_mapMgr);
+			//ProfileManager.getInstance().addObserver(_playerHUD);
+
+			setGameState(GameState.LOADING);
+			Gdx.input.setInputProcessor(_multiplexer);
+
+
+			if( _mapRenderer == null ){
+				_mapRenderer = new OrthogonalTiledMapRenderer(_mapMgr.getCurrentTiledMap(), Map.UNIT_SCALE);
+			}
+		}
+
+		@Override
+		public void hide() {
+			if( _gameState != GameState.GAME_OVER ){
+				setGameState(GameState.SAVING);
 			}
 
-			TiledMapTileLayer groundMapLayer = (TiledMapTileLayer)_mapMgr.getCurrentTiledMap().getLayers().get(Map.GROUND_LAYER);
-			if( groundMapLayer != null ){
-				_mapRenderer.renderTileLayer(groundMapLayer);
+			Gdx.input.setInputProcessor(null);
+		}
+
+		@Override
+		public void render(float delta) {
+			if( _gameState == GameState.GAME_OVER ){
+				_game.setScreen(_game.getScreenType(Main.ScreenType.GameOver));
 			}
 
-			TiledMapTileLayer decorationMapLayer = (TiledMapTileLayer)_mapMgr.getCurrentTiledMap().getLayers().get(Map.DECORATION_LAYER);
-			if( decorationMapLayer != null ){
-				_mapRenderer.renderTileLayer(decorationMapLayer);
+			if( _gameState == GameState.PAUSED ){
+				_player.updateInput(delta);
+				//_playerHUD.render(delta);
+				return;
 			}
+			Gdx.gl.glClearColor(0, 0, 0, 1);
+			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-			_mapRenderer.getBatch().end();
+			_mapRenderer.setView(_camera);
 
-			_mapMgr.updateCurrentMapEntities(_mapMgr, _mapRenderer.getBatch(), delta);
-			_player.update(_mapMgr, _mapRenderer.getBatch(), delta);
-
-			_mapRenderer.getBatch().begin();
-			_mapRenderer.getBatch().setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ONE_MINUS_SRC_ALPHA);
-
-			_mapRenderer.renderImageLayer(lightMap);
+			_mapRenderer.getBatch().enableBlending();
 			_mapRenderer.getBatch().setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-			_mapRenderer.getBatch().end();
 
-			if( previousLightMap != null ){
+			if( _mapMgr.hasMapChanged() ){
+				_mapRenderer.setMap(_mapMgr.getCurrentTiledMap());
+				_player.sendMessage(Component.MESSAGE.INIT_START_POSITION, _json.toJson(_mapMgr.getPlayerStartUnitScaled()));
+
+				_camera.position.set(_mapMgr.getPlayerStartUnitScaled().x, _mapMgr.getPlayerStartUnitScaled().y, 0f);
+				_camera.update();
+
+				//_playerHUD.updateEntityObservers();
+
+				_mapMgr.setMapChanged(false);
+
+				//_playerHUD.addTransitionToScreen();
+			}
+
+			//_mapMgr.updateLightMaps(_playerHUD.getCurrentTimeOfDay());
+			TiledMapImageLayer lightMap = (TiledMapImageLayer)_mapMgr.getCurrentLightMapLayer();
+			TiledMapImageLayer previousLightMap = (TiledMapImageLayer)_mapMgr.getPreviousLightMapLayer();
+
+			if( lightMap != null) {
 				_mapRenderer.getBatch().begin();
-				_mapRenderer.getBatch().setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ONE_MINUS_SRC_COLOR);
-				_mapRenderer.renderImageLayer(previousLightMap);
+				TiledMapTileLayer backgroundMapLayer = (TiledMapTileLayer)_mapMgr.getCurrentTiledMap().getLayers().get(Map.BACKGROUND_LAYER);
+				if( backgroundMapLayer != null ){
+					_mapRenderer.renderTileLayer(backgroundMapLayer);
+				}
+
+				TiledMapTileLayer groundMapLayer = (TiledMapTileLayer)_mapMgr.getCurrentTiledMap().getLayers().get(Map.GROUND_LAYER);
+				if( groundMapLayer != null ){
+					_mapRenderer.renderTileLayer(groundMapLayer);
+				}
+
+				TiledMapTileLayer decorationMapLayer = (TiledMapTileLayer)_mapMgr.getCurrentTiledMap().getLayers().get(Map.DECORATION_LAYER);
+				if( decorationMapLayer != null ){
+					_mapRenderer.renderTileLayer(decorationMapLayer);
+				}
+
+				_mapRenderer.getBatch().end();
+
+				_mapMgr.updateCurrentMapEntities(_mapMgr, _mapRenderer.getBatch(), delta);
+				_player.update(_mapMgr, _mapRenderer.getBatch(), delta);
+				_mapMgr.updateCurrentMapEffects(_mapMgr, _mapRenderer.getBatch(), delta);
+
+				_mapRenderer.getBatch().begin();
+				_mapRenderer.getBatch().setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ONE_MINUS_SRC_ALPHA);
+
+				_mapRenderer.renderImageLayer(lightMap);
 				_mapRenderer.getBatch().setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 				_mapRenderer.getBatch().end();
+
+				if( previousLightMap != null ){
+					_mapRenderer.getBatch().begin();
+					_mapRenderer.getBatch().setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ONE_MINUS_SRC_COLOR);
+					_mapRenderer.renderImageLayer(previousLightMap);
+					_mapRenderer.getBatch().setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+					_mapRenderer.getBatch().end();
+				}
+			}else{
+				_mapRenderer.render();
+				_mapMgr.updateCurrentMapEntities(_mapMgr, _mapRenderer.getBatch(), delta);
+				_player.update(_mapMgr, _mapRenderer.getBatch(), delta);
+				_mapMgr.updateCurrentMapEffects(_mapMgr, _mapRenderer.getBatch(), delta);
 			}
-		}else{
-			_mapRenderer.render();
-			_mapMgr.updateCurrentMapEntities(_mapMgr, _mapRenderer.getBatch(), delta);
-			_player.update(_mapMgr, _mapRenderer.getBatch(), delta);
-		}
-	}
 
-	@Override
-	public void resize(int width, int height) {
-	}
-
-	@Override
-	public void pause() {
-	}
-
-	@Override
-	public void resume() {
-	}
-
-	@Override
-	public void hide() {
-	}
-
-	@Override
-	public void dispose() {
-		if( _player != null ){
-			_player.dispose();
+			//_playerHUD.render(delta);
 		}
 
-		if( _mapRenderer != null ){
-			_mapRenderer.dispose();
+		@Override
+		public void resize(int width, int height) {
+			setupViewport(10, 10);
+			_camera.setToOrtho(false, VIEWPORT.viewportWidth, VIEWPORT.viewportHeight);
+			//_playerHUD.resize((int) VIEWPORT.physicalWidth, (int) VIEWPORT.physicalHeight);
 		}
-		MapFactory.clearCache();
-	}
 
-	
-	private void setupViewport(int width, int height){
-		//Make the viewport a percentage of the total display area
-		VIEWPORT.virtualWidth = width;
-		VIEWPORT.virtualHeight = height;
+		@Override
+		public void pause() {
+			setGameState(GameState.SAVING);
+			//_playerHUD.pause();
+		}
 
-		//Current viewport dimensions
-		VIEWPORT.viewportWidth = VIEWPORT.virtualWidth;
-		VIEWPORT.viewportHeight = VIEWPORT.virtualHeight;
+		@Override
+		public void resume() {
+			setGameState(GameState.LOADING);
+			//_playerHUD.resume();
+		}
 
-		//pixel dimensions of display
-		VIEWPORT.physicalWidth = Gdx.graphics.getWidth();
-		VIEWPORT.physicalHeight = Gdx.graphics.getHeight();
+		@Override
+		public void dispose() {
+			if( _player != null ){
+				_player.unregisterObservers();
+				_player.dispose();
+			}
 
-		//aspect ratio for current viewport
-		VIEWPORT.aspectRatio = (VIEWPORT.virtualWidth / VIEWPORT.virtualHeight);
+			if( _mapRenderer != null ){
+				_mapRenderer.dispose();
+			}
 
-		//update viewport if there could be skewing
-		if( VIEWPORT.physicalWidth / VIEWPORT.physicalHeight >= VIEWPORT.aspectRatio){
-			//Letterbox left and right
-			VIEWPORT.viewportWidth = VIEWPORT.viewportHeight * (VIEWPORT.physicalWidth/VIEWPORT.physicalHeight);
-			VIEWPORT.viewportHeight = VIEWPORT.virtualHeight;
-		}else{
-			//letterbox above and below
+			//AudioManager.getInstance().dispose();
+			MapFactory.clearCache();
+		}
+
+		public static void setGameState(GameState gameState){
+			switch(gameState){
+				case RUNNING:
+					_gameState = GameState.RUNNING;
+					break;
+				case LOADING:
+					ProfileManager.getInstance().loadProfile();
+					_gameState = GameState.RUNNING;
+					break;
+				case SAVING:
+					ProfileManager.getInstance().saveProfile();
+					_gameState = GameState.PAUSED;
+					break;
+				case PAUSED:
+					if( _gameState == GameState.PAUSED ){
+						_gameState = GameState.RUNNING;
+					}else if( _gameState == GameState.RUNNING ){
+						_gameState = GameState.PAUSED;
+					}
+					break;
+				case GAME_OVER:
+					_gameState = GameState.GAME_OVER;
+					break;
+				default:
+					_gameState = GameState.RUNNING;
+					break;
+			}
+
+		}
+
+		private void setupViewport(int width, int height){
+			//Make the viewport a percentage of the total display area
+			VIEWPORT.virtualWidth = width;
+			VIEWPORT.virtualHeight = height;
+
+			//Current viewport dimensions
 			VIEWPORT.viewportWidth = VIEWPORT.virtualWidth;
-			VIEWPORT.viewportHeight = VIEWPORT.viewportWidth * (VIEWPORT.physicalHeight/VIEWPORT.physicalWidth);
-		}
+			VIEWPORT.viewportHeight = VIEWPORT.virtualHeight;
 
-		Gdx.app.debug(TAG, "WorldRenderer: virtual: (" + VIEWPORT.virtualWidth + "," + VIEWPORT.virtualHeight + ")" );
-		Gdx.app.debug(TAG, "WorldRenderer: viewport: (" + VIEWPORT.viewportWidth + "," + VIEWPORT.viewportHeight + ")" );
-		Gdx.app.debug(TAG, "WorldRenderer: physical: (" + VIEWPORT.physicalWidth + "," + VIEWPORT.physicalHeight + ")" );
+			//pixel dimensions of display
+			VIEWPORT.physicalWidth = Gdx.graphics.getWidth();
+			VIEWPORT.physicalHeight = Gdx.graphics.getHeight();
+
+			//aspect ratio for current viewport
+			VIEWPORT.aspectRatio = (VIEWPORT.virtualWidth / VIEWPORT.virtualHeight);
+
+			//update viewport if there could be skewing
+			if( VIEWPORT.physicalWidth / VIEWPORT.physicalHeight >= VIEWPORT.aspectRatio){
+				//Letterbox left and right
+				VIEWPORT.viewportWidth = VIEWPORT.viewportHeight * (VIEWPORT.physicalWidth/VIEWPORT.physicalHeight);
+				VIEWPORT.viewportHeight = VIEWPORT.virtualHeight;
+			}else{
+				//letterbox above and below
+				VIEWPORT.viewportWidth = VIEWPORT.virtualWidth;
+				VIEWPORT.viewportHeight = VIEWPORT.viewportWidth * (VIEWPORT.physicalHeight/VIEWPORT.physicalWidth);
+			}
+
+			Gdx.app.debug(TAG, "WorldRenderer: virtual: (" + VIEWPORT.virtualWidth + "," + VIEWPORT.virtualHeight + ")" );
+			Gdx.app.debug(TAG, "WorldRenderer: viewport: (" + VIEWPORT.viewportWidth + "," + VIEWPORT.viewportHeight + ")" );
+			Gdx.app.debug(TAG, "WorldRenderer: physical: (" + VIEWPORT.physicalWidth + "," + VIEWPORT.physicalHeight + ")" );
+		}
 	}
-	
-}
