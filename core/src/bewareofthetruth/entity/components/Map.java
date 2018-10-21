@@ -322,15 +322,17 @@ public abstract class Map implements AudioSubject{
 
     private Array<Vector2> getNPCStartPositions(){
         Array<Vector2> npcStartPositions = new Array<Vector2>();
-
+        Gdx.app.debug(TAG, "TRY NPX POSITION ----------------------------------------------------------------------------------------------------------");
         for( MapObject object: _spawnsLayer.getObjects()){
             String objectName = object.getName();
+            Gdx.app.debug(TAG, "boucle for npc position : " + object.getName());
 
             if( objectName == null || objectName.isEmpty() ){
                 continue;
             }
 
             if( objectName.equalsIgnoreCase(NPC_START) ){
+            	Gdx.app.debug(TAG, "boucle for npc start : " + object.getName());
                 //Get center of rectangle
                 float x = ((RectangleMapObject)object).getRectangle().getX();
                 float y = ((RectangleMapObject)object).getRectangle().getY();
