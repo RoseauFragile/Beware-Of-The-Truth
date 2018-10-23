@@ -19,7 +19,7 @@ import bewareofthetruth.entity.components.audio.AudioObserver;
 import bewareofthetruth.entity.components.audio.AudioSubject;
 
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
-
+//TODO Soit on garde cette architecture et on créer une map pour chaque Level ce qui est en soit efficaces pour un rpg mais LOURD soit on fais une factory plus élaboré avec la bdd
 public abstract class Map implements AudioSubject{
     private static final String TAG = Map.class.getSimpleName();
 

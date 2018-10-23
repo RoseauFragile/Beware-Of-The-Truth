@@ -4,7 +4,7 @@ import java.util.Hashtable;
 
 public class MapFactory {
 	//AllMaps for the game
-
+	//TODO Soit on garde cette architecture et on créer une map pour chaque Level ce qui est en soit efficaces pour un rpg mais LOURD soit on fais une factory plus élaboré avec la bdd
     private static Hashtable<MapType,Map> _mapTable = new Hashtable<MapType, Map>();
 
     public static enum MapType{

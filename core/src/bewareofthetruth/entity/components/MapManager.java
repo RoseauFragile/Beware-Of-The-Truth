@@ -14,7 +14,7 @@ import java.util.Hashtable;
 
 public class MapManager implements ProfileObserver {
     private static final String TAG = MapManager.class.getSimpleName();
-
+  //TODO Soit on garde cette architecture et on créer une map pour chaque Level ce qui est en soit efficaces pour un rpg mais LOURD soit on fais une factory plus élaboré avec la bdd
     private Camera _camera;
     private boolean _mapChanged = false;
     private Map _currentMap;

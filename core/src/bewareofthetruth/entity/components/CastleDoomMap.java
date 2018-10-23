@@ -4,7 +4,7 @@ import bewareofthetruth.entity.components.audio.*;
 
 public class CastleDoomMap extends Map{
     private static String _mapPath = "maps/castle_of_doom.tmx";
-
+  //TODO Soit on garde cette architecture et on créer une map pour chaque Level ce qui est en soit efficaces pour un rpg mais LOURD soit on fais une factory plus élaboré avec la bdd
     CastleDoomMap(){
         super(MapFactory.MapType.CASTLE_OF_DOOM, _mapPath);
 
