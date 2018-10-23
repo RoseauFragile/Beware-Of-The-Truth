@@ -14,12 +14,11 @@ import bewareofthetruth.main.Main;
 import bewareofthetruth.main.Main.ScreenType;
 import bewareofthetruth.utility.Utility;
 
-public class MainMenuScreen extends GameScreen {
-
+public class MainOptionsScreen extends GameScreen{
 	private Stage _stage;
 	private Main _game;
-
-	public MainMenuScreen(Main game){
+	
+	public MainOptionsScreen(Main game){
 		_game = game;
 
 		//creation
@@ -27,26 +26,21 @@ public class MainMenuScreen extends GameScreen {
 		Table table = new Table();
 		table.setFillParent(true);
 
-		Image title = new Image(Utility.STATUSUI_TEXTUREATLAS.findRegion("bludbourne_title"));
-		TextButton newGameButton = new TextButton("New Game", Utility.STATUSUI_SKIN);
-		TextButton optionsButton = new TextButton("Options", Utility.STATUSUI_SKIN);
 
-		//TextButton loadGameButton = new TextButton("Load Game", Utility.STATUSUI_SKIN);
-		//TextButton watchIntroButton = new TextButton("Watch Intro", Utility.STATUSUI_SKIN);
-		//TextButton creditsButton = new TextButton("Credits", Utility.STATUSUI_SKIN);
-		TextButton exitButton = new TextButton("Exit",Utility.STATUSUI_SKIN);
+		TextButton demoButton = new TextButton("Options en constructions", Utility.STATUSUI_SKIN);
+		TextButton optionsButton = new TextButton("Options", Utility.STATUSUI_SKIN);
+		TextButton returnButton = new TextButton("Exit",Utility.STATUSUI_SKIN);
 
 
 		//Layout
-		table.add(title).spaceBottom(75).row();
-		table.add(newGameButton).spaceBottom(10).row();
+		table.add(demoButton).spaceBottom(75).row();
 		table.add(optionsButton).spaceBottom(10).row();
-		table.add(exitButton).spaceBottom(10).row();
+		table.add(returnButton).spaceBottom(10).row();
 
 		_stage.addActor(table);
 
 		//Listeners
-		newGameButton.addListener(new ClickListener() {
+		demoButton.addListener(new ClickListener() {
 									  @Override
 									  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 										  return true;
@@ -54,7 +48,7 @@ public class MainMenuScreen extends GameScreen {
 
 									  @Override
 									  public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-										  _game.setScreen(_game.getScreenType(ScreenType.NewGame));
+										  
 									  }
 								  }
 		);
@@ -72,22 +66,8 @@ public class MainMenuScreen extends GameScreen {
 			  }
 		  }
 );
-		
-		/*loadGameButton.addListener(new ClickListener() {
 
-									   @Override
-									   public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-										   return true;
-									   }
-
-									   @Override
-									   public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-										   _game.setScreen(_game.getScreenType(ScreenType.LoadGame));
-									   }
-								   }
-		);*/
-
-		exitButton.addListener(new ClickListener() {
+		returnButton.addListener(new ClickListener() {
 
 								   @Override
 								   public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -96,40 +76,12 @@ public class MainMenuScreen extends GameScreen {
 
 								   @Override
 								   public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-									   Gdx.app.exit();
+									   _game.setScreen(_game.getScreenType(ScreenType.MainMenu));
 								   }
 
 							   }
 		);
 
-		/*watchIntroButton.addListener(new ClickListener() {
-
-										 @Override
-										 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-											 return true;
-										 }
-
-										 @Override
-										 public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-											 MainMenuScreen.this.notify(AudioObserver.AudioCommand.MUSIC_STOP, AudioObserver.AudioTypeEvent.MUSIC_TITLE);
-											 _game.setScreen(_game.getScreenType(ScreenType.WatchIntro));
-										 }
-									 }
-		);
-
-		creditsButton.addListener(new ClickListener() {
-
-										 @Override
-										 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-											 return true;
-										 }
-
-										 @Override
-										 public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-											 _game.setScreen(_game.getScreenType(ScreenType.Credits));
-										 }
-									 }
-		);*/
 
 		notify(AudioObserver.AudioCommand.MUSIC_LOAD, AudioObserver.AudioTypeEvent.MUSIC_TITLE);
 	}
@@ -173,4 +125,3 @@ public class MainMenuScreen extends GameScreen {
 	}
 
 }
-

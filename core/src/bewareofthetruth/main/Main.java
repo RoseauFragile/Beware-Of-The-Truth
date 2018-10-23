@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import bewareofthetruth.screens.GameOverScreen;
 import bewareofthetruth.screens.MainGameScreen;
 import bewareofthetruth.screens.MainMenuScreen;
+import bewareofthetruth.screens.MainOptionsScreen;
 import bewareofthetruth.screens.NewGameScreen;
 
 public class Main extends Game {
@@ -16,7 +17,8 @@ public class Main extends Game {
 	private static GameOverScreen _gameOverScreen;
 	//private static CutSceneScreen _cutSceneScreen;
 	//private static CreditScreen _creditScreen;
-
+	private static MainOptionsScreen _mainOptionsScreen;
+	
 	public static enum ScreenType{
 		MainMenu,
 		MainGame,
@@ -24,7 +26,7 @@ public class Main extends Game {
 		NewGame,
 		GameOver,
 		WatchIntro,
-		Credits
+		Credits, MainOptions
 	}
 
 	public Screen getScreenType(ScreenType screenType){
@@ -37,6 +39,8 @@ public class Main extends Game {
 			//	return _loadGameScreen;
 			case NewGame:
 				return _newGameScreen;
+			case MainOptions:
+				return _mainOptionsScreen;
 			case GameOver:
 				return _gameOverScreen;
 			//case WatchIntro:
@@ -58,6 +62,7 @@ public class Main extends Game {
 		_gameOverScreen = new GameOverScreen(this);
 		//_cutSceneScreen = new CutSceneScreen(this);
 		//_creditScreen = new CreditScreen(this);
+		_mainOptionsScreen = new MainOptionsScreen(this);
 		setScreen(_mainMenuScreen);
 	}
 
@@ -69,6 +74,7 @@ public class Main extends Game {
 		_newGameScreen.dispose();
 		_gameOverScreen.dispose();
 		//_creditScreen.dispose();
+		_mainOptionsScreen.dispose();
 	}
 
 }
