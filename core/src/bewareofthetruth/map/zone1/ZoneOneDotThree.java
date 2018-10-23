@@ -7,10 +7,10 @@ import bewareofthetruth.map.MapFactory;
 import bewareofthetruth.map.MapFactory.MapType;
 
 public class ZoneOneDotThree extends Map{
-    private static String _mapPath = "maps/castle_of_doom.tmx";
+    private static String _mapPath = "maps/zone1.3.tmx";
   //TODO Soit on garde cette architecture et on créer une map pour chaque Level ce qui est en soit efficaces pour un rpg mais LOURD soit on fais une factory plus élaboré avec la bdd
     public ZoneOneDotThree(){
-        super(MapFactory.MapType.CASTLE_OF_DOOM, _mapPath);
+        super(MapFactory.MapType.ZONE_1_3, _mapPath);
 
        /* Array<Vector2> candleEffectPositions = getParticleEffectSpawnPositions(ParticleEffectFactory.ParticleEffectType.CANDLE_FIRE);
         for( Vector2 position: candleEffectPositions ){

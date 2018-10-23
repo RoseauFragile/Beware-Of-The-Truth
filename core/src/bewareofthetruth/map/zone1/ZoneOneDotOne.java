@@ -25,11 +25,11 @@ public class ZoneOneDotOne extends Map{
     @SuppressWarnings("unused")
 	private static final String TAG = PlayerPhysicsComponent.class.getSimpleName();
 
-    private static String _mapPath = "maps/town.tmx";
+    private static String _mapPath = "maps/zone1.1.tmx";
     private Json _json;
 
     public ZoneOneDotOne(){
-        super(MapFactory.MapType.TOWN, _mapPath);
+        super(MapFactory.MapType.ZONE_1_1, _mapPath);
 
         _json = new Json();
 

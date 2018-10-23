@@ -46,7 +46,7 @@ public class MapManager implements ProfileObserver {
                 String currentMap = profileManager.getProperty("currentMapType", String.class);
                 MapFactory.MapType mapType;
                 if( currentMap == null || currentMap.isEmpty() ){
-                    mapType = MapFactory.MapType.TOWN;
+                    mapType = MapFactory.MapType.ZONE_1_1;
                 }else{
                     mapType = MapFactory.MapType.valueOf(currentMap);
                 }
@@ -54,17 +54,17 @@ public class MapManager implements ProfileObserver {
 
                 Vector2 topWorldMapStartPosition = profileManager.getProperty("topWorldMapStartPosition", Vector2.class);
                 if( topWorldMapStartPosition != null ){
-                    MapFactory.getMap(MapFactory.MapType.TOP_WORLD).setPlayerStart(topWorldMapStartPosition);
+                    MapFactory.getMap(MapFactory.MapType.ZONE_1_2).setPlayerStart(topWorldMapStartPosition);
                 }
 
                 Vector2 castleOfDoomMapStartPosition = profileManager.getProperty("castleOfDoomMapStartPosition", Vector2.class);
                 if( castleOfDoomMapStartPosition != null ){
-                    MapFactory.getMap(MapFactory.MapType.CASTLE_OF_DOOM).setPlayerStart(castleOfDoomMapStartPosition);
+                    MapFactory.getMap(MapFactory.MapType.ZONE_1_3).setPlayerStart(castleOfDoomMapStartPosition);
                 }
 
                 Vector2 townMapStartPosition = profileManager.getProperty("townMapStartPosition", Vector2.class);
                 if( townMapStartPosition != null ){
-                    MapFactory.getMap(MapFactory.MapType.TOWN).setPlayerStart(townMapStartPosition);
+                    MapFactory.getMap(MapFactory.MapType.ZONE_1_1).setPlayerStart(townMapStartPosition);
                 }
 
                 break;
@@ -73,19 +73,19 @@ public class MapManager implements ProfileObserver {
                     profileManager.setProperty("currentMapType", _currentMap._currentMapType.toString());
                 }
 
-                profileManager.setProperty("topWorldMapStartPosition", MapFactory.getMap(MapFactory.MapType.TOP_WORLD).getPlayerStart() );
-                profileManager.setProperty("castleOfDoomMapStartPosition", MapFactory.getMap(MapFactory.MapType.CASTLE_OF_DOOM).getPlayerStart() );
-                profileManager.setProperty("townMapStartPosition", MapFactory.getMap(MapFactory.MapType.TOWN).getPlayerStart() );
+                profileManager.setProperty("topWorldMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_2).getPlayerStart() );
+                profileManager.setProperty("castleOfDoomMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_3).getPlayerStart() );
+                profileManager.setProperty("townMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_1).getPlayerStart() );
                 break;
             case CLEAR_CURRENT_PROFILE:
                 _currentMap = null;
-                profileManager.setProperty("currentMapType", MapFactory.MapType.TOWN.toString());
+                profileManager.setProperty("currentMapType", MapFactory.MapType.ZONE_1_1.toString());
 
                 MapFactory.clearCache();
 
-                profileManager.setProperty("topWorldMapStartPosition", MapFactory.getMap(MapFactory.MapType.TOP_WORLD).getPlayerStart() );
-                profileManager.setProperty("castleOfDoomMapStartPosition", MapFactory.getMap(MapFactory.MapType.CASTLE_OF_DOOM).getPlayerStart() );
-                profileManager.setProperty("townMapStartPosition", MapFactory.getMap(MapFactory.MapType.TOWN).getPlayerStart() );
+                profileManager.setProperty("topWorldMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_2).getPlayerStart() );
+                profileManager.setProperty("castleOfDoomMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_3).getPlayerStart() );
+                profileManager.setProperty("townMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_1).getPlayerStart() );
                 break;
             default:
                 break;
@@ -191,7 +191,7 @@ public class MapManager implements ProfileObserver {
 
     public TiledMap getCurrentTiledMap(){
         if( _currentMap == null ) {
-            loadMap(MapFactory.MapType.TOWN);
+            loadMap(MapFactory.MapType.ZONE_1_1);
         }
         return _currentMap.getCurrentTiledMap();
     }
