@@ -107,8 +107,8 @@ animationConfig: [
 	    frameDuration: 1.0
 		animationType: IMMOBILE
 		texturePaths: [
-				sprites/characters/Player0.png
-				sprites/characters/Player1.png
+				sprites/characters/Player00.png
+				sprites/characters/Player01.png
 		]
 		gridPoints: [
 			{

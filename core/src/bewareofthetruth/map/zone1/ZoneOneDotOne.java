@@ -1,6 +1,7 @@
 package bewareofthetruth.map.zone1;
 
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
 import com.badlogic.gdx.utils.Json;
@@ -38,6 +39,7 @@ public class ZoneOneDotOne extends Map{
             _mapEntities.add(entity);
         }
 
+        /*
         //Special cases
         Entity blackSmith = EntityFactory.getInstance().getEntityByName(EntityFactory.EntityName.TOWN_BLACKSMITH);
         initSpecialEntityPosition(blackSmith);
@@ -50,7 +52,7 @@ public class ZoneOneDotOne extends Map{
         Entity innKeeper = EntityFactory.getInstance().getEntityByName(EntityFactory.EntityName.TOWN_INNKEEPER);
         initSpecialEntityPosition(innKeeper);
         _mapEntities.add(innKeeper);
-
+*/
         Entity townfolk1 = EntityFactory.getInstance().getEntityByName(EntityFactory.EntityName.TOWN_FOLK1);
         initSpecialEntityPosition(townfolk1);
         _mapEntities.add(townfolk1);
@@ -69,7 +71,7 @@ public class ZoneOneDotOne extends Map{
 
         Entity townfolk5 = EntityFactory.getInstance().getEntityByName(EntityFactory.EntityName.TOWN_FOLK5);
         initSpecialEntityPosition(townfolk5);
-        _mapEntities.add(townfolk5);
+        _mapEntities.add(townfolk5);/*
 
         Entity townfolk6 = EntityFactory.getInstance().getEntityByName(EntityFactory.EntityName.TOWN_FOLK6);
         initSpecialEntityPosition(townfolk6);
@@ -109,7 +111,7 @@ public class ZoneOneDotOne extends Map{
 
         Entity townfolk15 = EntityFactory.getInstance().getEntityByName(EntityFactory.EntityName.TOWN_FOLK15);
         initSpecialEntityPosition(townfolk15);
-        _mapEntities.add(townfolk15);
+        _mapEntities.add(townfolk15);*/
 
        /* Array<Vector2> candleEffectPositions = getParticleEffectSpawnPositions(ParticleEffectFactory.ParticleEffectType.CANDLE_FIRE);
         for( Vector2 position: candleEffectPositions ){
@@ -120,6 +122,9 @@ public class ZoneOneDotOne extends Map{
         for( Vector2 position: lanternEffectPositions ){
             _mapParticleEffects.add(ParticleEffectFactory.getParticleEffect(ParticleEffectFactory.ParticleEffectType.LANTERN_FIRE, position));
         }*/
+        for(int i =0; i <_mapEntities.size; i++) {
+        	Gdx.app.debug(TAG,i + "entite : " +_mapEntities.get(i).toString() + " x,y = " + _mapEntities.get(i).getCurrentPosition().x + ":" + _mapEntities.get(i).getCurrentPosition().y);
+        }
     }
 
     @Override
@@ -134,9 +139,11 @@ public class ZoneOneDotOne extends Map{
     }
 
     private void initSpecialEntityPosition(Entity entity){
+    	Gdx.app.debug(TAG, entity.getEntityConfig().getEntityID());
         Vector2 position = new Vector2(0,0);
 
         if( _specialNPCStartPositions.containsKey(entity.getEntityConfig().getEntityID()) ) {
+        	//Gdx.app.debug(TAG, "test");
             position = _specialNPCStartPositions.get(entity.getEntityConfig().getEntityID());
         }
         entity.sendMessage(Component.MESSAGE.INIT_START_POSITION, _json.toJson(position));
@@ -144,6 +151,7 @@ public class ZoneOneDotOne extends Map{
         //Overwrite default if special config is found
         EntityConfig entityConfig = ProfileManager.getInstance().getProperty(entity.getEntityConfig().getEntityID(), EntityConfig.class);
         if( entityConfig != null ){
+        	
             entity.setEntityConfig(entityConfig);
         }
     }

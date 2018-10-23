@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="left-up" width="13" height="13" tilewidth="128" tileheight="128" infinite="0" nextobjectid="53">
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="left-up" width="13" height="13" tilewidth="128" tileheight="128" infinite="0" nextobjectid="91">
  <tileset firstgid="1" source="tileset/sol.tsx"/>
  <tileset firstgid="19" source="tileset/mur.tsx"/>
  <tileset firstgid="67" source="tileset/lampe3.tsx"/>
@@ -52,15 +52,15 @@
   <object id="41" name="TOP_WORLD" x="0.666667" y="682" width="3.33333" height="64.6667"/>
  </objectgroup>
  <objectgroup name="MAP_SPAWNS_LAYER">
-  <object id="42" name="NPC_START" x="17.3333" y="684.667" width="40" height="61.3333"/>
   <object id="43" name="PLAYER_START" x="800" y="1613.33" width="72.6667" height="36.6667"/>
-  <object id="44" name="TOWN_FOLK2" x="573" y="656" width="64" height="64"/>
-  <object id="45" name="TOWN_FOLK1" x="170" y="500" width="64" height="64"/>
-  <object id="46" name="TOWN_FOLK3" x="471" y="977" width="60" height="41"/>
-  <object id="47" name="NPC_START" x="738" y="889" width="54" height="52"/>
-  <object id="48" name="NPC_START" x="783" y="740" width="64" height="64"/>
-  <object id="49" name="NPC_START" x="799" y="1316" width="75" height="75"/>
-  <object id="50" name="NPC_START" x="1033" y="1099" width="27" height="28"/>
-  <object id="51" name="NPC_START" x="1098" y="545" width="41" height="41"/>
+  <object id="44" name="TOWN_FOLK2" x="301" y="1180" width="64" height="64"/>
+  <object id="45" name="TOWN_FOLK1" x="300" y="1050" width="64" height="64"/>
+  <object id="48" name="NPC_START" x="671" y="1348" width="64" height="64"/>
+  <object id="54" name="TOWN_FOLK5" x="417" y="1172" width="64" height="64"/>
+  <object id="67" name="PLAYER_START" x="14" y="686" width="34" height="62"/>
+  <object id="85" name="NPC_START" x="899" y="1332" width="64" height="64"/>
+  <object id="86" name="NPC_START" x="785" y="1342" width="64" height="64"/>
+  <object id="89" name="TOWN_FOLK4" x="549" y="1180" width="64" height="64"/>
+  <object id="90" name="TOWN_FOLK3" x="493" y="1040" width="64" height="64"/>
  </objectgroup>
 </map>

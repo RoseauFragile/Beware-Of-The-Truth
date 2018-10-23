@@ -81,7 +81,7 @@ public class NPCGraphicsComponent extends GraphicsComponent {
 
                     if( textureNames.size == 1) {
                         animation = loadAnimation(textureNames.get(0), points, frameDuration);
-                    }else if( textureNames.size == 2){
+                    }else if( textureNames.size == 2){                
                         animation = loadAnimation(textureNames.get(0), textureNames.get(1), points, frameDuration);
                     }
 

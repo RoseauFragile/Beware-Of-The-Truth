@@ -63,6 +63,7 @@ public abstract class Map implements AudioSubject{
     protected Array<Vector2> _npcStartPositions;
     protected Hashtable<String, Vector2> _specialNPCStartPositions;
 
+    //TODO il va falloir faire collsions avec des rectilignes et non plus seulement des rectangles
     protected MapLayer _collisionLayer = null;
     protected MapLayer _portalLayer = null;
     protected MapLayer _spawnsLayer = null;
@@ -375,6 +376,8 @@ public abstract class Map implements AudioSubject{
             //scale by the unit to convert from map coordinates
             x *= UNIT_SCALE;
             y *= UNIT_SCALE;
+            
+            Gdx.app.debug(TAG,"debug : " + object.getName() + " x : " + x + " y : "+y);
 
             specialNPCStartPositions.put(objectName, new Vector2(x,y));
         }
