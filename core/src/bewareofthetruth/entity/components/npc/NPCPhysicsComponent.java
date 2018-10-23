@@ -18,7 +18,6 @@ public class NPCPhysicsComponent extends PhysicsComponent {
     private Entity.State _state;
 
     public NPCPhysicsComponent(){
-    	Gdx.app.debug(TAG, "CREATION 6----------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
         _boundingBoxLocation = BoundingBoxLocation.CENTER;
         initBoundingBox(0.4f, 0.15f);
     }

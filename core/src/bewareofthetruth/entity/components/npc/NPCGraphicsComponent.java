@@ -36,7 +36,7 @@ public class NPCGraphicsComponent extends GraphicsComponent {
     private boolean _sentHideCoversationMessage = false;
 
     public NPCGraphicsComponent(){
-    	Gdx.app.debug(TAG, "NPC creer");
+    
     }
 
     @Override

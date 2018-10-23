@@ -1,27 +1,28 @@
 package bewareofthetruth.map.zone1;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
+
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
+
 import com.badlogic.gdx.utils.Json;
 
 import bewareofthetruth.audio.AudioObserver;
 import bewareofthetruth.entity.Entity;
 import bewareofthetruth.entity.EntityConfig;
 import bewareofthetruth.entity.EntityFactory;
-import bewareofthetruth.entity.EntityFactory.EntityName;
+
 import bewareofthetruth.entity.components.Component;
-import bewareofthetruth.entity.components.Component.MESSAGE;
+
 import bewareofthetruth.entity.components.player.PlayerPhysicsComponent;
-import bewareofthetruth.audio.*;
+
 import bewareofthetruth.map.Map;
 import bewareofthetruth.map.MapFactory;
-import bewareofthetruth.map.MapFactory.MapType;
+
 import bewareofthetruth.profile.ProfileManager;
 
 //TODO Soit on garde cette architecture et on créer une map pour chaque Level ce qui est en soit efficaces pour un rpg mais LOURD soit on fais une factory plus élaboré avec la bdd
 public class ZoneOneDotOne extends Map{
-    private static final String TAG = PlayerPhysicsComponent.class.getSimpleName();
+    @SuppressWarnings("unused")
+	private static final String TAG = PlayerPhysicsComponent.class.getSimpleName();
 
     private static String _mapPath = "maps/town.tmx";
     private Json _json;

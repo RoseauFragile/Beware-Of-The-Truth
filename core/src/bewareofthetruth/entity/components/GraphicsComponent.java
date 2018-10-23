@@ -2,22 +2,17 @@ package bewareofthetruth.entity.components;
 
 import java.util.Hashtable;
 
-import com.badlogic.gdx.Gdx;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
-
 import bewareofthetruth.entity.Entity;
-import bewareofthetruth.entity.Entity.AnimationType;
-import bewareofthetruth.entity.Entity.Direction;
-import bewareofthetruth.entity.Entity.State;
 import bewareofthetruth.map.MapManager;
 import bewareofthetruth.utility.Utility;
 
@@ -136,7 +131,7 @@ public abstract class GraphicsComponent extends ComponentSubject implements Comp
         Utility.loadTextureAsset(textureName);
         Texture texture = Utility.getTextureAsset(textureName);
 
-        Gdx.app.debug(TAG, textureName);
+       
         TextureRegion[][] textureFrames = TextureRegion.split(texture, Entity.FRAME_WIDTH, Entity.FRAME_HEIGHT);
 
         TextureRegion[] animationKeyFrames = new TextureRegion[points.size];

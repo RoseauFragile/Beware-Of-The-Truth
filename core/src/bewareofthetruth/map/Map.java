@@ -27,7 +27,7 @@ public abstract class Map implements AudioSubject{
     private static final String TAG = Map.class.getSimpleName();
 
     //TODO A changer pour les nouveaux sprites
-    public final static float UNIT_SCALE  = 1/16f;
+    public final static float UNIT_SCALE  = 1/64f;
 
     private Array<AudioObserver> _observers;
 

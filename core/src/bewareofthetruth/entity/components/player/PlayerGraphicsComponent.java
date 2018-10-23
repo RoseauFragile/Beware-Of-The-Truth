@@ -27,8 +27,6 @@ public class PlayerGraphicsComponent extends GraphicsComponent {
 
     public PlayerGraphicsComponent(){
         _previousPosition = new Vector2(0,0);
-    	Gdx.app.debug(TAG, "player creer");
-
     }
 
     @Override
