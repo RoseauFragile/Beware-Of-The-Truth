@@ -3,36 +3,40 @@ package bewareofthetruth.screens;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.Array;
 
+import bewareofthetruth.audio.AudioManager;
 import bewareofthetruth.audio.AudioObserver;
+import bewareofthetruth.audio.AudioSubject;
 
 
-public class GameScreen implements Screen{
+public class GameScreen implements Screen, AudioSubject{
     private Array<AudioObserver> _observers;
 
     public GameScreen(){
         _observers = new Array<AudioObserver>();
-      //  this.addObserver(AudioManager.getInstance());
+        this.addObserver(AudioManager.getInstance());
     }
 
-    /*public void addObserver(AudioObserver audioObserver) {
+    @Override
+    public void addObserver(AudioObserver audioObserver) {
         _observers.add(audioObserver);
-    }*/
+    }
 
-    /*@Override
+    @Override
     public void removeObserver(AudioObserver audioObserver) {
         _observers.removeValue(audioObserver, true);
-    }*/
+    }
 
+    @Override
     public void removeAllObservers() {
         _observers.removeAll(_observers, true);
     }
 
-   /* @Override
+    @Override
     public void notify(AudioObserver.AudioCommand command, AudioObserver.AudioTypeEvent event) {
         for(AudioObserver observer: _observers){
             observer.onNotify(command, event);
         }
-    }*/
+    }
 
     @Override
     public void show() {

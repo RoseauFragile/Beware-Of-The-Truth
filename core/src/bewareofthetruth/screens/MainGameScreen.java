@@ -22,6 +22,7 @@ import bewareofthetruth.entity.EntityFactory;
 import bewareofthetruth.entity.EntityFactory.EntityType;
 import bewareofthetruth.entity.components.Component;
 import bewareofthetruth.entity.components.Component.MESSAGE;
+import bewareofthetruth.hud.PlayerHUD;
 import bewareofthetruth.main.Main;
 import bewareofthetruth.map.Map;
 import bewareofthetruth.map.MapFactory;
@@ -61,7 +62,7 @@ public class MainGameScreen extends GameScreen {
 	private InputMultiplexer _multiplexer;
 
 	private Entity _player;
-	//private PlayerHUD _playerHUD;
+	private PlayerHUD _playerHUD;
 
 	public MainGameScreen(Main game){
 		_game = game;
@@ -84,10 +85,10 @@ public class MainGameScreen extends GameScreen {
 		_hudCamera = new OrthographicCamera();
 		_hudCamera.setToOrtho(false, VIEWPORT.physicalWidth, VIEWPORT.physicalHeight);
 
-		//_playerHUD = new PlayerHUD(_hudCamera, _player, _mapMgr);
+		_playerHUD = new PlayerHUD(_hudCamera, _player, _mapMgr);
 
 		_multiplexer = new InputMultiplexer();
-		//_multiplexer.addProcessor(_playerHUD.getStage());
+		_multiplexer.addProcessor(_playerHUD.getStage());
 		_multiplexer.addProcessor(_player.getInputProcessor());
 		Gdx.input.setInputProcessor(_multiplexer);
 
@@ -97,7 +98,7 @@ public class MainGameScreen extends GameScreen {
 	@Override
 	public void show() {
 		ProfileManager.getInstance().addObserver(_mapMgr);
-		//ProfileManager.getInstance().addObserver(_playerHUD);
+		ProfileManager.getInstance().addObserver(_playerHUD);
 
 		setGameState(GameState.LOADING);
 		Gdx.input.setInputProcessor(_multiplexer);
@@ -125,7 +126,7 @@ public class MainGameScreen extends GameScreen {
 
 		if( _gameState == GameState.PAUSED ){
 			_player.updateInput(delta);
-			//_playerHUD.render(delta);
+			_playerHUD.render(delta);
 			return;
 		}
 		Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -143,7 +144,7 @@ public class MainGameScreen extends GameScreen {
 			_camera.position.set(_mapMgr.getPlayerStartUnitScaled().x, _mapMgr.getPlayerStartUnitScaled().y, 0f);
 			_camera.update();
 
-			//_playerHUD.updateEntityObservers();
+			_playerHUD.updateEntityObservers();
 
 			_mapMgr.setMapChanged(false);
 
@@ -198,26 +199,26 @@ public class MainGameScreen extends GameScreen {
 			_mapMgr.updateCurrentMapEffects(_mapMgr, _mapRenderer.getBatch(), delta);
 		}
 
-		//_playerHUD.render(delta);
+		_playerHUD.render(delta);
 	}
 
 	@Override
 	public void resize(int width, int height) {
 		setupViewport(10, 10);
 		_camera.setToOrtho(false, VIEWPORT.viewportWidth, VIEWPORT.viewportHeight);
-		//_playerHUD.resize((int) VIEWPORT.physicalWidth, (int) VIEWPORT.physicalHeight);
+		_playerHUD.resize((int) VIEWPORT.physicalWidth, (int) VIEWPORT.physicalHeight);
 	}
 
 	@Override
 	public void pause() {
 		setGameState(GameState.SAVING);
-		//_playerHUD.pause();
+		_playerHUD.pause();
 	}
 
 	@Override
 	public void resume() {
 		setGameState(GameState.LOADING);
-		//_playerHUD.resume();
+		_playerHUD.resume();
 	}
 
 	@Override
@@ -292,8 +293,8 @@ public class MainGameScreen extends GameScreen {
 			VIEWPORT.viewportHeight = VIEWPORT.viewportWidth * (VIEWPORT.physicalHeight/VIEWPORT.physicalWidth);
 		}
 
-		/*Gdx.app.debug(TAG, "WorldRenderer: virtual: (" + VIEWPORT.virtualWidth + "," + VIEWPORT.virtualHeight + ")" );
+		Gdx.app.debug(TAG, "WorldRenderer: virtual: (" + VIEWPORT.virtualWidth + "," + VIEWPORT.virtualHeight + ")" );
 		Gdx.app.debug(TAG, "WorldRenderer: viewport: (" + VIEWPORT.viewportWidth + "," + VIEWPORT.viewportHeight + ")" );
-		Gdx.app.debug(TAG, "WorldRenderer: physical: (" + VIEWPORT.physicalWidth + "," + VIEWPORT.physicalHeight + ")" );*/
+		Gdx.app.debug(TAG, "WorldRenderer: physical: (" + VIEWPORT.physicalWidth + "," + VIEWPORT.physicalHeight + ")" );
 	}
 }

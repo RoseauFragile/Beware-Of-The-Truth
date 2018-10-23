@@ -17,16 +17,17 @@ import com.badlogic.gdx.assets.AssetManager;
 public final class Utility {
 	public static final AssetManager _assetManager = new AssetManager();
 	private static final String TAG = Utility.class.getSimpleName();
+
 	private static InternalFileHandleResolver _filePathResolver =  new InternalFileHandleResolver();
 
-	//private final static String STATUSUI_TEXTURE_ATLAS_PATH = "skins/statusui.atlas";
-	//private final static String STATUSUI_SKIN_PATH = "skins/statusui.json";
-	//private final static String ITEMS_TEXTURE_ATLAS_PATH = "skins/items.atlas";
-	//private final static String ITEMS_SKIN_PATH = "skins/items.json";
+	private final static String STATUSUI_TEXTURE_ATLAS_PATH = "skins/statusui.atlas";
+	private final static String STATUSUI_SKIN_PATH = "skins/statusui.json";
+	private final static String ITEMS_TEXTURE_ATLAS_PATH = "skins/items.atlas";
+	private final static String ITEMS_SKIN_PATH = "skins/items.json";
 
-	//public static TextureAtlas STATUSUI_TEXTUREATLAS = new TextureAtlas(STATUSUI_TEXTURE_ATLAS_PATH);
-	//public static TextureAtlas ITEMS_TEXTUREATLAS = new TextureAtlas(ITEMS_TEXTURE_ATLAS_PATH);
-	//public static Skin STATUSUI_SKIN = new Skin(Gdx.files.internal(STATUSUI_SKIN_PATH), STATUSUI_TEXTUREATLAS);
+	public static TextureAtlas STATUSUI_TEXTUREATLAS = new TextureAtlas(STATUSUI_TEXTURE_ATLAS_PATH);
+	public static TextureAtlas ITEMS_TEXTUREATLAS = new TextureAtlas(ITEMS_TEXTURE_ATLAS_PATH);
+	public static Skin STATUSUI_SKIN = new Skin(Gdx.files.internal(STATUSUI_SKIN_PATH), STATUSUI_TEXTUREATLAS);
 
 	public static void unloadAsset(String assetFilenamePath){
 	// once the asset manager is done loading
