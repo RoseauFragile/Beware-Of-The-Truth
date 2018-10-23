@@ -5,13 +5,13 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector3;
 
+import bewareofthetruth.entity.Entity;
+import bewareofthetruth.entity.Entity.Direction;
+import bewareofthetruth.entity.Entity.State;
 import bewareofthetruth.entity.components.InputComponent;
 import bewareofthetruth.entity.components.Component.MESSAGE;
 import bewareofthetruth.entity.components.InputComponent.Keys;
 import bewareofthetruth.entity.components.InputComponent.Mouse;
-import bewareofthetruth.entity.components.entity.Entity;
-import bewareofthetruth.entity.components.entity.Entity.Direction;
-import bewareofthetruth.entity.components.entity.Entity.State;
 
 public class PlayerInputComponent extends InputComponent implements InputProcessor {
 	

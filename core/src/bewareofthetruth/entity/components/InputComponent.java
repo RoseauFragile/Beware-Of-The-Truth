@@ -3,7 +3,9 @@ package bewareofthetruth.entity.components;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.utils.Json;
 
-import bewareofthetruth.entity.components.entity.Entity;
+import bewareofthetruth.entity.Entity;
+import bewareofthetruth.entity.Entity.Direction;
+import bewareofthetruth.entity.Entity.State;
 
 import java.util.HashMap;
 import java.util.Map;

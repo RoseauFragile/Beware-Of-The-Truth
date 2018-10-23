@@ -4,12 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.MathUtils;
 
+import bewareofthetruth.entity.Entity;
+import bewareofthetruth.entity.Entity.Direction;
+import bewareofthetruth.entity.Entity.State;
 import bewareofthetruth.entity.components.InputComponent;
 import bewareofthetruth.entity.components.Component.MESSAGE;
 import bewareofthetruth.entity.components.InputComponent.Keys;
-import bewareofthetruth.entity.components.entity.Entity;
-import bewareofthetruth.entity.components.entity.Entity.Direction;
-import bewareofthetruth.entity.components.entity.Entity.State;
 
 public class NPCInputComponent extends InputComponent {
     private static final String TAG = NPCInputComponent.class.getSimpleName();

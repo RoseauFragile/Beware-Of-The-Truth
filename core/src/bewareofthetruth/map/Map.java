@@ -16,7 +16,7 @@ import com.badlogic.gdx.maps.MapObject;
 import bewareofthetruth.audio.AudioManager;
 import bewareofthetruth.audio.AudioObserver;
 import bewareofthetruth.audio.AudioSubject;
-import bewareofthetruth.entity.components.entity.Entity;
+import bewareofthetruth.entity.Entity;
 import bewareofthetruth.particles.ParticleEffectFactory;
 import bewareofthetruth.particles.ParticleEffectFactory.ParticleEffectType;
 import bewareofthetruth.utility.Utility;

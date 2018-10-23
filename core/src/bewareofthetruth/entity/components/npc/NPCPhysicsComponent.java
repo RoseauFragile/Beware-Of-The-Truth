@@ -3,13 +3,13 @@ package bewareofthetruth.entity.components.npc;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
+import bewareofthetruth.entity.Entity;
+import bewareofthetruth.entity.Entity.Direction;
+import bewareofthetruth.entity.Entity.State;
 import bewareofthetruth.entity.components.Component;
 import bewareofthetruth.entity.components.PhysicsComponent;
 import bewareofthetruth.entity.components.Component.MESSAGE;
 import bewareofthetruth.entity.components.PhysicsComponent.BoundingBoxLocation;
-import bewareofthetruth.entity.components.entity.Entity;
-import bewareofthetruth.entity.components.entity.Entity.Direction;
-import bewareofthetruth.entity.components.entity.Entity.State;
 import bewareofthetruth.map.MapManager;
 
 public class NPCPhysicsComponent extends PhysicsComponent {

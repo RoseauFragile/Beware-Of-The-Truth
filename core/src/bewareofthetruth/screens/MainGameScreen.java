@@ -17,11 +17,11 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Json;
 
 import bewareofthetruth.audio.AudioManager;
+import bewareofthetruth.entity.Entity;
+import bewareofthetruth.entity.EntityFactory;
+import bewareofthetruth.entity.EntityFactory.EntityType;
 import bewareofthetruth.entity.components.Component;
 import bewareofthetruth.entity.components.Component.MESSAGE;
-import bewareofthetruth.entity.components.entity.Entity;
-import bewareofthetruth.entity.components.entity.EntityFactory;
-import bewareofthetruth.entity.components.entity.EntityFactory.EntityType;
 import bewareofthetruth.main.Main;
 import bewareofthetruth.map.Map;
 import bewareofthetruth.map.MapFactory;

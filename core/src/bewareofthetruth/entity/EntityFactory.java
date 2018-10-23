@@ -1,4 +1,4 @@
-package bewareofthetruth.entity.components.entity;
+package bewareofthetruth.entity;
 
 import java.util.Hashtable;
 
@@ -7,7 +7,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 
 import bewareofthetruth.entity.components.Component;
-import bewareofthetruth.entity.components.Component.MESSAGE;
 import bewareofthetruth.entity.components.npc.NPCGraphicsComponent;
 import bewareofthetruth.entity.components.npc.NPCInputComponent;
 import bewareofthetruth.entity.components.npc.NPCPhysicsComponent;

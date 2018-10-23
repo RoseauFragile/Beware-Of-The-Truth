@@ -13,7 +13,8 @@ import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 
-import bewareofthetruth.entity.components.entity.Entity;
+import bewareofthetruth.entity.Entity;
+import bewareofthetruth.entity.Entity.Direction;
 import bewareofthetruth.map.Map;
 import bewareofthetruth.map.MapManager;
 import bewareofthetruth.utility.Utility;

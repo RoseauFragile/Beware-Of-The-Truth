@@ -1,10 +1,10 @@
-package bewareofthetruth.entity.components.entity;
+package bewareofthetruth.entity;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 
-import bewareofthetruth.entity.components.entity.Entity.AnimationType;
+import bewareofthetruth.entity.Entity.AnimationType;
 import bewareofthetruth.inventory.InventoryItem.ItemTypeID;
 
 public class EntityConfig {

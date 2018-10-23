@@ -10,10 +10,10 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
+import bewareofthetruth.entity.Entity;
 import bewareofthetruth.entity.components.Component;
 import bewareofthetruth.entity.components.ComponentObserver;
 import bewareofthetruth.entity.components.Component.MESSAGE;
-import bewareofthetruth.entity.components.entity.Entity;
 import bewareofthetruth.map.MapFactory.MapType;
 import bewareofthetruth.profile.ProfileManager;
 import bewareofthetruth.profile.ProfileObserver;

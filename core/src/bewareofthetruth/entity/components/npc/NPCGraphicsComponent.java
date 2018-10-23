@@ -13,16 +13,16 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
+import bewareofthetruth.entity.Entity;
+import bewareofthetruth.entity.EntityConfig;
+import bewareofthetruth.entity.Entity.AnimationType;
+import bewareofthetruth.entity.Entity.Direction;
+import bewareofthetruth.entity.Entity.State;
+import bewareofthetruth.entity.EntityConfig.AnimationConfig;
 import bewareofthetruth.entity.components.ComponentObserver;
 import bewareofthetruth.entity.components.GraphicsComponent;
 import bewareofthetruth.entity.components.Component.MESSAGE;
 import bewareofthetruth.entity.components.ComponentObserver.ComponentEvent;
-import bewareofthetruth.entity.components.entity.Entity;
-import bewareofthetruth.entity.components.entity.EntityConfig;
-import bewareofthetruth.entity.components.entity.Entity.AnimationType;
-import bewareofthetruth.entity.components.entity.Entity.Direction;
-import bewareofthetruth.entity.components.entity.Entity.State;
-import bewareofthetruth.entity.components.entity.EntityConfig.AnimationConfig;
 import bewareofthetruth.map.Map;
 import bewareofthetruth.map.MapManager;
 

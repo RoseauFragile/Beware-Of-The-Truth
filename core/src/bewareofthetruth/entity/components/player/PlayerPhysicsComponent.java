@@ -10,15 +10,15 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 
+import bewareofthetruth.entity.Entity;
+import bewareofthetruth.entity.Entity.Direction;
+import bewareofthetruth.entity.Entity.State;
 import bewareofthetruth.entity.components.Component;
 import bewareofthetruth.entity.components.ComponentObserver;
 import bewareofthetruth.entity.components.PhysicsComponent;
 import bewareofthetruth.entity.components.Component.MESSAGE;
 import bewareofthetruth.entity.components.ComponentObserver.ComponentEvent;
 import bewareofthetruth.entity.components.PhysicsComponent.BoundingBoxLocation;
-import bewareofthetruth.entity.components.entity.Entity;
-import bewareofthetruth.entity.components.entity.Entity.Direction;
-import bewareofthetruth.entity.components.entity.Entity.State;
 import bewareofthetruth.map.Map;
 import bewareofthetruth.map.MapFactory;
 import bewareofthetruth.map.MapManager;

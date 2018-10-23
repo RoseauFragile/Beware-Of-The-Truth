@@ -6,12 +6,12 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 
 import bewareofthetruth.audio.AudioObserver;
+import bewareofthetruth.entity.Entity;
+import bewareofthetruth.entity.EntityConfig;
+import bewareofthetruth.entity.EntityFactory;
+import bewareofthetruth.entity.EntityFactory.EntityName;
 import bewareofthetruth.entity.components.Component;
 import bewareofthetruth.entity.components.Component.MESSAGE;
-import bewareofthetruth.entity.components.entity.Entity;
-import bewareofthetruth.entity.components.entity.EntityConfig;
-import bewareofthetruth.entity.components.entity.EntityFactory;
-import bewareofthetruth.entity.components.entity.EntityFactory.EntityName;
 import bewareofthetruth.entity.components.player.PlayerPhysicsComponent;
 import bewareofthetruth.audio.*;
 import bewareofthetruth.map.Map;
