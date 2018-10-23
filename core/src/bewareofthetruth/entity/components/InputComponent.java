@@ -2,6 +2,9 @@ package bewareofthetruth.entity.components;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.utils.Json;
+
+import bewareofthetruth.entity.components.entity.Entity;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,11 +14,11 @@ public abstract class InputComponent extends ComponentSubject implements Compone
     protected Entity.State _currentState = null;
     protected Json _json;
 
-    protected enum Keys {
+    public enum Keys {
         LEFT, RIGHT, UP, DOWN, QUIT, PAUSE
     }
 
-    protected enum Mouse {
+    public enum Mouse {
         SELECT, DOACTION
     }
 
@@ -37,7 +40,7 @@ public abstract class InputComponent extends ComponentSubject implements Compone
         mouseButtons.put(Mouse.DOACTION, false);
     };
 
-    InputComponent(){
+    protected InputComponent(){
         _json = new Json();
     }
 

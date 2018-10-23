@@ -3,7 +3,7 @@ package bewareofthetruth.main;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 
-import bewareofthetruth.entity.components.MainGameScreen;
+import bewareofthetruth.screens.MainGameScreen;
 
 public class Main extends Game {
 

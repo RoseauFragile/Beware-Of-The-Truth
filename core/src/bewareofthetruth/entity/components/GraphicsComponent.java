@@ -14,9 +14,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 
-import bewareofthetruth.Utility;
-import bewareofthetruth.entity.components.Entity.Direction;
-import bewareofthetruth.entity.components.Entity.State;
+import bewareofthetruth.entity.components.entity.Entity;
+import bewareofthetruth.entity.components.entity.Entity.Direction;
+import bewareofthetruth.entity.components.entity.Entity.State;
+import bewareofthetruth.map.MapManager;
+import bewareofthetruth.utility.Utility;
 
 public abstract class GraphicsComponent extends ComponentSubject implements Component {
 	private static String TAG = GraphicsComponent.class.getSimpleName();
@@ -25,7 +27,7 @@ public abstract class GraphicsComponent extends ComponentSubject implements Comp
     protected Entity.State _currentState;
     protected Entity.Direction _currentDirection;
     protected Json _json;
-    protected Vector2 _currentPosition;
+    public Vector2 _currentPosition;
     protected Hashtable<Entity.AnimationType, Animation<TextureRegion>> _animations;
     protected ShapeRenderer _shapeRenderer;
 
@@ -133,7 +135,7 @@ public abstract class GraphicsComponent extends ComponentSubject implements Comp
         Utility.loadTextureAsset(textureName);
         Texture texture = Utility.getTextureAsset(textureName);
 
-        //Gdx.app.debug(TAG, textureName);
+        Gdx.app.debug(TAG, textureName);
         TextureRegion[][] textureFrames = TextureRegion.split(texture, Entity.FRAME_WIDTH, Entity.FRAME_HEIGHT);
 
         TextureRegion[] animationKeyFrames = new TextureRegion[points.size];

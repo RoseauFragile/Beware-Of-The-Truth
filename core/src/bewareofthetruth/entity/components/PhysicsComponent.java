@@ -13,7 +13,10 @@ import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 
-import bewareofthetruth.Utility;
+import bewareofthetruth.entity.components.entity.Entity;
+import bewareofthetruth.map.Map;
+import bewareofthetruth.map.MapManager;
+import bewareofthetruth.utility.Utility;
 
 
 public abstract class PhysicsComponent extends ComponentSubject implements Component{
@@ -40,7 +43,7 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
         CENTER,
     }
 
-    PhysicsComponent(){
+    protected PhysicsComponent(){
         this._nextEntityPosition = new Vector2(0,0);
         this._currentEntityPosition = new Vector2(0,0);
         this._velocity = new Vector2(2f,2f);
