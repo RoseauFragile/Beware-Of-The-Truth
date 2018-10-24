@@ -1,0 +1,110 @@
+statusUI.png
+size: 2025, 1364
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+FourWaterBar
+  rotate: true
+  xy: 2000, 25
+  size: 73, 20
+  orig: 100, 100
+  offset: 14, 42
+  index: -1
+hud.loading/LoadingBar
+  rotate: false
+  xy: 1, 1
+  size: 1920, 156
+  orig: 1920, 1142
+  offset: 0, 0
+  index: -1
+hud.loading/LoadingBarWithSmog
+  rotate: false
+  xy: 1, 159
+  size: 1920, 156
+  orig: 1920, 1142
+  offset: 0, 0
+  index: -1
+hud.menu.inventory/MenuInventory
+  rotate: false
+  xy: 963, 317
+  size: 1061, 916
+  orig: 1920, 1080
+  offset: 330, 145
+  index: -1
+hud.menu.options/Options
+  rotate: true
+  xy: 1, 317
+  size: 984, 960
+  orig: 1920, 1080
+  offset: 469, 60
+  index: -1
+LifeBar
+  rotate: false
+  xy: 1923, 25
+  size: 75, 22
+  orig: 100, 100
+  offset: 13, 39
+  index: -1
+MiniMap
+  rotate: false
+  xy: 963, 1235
+  size: 128, 128
+  orig: 200, 200
+  offset: 41, 36
+  index: -1
+OneBar
+  rotate: true
+  xy: 1923, 115
+  size: 19, 20
+  orig: 100, 100
+  offset: 41, 44
+  index: -1
+OneWaterBar
+  rotate: true
+  xy: 1984, 100
+  size: 19, 20
+  orig: 100, 100
+  offset: 41, 43
+  index: -1
+ReductInventoryInGame
+  rotate: false
+  xy: 1093, 1235
+  size: 860, 115
+  orig: 860, 115
+  offset: 0, 0
+  index: -1
+ThreeBar
+  rotate: false
+  xy: 1923, 49
+  size: 56, 20
+  orig: 100, 100
+  offset: 22, 40
+  index: -1
+ThreeWaterBar
+  rotate: false
+  xy: 1923, 71
+  size: 55, 20
+  orig: 100, 100
+  offset: 23, 42
+  index: -1
+TwoBar
+  rotate: false
+  xy: 1923, 93
+  size: 37, 20
+  orig: 100, 100
+  offset: 32, 40
+  index: -1
+TwoWaterBar
+  rotate: true
+  xy: 1962, 93
+  size: 37, 20
+  orig: 100, 100
+  offset: 32, 42
+  index: -1
+WaterBar
+  rotate: false
+  xy: 1923, 1
+  size: 93, 22
+  orig: 100, 100
+  offset: 3, 44
+  index: -1

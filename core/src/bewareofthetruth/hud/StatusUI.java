@@ -85,6 +85,8 @@ public class StatusUI extends Window implements StatusSubject {
         //buttons
         _inventoryButton= new ImageButton(Utility.STATUSUI_SKIN, "inventory-button");
         _inventoryButton.getImageCell().size(32, 32);
+        
+        
 
         _questButton = new ImageButton(Utility.STATUSUI_SKIN, "quest-button");
         _questButton.getImageCell().size(32,32);

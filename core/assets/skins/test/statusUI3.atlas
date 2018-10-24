@@ -1,0 +1,124 @@
+statusUI3.png
+size: 2039, 1395
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Cursor
+  rotate: false
+  xy: 1805, 1279
+  size: 46, 76
+  orig: 100, 100
+  offset: 33, 14
+  index: -1
+FourWaterBar
+  rotate: false
+  xy: 1781, 1374
+  size: 73, 20
+  orig: 100, 100
+  offset: 14, 42
+  index: -1
+hud.loading/LoadingBar
+  rotate: false
+  xy: 1, 1
+  size: 1920, 156
+  orig: 1920, 1142
+  offset: 0, 0
+  index: -1
+hud.loading/LoadingBarWithSmog
+  rotate: false
+  xy: 1, 159
+  size: 1920, 156
+  orig: 1920, 1142
+  offset: 0, 0
+  index: -1
+hud.menu.inventory/MenuInventory
+  rotate: true
+  xy: 1, 317
+  size: 1061, 916
+  orig: 1920, 1080
+  offset: 330, 145
+  index: -1
+hud.menu.options/Options
+  rotate: false
+  xy: 919, 317
+  size: 984, 960
+  orig: 1920, 1080
+  offset: 469, 60
+  index: -1
+InventoryInGame
+  rotate: true
+  xy: 1923, 1
+  size: 860, 115
+  orig: 860, 115
+  offset: 0, 0
+  index: -1
+LifeBar
+  rotate: true
+  xy: 1853, 1279
+  size: 75, 22
+  orig: 100, 100
+  offset: 13, 39
+  index: -1
+MiniMap
+  rotate: false
+  xy: 1905, 863
+  size: 128, 128
+  orig: 200, 200
+  offset: 41, 36
+  index: -1
+OneBar
+  rotate: false
+  xy: 1900, 1318
+  size: 19, 20
+  orig: 100, 100
+  offset: 41, 44
+  index: -1
+OneWaterBar
+  rotate: false
+  xy: 1900, 1340
+  size: 19, 20
+  orig: 100, 100
+  offset: 41, 43
+  index: -1
+ReductInventoryInGame
+  rotate: false
+  xy: 919, 1279
+  size: 860, 115
+  orig: 860, 115
+  offset: 0, 0
+  index: -1
+ThreeBar
+  rotate: true
+  xy: 1877, 1279
+  size: 56, 20
+  orig: 100, 100
+  offset: 22, 40
+  index: -1
+ThreeWaterBar
+  rotate: true
+  xy: 1878, 1337
+  size: 55, 20
+  orig: 100, 100
+  offset: 23, 42
+  index: -1
+TwoBar
+  rotate: true
+  xy: 1856, 1356
+  size: 37, 20
+  orig: 100, 100
+  offset: 32, 40
+  index: -1
+TwoWaterBar
+  rotate: true
+  xy: 1899, 1279
+  size: 37, 20
+  orig: 100, 100
+  offset: 32, 42
+  index: -1
+WaterBar
+  rotate: true
+  xy: 1781, 1279
+  size: 93, 22
+  orig: 100, 100
+  offset: 3, 44
+  index: -1

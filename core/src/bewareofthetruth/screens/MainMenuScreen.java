@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -18,7 +19,9 @@ public class MainMenuScreen extends GameScreen {
 
 	private Stage _stage;
 	private Main _game;
-
+	private Image _inventoryButton;
+	private boolean _stateButton = false;
+	
 	public MainMenuScreen(Main game){
 		_game = game;
 
@@ -31,6 +34,7 @@ public class MainMenuScreen extends GameScreen {
 		TextButton newGameButton = new TextButton("New Game", Utility.STATUSUI_SKIN);
 		TextButton optionsButton = new TextButton("Options", Utility.STATUSUI_SKIN);
 
+		_inventoryButton = new Image(Utility.STATUSUI_SKIN_TEST, "ReductInventoryInGame");
 		//TextButton loadGameButton = new TextButton("Load Game", Utility.STATUSUI_SKIN);
 		//TextButton watchIntroButton = new TextButton("Watch Intro", Utility.STATUSUI_SKIN);
 		//TextButton creditsButton = new TextButton("Credits", Utility.STATUSUI_SKIN);
@@ -42,6 +46,7 @@ public class MainMenuScreen extends GameScreen {
 		table.add(newGameButton).spaceBottom(10).row();
 		table.add(optionsButton).spaceBottom(10).row();
 		table.add(exitButton).spaceBottom(10).row();
+		table.add(_inventoryButton).spaceBottom(10).row();
 
 		_stage.addActor(table);
 
@@ -59,6 +64,24 @@ public class MainMenuScreen extends GameScreen {
 								  }
 		);
 		
+		_inventoryButton.addListener(new ClickListener() {
+			  @Override
+			  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				  return true;
+			  }
+
+			  @Override
+			  public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+				  if(_stateButton == false) {
+				  _inventoryButton.setDrawable(Utility.STATUSUI_SKIN_TEST, "InventoryInGame");
+				  _stateButton = true;
+				  }else if(_stateButton == true) {
+					  _inventoryButton.setDrawable(Utility.STATUSUI_SKIN_TEST, "ReductInventoryInGame");
+					  _stateButton = false;
+				  }
+			  }
+		  }
+);
 		
 		optionsButton.addListener(new ClickListener() {
 			  @Override

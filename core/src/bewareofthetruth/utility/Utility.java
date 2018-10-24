@@ -3,6 +3,7 @@ package bewareofthetruth.utility;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.assets.loaders.MusicLoader;
 import com.badlogic.gdx.assets.loaders.SoundLoader;
 import com.badlogic.gdx.assets.loaders.TextureLoader;
@@ -24,7 +25,12 @@ public final class Utility {
 	private final static String STATUSUI_SKIN_PATH = "skins/statusui.json";
 	private final static String ITEMS_TEXTURE_ATLAS_PATH = "skins/items.atlas";
 	private final static String ITEMS_SKIN_PATH = "skins/items.json";
-
+	
+	private final static String STATUSUI_TEXTURE_ATLAS_PATH_TEST = "skins/test/statusUI3.atlas";
+	public static TextureAtlas STATUSUI_TEXTUREATLAS_TEST = new TextureAtlas(STATUSUI_TEXTURE_ATLAS_PATH_TEST);
+	public static Skin STATUSUI_SKIN_TEST = new Skin( STATUSUI_TEXTUREATLAS_TEST);
+	public static TextureRegion REDUCTED_INVENTORY = STATUSUI_SKIN_TEST.get("ReductInventoryInGame",TextureRegion.class);
+	
 	public static TextureAtlas STATUSUI_TEXTUREATLAS = new TextureAtlas(STATUSUI_TEXTURE_ATLAS_PATH);
 	public static TextureAtlas ITEMS_TEXTUREATLAS = new TextureAtlas(ITEMS_TEXTURE_ATLAS_PATH);
 	public static Skin STATUSUI_SKIN = new Skin(Gdx.files.internal(STATUSUI_SKIN_PATH), STATUSUI_TEXTUREATLAS);
