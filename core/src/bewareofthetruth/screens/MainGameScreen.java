@@ -157,6 +157,7 @@ public class MainGameScreen extends GameScreen {
 			_mapMgr.setMapChanged(false);
 
 			//_playerHUD.addTransitionToScreen();
+			//System.out.println("ISSOU ISSOU ISSOU ISSOU "+ this._playerHUD._inventoryUI.getHeight() + " " + this._playerHUD._inventoryUI.getWidth() );
 		}
 
 		//_mapMgr.updateLightMaps(_playerHUD.getCurrentTimeOfDay());

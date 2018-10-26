@@ -52,15 +52,16 @@ public class ConversationUI extends Window {
         scrollPane.setForceScroll(true, false);
         scrollPane.setScrollBarPositions(false, true);
 
+        this.setSize(300, 200);
         //layout
         this.add();
         this.add(_closeButton);
         this.row();
 
         this.defaults().expand().fill();
-        this.add(_dialogText).pad(10, 10, 10, 10);
+        this.add(_dialogText).pad(5, 5, 5, 5);
         this.row();
-        this.add(scrollPane).pad(10,10,10,10);
+        this.add(scrollPane).pad(5,5,5,5);
 
         //this.debug();
         this.pack();
