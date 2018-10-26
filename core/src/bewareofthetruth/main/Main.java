@@ -1,7 +1,10 @@
 package bewareofthetruth.main;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Cursor;
+import com.badlogic.gdx.graphics.Pixmap;
 
 import bewareofthetruth.screens.GameOverScreen;
 import bewareofthetruth.screens.LoadGameScreen;
@@ -30,6 +33,8 @@ public class Main extends Game {
 		Credits, MainOptions
 	}
 
+	private Cursor customCursor;
+
 	public Screen getScreenType(ScreenType screenType){
 		switch(screenType){
 			case MainMenu:
@@ -56,6 +61,8 @@ public class Main extends Game {
 
 	@Override
 	public void create(){
+		 customCursor = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("sprites/hud/hud.cursor/Cursor.png")), 48, 26);
+		Gdx.graphics.setCursor(customCursor);
 		_mainGameScreen = new MainGameScreen(this);
 		_mainMenuScreen = new MainMenuScreen(this);
 		_loadGameScreen = new LoadGameScreen(this);
@@ -76,6 +83,8 @@ public class Main extends Game {
 		_gameOverScreen.dispose();
 		//_creditScreen.dispose();
 		_mainOptionsScreen.dispose();
+		customCursor.dispose();
+
 	}
 
 }

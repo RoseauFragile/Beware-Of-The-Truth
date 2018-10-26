@@ -2,6 +2,7 @@ package bewareofthetruth.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -41,6 +42,11 @@ public class MainMenuScreen extends GameScreen {
 		//TextButton creditsButton = new TextButton("Credits", Utility.STATUSUI_SKIN);
 		TextButton exitButton = new TextButton("Exit",Utility.STATUSUI_SKIN);
 
+		//Pixmap pm = new Pixmap(Gdx.files.internal("sprites/hud/hud.cursor/Cursor.png"));
+		//Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, 0, 0));
+		//pm.dispose();
+		
+		
 
 		//Layout
 		table.add(title).spaceBottom(75).row();

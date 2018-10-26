@@ -3,8 +3,10 @@ package bewareofthetruth.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
@@ -128,6 +130,15 @@ public class MainGameScreen extends GameScreen {
 
 	@Override
 	public void render(float delta) {
+        
+		//Pixmap pm = new Pixmap(Gdx.files.internal("sprites/hud/hud.cursor/Cursor.png"));
+
+        //pm.dispose();
+		//Cursor cursor = newCursor(pm,0,0);
+		
+		/*Cursor customCursor = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("sprites/hud/hud.cursor/Cursor.png")), 48, 26);
+		Gdx.graphics.setCursor(customCursor);*/
+		
 		if( _gameState == GameState.GAME_OVER ){
 			_game.setScreen(_game.getScreenType(Main.ScreenType.GameOver));
 		}
@@ -209,7 +220,7 @@ public class MainGameScreen extends GameScreen {
 		}
 		
 		_playerHUD.render(delta);
-		
+		//customCursor.dispose();
 	}
 
 	@Override
