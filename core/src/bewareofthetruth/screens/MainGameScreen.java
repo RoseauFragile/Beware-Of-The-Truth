@@ -14,6 +14,11 @@ import com.badlogic.gdx.maps.tiled.TiledMapImageLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Json;
 
 import bewareofthetruth.audio.AudioManager;
@@ -28,6 +33,7 @@ import bewareofthetruth.map.Map;
 import bewareofthetruth.map.MapFactory;
 import bewareofthetruth.map.MapManager;
 import bewareofthetruth.profile.ProfileManager;
+import bewareofthetruth.utility.Utility;
 
 	
 public class MainGameScreen extends GameScreen {
@@ -63,6 +69,8 @@ public class MainGameScreen extends GameScreen {
 
 	private Entity _player;
 	private PlayerHUD _playerHUD;
+
+	
 
 	public MainGameScreen(Main game){
 		_game = game;
@@ -198,8 +206,9 @@ public class MainGameScreen extends GameScreen {
 			_player.update(_mapMgr, _mapRenderer.getBatch(), delta);
 			_mapMgr.updateCurrentMapEffects(_mapMgr, _mapRenderer.getBatch(), delta);
 		}
-
+		
 		_playerHUD.render(delta);
+		
 	}
 
 	@Override
@@ -207,6 +216,7 @@ public class MainGameScreen extends GameScreen {
 		setupViewport(10, 10);
 		_camera.setToOrtho(false, VIEWPORT.viewportWidth, VIEWPORT.viewportHeight);
 		_playerHUD.resize((int) VIEWPORT.physicalWidth, (int) VIEWPORT.physicalHeight);
+
 	}
 
 	@Override

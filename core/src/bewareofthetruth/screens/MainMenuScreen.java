@@ -35,7 +35,7 @@ public class MainMenuScreen extends GameScreen {
 		TextButton optionsButton = new TextButton("Options", Utility.STATUSUI_SKIN);
 
 		_inventoryButton = new Image(Utility.STATUSUI_SKIN_TEST, "ReductInventoryInGame");
-		//TextButton loadGameButton = new TextButton("Load Game", Utility.STATUSUI_SKIN);
+		TextButton loadGameButton = new TextButton("Load Game", Utility.STATUSUI_SKIN);
 		//TextButton watchIntroButton = new TextButton("Watch Intro", Utility.STATUSUI_SKIN);
 		//TextButton creditsButton = new TextButton("Credits", Utility.STATUSUI_SKIN);
 		TextButton exitButton = new TextButton("Exit",Utility.STATUSUI_SKIN);
@@ -44,6 +44,7 @@ public class MainMenuScreen extends GameScreen {
 		//Layout
 		table.add(title).spaceBottom(75).row();
 		table.add(newGameButton).spaceBottom(10).row();
+		table.add(loadGameButton).spaceBottom(10).row();
 		table.add(optionsButton).spaceBottom(10).row();
 		table.add(exitButton).spaceBottom(10).row();
 		table.add(_inventoryButton).spaceBottom(10).row();
@@ -96,7 +97,7 @@ public class MainMenuScreen extends GameScreen {
 		  }
 );
 		
-		/*loadGameButton.addListener(new ClickListener() {
+		loadGameButton.addListener(new ClickListener() {
 
 									   @Override
 									   public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -108,7 +109,7 @@ public class MainMenuScreen extends GameScreen {
 										   _game.setScreen(_game.getScreenType(ScreenType.LoadGame));
 									   }
 								   }
-		);*/
+		);
 
 		exitButton.addListener(new ClickListener() {
 
