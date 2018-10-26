@@ -16,11 +16,11 @@ public abstract class InputComponent extends ComponentSubject implements Compone
     protected Entity.State _currentState = null;
     protected Json _json;
 
-    public enum Keys {
+    protected enum Keys {
         LEFT, RIGHT, UP, DOWN, QUIT, PAUSE
     }
 
-    public enum Mouse {
+    protected enum Mouse {
         SELECT, DOACTION
     }
 
@@ -42,7 +42,7 @@ public abstract class InputComponent extends ComponentSubject implements Compone
         mouseButtons.put(Mouse.DOACTION, false);
     };
 
-    protected InputComponent(){
+   public InputComponent(){
         _json = new Json();
     }
 

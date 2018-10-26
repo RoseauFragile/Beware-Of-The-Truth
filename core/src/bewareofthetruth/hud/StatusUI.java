@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 
+import bewareofthetruth.battle.LevelTable;
 import bewareofthetruth.inventory.StatusObserver;
 import bewareofthetruth.inventory.StatusSubject;
 import bewareofthetruth.utility.Utility;
@@ -23,7 +24,7 @@ public class StatusUI extends Window implements StatusSubject {
     private ImageButton _questButton;
     private Array<StatusObserver> _observers;
 
-    //private Array<LevelTable> _levelTables;
+    private Array<LevelTable> _levelTables;
     private static final String LEVEL_TABLE_CONFIG = "scripts/level_tables.json";
 
     //Attributes
@@ -49,7 +50,7 @@ public class StatusUI extends Window implements StatusSubject {
     public StatusUI(){
         super("stats", Utility.STATUSUI_SKIN);
 
-      // _levelTables = LevelTable.getLevelTables(LEVEL_TABLE_CONFIG);
+        _levelTables = LevelTable.getLevelTables(LEVEL_TABLE_CONFIG);
 
         _observers = new Array<StatusObserver>();
 
@@ -85,8 +86,6 @@ public class StatusUI extends Window implements StatusSubject {
         //buttons
         _inventoryButton= new ImageButton(Utility.STATUSUI_SKIN, "inventory-button");
         _inventoryButton.getImageCell().size(32, 32);
-        
-        
 
         _questButton = new ImageButton(Utility.STATUSUI_SKIN, "quest-button");
         _questButton.getImageCell().size(32,32);
@@ -209,7 +208,7 @@ public class StatusUI extends Window implements StatusSubject {
     }
 
     public void setStatusForLevel(int level){
-       /* for( LevelTable table: _levelTables ){
+        for( LevelTable table: _levelTables ){
             if( Integer.parseInt(table.getLevelID()) == level ){
                 setXPValueMax(table.getXpMax());
                 setXPValue(0);
@@ -223,11 +222,11 @@ public class StatusUI extends Window implements StatusSubject {
                 setLevelValue(Integer.parseInt(table.getLevelID()));
                 return;
             }
-        }*/
+        }
     }
 
     public void updateToNewLevel(){
-       /* for( LevelTable table: _levelTables ){
+        for( LevelTable table: _levelTables ){
             //System.out.println("XPVAL " + _xpVal + " table XPMAX " + table.getXpMax() );
             if( _xpVal > table.getXpMax() ){
                 continue;
@@ -244,7 +243,7 @@ public class StatusUI extends Window implements StatusSubject {
                 notify(_levelVal, StatusObserver.StatusEvent.LEVELED_UP);
                 return;
             }
-        }*/
+        }
     }
 
     public int getXPValueMax(){

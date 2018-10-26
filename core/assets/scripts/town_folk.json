@@ -101,7 +101,7 @@ animationConfig: [
 entityID : TOWN_FOLK3
 state : IMMOBILE
 direction : DOWN
-conversationConfigPath : ""
+conversationConfigPath : "conversations/conversation004.json"
 questConfigPath : ""
 currentQuestID : ""
 itemTypeID: NONE
@@ -199,7 +199,7 @@ animationConfig: [
 entityID : TOWN_FOLK5
 state : IMMOBILE
 direction : DOWN
-conversationConfigPath : ""
+conversationConfigPath : "conversations/conversation004.json"
 questConfigPath : ""
 currentQuestID : ""
 itemTypeID: NONE

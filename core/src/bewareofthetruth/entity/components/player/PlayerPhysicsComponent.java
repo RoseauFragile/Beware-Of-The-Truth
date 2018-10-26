@@ -230,7 +230,6 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
 
                 if (_boundingBox.overlaps(rectangle) ){
                     String mapName = object.getName();
-                    Gdx.app.debug(TAG, mapName);
                     if( mapName == null ) {
                         return false;
                     }

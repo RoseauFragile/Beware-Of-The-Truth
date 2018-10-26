@@ -37,8 +37,9 @@ import bewareofthetruth.map.MapManager;
 import bewareofthetruth.profile.ProfileManager;
 import bewareofthetruth.profile.ProfileObserver;
 import bewareofthetruth.utility.Utility;
+import bewareofthetruth.quest.QuestGraph;
 
-public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,ComponentObserver,ConversationGraphObserver,StoreInventoryObserver,/* BattleObserver*/, InventoryObserver, StatusObserver {
+public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,ComponentObserver,ConversationGraphObserver,StoreInventoryObserver/*, BattleObserver*/, InventoryObserver, StatusObserver {
     private static final String TAG = PlayerHUD.class.getSimpleName();
 
     private Stage _stage;
@@ -50,18 +51,18 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
     private InventoryUI _inventoryUI;
     private ConversationUI _conversationUI;
     private StoreInventoryUI _storeInventoryUI;
-   // private QuestUI _questUI;
-   // private BattleUI _battleUI;
+    private QuestUI _questUI;
+ //   private BattleUI _battleUI;
 
     private Dialog _messageBoxUI;
     private Json _json;
     private MapManager _mapMgr;
 
     private Array<AudioObserver> _observers;
-   // private ScreenTransitionActor _transitionActor;
+   /* private ScreenTransitionActor _transitionActor;
 
-   // private ShakeCamera _shakeCam;
-   // private ClockActor _clock;
+    private ShakeCamera _shakeCam;
+    private ClockActor _clock;*/
 
     private static final String INVENTORY_FULL = "Your inventory is full!";
 
@@ -74,9 +75,9 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         //_stage.setDebugAll(true);
 
         _observers = new Array<AudioObserver>();
-       // _transitionActor = new ScreenTransitionActor();
+       /* _transitionActor = new ScreenTransitionActor();
 
-       // _shakeCam = new ShakeCamera(0,0, 30.0f);
+        _shakeCam = new ShakeCamera(0,0, 30.0f);*/
 
         _json = new Json();
         _messageBoxUI = new Dialog("Message", Utility.STATUSUI_SKIN, "solidbackground"){
@@ -91,10 +92,10 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
             }
 
         };
-        //_clock = new ClockActor("0", Utility.STATUSUI_SKIN);
-       // _clock.setPosition(_stage.getWidth()-_clock.getWidth(),0);
-       // _clock.setRateOfTime(60);
-       // _clock.setVisible(true);
+        /*_clock = new ClockActor("0", Utility.STATUSUI_SKIN);
+        _clock.setPosition(_stage.getWidth()-_clock.getWidth(),0);
+        _clock.setRateOfTime(60);
+        _clock.setVisible(true);*/
 
         _messageBoxUI.setVisible(false);
         _messageBoxUI.pack();
@@ -124,7 +125,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _storeInventoryUI.setVisible(false);
         _storeInventoryUI.setPosition(0, 0);
 
-       /* _questUI = new QuestUI();
+        _questUI = new QuestUI();
         _questUI.setMovable(false);
         _questUI.setVisible(false);
         _questUI.setKeepWithinStage(false);
@@ -132,23 +133,23 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _questUI.setWidth(_stage.getWidth());
         _questUI.setHeight(_stage.getHeight() / 2);
 
-        _battleUI = new BattleUI();
+      /*  _battleUI = new BattleUI();
         _battleUI.setMovable(false);
         //removes all listeners including ones that handle focus
         _battleUI.clearListeners();
-        _battleUI.setVisible(false);
+        _battleUI.setVisible(false);*/
 
-        _stage.addActor(_battleUI);
-        _stage.addActor(_questUI);*/
+        //_stage.addActor(_battleUI);
+        _stage.addActor(_questUI);
         _stage.addActor(_storeInventoryUI);
         _stage.addActor(_conversationUI);
         _stage.addActor(_messageBoxUI);
         _stage.addActor(_statusUI);
         _stage.addActor(_inventoryUI);
-       /* _stage.addActor(_clock);
+      //  _stage.addActor(_clock);
 
-        _battleUI.validate();
-        _questUI.validate();*/
+      //  _battleUI.validate();
+        _questUI.validate();
         _storeInventoryUI.validate();
         _conversationUI.validate();
         _messageBoxUI.validate();
@@ -167,16 +168,16 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
             _stage.addActor(actor);
         }
 
-        /*_stage.addActor(_transitionActor);
+      /*  _stage.addActor(_transitionActor);
         _transitionActor.setVisible(false);*/
 
         //Observers
         _player.registerObserver(this);
         _statusUI.addObserver(this);
         _storeInventoryUI.addObserver(this);
-       // _inventoryUI.addObserver(_battleUI.getCurrentState());
+      //  _inventoryUI.addObserver(_battleUI.getCurrentState());
         _inventoryUI.addObserver(this);
-       // _battleUI.getCurrentState().addObserver(this);
+      //  _battleUI.getCurrentState().addObserver(this);
         this.addObserver(AudioManager.getInstance());
 
         //Listeners
@@ -190,7 +191,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         ImageButton questButton = _statusUI.getQuestButton();
         questButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-              //  _questUI.setVisible(_questUI.isVisible() ? false : true);
+                _questUI.setVisible(_questUI.isVisible() ? false : true);
             }
         });
 
@@ -235,16 +236,16 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
 
     public void updateEntityObservers(){
         _mapMgr.unregisterCurrentMapEntityObservers();
-       // _questUI.initQuests(_mapMgr);
+        _questUI.initQuests(_mapMgr);
         _mapMgr.registerCurrentMapEntityObservers(this);
     }
 
-    public void addTransitionToScreen(){
-       // _transitionActor.setVisible(true);
-       // _stage.addAction(
-        //        Actions.sequence(
-       //                 Actions.addAction(ScreenTransitionAction.transition(ScreenTransitionAction.ScreenTransitionType.FADE_IN, 1), _transitionActor)));
-    }
+    /*public void addTransitionToScreen(){
+        _transitionActor.setVisible(true);
+        _stage.addAction(
+                Actions.sequence(
+                        Actions.addAction(ScreenTransitionAction.transition(ScreenTransitionAction.ScreenTransitionType.FADE_IN, 1), _transitionActor)));
+    }*/
 
     @Override
     public void onNotify(ProfileManager profileManager, ProfileEvent event) {
@@ -257,7 +258,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
                     InventoryUI.clearInventoryItems(_inventoryUI.getEquipSlotTable());
                     _inventoryUI.resetEquipSlots();
 
-            //        _questUI.setQuests(new Array<QuestGraph>());
+                    _questUI.setQuests(new Array<QuestGraph>());
 
                     //add default items if first time
                     Array<ItemTypeID> items = _player.getEntityConfig().getInventory();
@@ -272,8 +273,8 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
                     _statusUI.setGoldValue(20);
                     _statusUI.setStatusForLevel(1);
 
-            //        _clock.setTotalTime(60 * 60 * 12); //start at noon
-             //       profileManager.setProperty("currentTime", _clock.getTotalTime());
+                 //   _clock.setTotalTime(60 * 60 * 12); //start at noon
+                  //  profileManager.setProperty("currentTime", _clock.getTotalTime());
                 }else{
                     int goldVal = profileManager.getProperty("currentPlayerGP", Integer.class);
 
@@ -286,8 +287,8 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
                         InventoryUI.populateInventory(_inventoryUI.getEquipSlotTable(), equipInventory, _inventoryUI.getDragAndDrop(), InventoryUI.PLAYER_INVENTORY, false);
                     }
 
-              /*      Array<QuestGraph> quests = profileManager.getProperty("playerQuests", Array.class);
-                    _questUI.setQuests(quests);*/
+                    Array<QuestGraph> quests = profileManager.getProperty("playerQuests", Array.class);
+                    _questUI.setQuests(quests);
 
                     int xpMaxVal = profileManager.getProperty("currentPlayerXPMax", Integer.class);
                     int xpVal = profileManager.getProperty("currentPlayerXP", Integer.class);
@@ -313,13 +314,13 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
                     _statusUI.setGoldValue(goldVal);
                     _statusUI.setLevelValue(levelVal);
 
-                    float totalTime = profileManager.getProperty("currentTime", Float.class);
-           //         _clock.setTotalTime(totalTime);
+                 //   float totalTime = profileManager.getProperty("currentTime", Float.class);
+                 //   _clock.setTotalTime(totalTime);
                 }
 
             break;
             case SAVING_PROFILE:
-          //      profileManager.setProperty("playerQuests", _questUI.getQuests());
+                profileManager.setProperty("playerQuests", _questUI.getQuests());
                 profileManager.setProperty("playerInventory", InventoryUI.getInventory(_inventoryUI.getInventorySlotTable()));
                 profileManager.setProperty("playerEquipInventory", InventoryUI.getInventory(_inventoryUI.getEquipSlotTable()));
                 profileManager.setProperty("currentPlayerGP", _statusUI.getGoldValue() );
@@ -333,7 +334,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
             //    profileManager.setProperty("currentTime", _clock.getTotalTime());
                 break;
             case CLEAR_CURRENT_PROFILE:
-          //      profileManager.setProperty("playerQuests", new Array<QuestGraph>());
+                profileManager.setProperty("playerQuests", new Array<QuestGraph>());
                 profileManager.setProperty("playerInventory", new Array<InventoryItemLocation>());
                 profileManager.setProperty("playerEquipInventory", new Array<InventoryItemLocation>());
                 profileManager.setProperty("currentPlayerGP", 0 );
@@ -387,12 +388,12 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
                 String questTaskID = string[1];
 
 
-             //   _questUI.questTaskComplete(questID, questTaskID);
+                _questUI.questTaskComplete(questID, questTaskID);
                 updateEntityObservers();
                 break;
             case ENEMY_SPAWN_LOCATION_CHANGED:
                 String enemyZoneID = value;
-             //   _battleUI.battleZoneTriggered(Integer.parseInt(enemyZoneID));
+                //_battleUI.battleZoneTriggered(Integer.parseInt(enemyZoneID));
                 break;
             case PLAYER_HAS_MOVED:
              /*   if( _battleUI.isBattleReady() ){
@@ -444,15 +445,15 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
                 }
                 EntityConfig config = currentlySelectedEntity.getEntityConfig();
 
-             //   QuestGraph questGraph = _questUI.loadQuest(config.getQuestConfigPath());
+                QuestGraph questGraph = _questUI.loadQuest(config.getQuestConfigPath());
 
-              /*  if( questGraph != null ){
+                if( questGraph != null ){
                     //Update conversation dialog
                     config.setConversationConfigPath(QuestUI.RETURN_QUEST);
                     config.setCurrentQuestID(questGraph.getQuestID());
                     ProfileManager.getInstance().setProperty(config.getEntityID(), config);
                     updateEntityObservers();
-                }*/
+                }
 
                 _conversationUI.setVisible(false);
                 _mapMgr.clearCurrentSelectedMapEntity();
@@ -557,16 +558,16 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
 
     @Override
     public void show() {
-        _shakeCam.reset();
+        //_shakeCam.reset();
     }
 
     @Override
     public void render(float delta) {
-        if( _shakeCam.isCameraShaking() ){
+       /* if( _shakeCam.isCameraShaking() ){
             Vector2 shakeCoords = _shakeCam.getNewShakePosition();
             _camera.position.x = shakeCoords.x + _stage.getWidth()/2;
             _camera.position.y = shakeCoords.y + _stage.getHeight()/2;
-        }
+        }*/
         _stage.act(delta);
         _stage.draw();
     }
@@ -574,13 +575,13 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
     @Override
     public void resize(int width, int height) {
         _stage.getViewport().update(width, height, true);
-        _battleUI.validate();
-        _battleUI.resize();
+       /* _battleUI.validate();
+        _battleUI.resize();*/
     }
 
     @Override
     public void pause() {
-        _battleUI.resetDefaults();
+       // _battleUI.resetDefaults();
     }
 
     @Override
@@ -596,9 +597,9 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _stage.dispose();
     }
 
-    @Override
-    public void onNotify(Entity enemyEntity, BattleEvent event) {
-        switch (event) {
+   /* @Override
+    public void onNotify(Entity enemyEntity/*, BattleEvent event*/
+      /*  switch (event) {
             case OPPONENT_HIT_DAMAGE:
                 notify(AudioObserver.AudioCommand.SOUND_PLAY_ONCE, AudioObserver.AudioTypeEvent.SOUND_CREATURE_PAIN);
                 break;
@@ -642,7 +643,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
             default:
                 break;
         }
-    }
+    }*/
 
     @Override
     public void onNotify(String value, InventoryEvent event) {

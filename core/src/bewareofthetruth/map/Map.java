@@ -26,7 +26,6 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 public abstract class Map implements AudioSubject{
     private static final String TAG = Map.class.getSimpleName();
 
-    //TODO A changer pour les nouveaux sprites
     public final static float UNIT_SCALE  = 1/64f;
 
     private Array<AudioObserver> _observers;
@@ -63,7 +62,6 @@ public abstract class Map implements AudioSubject{
     protected Array<Vector2> _npcStartPositions;
     protected Hashtable<String, Vector2> _specialNPCStartPositions;
 
-    //TODO il va falloir faire collsions avec des rectilignes et non plus seulement des rectangles
     protected MapLayer _collisionLayer = null;
     protected MapLayer _portalLayer = null;
     protected MapLayer _spawnsLayer = null;
@@ -126,43 +124,43 @@ public abstract class Map implements AudioSubject{
 
         _questItemSpawnLayer = _currentMap.getLayers().get(QUEST_ITEM_SPAWN_LAYER);
         if( _questItemSpawnLayer == null ){
-           // Gdx.app.debug(TAG, "No quest item spawn layer!");
+            Gdx.app.debug(TAG, "No quest item spawn layer!");
         }
 
         _questDiscoverLayer = _currentMap.getLayers().get(QUEST_DISCOVER_LAYER);
         if( _questDiscoverLayer == null ){
-           // Gdx.app.debug(TAG, "No quest discover layer!");
+            Gdx.app.debug(TAG, "No quest discover layer!");
         }
 
         _enemySpawnLayer = _currentMap.getLayers().get(ENEMY_SPAWN_LAYER);
         if( _enemySpawnLayer == null ){
-           // Gdx.app.debug(TAG, "No enemy layer found!");
+            Gdx.app.debug(TAG, "No enemy layer found!");
         }
 
         _lightMapDawnLayer = _currentMap.getLayers().get(LIGHTMAP_DAWN_LAYER);
         if( _lightMapDawnLayer == null ){
-           // Gdx.app.debug(TAG, "No dawn lightmap layer found!");
+            Gdx.app.debug(TAG, "No dawn lightmap layer found!");
         }
 
         _lightMapAfternoonLayer = _currentMap.getLayers().get(LIGHTMAP_AFTERNOON_LAYER);
         if( _lightMapAfternoonLayer == null ){
-           // Gdx.app.debug(TAG, "No afternoon lightmap layer found!");
+            Gdx.app.debug(TAG, "No afternoon lightmap layer found!");
         }
 
 
         _lightMapDuskLayer = _currentMap.getLayers().get(LIGHTMAP_DUSK_LAYER);
         if( _lightMapDuskLayer == null ){
-           // Gdx.app.debug(TAG, "No dusk lightmap layer found!");
+            Gdx.app.debug(TAG, "No dusk lightmap layer found!");
         }
 
         _lightMapNightLayer = _currentMap.getLayers().get(LIGHTMAP_NIGHT_LAYER);
         if( _lightMapNightLayer == null ){
-           // Gdx.app.debug(TAG, "No night lightmap layer found!");
+            Gdx.app.debug(TAG, "No night lightmap layer found!");
         }
 
         _particleEffectSpawnLayer = _currentMap.getLayers().get(PARTICLE_EFFECT_SPAWN_LAYER);
         if( _particleEffectSpawnLayer == null ){
-           // Gdx.app.debug(TAG, "No particle effect spawn layer!");
+            Gdx.app.debug(TAG, "No particle effect spawn layer!");
         }
 
         _npcStartPositions = getNPCStartPositions();
@@ -376,8 +374,6 @@ public abstract class Map implements AudioSubject{
             //scale by the unit to convert from map coordinates
             x *= UNIT_SCALE;
             y *= UNIT_SCALE;
-            
-            Gdx.app.debug(TAG,"debug : " + object.getName() + " x : " + x + " y : "+y);
 
             specialNPCStartPositions.put(objectName, new Vector2(x,y));
         }
@@ -385,7 +381,7 @@ public abstract class Map implements AudioSubject{
     }
 
     private void setClosestStartPosition(final Vector2 position){
-         //Gdx.app.debug(TAG, "setClosestStartPosition INPUT: (" + position.x + "," + position.y + ") " + _currentMapType.toString());
+         Gdx.app.debug(TAG, "setClosestStartPosition INPUT: (" + position.x + "," + position.y + ") " + _currentMapType.toString());
 
         //Get last known position on this map
         _playerStartPositionRect.set(0,0);
@@ -404,12 +400,12 @@ public abstract class Map implements AudioSubject{
                 ((RectangleMapObject)object).getRectangle().getPosition(_playerStartPositionRect);
                 float distance = position.dst2(_playerStartPositionRect);
 
-               // Gdx.app.debug(TAG, "DISTANCE: " + distance + " for " + _currentMapType.toString());
+                Gdx.app.debug(TAG, "DISTANCE: " + distance + " for " + _currentMapType.toString());
 
                 if( distance < shortestDistance || shortestDistance == 0 ){
                     _closestPlayerStartPosition.set(_playerStartPositionRect);
                     shortestDistance = distance;
-                   // Gdx.app.debug(TAG, "closest START is: (" + _closestPlayerStartPosition.x + "," + _closestPlayerStartPosition.y + ") " +  _currentMapType.toString());
+                    Gdx.app.debug(TAG, "closest START is: (" + _closestPlayerStartPosition.x + "," + _closestPlayerStartPosition.y + ") " +  _currentMapType.toString());
                 }
             }
         }

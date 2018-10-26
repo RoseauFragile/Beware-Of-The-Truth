@@ -44,7 +44,7 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
         CENTER,
     }
 
-    protected PhysicsComponent(){
+   public PhysicsComponent(){
         this._nextEntityPosition = new Vector2(0,0);
         this._currentEntityPosition = new Vector2(0,0);
         this._velocity = new Vector2(2f,2f);
@@ -245,4 +245,3 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
         //Gdx.app.debug(TAG, "SETTING Bounding Box for " + entity.getEntityConfig().getEntityID() + ": (" + minX + "," + minY + ")  width: " + width + " height: " + height);
     }
 }
-

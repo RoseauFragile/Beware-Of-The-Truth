@@ -17,7 +17,6 @@ import bewareofthetruth.map.MapManager;
 import bewareofthetruth.utility.Utility;
 
 public abstract class GraphicsComponent extends ComponentSubject implements Component {
-	private static String TAG = GraphicsComponent.class.getSimpleName();
     protected TextureRegion _currentFrame = null;
     protected float _frameTime = 0f;
     protected Entity.State _currentState;
@@ -131,7 +130,6 @@ public abstract class GraphicsComponent extends ComponentSubject implements Comp
         Utility.loadTextureAsset(textureName);
         Texture texture = Utility.getTextureAsset(textureName);
 
-       
         TextureRegion[][] textureFrames = TextureRegion.split(texture, Entity.FRAME_WIDTH, Entity.FRAME_HEIGHT);
 
         TextureRegion[] animationKeyFrames = new TextureRegion[points.size];

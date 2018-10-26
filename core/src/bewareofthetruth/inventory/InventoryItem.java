@@ -4,9 +4,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class InventoryItem extends Image{
+public class InventoryItem extends Image {
 
-	public enum ItemAttribute{
+    public enum ItemAttribute{
         CONSUMABLE(1),
         EQUIPPABLE(2),
         STACKABLE(4);

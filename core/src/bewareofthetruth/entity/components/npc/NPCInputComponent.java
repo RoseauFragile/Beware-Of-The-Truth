@@ -9,7 +9,7 @@ import bewareofthetruth.entity.Entity.Direction;
 import bewareofthetruth.entity.Entity.State;
 import bewareofthetruth.entity.components.InputComponent;
 import bewareofthetruth.entity.components.Component.MESSAGE;
-import bewareofthetruth.entity.components.InputComponent.Keys;
+
 
 public class NPCInputComponent extends InputComponent {
     private static final String TAG = NPCInputComponent.class.getSimpleName();

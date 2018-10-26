@@ -18,10 +18,12 @@ import bewareofthetruth.entity.EntityConfig.AnimationConfig;
 import bewareofthetruth.entity.components.GraphicsComponent;
 import bewareofthetruth.entity.components.Component.MESSAGE;
 import bewareofthetruth.map.MapManager;
+import bewareofthetruth.entity.components.ComponentObserver;
+
 
 public class PlayerGraphicsComponent extends GraphicsComponent {
 
-	private static final String TAG = PlayerGraphicsComponent.class.getSimpleName();
+    private static final String TAG = PlayerGraphicsComponent.class.getSimpleName();
 
     protected Vector2 _previousPosition;
 
@@ -76,7 +78,7 @@ public class PlayerGraphicsComponent extends GraphicsComponent {
         //Player has moved
         if( _previousPosition.x != _currentPosition.x ||
                 _previousPosition.y != _currentPosition.y){
-            //notify("", ComponentObserver.ComponentEvent.PLAYER_HAS_MOVED);
+            notify("", ComponentObserver.ComponentEvent.PLAYER_HAS_MOVED);
             _previousPosition = _currentPosition.cpy();
         }
 

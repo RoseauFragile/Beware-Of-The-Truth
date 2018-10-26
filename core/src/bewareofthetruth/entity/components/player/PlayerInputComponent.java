@@ -9,13 +9,12 @@ import bewareofthetruth.entity.Entity;
 import bewareofthetruth.entity.Entity.Direction;
 import bewareofthetruth.entity.Entity.State;
 import bewareofthetruth.entity.components.InputComponent;
+import bewareofthetruth.screens.MainGameScreen;
 import bewareofthetruth.entity.components.Component.MESSAGE;
-import bewareofthetruth.entity.components.InputComponent.Keys;
-import bewareofthetruth.entity.components.InputComponent.Mouse;
 
-public class PlayerInputComponent extends InputComponent implements InputProcessor {
-	
-	@SuppressWarnings("unused")
+
+public class PlayerInputComponent extends InputComponent {
+
 	private final static String TAG = PlayerInputComponent.class.getSimpleName();
 	private Vector3 _lastMouseCoordinates;
 
@@ -45,10 +44,10 @@ public class PlayerInputComponent extends InputComponent implements InputProcess
 	@Override
 	public void update(Entity entity, float delta){
 		//Keyboard input
-		/*if(keys.get(Keys.PAUSE)) {
+		if(keys.get(Keys.PAUSE)) {
 			MainGameScreen.setGameState(MainGameScreen.GameState.PAUSED);
 			pauseReleased();
-		}else*/ if( keys.get(Keys.LEFT)){
+		}else if( keys.get(Keys.LEFT)){
 			entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.WALKING));
 			entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.LEFT));
 		}else if( keys.get(Keys.RIGHT)){
@@ -95,9 +94,9 @@ public class PlayerInputComponent extends InputComponent implements InputProcess
 		if( keycode == Input.Keys.Q){
 			this.quitPressed();
 		}
-		/*if( keycode == Input.Keys.P ){
+		if( keycode == Input.Keys.P ){
 			this.pausePressed();
-		}*/
+		}
 
 		return true;
 	}
@@ -119,9 +118,9 @@ public class PlayerInputComponent extends InputComponent implements InputProcess
 		if( keycode == Input.Keys.Q){
 			this.quitReleased();
 		}
-		/*if( keycode == Input.Keys.P ){
+		if( keycode == Input.Keys.P ){
 			this.pauseReleased();
-		}*/
+		}
 		return true;
 	}
 
@@ -195,9 +194,9 @@ public class PlayerInputComponent extends InputComponent implements InputProcess
 		keys.put(Keys.QUIT, true);
 	}
 
-	/*public void pausePressed() {
+	public void pausePressed() {
 		keys.put(Keys.PAUSE, true);
-	}*/
+	}
 	
 	public void setClickedMouseCoordinates(int x,int y){
 		_lastMouseCoordinates.set(x, y, 0);
@@ -233,7 +232,7 @@ public class PlayerInputComponent extends InputComponent implements InputProcess
 		keys.put(Keys.QUIT, false);
 	}
 
-	//public void pauseReleased() { keys.put(Keys.PAUSE, false);}
+	public void pauseReleased() { keys.put(Keys.PAUSE, false);}
 	
 	public void selectMouseButtonReleased(int x, int y){
 		mouseButtons.put(Mouse.SELECT, false);
@@ -250,5 +249,4 @@ public class PlayerInputComponent extends InputComponent implements InputProcess
 		keys.put(Keys.DOWN, false);
 		keys.put(Keys.QUIT, false);
 	}
-
 }

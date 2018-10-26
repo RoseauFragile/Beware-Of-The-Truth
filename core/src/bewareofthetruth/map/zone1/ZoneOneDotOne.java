@@ -39,7 +39,7 @@ public class ZoneOneDotOne extends Map{
             _mapEntities.add(entity);
         }
 
-        /*
+        
         //Special cases
         Entity blackSmith = EntityFactory.getInstance().getEntityByName(EntityFactory.EntityName.TOWN_BLACKSMITH);
         initSpecialEntityPosition(blackSmith);
@@ -52,7 +52,7 @@ public class ZoneOneDotOne extends Map{
         Entity innKeeper = EntityFactory.getInstance().getEntityByName(EntityFactory.EntityName.TOWN_INNKEEPER);
         initSpecialEntityPosition(innKeeper);
         _mapEntities.add(innKeeper);
-*/
+
         Entity townfolk1 = EntityFactory.getInstance().getEntityByName(EntityFactory.EntityName.TOWN_FOLK1);
         initSpecialEntityPosition(townfolk1);
         _mapEntities.add(townfolk1);

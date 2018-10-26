@@ -23,7 +23,7 @@ import java.util.Hashtable;
 
 public class MapManager implements ProfileObserver {
     private static final String TAG = MapManager.class.getSimpleName();
-  //TODO Soit on garde cette architecture et on créer une map pour chaque Level ce qui est en soit efficaces pour un rpg mais LOURD soit on fais une factory plus élaboré avec la bdd
+
     private Camera _camera;
     private boolean _mapChanged = false;
     private Map _currentMap;
@@ -31,7 +31,7 @@ public class MapManager implements ProfileObserver {
     private Entity _currentSelectedEntity = null;
     private MapLayer _currentLightMap = null;
     private MapLayer _previousLightMap = null;
-    //private ClockActor.TimeOfDay _timeOfDay = null;
+   // private ClockActor.TimeOfDay _timeOfDay = null;
     private float _currentLightMapOpacity = 0;
     private float _previousLightMapOpacity = 1;
     private boolean _timeOfDayChanged = false;
@@ -83,7 +83,7 @@ public class MapManager implements ProfileObserver {
 
                 MapFactory.clearCache();
 
-                profileManager.setProperty("topWorldMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_2).getPlayerStart() );
+                profileManager.setProperty("topWorldMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_1).getPlayerStart() );
                 profileManager.setProperty("castleOfDoomMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_3).getPlayerStart() );
                 profileManager.setProperty("townMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_1).getPlayerStart() );
                 break;
@@ -204,7 +204,7 @@ public class MapManager implements ProfileObserver {
         return _currentLightMap;
     }
 
-    /*public void updateLightMaps(ClockActor.TimeOfDay timeOfDay){
+   /* public void updateLightMaps(ClockActor.TimeOfDay timeOfDay){
         if( _timeOfDay != timeOfDay ){
             _currentLightMapOpacity = 0;
             _previousLightMapOpacity = 1;

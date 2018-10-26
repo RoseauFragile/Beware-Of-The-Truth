@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="left-up" width="13" height="13" tilewidth="128" tileheight="128" infinite="0" nextobjectid="56">
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="left-up" width="13" height="13" tilewidth="128" tileheight="128" infinite="0" nextobjectid="59">
  <tileset firstgid="1" source="tileset/sol.tsx"/>
  <tileset firstgid="19" source="tileset/mur.tsx"/>
  <tileset firstgid="67" source="tileset/lampe3.tsx"/>
@@ -64,5 +64,8 @@
   <object id="53" name="TOWN_FOLK5" x="429" y="1168" width="64" height="64"/>
   <object id="54" name="TOWN_FOLK4" x="327" y="1164" width="64" height="64"/>
   <object id="55" name="PLAYER_START" x="16" y="681.33" width="32.6667" height="64.6667"/>
+  <object id="56" name="TOWN_MAGE" x="990" y="1158" width="64" height="64"/>
+  <object id="57" name="TOWN_INNKEEPER" x="898" y="1016" width="64" height="64"/>
+  <object id="58" name="TOWN_BLACKSMITH" x="1064" y="1012" width="64" height="64"/>
  </objectgroup>
 </map>

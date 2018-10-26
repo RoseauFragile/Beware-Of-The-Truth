@@ -7,49 +7,49 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Payload;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Source;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Target;
 
-public class InventorySlotSource extends Source{
+public class InventorySlotSource extends Source {
 
-	 private DragAndDrop _dragAndDrop;
-	    private InventorySlot _sourceSlot;
+    private DragAndDrop _dragAndDrop;
+    private InventorySlot _sourceSlot;
 
-	    public InventorySlotSource(InventorySlot sourceSlot, DragAndDrop dragAndDrop) {
-	        super(sourceSlot.getTopInventoryItem());
-	        this._sourceSlot = sourceSlot;
-	        this._dragAndDrop = dragAndDrop;
-	    }
+    public InventorySlotSource(InventorySlot sourceSlot, DragAndDrop dragAndDrop) {
+        super(sourceSlot.getTopInventoryItem());
+        this._sourceSlot = sourceSlot;
+        this._dragAndDrop = dragAndDrop;
+    }
 
-	    @Override
-	    public Payload dragStart(InputEvent event, float x, float y, int pointer) {
-	        Payload payload = new Payload();
+    @Override
+    public Payload dragStart(InputEvent event, float x, float y, int pointer) {
+        Payload payload = new Payload();
 
-	        Actor actor = getActor();
-	        if( actor == null ){
-	            return null;
-	        }
+        Actor actor = getActor();
+        if( actor == null ){
+            return null;
+        }
 
-	        InventorySlot source = (InventorySlot)actor.getParent();
-	        if( source == null ){
-	            return null;
-	        }else{
-	            _sourceSlot = source;
-	        }
+        InventorySlot source = (InventorySlot)actor.getParent();
+        if( source == null ){
+            return null;
+        }else{
+            _sourceSlot = source;
+        }
 
-	    _sourceSlot.decrementItemCount(true);
+    _sourceSlot.decrementItemCount(true);
 
-	    payload.setDragActor(getActor());
-	    _dragAndDrop.setDragActorPosition(-x, -y + getActor().getHeight());
+    payload.setDragActor(getActor());
+    _dragAndDrop.setDragActorPosition(-x, -y + getActor().getHeight());
 
-	    return payload;
-	}
+    return payload;
+}
 
-	    @Override
-	    public void dragStop (InputEvent event, float x, float y, int pointer, Payload payload, Target target) {
-	        if( target == null ){
-	            _sourceSlot.add(payload.getDragActor());
-	        }
-	    }
+    @Override
+    public void dragStop (InputEvent event, float x, float y, int pointer, Payload payload, Target target) {
+        if( target == null ){
+            _sourceSlot.add(payload.getDragActor());
+        }
+    }
 
-	    public InventorySlot getSourceSlot() {
-	        return _sourceSlot;
-	    }
-	}
+    public InventorySlot getSourceSlot() {
+        return _sourceSlot;
+    }
+}
