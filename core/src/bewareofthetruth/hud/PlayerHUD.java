@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -52,6 +53,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
     private ConversationUI _conversationUI;
     private StoreInventoryUI _storeInventoryUI;
     private QuestUI _questUI;
+    private TestHud _testHud;
  //   private BattleUI _battleUI;
 
     private Dialog _messageBoxUI;
@@ -106,13 +108,25 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _statusUI.setPosition(0, 0);
         _statusUI.setKeepWithinStage(false);
         _statusUI.setMovable(false);
+        
+        _testHud = new TestHud();
+        _testHud.setVisible(true);
+        _testHud.setPosition((Gdx.graphics.getWidth() /2 - ( _testHud.getWidth())) + (_testHud.getWidth() /2), 0);
+        
+        
+        System.out.println("gdx " +Gdx.graphics.getWidth());
+        System.out.println("testHud " +_testHud.getWidth());
+        System.out.println("gdx - testHud " + (Gdx.graphics.getWidth() /2 - ( _testHud.getWidth())));
+
+        _testHud.setKeepWithinStage(false);
+        _testHud.setMovable(false);
 
         _inventoryUI = new InventoryUI();
         _inventoryUI.setKeepWithinStage(false);
         _inventoryUI.setMovable(false);
         _inventoryUI.setVisible(false);
         _inventoryUI.setPosition(_statusUI.getWidth(), 0);
-     //   _inventoryUI.setSize(250,200);
+
 
         _conversationUI = new ConversationUI();
         _conversationUI.setMovable(true);
@@ -146,6 +160,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _stage.addActor(_conversationUI);
         _stage.addActor(_messageBoxUI);
         _stage.addActor(_statusUI);
+        _stage.addActor(_testHud);
         _stage.addActor(_inventoryUI);
       //  _stage.addActor(_clock);
 
@@ -156,6 +171,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _messageBoxUI.validate();
         _statusUI.validate();
         _inventoryUI.validate();
+        _testHud.validate();
        // _clock.validate();
 
         //add tooltips to the stage
@@ -175,6 +191,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         //Observers
         _player.registerObserver(this);
         _statusUI.addObserver(this);
+        _testHud.addObserver(this);
         _storeInventoryUI.addObserver(this);
       //  _inventoryUI.addObserver(_battleUI.getCurrentState());
         _inventoryUI.addObserver(this);
@@ -188,6 +205,13 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
                 _inventoryUI.setVisible(_inventoryUI.isVisible() ? false : true);
             }
         });
+        
+        ImageButton testButton = _testHud.getTestButton();
+        testButton.addListener(new ClickListener() /*{
+            public void clicked(InputEvent event, float x, float y) {
+            	//_testHud.setVisible(_testHud.isVisible() ? false : true);
+            }
+        }*/);
 
         ImageButton questButton = _statusUI.getQuestButton();
         questButton.addListener(new ClickListener() {

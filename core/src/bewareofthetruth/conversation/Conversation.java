@@ -22,5 +22,4 @@ public class Conversation {
     public void setDialog(String dialog){
         this.dialog = dialog;
     }
-
 }

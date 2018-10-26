@@ -22,6 +22,7 @@ public class StatusUI extends Window implements StatusSubject {
 
     private ImageButton _inventoryButton;
     private ImageButton _questButton;
+   // private ImageButton _testButton;
     private Array<StatusObserver> _observers;
 
     private Array<LevelTable> _levelTables;
@@ -46,6 +47,7 @@ public class StatusUI extends Window implements StatusSubject {
 
     private float _barWidth = 0;
     private float _barHeight = 0;
+	
 
     public StatusUI(){
         super("stats", Utility.STATUSUI_SKIN);
@@ -58,6 +60,8 @@ public class StatusUI extends Window implements StatusSubject {
         WidgetGroup group = new WidgetGroup();
         WidgetGroup group2 = new WidgetGroup();
         WidgetGroup group3 = new WidgetGroup();
+        
+
 
         //images
         _hpBar = new Image(Utility.STATUSUI_TEXTUREATLAS.findRegion("HP_Bar"));
@@ -66,7 +70,10 @@ public class StatusUI extends Window implements StatusSubject {
         Image bar2 = new Image(Utility.STATUSUI_TEXTUREATLAS.findRegion("Bar"));
         _xpBar = new Image(Utility.STATUSUI_TEXTUREATLAS.findRegion("XP_Bar"));
         Image bar3 = new Image(Utility.STATUSUI_TEXTUREATLAS.findRegion("Bar"));
-
+        
+        
+        
+        
         _barWidth = _hpBar.getWidth();
         _barHeight = _hpBar.getHeight();
 
@@ -90,6 +97,8 @@ public class StatusUI extends Window implements StatusSubject {
         _questButton = new ImageButton(Utility.STATUSUI_SKIN, "quest-button");
         _questButton.getImageCell().size(32,32);
 
+        //_testButton = new ImageButton(Utility.STATUSUI_SKIN_TEST, "inventory-test-button");
+        
         //Align images
         _hpBar.setPosition(3, 6);
         _mpBar.setPosition(3, 6);
@@ -102,6 +111,8 @@ public class StatusUI extends Window implements StatusSubject {
         group2.addActor(_mpBar);
         group3.addActor(bar3);
         group3.addActor(_xpBar);
+       
+        
 
         //Add to layout
         defaults().expand().fill();
@@ -134,6 +145,7 @@ public class StatusUI extends Window implements StatusSubject {
         this.row();
         this.add(goldLabel);
         this.add(_goldValLabel).align(Align.left);
+
 
         //this.debug();
         this.pack();

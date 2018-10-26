@@ -1,0 +1,5 @@
+{
+	"com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle": {
+		"inventory-test-button": { "imageUp": "ReductInventoryInGame", "imageChecked": "InventoryInGame" },
+	},
+}

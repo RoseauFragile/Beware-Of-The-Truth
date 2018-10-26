@@ -25,6 +25,7 @@ public class MainMenuScreen extends GameScreen {
 	public MainMenuScreen(Main game){
 		_game = game;
 
+		//System.out.println("è-è---------------------------------------------------------------------/n\n" + Gdx.files.internal(Utility.STATUSUI_SKIN_TEST.toString()));
 		//creation
 		_stage = new Stage();
 		Table table = new Table();
@@ -34,7 +35,7 @@ public class MainMenuScreen extends GameScreen {
 		TextButton newGameButton = new TextButton("New Game", Utility.STATUSUI_SKIN);
 		TextButton optionsButton = new TextButton("Options", Utility.STATUSUI_SKIN);
 
-		_inventoryButton = new Image(Utility.STATUSUI_SKIN_TEST, "ReductInventoryInGame");
+		//_inventoryButton = new Image(Utility.STATUSUI_SKIN_TEST, "ReductInventoryInGame");
 		TextButton loadGameButton = new TextButton("Load Game", Utility.STATUSUI_SKIN);
 		//TextButton watchIntroButton = new TextButton("Watch Intro", Utility.STATUSUI_SKIN);
 		//TextButton creditsButton = new TextButton("Credits", Utility.STATUSUI_SKIN);
@@ -47,7 +48,7 @@ public class MainMenuScreen extends GameScreen {
 		table.add(loadGameButton).spaceBottom(10).row();
 		table.add(optionsButton).spaceBottom(10).row();
 		table.add(exitButton).spaceBottom(10).row();
-		table.add(_inventoryButton).spaceBottom(10).row();
+		//table.add(_inventoryButton).spaceBottom(10).row();
 
 		_stage.addActor(table);
 
@@ -65,7 +66,7 @@ public class MainMenuScreen extends GameScreen {
 								  }
 		);
 		
-		_inventoryButton.addListener(new ClickListener() {
+		/*_inventoryButton.addListener(new ClickListener() {
 			  @Override
 			  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				  return true;
@@ -82,7 +83,7 @@ public class MainMenuScreen extends GameScreen {
 				  }
 			  }
 		  }
-);
+);*/
 		
 		optionsButton.addListener(new ClickListener() {
 			  @Override
