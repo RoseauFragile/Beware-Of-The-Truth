@@ -1,5 +1,5 @@
 {
-questTitle : "Give Me My Baby Back!"
+questTitle : "Fini le jeu"
 questID : 3
 goldReward : 20
 xpReward : 20
@@ -21,12 +21,12 @@ questTasks: {
 			}
 			TARGET_LOCATION: {
 				class: java.lang.String
-				value: "TOWN"
+				value: "ZONE_TEST"
 			}
 			
 		}
 		id: 2
-		taskPhrase: Please find my missing baby!
+		taskPhrase: Tu veux rouler sur l'or ?
 		questType : FETCH
 	}
 	1: {
@@ -41,18 +41,18 @@ questTasks: {
 			}
 			TARGET_LOCATION: {
 				class: java.lang.String
-				value: "TOWN"
+				value: "ZONE_TEST"
 			}
 		}
 		id: 1
-		taskPhrase: Give me my baby!
+		taskPhrase: Rends mon bebe
 		questType : RETURN
 	}
 }
 questTaskDependencies: {
 	1: [
 		{
-			class: com.packtpub.libgdx.bludbourne.quest.QuestTaskDependency
+			class: bewareofthetruth.quest.QuestTaskDependency
 			sourceId: 1
 			destinationId: 2
 		}

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="left-up" width="22" height="14" tilewidth="128" tileheight="128" infinite="0" nextobjectid="36">
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="left-up" width="22" height="14" tilewidth="128" tileheight="128" infinite="0" nextobjectid="37">
  <tileset firstgid="1" source="tileset/mur.tsx"/>
  <tileset firstgid="49" source="tileset/sol.tsx"/>
  <tileset firstgid="67" source="tileset/lampe3.tsx"/>
@@ -66,5 +66,12 @@
   <object id="32" name="TOWN_MAGE" x="936" y="556" width="64" height="64"/>
   <object id="33" name="TOWN_INNKEEPER" x="1074.67" y="561.333" width="64" height="64"/>
   <object id="35" name="TOWN_BLACKSMITH" x="1217.33" y="560" width="64" height="64"/>
+ </objectgroup>
+ <objectgroup name="MAP_QUEST_ITEM_SPAWN_LAYER">
+  <object id="36" name="3" x="1234" y="1074" width="68" height="46">
+   <properties>
+    <property name="taskID" value="2"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

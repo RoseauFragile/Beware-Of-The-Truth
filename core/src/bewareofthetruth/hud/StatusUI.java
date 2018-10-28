@@ -29,15 +29,15 @@ public class StatusUI extends Window implements StatusSubject {
     private static final String LEVEL_TABLE_CONFIG = "scripts/level_tables.json";
 
     //Attributes
-    private int _levelVal = -1;
-    private int _goldVal = -1;
-    private int _hpVal = -1;
-    private int _mpVal = -1;
+    private int _levelVal = 0;
+    private int _goldVal = 0;
+    private int _hpVal = 0;
+    private int _mpVal = 0;
     private int _xpVal = 0;
 
-    private int _xpCurrentMax = -1;
-    private int _hpCurrentMax = -1;
-    private int _mpCurrentMax = -1;
+    private int _xpCurrentMax = 10;
+    private int _hpCurrentMax = 10;
+    private int _mpCurrentMax = 10;
 
     private Label _hpValLabel;
     private Label _mpValLabel;

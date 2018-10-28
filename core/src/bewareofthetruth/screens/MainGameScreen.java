@@ -131,13 +131,7 @@ public class MainGameScreen extends GameScreen {
 	@Override
 	public void render(float delta) {
         
-		//Pixmap pm = new Pixmap(Gdx.files.internal("sprites/hud/hud.cursor/Cursor.png"));
 
-        //pm.dispose();
-		//Cursor cursor = newCursor(pm,0,0);
-		
-		/*Cursor customCursor = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("sprites/hud/hud.cursor/Cursor.png")), 48, 26);
-		Gdx.graphics.setCursor(customCursor);*/
 		
 		if( _gameState == GameState.GAME_OVER ){
 			_game.setScreen(_game.getScreenType(Main.ScreenType.GameOver));
@@ -168,7 +162,7 @@ public class MainGameScreen extends GameScreen {
 			_mapMgr.setMapChanged(false);
 
 			//_playerHUD.addTransitionToScreen();
-			//System.out.println("ISSOU ISSOU ISSOU ISSOU "+ this._playerHUD._inventoryUI.getHeight() + " " + this._playerHUD._inventoryUI.getWidth() );
+
 		}
 
 		//_mapMgr.updateLightMaps(_playerHUD.getCurrentTimeOfDay());
@@ -220,7 +214,7 @@ public class MainGameScreen extends GameScreen {
 		}
 		
 		_playerHUD.render(delta);
-		//customCursor.dispose();
+
 	}
 
 	@Override

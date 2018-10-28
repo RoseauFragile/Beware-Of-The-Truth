@@ -2,7 +2,7 @@
 conversations: {
         1: {
                 id: 1
-                dialog: Can you please help me? I seem to have lost my baby!
+                dialog: Tu veux rouler sur l'or ? Fini le jeu ****** !
         }
 		2: {
                 id: 2
@@ -19,14 +19,14 @@ associatedChoices: {
                         class: bewareofthetruth.conversation.ConversationChoice
                         sourceId: 1
                         destinationId: 2
-                        choicePhrase: "Yes, of course I will help you!"
+                        choicePhrase: "Oui, mais sois poli stp."
 						conversationCommandEvent: ACCEPT_QUEST
                 }
                 {
                         class: bewareofthetruth.conversation.ConversationChoice
                         sourceId: 1
                         destinationId: 3
-                        choicePhrase: "No, sorry, I can't help you."
+                        choicePhrase: "Non, méchant pnj."
 						conversationCommandEvent: EXIT_CONVERSATION
                 }
 	        ]

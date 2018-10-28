@@ -18,7 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 public class GameOverScreen extends GameScreen {
     private Stage _stage;
     private Main _game;
-    private static final String DEATH_MESSAGE = "You have fought bravely, but alas, you have fallen during your epic struggle.";
+    private static final String DEATH_MESSAGE = "ISSOU ISSOU ISSOU";
     private static final String GAMEOVER = "Game Over";
 
     public GameOverScreen(Main game){

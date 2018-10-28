@@ -99,7 +99,7 @@ public class NewGameScreen extends GameScreen {
 											ProfileManager.getInstance().setCurrentProfile(messageText);
 											ProfileManager.getInstance().setIsNewProfile(true);
 											_overwriteDialog.hide();
-											NewGameScreen.this.notify(AudioObserver.AudioCommand.MUSIC_STOP, AudioObserver.AudioTypeEvent.MUSIC_TITLE);
+											NewGameScreen.this.notify(AudioObserver.AudioCommand.MUSIC_STOP, AudioObserver.AudioTypeEvent.MUSIC_INTRO);
 											_game.setScreen(_game.getScreenType(ScreenType.MainGame));
 										}
 
@@ -128,7 +128,7 @@ public class NewGameScreen extends GameScreen {
 											ProfileManager.getInstance().writeProfileToStorage(messageText,"",false);
 											ProfileManager.getInstance().setCurrentProfile(messageText);
 											ProfileManager.getInstance().setIsNewProfile(true);
-											NewGameScreen.this.notify(AudioObserver.AudioCommand.MUSIC_STOP, AudioObserver.AudioTypeEvent.MUSIC_TITLE);
+											NewGameScreen.this.notify(AudioObserver.AudioCommand.MUSIC_STOP, AudioObserver.AudioTypeEvent.MUSIC_INTRO);
 											_game.setScreen(_game.getScreenType(ScreenType.MainGame));
 										}
 									}

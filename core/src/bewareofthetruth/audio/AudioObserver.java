@@ -19,6 +19,7 @@ public interface AudioObserver {
         //Tests
         MUSIC_INTRO("audio/music/intro.mp3"),
         MUSIC_ZONE_TEST("audio/music/bar.wav"),
+        MUSIC_HOTLINE("audio/music/hydrogen.mp3"),
         NONE("");
 
         private String _audioFullFilePath;
