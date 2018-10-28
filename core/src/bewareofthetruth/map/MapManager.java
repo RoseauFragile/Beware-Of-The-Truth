@@ -67,6 +67,11 @@ public class MapManager implements ProfileObserver {
                     MapFactory.getMap(MapFactory.MapType.ZONE_1_1).setPlayerStart(townMapStartPosition);
                 }
 
+                Vector2 testMapStartPosition = profileManager.getProperty("testMapStartPosition", Vector2.class);
+                if( testMapStartPosition != null ){
+                    MapFactory.getMap(MapFactory.MapType.ZONE_TEST).setPlayerStart(testMapStartPosition);
+                }
+                
                 break;
             case SAVING_PROFILE:
                 if( _currentMap != null ){
@@ -76,6 +81,8 @@ public class MapManager implements ProfileObserver {
                 profileManager.setProperty("topWorldMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_2).getPlayerStart() );
                 profileManager.setProperty("castleOfDoomMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_3).getPlayerStart() );
                 profileManager.setProperty("townMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_1).getPlayerStart() );
+                profileManager.setProperty("testMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_TEST).getPlayerStart() );
+
                 break;
             case CLEAR_CURRENT_PROFILE:
                 _currentMap = null;
@@ -86,6 +93,8 @@ public class MapManager implements ProfileObserver {
                 profileManager.setProperty("topWorldMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_1).getPlayerStart() );
                 profileManager.setProperty("castleOfDoomMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_3).getPlayerStart() );
                 profileManager.setProperty("townMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_1).getPlayerStart() );
+                profileManager.setProperty("testMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_TEST).getPlayerStart() );
+
                 break;
             default:
                 break;
@@ -96,7 +105,7 @@ public class MapManager implements ProfileObserver {
         Map map = MapFactory.getMap(mapType);
 
         if( map == null ){
-            Gdx.app.debug(TAG, "Map does not exist!  ");
+            Gdx.app.debug(TAG, "Map does not exist!  :" + mapType);
             return;
         }
 

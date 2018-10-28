@@ -11,7 +11,7 @@ animationConfig: [
 	    frameDuration: 0.25
 		animationType: IDLE
 		texturePaths: [
-			sprites/characters/player00.png
+			sprites/characters/amie/amie_bas.png
 		]
 		gridPoints: [
 			{
@@ -37,7 +37,7 @@ animationConfig: [
 	    frameDuration: 0.25
 		animationType: WALK_DOWN
 		texturePaths: [
-			sprites/characters/player00.png
+			sprites/characters/amie/amie_bas.png
 		]
 		gridPoints: [
 			{
@@ -63,7 +63,7 @@ animationConfig: [
 		frameDuration: 0.25
 		animationType: WALK_LEFT
 		texturePaths: [
-			sprites/characters/player00.png
+			sprites/characters/amie/amie_gauche.png
 		]
 		gridPoints: [
 			{
@@ -89,7 +89,7 @@ animationConfig: [
 		frameDuration: 0.25
 		animationType: WALK_RIGHT
 		texturePaths: [
-			sprites/characters/player00.png
+			sprites/characters/amie/amie_droite.png
 		]
 		gridPoints: [
 			{
@@ -115,7 +115,7 @@ animationConfig: [
 		frameDuration: 0.25
 		animationType: WALK_UP
 		texturePaths: [
-			sprites/characters/player00.png
+			sprites/characters/amie/amie_haut.png
 		]
 		gridPoints: [
 			{

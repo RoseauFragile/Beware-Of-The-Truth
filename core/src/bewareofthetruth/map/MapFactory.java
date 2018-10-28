@@ -5,6 +5,7 @@ import java.util.Hashtable;
 import bewareofthetruth.map.zone1.ZoneOneDotOne;
 import bewareofthetruth.map.zone1.ZoneOneDotThree;
 import bewareofthetruth.map.zone1.ZoneOneDotTwo;
+import bewareofthetruth.map.zone1.ZoneTest;
 
 public class MapFactory {
 	//AllMaps for the game
@@ -15,7 +16,8 @@ public class MapFactory {
     public static enum MapType{
         ZONE_1_1,
         ZONE_1_2,
-        ZONE_1_3
+        ZONE_1_3,
+        ZONE_TEST
     }
 	
 	static public Map getMap(MapType mapType) {
@@ -40,6 +42,13 @@ public class MapFactory {
 			if(map == null) {
 				map = new ZoneOneDotThree();
 				_mapTable.put(MapType.ZONE_1_3, map);
+			}
+			break;
+		case ZONE_TEST:
+			map = _mapTable.get(MapType.ZONE_TEST);
+			if(map == null) {
+				map = new ZoneTest();
+				_mapTable.put(MapType.ZONE_TEST, map);
 			}
 			break;
 		default:

@@ -15,6 +15,10 @@ public interface AudioObserver {
         SOUND_EATING("audio/17661_SFX_HumanEatingPotatoChips1.wav"),
         SOUND_DRINKING("audio/27677_SFX_ComicalSoundsSwallowLiquid1.wav"),
         SOUND_COIN_RUSTLE("audio/00954_SFX_MoneyCoinsDumpedInHand_final.wav"),
+        
+        //Tests
+        MUSIC_INTRO("audio/music/intro.mp3"),
+        MUSIC_ZONE_TEST("audio/music/bar.wav"),
         NONE("");
 
         private String _audioFullFilePath;

@@ -52,7 +52,7 @@ animationConfig: [
 		frameDuration: 0.25
 		animationType: IDLE
 		texturePaths: [
-			sprites/characters/player00.png
+			sprites/characters/heros/heros_bas.png
 		]
 		gridPoints: [
 			{
@@ -78,7 +78,7 @@ animationConfig: [
 		frameDuration: 0.25
 		animationType: WALK_DOWN
 		texturePaths: [
-			sprites/characters/player00.png
+			sprites/characters/heros/heros_bas.png
 		]
 		gridPoints: [
 			{
@@ -104,7 +104,7 @@ animationConfig: [
 	    frameDuration: 0.25
 		animationType: WALK_LEFT
 		texturePaths: [
-			sprites/characters/player00.png
+			sprites/characters/heros/heros_gauche.png
 		]
 		gridPoints: [
 			{
@@ -130,7 +130,7 @@ animationConfig: [
 	    frameDuration: 0.25
 		animationType: WALK_RIGHT
 		texturePaths: [
-			sprites/characters/player00.png
+			sprites/characters/heros/heros_droite.png
 		]
 		gridPoints: [
 			{
@@ -156,7 +156,7 @@ animationConfig: [
 	    frameDuration: 0.25
 		animationType: WALK_UP
 		texturePaths: [
-			sprites/characters/player00.png
+			sprites/characters/heros/heros_haut.png
 		]
 		gridPoints: [
 			{

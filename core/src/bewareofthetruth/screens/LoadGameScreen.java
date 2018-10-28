@@ -88,7 +88,7 @@ public class LoadGameScreen extends GameScreen {
 										   FileHandle file = ProfileManager.getInstance().getProfileFile(fileName);
 										   if (file != null) {
 											   ProfileManager.getInstance().setCurrentProfile(fileName);
-											   LoadGameScreen.this.notify(AudioObserver.AudioCommand.MUSIC_STOP, AudioObserver.AudioTypeEvent.MUSIC_TITLE);
+											   LoadGameScreen.this.notify(AudioObserver.AudioCommand.MUSIC_STOP, AudioObserver.AudioTypeEvent.MUSIC_INTRO);
 											   _game.setScreen(_game.getScreenType(Main.ScreenType.MainGame));
 										   }
 									   }
