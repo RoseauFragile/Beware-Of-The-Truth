@@ -124,7 +124,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
                 if( distance <= _selectRayMaximumDistance ){
                     //We have a valid entity selection
                     //Picked/Selected
-                    Gdx.app.debug(TAG, "Selected Entity! " + mapEntity.getEntityConfig().getEntityID());
+                    //Gdx.app.debug(TAG, "Selected Entity! " + mapEntity.getEntityConfig().getEntityID());
                     mapEntity.sendMessage(MESSAGE.ENTITY_SELECTED);
                     notify(_json.toJson(mapEntity.getEntityConfig()), ComponentObserver.ComponentEvent.LOAD_CONVERSATION);
                 }
@@ -162,7 +162,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
                     }
 
                     notify(_json.toJson(val), ComponentObserver.ComponentEvent.QUEST_LOCATION_DISCOVERED);
-                    Gdx.app.debug(TAG, "Discover Area Activated");
+                    //Gdx.app.debug(TAG, "Discover Area Activated");
                     return true;
                 }
             }
@@ -194,7 +194,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
                         //Gdx.app.debug(TAG, "Enemy Spawn Area already activated " + enemySpawnID);
                         return true;
                     }else{
-                        Gdx.app.debug(TAG, "Enemy Spawn Area " + enemySpawnID + " Activated with previous Spawn value: " + _previousEnemySpawn);
+                        //Gdx.app.debug(TAG, "Enemy Spawn Area " + enemySpawnID + " Activated with previous Spawn value: " + _previousEnemySpawn);
                         _previousEnemySpawn = enemySpawnID;
                     }
 
@@ -206,7 +206,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
 
         //If no collision, reset the value
         if( !_previousEnemySpawn.equalsIgnoreCase(String.valueOf(0)) ){
-            Gdx.app.debug(TAG, "Enemy Spawn Area RESET with previous value " + _previousEnemySpawn);
+           // Gdx.app.debug(TAG, "Enemy Spawn Area RESET with previous value " + _previousEnemySpawn);
             _previousEnemySpawn = String.valueOf(0);
             notify(_previousEnemySpawn, ComponentObserver.ComponentEvent.ENEMY_SPAWN_LOCATION_CHANGED);
         }
@@ -242,7 +242,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
                     _nextEntityPosition.x = mapMgr.getPlayerStartUnitScaled().x;
                     _nextEntityPosition.y = mapMgr.getPlayerStartUnitScaled().y;
 
-                    Gdx.app.debug(TAG, "Portal Activated");
+                  //  Gdx.app.debug(TAG, "Portal Activated");
                     return true;
                 }
             }

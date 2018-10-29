@@ -115,13 +115,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         
         _testHud = new TestHud();
         _testHud.setVisible(true);
-        _testHud.setPosition((Gdx.graphics.getWidth() /2 - ( _testHud.getWidth())) + (_testHud.getWidth() /2), 0);
-        
-        
-        System.out.println("gdx " +Gdx.graphics.getWidth());
-        System.out.println("testHud " +_testHud.getWidth());
-        System.out.println("gdx - testHud " + (Gdx.graphics.getWidth() /2 - ( _testHud.getWidth())));
-
+        _testHud.setPosition((Gdx.graphics.getWidth() /2 - ( _testHud.getWidth())) + (_testHud.getWidth() /2), 0);    
         _testHud.setKeepWithinStage(false);
         _testHud.setMovable(false);
 
@@ -211,11 +205,11 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         });
         
         ImageButton testButton = _testHud.getTestButton();
-        testButton.addListener(new ClickListener() /*{
+        testButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
             	//_testHud.setVisible(_testHud.isVisible() ? false : true);
             }
-        }*/);
+        });
 
         ImageButton questButton = _statusUI.getQuestButton();
         questButton.addListener(new ClickListener() {

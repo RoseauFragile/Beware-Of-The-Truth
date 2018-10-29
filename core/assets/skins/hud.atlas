@@ -1,0 +1,168 @@
+hud.png
+size: 2047, 1388
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+botomleft_corner
+  rotate: false
+  xy: 1782, 153
+  size: 131, 131
+  orig: 150, 150
+  offset: 9, 10
+  index: -1
+botomright_corner
+  rotate: false
+  xy: 1915, 162
+  size: 131, 131
+  orig: 150, 150
+  offset: 9, 10
+  index: -1
+bounton_reprendre
+  rotate: false
+  xy: 987, 945
+  size: 469, 126
+  orig: 469, 126
+  offset: 0, 0
+  index: -1
+bouton_option
+  rotate: false
+  xy: 987, 816
+  size: 469, 127
+  orig: 469, 127
+  offset: 0, 0
+  index: -1
+bouton_quit
+  rotate: false
+  xy: 1458, 945
+  size: 469, 126
+  orig: 469, 126
+  offset: 0, 0
+  index: -1
+bouton_save
+  rotate: false
+  xy: 1458, 816
+  size: 469, 127
+  orig: 469, 127
+  offset: 0, 0
+  index: -1
+case_modulable
+  rotate: false
+  xy: 1782, 1
+  size: 150, 150
+  split: 24, 25, 24, 37
+  pad: 38, 37, 38, 37
+  orig: 150, 150
+  offset: 0, 0
+  index: -1
+case_original
+  rotate: false
+  xy: 1934, 1
+  size: 104, 91
+  orig: 150, 150
+  offset: 23, 30
+  index: -1
+FourWaterBar
+  rotate: false
+  xy: 1934, 118
+  size: 73, 20
+  orig: 100, 100
+  offset: 14, 42
+  index: -1
+left_case
+  rotate: false
+  xy: 1782, 286
+  size: 131, 131
+  orig: 150, 150
+  offset: 9, 10
+  index: -1
+LoadingBar
+  rotate: false
+  xy: 1, 1073
+  size: 1920, 156
+  orig: 1920, 1142
+  offset: 0, 0
+  index: -1
+LoadingBarWithSmog
+  rotate: false
+  xy: 1, 1231
+  size: 1920, 156
+  orig: 1920, 1142
+  offset: 0, 0
+  index: -1
+menu
+  rotate: false
+  xy: 1, 1
+  size: 984, 960
+  orig: 1920, 1080
+  offset: 469, 60
+  index: -1
+MenuInventory
+  rotate: false
+  xy: 987, 1
+  size: 793, 696
+  orig: 1920, 1080
+  offset: 330, 365
+  index: -1
+MiniMap
+  rotate: false
+  xy: 1782, 552
+  size: 128, 128
+  orig: 200, 200
+  offset: 41, 36
+  index: -1
+OneWaterBar
+  rotate: false
+  xy: 1991, 140
+  size: 19, 20
+  orig: 100, 100
+  offset: 41, 43
+  index: -1
+ReductInventoryInGame
+  rotate: false
+  xy: 987, 699
+  size: 860, 115
+  orig: 860, 115
+  offset: 0, 0
+  index: -1
+right_case
+  rotate: false
+  xy: 1915, 295
+  size: 131, 131
+  orig: 150, 150
+  offset: 9, 10
+  index: -1
+ThreeWaterBar
+  rotate: false
+  xy: 1934, 140
+  size: 55, 20
+  orig: 100, 100
+  offset: 23, 42
+  index: -1
+topleft_corner
+  rotate: false
+  xy: 1782, 419
+  size: 131, 131
+  orig: 150, 150
+  offset: 9, 10
+  index: -1
+topright_corner
+  rotate: false
+  xy: 1915, 428
+  size: 131, 131
+  orig: 150, 150
+  offset: 9, 10
+  index: -1
+TwoWaterBar
+  rotate: false
+  xy: 2009, 118
+  size: 37, 20
+  orig: 100, 100
+  offset: 32, 42
+  index: -1
+WaterBar
+  rotate: false
+  xy: 1934, 94
+  size: 93, 22
+  orig: 100, 100
+  offset: 3, 44
+  index: -1
