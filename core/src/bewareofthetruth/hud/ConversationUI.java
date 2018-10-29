@@ -94,7 +94,7 @@ public class ConversationUI extends Window {
         clearDialog();
 
         if( fullFilenamePath.isEmpty() || !Gdx.files.internal(fullFilenamePath).exists() ){
-            Gdx.app.debug(TAG, "Conversation file does not exist!");
+            Gdx.app.debug(TAG, "Conversation file does not exist! :" + entityConfig.getConversationConfigPath());
             return;
         }
 
