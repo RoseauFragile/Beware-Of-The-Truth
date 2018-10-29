@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -39,6 +40,8 @@ import bewareofthetruth.profile.ProfileManager;
 import bewareofthetruth.profile.ProfileObserver;
 import bewareofthetruth.utility.Utility;
 import bewareofthetruth.quest.QuestGraph;
+import bewareofthetruth.transition.ScreenTransitionAction;
+import bewareofthetruth.transition.ScreenTransitionActor;
 
 public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,ComponentObserver,ConversationGraphObserver,StoreInventoryObserver/*, BattleObserver*/, InventoryObserver, StatusObserver {
     private static final String TAG = PlayerHUD.class.getSimpleName();
@@ -61,8 +64,9 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
     private MapManager _mapMgr;
 
     private Array<AudioObserver> _observers;
-   /* private ScreenTransitionActor _transitionActor;
+   private ScreenTransitionActor _transitionActor;
 
+   /*
     private ShakeCamera _shakeCam;
     private ClockActor _clock;*/
 
@@ -77,9 +81,9 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         //_stage.setDebugAll(true);
 
         _observers = new Array<AudioObserver>();
-       /* _transitionActor = new ScreenTransitionActor();
+        _transitionActor = new ScreenTransitionActor();
 
-        _shakeCam = new ShakeCamera(0,0, 30.0f);*/
+        /*_shakeCam = new ShakeCamera(0,0, 30.0f);*/
 
         _json = new Json();
         _messageBoxUI = new Dialog("Message", Utility.STATUSUI_SKIN, "solidbackground"){
@@ -185,8 +189,8 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
             _stage.addActor(actor);
         }
 
-      /*  _stage.addActor(_transitionActor);
-        _transitionActor.setVisible(false);*/
+        _stage.addActor(_transitionActor);
+        _transitionActor.setVisible(false);
 
         //Observers
         _player.registerObserver(this);
@@ -265,12 +269,12 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _mapMgr.registerCurrentMapEntityObservers(this);
     }
 
-    /*public void addTransitionToScreen(){
+    public void addTransitionToScreen(){
         _transitionActor.setVisible(true);
         _stage.addAction(
                 Actions.sequence(
                         Actions.addAction(ScreenTransitionAction.transition(ScreenTransitionAction.ScreenTransitionType.FADE_IN, 1), _transitionActor)));
-    }*/
+    }
 
     @Override
     public void onNotify(ProfileManager profileManager, ProfileEvent event) {

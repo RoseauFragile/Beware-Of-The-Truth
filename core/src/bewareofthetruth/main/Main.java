@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
 
+import bewareofthetruth.screens.CutSceneScreen;
 import bewareofthetruth.screens.GameOverScreen;
 import bewareofthetruth.screens.LoadGameScreen;
 import bewareofthetruth.screens.MainGameScreen;
@@ -19,7 +20,7 @@ public class Main extends Game {
 	private static LoadGameScreen _loadGameScreen;
 	private static NewGameScreen _newGameScreen;
 	private static GameOverScreen _gameOverScreen;
-	//private static CutSceneScreen _cutSceneScreen;
+	private static CutSceneScreen _cutSceneScreen;
 	//private static CreditScreen _creditScreen;
 	private static MainOptionsScreen _mainOptionsScreen;
 	
@@ -49,8 +50,8 @@ public class Main extends Game {
 				return _mainOptionsScreen;
 			case GameOver:
 				return _gameOverScreen;
-			//case WatchIntro:
-			//	return _cutSceneScreen;
+			case WatchIntro:
+				return _cutSceneScreen;
 			//case Credits:
 			//	return _creditScreen;
 			default:
@@ -68,7 +69,7 @@ public class Main extends Game {
 		_loadGameScreen = new LoadGameScreen(this);
 		_newGameScreen = new NewGameScreen(this);
 		_gameOverScreen = new GameOverScreen(this);
-		//_cutSceneScreen = new CutSceneScreen(this);
+		_cutSceneScreen = new CutSceneScreen(this);
 		//_creditScreen = new CreditScreen(this);
 		_mainOptionsScreen = new MainOptionsScreen(this);
 		setScreen(_mainMenuScreen);

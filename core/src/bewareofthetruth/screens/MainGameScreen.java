@@ -161,7 +161,7 @@ public class MainGameScreen extends GameScreen {
 
 			_mapMgr.setMapChanged(false);
 
-			//_playerHUD.addTransitionToScreen();
+			_playerHUD.addTransitionToScreen();
 
 		}
 
