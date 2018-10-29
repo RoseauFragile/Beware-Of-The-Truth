@@ -1,8 +1,13 @@
 package bewareofthetruth.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -10,10 +15,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
 import bewareofthetruth.audio.AudioObserver;
 import bewareofthetruth.main.Main;
 import bewareofthetruth.main.Main.ScreenType;
+import bewareofthetruth.screens.MainGameScreen.VIEWPORT;
 import bewareofthetruth.utility.Utility;
 
 public class MainMenuScreen extends GameScreen {
@@ -22,6 +29,10 @@ public class MainMenuScreen extends GameScreen {
 	private Main _game;
 	private Image _inventoryButton;
 	private boolean _stateButton = false;
+    public static Texture backgroundTexture;
+    public static Sprite backgroundSprite;
+    private SpriteBatch spriteBatch;
+
 	
 	public MainMenuScreen(Main game){
 		_game = game;
@@ -47,6 +58,12 @@ public class MainMenuScreen extends GameScreen {
 		//pm.dispose();
 		
 		
+		spriteBatch = new SpriteBatch();
+        backgroundTexture = new Texture("beware.png");
+        backgroundSprite =new Sprite(backgroundTexture);
+        backgroundSprite.setSize(1920, 1080);
+		
+
 
 		//Layout
 		table.add(title).spaceBottom(75).row();
@@ -171,6 +188,10 @@ public class MainMenuScreen extends GameScreen {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+		spriteBatch.begin();
+		 backgroundSprite.draw(spriteBatch);
+		 spriteBatch.end();
+		//_background.draw(null, delta);
 		_stage.act(delta);
 		_stage.draw();
 	}
@@ -201,8 +222,12 @@ public class MainMenuScreen extends GameScreen {
 
 	@Override
 	public void dispose() {
+		spriteBatch.dispose();
+		backgroundTexture.dispose();
 		_stage.dispose();
 	}
+	
+
 
 }
 
