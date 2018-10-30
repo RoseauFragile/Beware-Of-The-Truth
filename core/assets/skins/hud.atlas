@@ -56,7 +56,7 @@ case_modulable
   rotate: false
   xy: 1782, 317
   size: 150, 150
-  split: 26, 26, 26, 26
+  split: 67, 70, 73, 68
   pad: 0, 0, 0, 0
   orig: 150, 150
   offset: 0, 0

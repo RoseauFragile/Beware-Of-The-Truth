@@ -41,17 +41,23 @@ public class MainMenuScreen extends GameScreen {
 		//creation
 		_stage = new Stage();
 		Table table = new Table();
-		table.setFillParent(true);
+		//table.setFillParent(true);
 
 		//Image title = new Image(Utility.STATUSUI_TEXTUREATLAS.findRegion("bludbourne_title"));
-		TextButton newGameButton = new TextButton("Nouvelle partie", Utility.STATUSUI_SKIN);
-		TextButton optionsButton = new TextButton("OPTIONS", Utility.STATUSUI_SKIN);
+		ImageButton newGameButton = new ImageButton( Utility.STATUSUI_SKIN,"main-menu-new-game");
+		ImageButton loadGameButton = new ImageButton( Utility.STATUSUI_SKIN,"main-menu-load-game");
+		ImageButton optionsButton = new ImageButton( Utility.STATUSUI_SKIN,"main-menu-options");
+		ImageButton exitButton = new ImageButton( Utility.STATUSUI_SKIN,"main-menu-exit");
+		ImageButton watchIntroButton = new ImageButton( Utility.STATUSUI_SKIN,"main-menu-intro");
+
+
+		//TextButton optionsButton = new TextButton("OPTIONS", Utility.STATUSUI_SKIN);
 
 		//_inventoryButton = new Image(Utility.STATUSUI_SKIN_TEST, "ReductInventoryInGame");
-		TextButton loadGameButton = new TextButton("Charger Partie", Utility.STATUSUI_SKIN);
+		//TextButton loadGameButton = new TextButton("Charger Partie", Utility.STATUSUI_SKIN);
 	//	TextButton watchIntroButton = new TextButton("Watch Intro", Utility.STATUSUI_SKIN);
 		//TextButton creditsButton = new TextButton("Credits", Utility.STATUSUI_SKIN);
-		TextButton exitButton = new TextButton("QUITTER",Utility.STATUSUI_SKIN);
+		//TextButton exitButton = new TextButton("QUITTER",Utility.STATUSUI_SKIN);
 
 		//Pixmap pm = new Pixmap(Gdx.files.internal("sprites/hud/hud.cursor/Cursor.png"));
 		//Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, 0, 0));
@@ -68,11 +74,14 @@ public class MainMenuScreen extends GameScreen {
 		//Layout
 		//table.add(title).spaceBottom(75).row();
 		//table.add(watchIntroButton).spaceBottom(10).row();
-		table.add(newGameButton).spaceBottom(10).row();
-		table.add(loadGameButton).spaceBottom(10).row();
-		table.add(optionsButton).spaceBottom(10).row();
-		table.add(exitButton).spaceBottom(10).row();
+		table.add(newGameButton);//.spaceBottom(10).row();
+		table.add(loadGameButton).row();
+		table.add(optionsButton);
+		table.add(exitButton);
+		table.add(watchIntroButton);
+
 		//table.add(_inventoryButton).spaceBottom(10).row();
+		table.setPosition(300, 250);
 
 		_stage.addActor(table);
 
@@ -151,7 +160,7 @@ public class MainMenuScreen extends GameScreen {
 							   }
 		);
 
-		/*watchIntroButton.addListener(new ClickListener() {
+		watchIntroButton.addListener(new ClickListener() {
 
 										 @Override
 										 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {

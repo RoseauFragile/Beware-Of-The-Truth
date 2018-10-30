@@ -23,6 +23,11 @@
 	},
 		"com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle": {
 		"inventory-button": { "imageUp": "ReductInventoryInGame", "imageChecked": "InventoryInGame" },
+		"main-menu-new-game": { "imageUp": "NOUVELLE_PARTIE", "imageChecked": "NOUVELLE_PARTIE" },
+		"main-menu-options": { "imageUp": "OPTIONS", "imageChecked": "OPTIONS" },
+		"main-menu-load-game": { "imageUp": "CHARGER_PARTIE", "imageChecked": "CHARGER_PARTIE" },
+		"main-menu-exit": { "imageUp": "QUITTER", "imageChecked": "QUITTER" },
+		"main-menu-intro": { "imageUp": "INTRODUCTION", "imageChecked": "INTRODUCTION" },
 	},
 	"com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {
 		default: { down: scroll, up: scroll, font: default-font, fontColor: white },
