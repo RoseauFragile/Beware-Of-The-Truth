@@ -86,6 +86,7 @@ default-rect-pad
   rotate: false
   xy: 987, 1273
   size: 5, 3
+  split: 2, 2, 1, 1
   orig: 5, 3
   offset: 0, 0
   index: -1
@@ -93,6 +94,7 @@ default-rect
   rotate: false
   xy: 1998, 185
   size: 7, 7
+  split: 1, 1, 1, 1
   orig: 18, 18
   offset: 5, 6
   index: -1

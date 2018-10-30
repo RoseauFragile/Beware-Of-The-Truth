@@ -166,7 +166,6 @@ cursor
   split: 1, 1, 1, 1
   orig: 3, 3
   offset: 0, 0
-  index: -1
 default-rect
   rotate: false
   xy: 354, 1

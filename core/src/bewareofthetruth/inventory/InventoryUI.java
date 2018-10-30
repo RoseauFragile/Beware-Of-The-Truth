@@ -46,6 +46,7 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
     private InventorySlotTooltip _inventorySlotTooltip;
 
     public InventoryUI(){
+    	//ok
         super("Inventory", Utility.STATUSUI_SKIN, "solidbackground");
 
         _observers = new Array<InventoryObserver>();
@@ -64,6 +65,8 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
         _equipSlots.defaults().space(10);
         _inventorySlotTooltip = new InventorySlotTooltip(Utility.STATUSUI_SKIN);
 
+        
+        //ok
         Label DPLabel = new Label("Defense: ", Utility.STATUSUI_SKIN);
         _DPValLabel = new Label(String.valueOf(_DPVal), Utility.STATUSUI_SKIN);
 
