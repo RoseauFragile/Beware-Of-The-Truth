@@ -1,5 +1,44 @@
 {
-		"com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle": {
-		"inventory-test-button": { "imageUp": "ReductInventoryInGame", "imageChecked": "ReductInventoryInGame" },
+	"com.badlogic.gdx.graphics.Color": {
+		green: { a: 1, b: 0, g: 1, r: 0 },
+		white: { a: 1, b: 1, g: 1, r: 1 },
+		red: { a: 1, b: 0, g: 0, r: 1 },
+		black: { a: 1, b: 0, g: 0, r: 0 },
+		grey: { a: 1, b: 0.5, g: 0.5, r: 0.5 },
+		cyan: {  a: 1, b: 1, g: 0.9, r: 0.72 }
 	},
+    "com.badlogic.gdx.graphics.g2d.BitmapFont": {
+        "default-font": { "file": "fonts/SDS_6x6.fnt" },
+		"small-font" : { "file" : "fonts/SDS_6x6_small.fnt" },
+		"smooth-font" : { "file" : "fonts/sans_serif_18.fnt" },
+    },
+	"com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle": {
+        "default": { "font": "default-font" },
+		"inventory-item-count": { "font": "small-font" },
+		"credits": { "font" : "smooth-font" },
+    },
+		"com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle": {
+		"default": { "titleFont": "default-font", "background": "case_modulable" },
+		"solidbackground": { "titleFont": "default-font", "background": "case_modulable" },
+	},
+		"com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle": {
+		"inventory-button": { "imageUp": "ReductInventoryInGame", "imageChecked": "InventoryInGame" },
+	},
+	"com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {
+		default: { down: scroll, up: scroll, font: default-font, fontColor: white },
+		toggle: { down: scroll, up: scroll, checked: scroll, font: default-font, fontColor: white, downFontColor: red },
+		inventory: { down: scroll, up: scroll, font: default-font, fontColor: white, disabledFontColor: grey }
+	},
+	"com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle": {
+		default: { fontColorUnselected: white, selection: default-rect-pad, fontColorSelected: black, font: default-font },
+		inventory: { fontColorUnselected: white, selection: default-rect-pad, fontColorSelected: black, font: default-font },
+	},
+	"com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle": {
+		default: { selection: selection, background: textfield, font: default-font, fontColor: white, cursor: Cursor },
+		inventory: { selection: selection, background: textfield, font: default-font, fontColor: white, cursor: Cursor }
+	},
+	com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
+		default: { vScroll: scroll, hScrollKnob: scroll, background: default-rect, hScroll: scroll, vScrollKnob: scroll },
+		inventoryPane: { vScroll: scroll, hScrollKnob: scroll, hScroll: scroll, vScrollKnob: scroll }
+    },
 }

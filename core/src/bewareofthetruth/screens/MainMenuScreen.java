@@ -43,15 +43,15 @@ public class MainMenuScreen extends GameScreen {
 		Table table = new Table();
 		table.setFillParent(true);
 
-		Image title = new Image(Utility.STATUSUI_TEXTUREATLAS.findRegion("bludbourne_title"));
-		TextButton newGameButton = new TextButton("New Game", Utility.STATUSUI_SKIN);
-		TextButton optionsButton = new TextButton("Options", Utility.STATUSUI_SKIN);
+		//Image title = new Image(Utility.STATUSUI_TEXTUREATLAS.findRegion("bludbourne_title"));
+		TextButton newGameButton = new TextButton("Nouvelle partie", Utility.STATUSUI_SKIN);
+		TextButton optionsButton = new TextButton("OPTIONS", Utility.STATUSUI_SKIN);
 
 		//_inventoryButton = new Image(Utility.STATUSUI_SKIN_TEST, "ReductInventoryInGame");
-		TextButton loadGameButton = new TextButton("Load Game", Utility.STATUSUI_SKIN);
-		TextButton watchIntroButton = new TextButton("Watch Intro", Utility.STATUSUI_SKIN);
+		TextButton loadGameButton = new TextButton("Charger Partie", Utility.STATUSUI_SKIN);
+	//	TextButton watchIntroButton = new TextButton("Watch Intro", Utility.STATUSUI_SKIN);
 		//TextButton creditsButton = new TextButton("Credits", Utility.STATUSUI_SKIN);
-		TextButton exitButton = new TextButton("Exit",Utility.STATUSUI_SKIN);
+		TextButton exitButton = new TextButton("QUITTER",Utility.STATUSUI_SKIN);
 
 		//Pixmap pm = new Pixmap(Gdx.files.internal("sprites/hud/hud.cursor/Cursor.png"));
 		//Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, 0, 0));
@@ -66,8 +66,8 @@ public class MainMenuScreen extends GameScreen {
 
 
 		//Layout
-		table.add(title).spaceBottom(75).row();
-		table.add(watchIntroButton).spaceBottom(10).row();
+		//table.add(title).spaceBottom(75).row();
+		//table.add(watchIntroButton).spaceBottom(10).row();
 		table.add(newGameButton).spaceBottom(10).row();
 		table.add(loadGameButton).spaceBottom(10).row();
 		table.add(optionsButton).spaceBottom(10).row();
@@ -151,7 +151,7 @@ public class MainMenuScreen extends GameScreen {
 							   }
 		);
 
-		watchIntroButton.addListener(new ClickListener() {
+		/*watchIntroButton.addListener(new ClickListener() {
 
 										 @Override
 										 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {

@@ -126,7 +126,8 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
         _dragAndDrop.addTarget(new InventorySlotTarget(rightArmSlot));
         _dragAndDrop.addTarget(new InventorySlotTarget(legsSlot));
 
-        _playerSlotsTable.setBackground(new Image(new NinePatch(Utility.STATUSUI_TEXTUREATLAS.createPatch("dialog"))).getDrawable());
+        //TODO attention
+        _playerSlotsTable.setBackground(new Image(new NinePatch(Utility.STATUSUI_TEXTUREATLAS.createPatch("case_modulable"))).getDrawable());
 
         //layout
         for(int i = 1; i <= _numSlots; i++){

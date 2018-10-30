@@ -23,7 +23,7 @@ public class StatusUI extends Window implements StatusSubject {
     private String TAG = StatusUI.class.getSimpleName();
 
     private ImageButton _inventoryButton;
-    private ImageButton _questButton;
+  //  private ImageButton _questButton;
    // private ImageButton _testButton;
     private Array<StatusObserver> _observers;
 
@@ -81,14 +81,14 @@ public class StatusUI extends Window implements StatusSubject {
         Image bar3 = new Image(Utility.STATUSUI_TEXTUREATLAS.findRegion("Bar"));*/
         
         //Test Images
-        _hpBarTest = new Image(Utility.STATUSUI_TEXTUREATLAS_TEST.findRegion("ThreeBar"));
-        Image lifeBar = new Image(Utility.STATUSUI_TEXTUREATLAS_TEST.findRegion("LifeBar"));
-        _waterBarTest = new Image(Utility.STATUSUI_TEXTUREATLAS_TEST.findRegion("FourWaterBar"));
-        Image waterBar = new Image(Utility.STATUSUI_TEXTUREATLAS_TEST.findRegion("WaterBar"));
+       // _hpBarTest = new Image(Utility.STATUSUI_TEXTUREATLAS_TEST.findRegion("ThreeBar"));
+       // Image lifeBar = new Image(Utility.STATUSUI_TEXTUREATLAS_TEST.findRegion("LifeBar"));
+       // _waterBarTest = new Image(Utility.STATUSUI_TEXTUREATLAS_TEST.findRegion("FourWaterBar"));
+      //  Image waterBar = new Image(Utility.STATUSUI_TEXTUREATLAS_TEST.findRegion("WaterBar"));
       //  waterBar.rotateBy(-90);
         
-        _barWidth = _hpBarTest.getWidth();
-        _barHeight = _hpBarTest.getHeight();
+       // _barWidth = _hpBarTest.getWidth();
+       // _barHeight = _hpBarTest.getHeight();
 
 
     /*    //labels
@@ -107,8 +107,8 @@ public class StatusUI extends Window implements StatusSubject {
         _inventoryButton= new ImageButton(Utility.STATUSUI_SKIN, "inventory-button");
         _inventoryButton.getImageCell().size(32, 32);
 
-        _questButton = new ImageButton(Utility.STATUSUI_SKIN, "quest-button");
-        _questButton.getImageCell().size(32,32);
+       // _questButton = new ImageButton(Utility.STATUSUI_SKIN, "quest-button");
+       // _questButton.getImageCell().size(32,32);
 
         //_testButton = new ImageButton(Utility.STATUSUI_SKIN_TEST, "inventory-test-button");
         
@@ -120,14 +120,14 @@ public class StatusUI extends Window implements StatusSubject {
         //Align test Image
 
 
-        _waterBarTest.setPosition(3, 6);
+       // _waterBarTest.setPosition(3, 6);
         //_waterBarTest.setPosition(x, y);
         /*(Gdx.graphics.getWidth() /2 - ( _testHud.getWidth())) + (_testHud.getWidth() /2)
         (waterbar.getX() / 2 - (_waterBarTest.getX())) + (_waterBarTest.getX() / 2)*/
         
         
-        _waterBarTest.setPosition(((waterBar.getX() + waterBar.getWidth()) / 2 - ((_waterBarTest.getX() +_waterBarTest.getWidth())) + ((_waterBarTest.getX() +_waterBarTest.getWidth()) / 2)) +1, waterBar.getY() + ((waterBar.getHeight() - _waterBarTest.getHeight())/2));
-        _hpBarTest.setPosition(((lifeBar.getX() + lifeBar.getWidth()) / 2 - ((_hpBarTest.getX() +_hpBarTest.getWidth())) + ((_hpBarTest.getX() +_hpBarTest.getWidth()) / 2)) +1, lifeBar.getY() + ((lifeBar.getHeight() - _hpBarTest.getHeight())/2));
+       // _waterBarTest.setPosition(((waterBar.getX() + waterBar.getWidth()) / 2 - ((_waterBarTest.getX() +_waterBarTest.getWidth())) + ((_waterBarTest.getX() +_waterBarTest.getWidth()) / 2)) +1, waterBar.getY() + ((waterBar.getHeight() - _waterBarTest.getHeight())/2));
+       // _hpBarTest.setPosition(((lifeBar.getX() + lifeBar.getWidth()) / 2 - ((_hpBarTest.getX() +_hpBarTest.getWidth())) + ((_hpBarTest.getX() +_hpBarTest.getWidth()) / 2)) +1, lifeBar.getY() + ((lifeBar.getHeight() - _hpBarTest.getHeight())/2));
 
         //add to widget groups
     /*    group.addActor(bar);
@@ -138,10 +138,10 @@ public class StatusUI extends Window implements StatusSubject {
         group3.addActor(_xpBar);*/
        
         //Test group
-        group4.addActor(lifeBar);
-        group4.addActor(_hpBarTest);
-        group5.addActor(waterBar);
-        group5.addActor(_waterBarTest);
+      //  group4.addActor(lifeBar);
+      //  group4.addActor(_hpBarTest);
+        //group5.addActor(waterBar);
+       // group5.addActor(_waterBarTest);
         
 
         //Add to layout
@@ -151,7 +151,7 @@ public class StatusUI extends Window implements StatusSubject {
         this.pad(this.getPadTop() + 10, 10, 10, 10);
 
         this.add();
-        this.add(_questButton).align(Align.center);
+        //this.add(_questButton).align(Align.center);
         this.add(_inventoryButton).align(Align.right);
         this.row();
 
@@ -180,15 +180,15 @@ public class StatusUI extends Window implements StatusSubject {
         //this.debug();
        // this.pack();
         
-        this.add(group4).size(lifeBar.getWidth(), lifeBar.getHeight()).padRight(10);
+      //  this.add(group4).size(lifeBar.getWidth(), lifeBar.getHeight()).padRight(10);
         //this.add(_);
         //this.add(_hpValLabel).align(Align.left);
-        this.row();
+      //  this.row();
         
-        this.add(group5).size(waterBar.getWidth(), waterBar.getHeight()).padRight(10);
+       // this.add(group5).size(waterBar.getWidth(), waterBar.getHeight()).padRight(10);
         //this.add(hpLabel);
         //this.add(_hpValLabel).align(Align.left);
-        this.row();
+      //  this.row();
         this.pack();
     }
 
@@ -196,9 +196,9 @@ public class StatusUI extends Window implements StatusSubject {
         return _inventoryButton;
     }
 
-    public ImageButton getQuestButton() {
-        return _questButton;
-    }
+    //public ImageButton getQuestButton() {
+   //     return _questButton;
+   // }
 
     public int getLevelValue(){
         return _levelVal;

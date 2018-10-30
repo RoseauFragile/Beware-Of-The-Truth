@@ -113,11 +113,11 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _statusUI.setKeepWithinStage(false);
         _statusUI.setMovable(false);
         
-        _testHud = new TestHud();
+      /*  _testHud = new TestHud();
         _testHud.setVisible(true);
         _testHud.setPosition((Gdx.graphics.getWidth() /2 - ( _testHud.getWidth())) + (_testHud.getWidth() /2), 0);    
         _testHud.setKeepWithinStage(false);
-        _testHud.setMovable(false);
+        _testHud.setMovable(false);*/
 
         _inventoryUI = new InventoryUI();
         _inventoryUI.setKeepWithinStage(false);
@@ -158,7 +158,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _stage.addActor(_conversationUI);
         _stage.addActor(_messageBoxUI);
         _stage.addActor(_statusUI);
-        _stage.addActor(_testHud);
+      //  _stage.addActor(_testHud);
         _stage.addActor(_inventoryUI);
       //  _stage.addActor(_clock);
 
@@ -169,7 +169,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _messageBoxUI.validate();
         _statusUI.validate();
         _inventoryUI.validate();
-        _testHud.validate();
+      //  _testHud.validate();
        // _clock.validate();
 
         //add tooltips to the stage
@@ -189,7 +189,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         //Observers
         _player.registerObserver(this);
         _statusUI.addObserver(this);
-        _testHud.addObserver(this);
+       // _testHud.addObserver(this);
         _storeInventoryUI.addObserver(this);
       //  _inventoryUI.addObserver(_battleUI.getCurrentState());
         _inventoryUI.addObserver(this);
@@ -204,19 +204,19 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
             }
         });
         
-        ImageButton testButton = _testHud.getTestButton();
-        testButton.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-            	//_testHud.setVisible(_testHud.isVisible() ? false : true);
-            }
-        });
+       // ImageButton testButton = _testHud.getTestButton();
+      //  testButton.addListener(new ClickListener() {
+      //      public void clicked(InputEvent event, float x, float y) {
+      //      	//_testHud.setVisible(_testHud.isVisible() ? false : true);
+     //       }
+     //   });
 
-        ImageButton questButton = _statusUI.getQuestButton();
+       /* ImageButton questButton = _statusUI.getQuestButton();
         questButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 _questUI.setVisible(_questUI.isVisible() ? false : true);
             }
-        });
+        });*/
 
         _conversationUI.getCloseButton().addListener(new ClickListener() {
                                                          @Override

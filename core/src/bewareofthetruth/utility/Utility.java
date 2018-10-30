@@ -21,10 +21,13 @@ public final class Utility {
 
 	private static InternalFileHandleResolver _filePathResolver =  new InternalFileHandleResolver();
 
-	private final static String STATUSUI_TEXTURE_ATLAS_PATH = "skins/statusui.atlas";
-	private final static String STATUSUI_SKIN_PATH = "skins/statusui.json";
+	//private final static String STATUSUI_TEXTURE_ATLAS_PATH = "skins/statusui.atlas";
+	//private final static String STATUSUI_SKIN_PATH = "skins/statusui.json";
 	private final static String ITEMS_TEXTURE_ATLAS_PATH = "skins/items.atlas";
 	private final static String ITEMS_SKIN_PATH = "skins/items.json";
+	
+	private final static String STATUSUI_TEXTURE_ATLAS_PATH = "skins/hud.atlas";
+	private final static String STATUSUI_SKIN_PATH = "skins/hud.json";
 	
 	//private final static String STATUSUI_TEXTURE_ATLAS_PATH_TEST = "skins/test/statustest.atlas";
 	//public static TextureAtlas STATUSUI_TEXTUREATLAS_TEST = new TextureAtlas(Gdx.files.internal(STATUSUI_TEXTURE_ATLAS_PATH_TEST));
@@ -33,11 +36,11 @@ public final class Utility {
 	//public static Skin STATUSUI_SKIN_TEST = new Skin( Gdx.files.internal(STATUSUI_SKIN_PATH_TEST),STATUSUI_TEXTUREATLAS_TEST);
 	//public static TextureRegion REDUCTED_INVENTORY = STATUSUI_SKIN_TEST.get("ReductInventoryInGame",TextureRegion.class);
 	
-	private final static String STATUSUI_TEXTURE_ATLAS_PATH_TEST = "skins/hud.atlas";
-	public static TextureAtlas STATUSUI_TEXTUREATLAS_TEST = new TextureAtlas(Gdx.files.internal(STATUSUI_TEXTURE_ATLAS_PATH_TEST));
+	//private final static String STATUSUI_TEXTURE_ATLAS_PATH_TEST = "skins/hud.atlas";
+	//public static TextureAtlas STATUSUI_TEXTUREATLAS_TEST = new TextureAtlas(Gdx.files.internal(STATUSUI_TEXTURE_ATLAS_PATH));
 	//public static Skin STATUSUI_SKIN_TEST = new Skin( STATUSUI_TEXTUREATLAS_TEST);
-	private final static String STATUSUI_SKIN_PATH_TEST = "skins/hud.json";
-	public static Skin STATUSUI_SKIN_TEST = new Skin( Gdx.files.internal(STATUSUI_SKIN_PATH_TEST),STATUSUI_TEXTUREATLAS_TEST);
+	//private final static String STATUSUI_SKIN_PATH_TEST = "skins/hud.json";
+	//public static Skin STATUSUI_SKIN_TEST = new Skin( Gdx.files.internal(STATUSUI_SKIN_PATH_TEST),STATUSUI_TEXTUREATLAS_TEST);
 	
 	public static TextureAtlas STATUSUI_TEXTUREATLAS = new TextureAtlas(STATUSUI_TEXTURE_ATLAS_PATH);
 	public static TextureAtlas ITEMS_TEXTUREATLAS = new TextureAtlas(ITEMS_TEXTURE_ATLAS_PATH);

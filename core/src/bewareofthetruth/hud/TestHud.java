@@ -12,13 +12,13 @@ import bewareofthetruth.inventory.StatusObserver.StatusEvent;
 import bewareofthetruth.utility.Utility;
 import bewareofthetruth.inventory.StatusSubject;
 
-public class TestHud extends Window implements StatusSubject {
+public class TestHud/* extends Window implements StatusSubject*/ {
 
-	 private ImageButton _testButton;
-	 private Array<StatusObserver> _observers;
+	/* private ImageButton _testButton;
+	 private Array<StatusObserver> _observers;*/
 	 
-	 public TestHud() {
-		 super("test", Utility.STATUSUI_SKIN);
+	 //public TestHud() {
+		/* super("test", Utility.STATUSUI_SKIN);
 		 
 		 _observers = new Array<StatusObserver>();
 		 
@@ -32,10 +32,10 @@ public class TestHud extends Window implements StatusSubject {
 	        //this.setColor(Color.CLEAR);
 	        //this.setBackground(background);
 	       // this.row();
-	        this.add(_testButton)/*.align(Align.bottomRight)*/;
+	        this.add(_testButton)/*.align(Align.bottomRight)*///;
 	        //this.debug();
-	        this.pack();
-	 }
+	       // this.pack();
+	/* }
 	 
 	 public ImageButton getTestButton() {
 		 return this._testButton;
@@ -64,5 +64,5 @@ public class TestHud extends Window implements StatusSubject {
 	            observer.onNotify(value, event);
 	        }
 	    }
-
+*/
 }
