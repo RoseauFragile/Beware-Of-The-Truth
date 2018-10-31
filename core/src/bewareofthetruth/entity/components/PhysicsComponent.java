@@ -149,6 +149,10 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
             case DOWN :
                 testY -= _velocity.y;
                 break;
+            case UP_RIGHT :
+                testX += _velocity.x;
+                testY += _velocity.y;
+            	break;
             default:
                 break;
         }
