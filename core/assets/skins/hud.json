@@ -30,9 +30,9 @@
 		"main-menu-intro": { "imageUp": "INTRODUCTION", "imageChecked": "INTRODUCTION" },
 	},
 	"com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {
-		default: { down: scroll, up: scroll, font: default-font, fontColor: white },
-		toggle: { down: scroll, up: scroll, checked: scroll, font: default-font, fontColor: white, downFontColor: red },
-		inventory: { down: scroll, up: scroll, font: default-font, fontColor: white, disabledFontColor: grey }
+		default: { down: default-round-down, up: default-round, font: default-font, fontColor: white },
+		toggle: { down: default-round-down, up: default-round, checked: default-round-down, font: default-font, fontColor: white, downFontColor: red },
+		inventory: { down: default-round-down, up: default-round, font: default-font, fontColor: white, disabledFontColor: grey }
 	},
 	"com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle": {
 		default: { fontColorUnselected: white, selection: default-rect-pad, fontColorSelected: black, font: default-font },
@@ -43,7 +43,7 @@
 		inventory: { selection: selection, background: textfield, font: default-font, fontColor: white, cursor: Cursor }
 	},
 	com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
-		default: { vScroll: scroll, hScrollKnob: scroll, background: default-rect, hScroll: scroll, vScrollKnob: scroll },
-		inventoryPane: { vScroll: scroll, hScrollKnob: scroll, hScroll: scroll, vScrollKnob: scroll }
+		default: { vScroll: default-scroll, hScrollKnob: default-round-large, background: default-rect, hScroll: default-scroll, vScrollKnob: default-round-large },
+		inventoryPane: { vScroll: default-scroll, hScrollKnob: default-round-large, hScroll: default-scroll, vScrollKnob: default-round-large }
     },
 }
