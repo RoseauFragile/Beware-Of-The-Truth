@@ -82,6 +82,20 @@ CHARGER_PARTIE
   orig: 150, 150
   offset: 6, 28
   index: -1
+chest_closed
+  rotate: false
+  xy: 2008, 740
+  size: 16, 15
+  orig: 100, 100
+  offset: 42, 42
+  index: -1
+chest_open
+  rotate: false
+  xy: 2003, 766
+  size: 18, 15
+  orig: 100, 100
+  offset: 41, 42
+  index: -1
 Cursor
   rotate: false
   xy: 1982, 662
@@ -123,7 +137,7 @@ default-round-large
   index: -1
 default-round
   rotate: false
-  xy: 1988, 786
+  xy: 1988, 808
   size: 16, 24
   split: 5, 6, 8, 11
   orig: 100, 100
@@ -216,14 +230,14 @@ NOUVELLE_PARTIE
   index: -1
 OneBar
   rotate: false
-  xy: 1993, 640
+  xy: 2015, 640
   size: 19, 20
   orig: 100, 100
   offset: 41, 44
   index: -1
 OneWaterBar
   rotate: false
-  xy: 2014, 640
+  xy: 1982, 766
   size: 19, 20
   orig: 100, 100
   offset: 41, 43
@@ -234,6 +248,20 @@ OPTIONS
   size: 73, 53
   orig: 150, 150
   offset: 38, 49
+  index: -1
+quest
+  rotate: false
+  xy: 1934, 138
+  size: 20, 12
+  orig: 100, 100
+  offset: 40, 44
+  index: -1
+quest_clicked
+  rotate: false
+  xy: 1993, 640
+  size: 20, 15
+  orig: 100, 100
+  offset: 40, 43
   index: -1
 QUITTER
   rotate: false
@@ -265,7 +293,7 @@ selection
   index: -1
 textfield
   rotate: false
-  xy: 1982, 766
+  xy: 1982, 788
   size: 18, 18
   split: 7, 6, 7, 6
   orig: 18, 18

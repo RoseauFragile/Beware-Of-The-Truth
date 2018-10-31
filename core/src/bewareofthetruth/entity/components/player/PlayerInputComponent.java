@@ -12,7 +12,7 @@ import bewareofthetruth.entity.components.InputComponent;
 import bewareofthetruth.screens.MainGameScreen;
 import bewareofthetruth.entity.components.Component.MESSAGE;
 
-
+//TODO Julien classe qui controle le player
 public class PlayerInputComponent extends InputComponent {
 
 	private final static String TAG = PlayerInputComponent.class.getSimpleName();
