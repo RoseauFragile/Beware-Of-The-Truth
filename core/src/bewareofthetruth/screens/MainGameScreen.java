@@ -90,6 +90,7 @@ public class MainGameScreen extends GameScreen {
 
 		_player = EntityFactory.getInstance().getEntity(EntityFactory.EntityType.PLAYER);
 		_mapMgr.setPlayer(_player);
+		//TODO Juien ici camera
 		_mapMgr.setCamera(_camera);
 
 		_hudCamera = new OrthographicCamera();
@@ -153,6 +154,8 @@ public class MainGameScreen extends GameScreen {
 		if( _mapMgr.hasMapChanged() ){
 			_mapRenderer.setMap(_mapMgr.getCurrentTiledMap());
 			_player.sendMessage(Component.MESSAGE.INIT_START_POSITION, _json.toJson(_mapMgr.getPlayerStartUnitScaled()));
+
+			//TODO Juien ici camera
 
 			_camera.position.set(_mapMgr.getPlayerStartUnitScaled().x, _mapMgr.getPlayerStartUnitScaled().y, 0f);
 			_camera.update();
