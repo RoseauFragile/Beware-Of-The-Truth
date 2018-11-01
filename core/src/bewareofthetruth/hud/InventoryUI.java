@@ -202,6 +202,7 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
         this.add(_inventorySlotTable).colspan(2);
         this.row();
         this.pack();
+        this.debug();
     }
 
     public DragAndDrop getDragAndDrop(){

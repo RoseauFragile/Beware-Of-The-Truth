@@ -49,13 +49,14 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
     private Viewport _viewport;
     private Camera _camera;
     private Entity _player;
-
+    private Boolean _inGameInventoryOpen = false;
     private StatusUI _statusUI;
     private InventoryUI _inventoryUI;
     private ConversationUI _conversationUI;
     private StoreInventoryUI _storeInventoryUI;
     private QuestUI _questUI;
-    private TestHud _testHud;
+    private InventoryInGameUI _testHud;
+    
  //   private BattleUI _battleUI;
 
     private Dialog _messageBoxUI;
@@ -63,7 +64,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
     private MapManager _mapMgr;
 
     private Array<AudioObserver> _observers;
-   private ScreenTransitionActor _transitionActor;
+    private ScreenTransitionActor _transitionActor;
 
    /*
     private ShakeCamera _shakeCam;
@@ -112,11 +113,12 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _statusUI.setKeepWithinStage(false);
         _statusUI.setMovable(false);
         
-      /*  _testHud = new TestHud();
+        _testHud = new InventoryInGameUI();
         _testHud.setVisible(true);
         _testHud.setPosition((Gdx.graphics.getWidth() /2 - ( _testHud.getWidth())) + (_testHud.getWidth() /2), 0);    
         _testHud.setKeepWithinStage(false);
-        _testHud.setMovable(false);*/
+        _testHud.setMovable(false);
+        
 
         _inventoryUI = new InventoryUI();
         _inventoryUI.setKeepWithinStage(false);
@@ -157,7 +159,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _stage.addActor(_conversationUI);
         _stage.addActor(_messageBoxUI);
         _stage.addActor(_statusUI);
-      //  _stage.addActor(_testHud);
+        _stage.addActor(_testHud);
         _stage.addActor(_inventoryUI);
       //  _stage.addActor(_clock);
 
@@ -168,7 +170,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _messageBoxUI.validate();
         _statusUI.validate();
         _inventoryUI.validate();
-      //  _testHud.validate();
+        _testHud.validate();
        // _clock.validate();
 
         //add tooltips to the stage
@@ -188,7 +190,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         //Observers
         _player.registerObserver(this);
         _statusUI.addObserver(this);
-       // _testHud.addObserver(this);
+        _testHud.addObserver((StatusObserver) this);
         _storeInventoryUI.addObserver(this);
       //  _inventoryUI.addObserver(_battleUI.getCurrentState());
         _inventoryUI.addObserver(this);
@@ -203,12 +205,19 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
             }
         });
         
-       // ImageButton testButton = _testHud.getTestButton();
-      //  testButton.addListener(new ClickListener() {
-      //      public void clicked(InputEvent event, float x, float y) {
-      //      	//_testHud.setVisible(_testHud.isVisible() ? false : true);
-     //       }
-     //   });
+        ImageButton testButton = _testHud.getTestButton();
+        testButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+            	if(_inGameInventoryOpen == false) {
+            		_inGameInventoryOpen = true;
+            		Gdx.app.debug(TAG, "boolean in gameinventory open :" + _inGameInventoryOpen);
+            	} else if(_inGameInventoryOpen == true) {
+            		_inGameInventoryOpen = false;
+            		Gdx.app.debug(TAG, "boolean in gameinventory open :" + _inGameInventoryOpen);
+            	}
+            	//_testHud.setVisible(_testHud.isVisible() ? false : true);
+            }
+        });
 
         ImageButton questButton = _statusUI.getQuestButton();
         questButton.addListener(new ClickListener() {
