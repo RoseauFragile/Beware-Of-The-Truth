@@ -23,7 +23,7 @@ public class StatusUI extends Window implements StatusSubject {
     private String TAG = StatusUI.class.getSimpleName();
 
     private ImageButton _inventoryButton;
-  //  private ImageButton _questButton;
+    private ImageButton _questButton;
    // private ImageButton _testButton;
     private Array<StatusObserver> _observers;
 
@@ -104,11 +104,11 @@ public class StatusUI extends Window implements StatusSubject {
         _goldValLabel = new Label(String.valueOf(_goldVal), Utility.STATUSUI_SKIN);*/
 
         //buttons
-        _inventoryButton= new ImageButton(Utility.STATUSUI_SKIN, "inventory-button");
-        _inventoryButton.getImageCell().size(32, 32);
+        _inventoryButton= new ImageButton(Utility.STATUSUI_SKIN, "chest-button");
+        _inventoryButton.getImageCell().size(256, 256);
 
-       // _questButton = new ImageButton(Utility.STATUSUI_SKIN, "quest-button");
-       // _questButton.getImageCell().size(32,32);
+        _questButton = new ImageButton(Utility.STATUSUI_SKIN, "quest-button");
+        _questButton.getImageCell().size(256,256);
 
         //_testButton = new ImageButton(Utility.STATUSUI_SKIN_TEST, "inventory-test-button");
         
@@ -148,10 +148,10 @@ public class StatusUI extends Window implements StatusSubject {
         defaults().expand().fill();
 
         //account for the title padding
-        this.pad(this.getPadTop() + 10, 10, 10, 10);
+        this.pad(this.getPadTop() + 50, 30, 10, 10);
 
         this.add();
-        //this.add(_questButton).align(Align.center);
+        this.add(_questButton).align(Align.center);
         this.add(_inventoryButton).align(Align.right);
         this.row();
 
@@ -196,9 +196,9 @@ public class StatusUI extends Window implements StatusSubject {
         return _inventoryButton;
     }
 
-    //public ImageButton getQuestButton() {
-   //     return _questButton;
-   // }
+    public ImageButton getQuestButton() {
+        return _questButton;
+   }
 
     public int getLevelValue(){
         return _levelVal;

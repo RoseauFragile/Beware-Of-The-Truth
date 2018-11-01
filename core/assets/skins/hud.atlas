@@ -72,6 +72,7 @@ case_original
   rotate: false
   xy: 1934, 1
   size: 104, 91
+  split: 20, 15, 18, 17
   orig: 150, 150
   offset: 23, 30
   index: -1

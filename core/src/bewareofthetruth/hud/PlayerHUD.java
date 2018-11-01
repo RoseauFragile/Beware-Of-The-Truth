@@ -31,7 +31,6 @@ import bewareofthetruth.inventory.InventoryItem;
 import bewareofthetruth.inventory.InventoryItem.ItemTypeID;
 import bewareofthetruth.inventory.InventoryItemLocation;
 import bewareofthetruth.inventory.InventoryObserver;
-import bewareofthetruth.inventory.InventoryUI;
 import bewareofthetruth.inventory.StatusObserver;
 import bewareofthetruth.inventory.StatusObserver.StatusEvent;
 import bewareofthetruth.inventory.StoreInventoryObserver;
@@ -211,12 +210,12 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
      //       }
      //   });
 
-       /* ImageButton questButton = _statusUI.getQuestButton();
+        ImageButton questButton = _statusUI.getQuestButton();
         questButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 _questUI.setVisible(_questUI.isVisible() ? false : true);
             }
-        });*/
+        });
 
         _conversationUI.getCloseButton().addListener(new ClickListener() {
                                                          @Override

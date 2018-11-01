@@ -1,4 +1,4 @@
-package bewareofthetruth.inventory;
+package bewareofthetruth.hud;
 
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -15,14 +15,27 @@ import com.badlogic.gdx.utils.Array;
 
 import bewareofthetruth.entity.Entity;
 import bewareofthetruth.entity.components.Component;
+import bewareofthetruth.inventory.InventoryItem;
+import bewareofthetruth.inventory.InventoryItemFactory;
+import bewareofthetruth.inventory.InventoryItemLocation;
+import bewareofthetruth.inventory.InventoryObserver;
+import bewareofthetruth.inventory.InventorySlot;
+import bewareofthetruth.inventory.InventorySlotObserver;
+import bewareofthetruth.inventory.InventorySlotSource;
+import bewareofthetruth.inventory.InventorySlotTarget;
+import bewareofthetruth.inventory.InventorySlotTooltip;
+import bewareofthetruth.inventory.InventorySlotTooltipListener;
+import bewareofthetruth.inventory.InventorySubject;
 import bewareofthetruth.inventory.InventoryItem.ItemTypeID;
 import bewareofthetruth.inventory.InventoryItem.ItemUseType;
+import bewareofthetruth.inventory.InventoryObserver.InventoryEvent;
+import bewareofthetruth.inventory.InventorySlotObserver.SlotEvent;
 import bewareofthetruth.utility.Utility;
 
 
 public class InventoryUI extends Window implements InventorySubject, InventorySlotObserver{
 
-    public final static int _numSlots = 50;
+    public final static int _numSlots = 25;
     public static final String PLAYER_INVENTORY = "Player_Inventory";
     public static final String STORE_INVENTORY = "Store_Inventory";
 

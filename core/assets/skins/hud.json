@@ -28,6 +28,8 @@
 		"main-menu-load-game": { "imageUp": "CHARGER_PARTIE", "imageChecked": "CHARGER_PARTIE" },
 		"main-menu-exit": { "imageUp": "QUITTER", "imageChecked": "QUITTER" },
 		"main-menu-intro": { "imageUp": "INTRODUCTION", "imageChecked": "INTRODUCTION" },
+		"chest-button": { "imageUp": "chest_closed", "imageChecked": "chest_open" },
+		"quest-button": { "imageUp": "quest", "imageChecked": "quest_clicked" },
 	},
 	"com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {
 		default: { down: default-round-down, up: default-round, font: default-font, fontColor: white },
