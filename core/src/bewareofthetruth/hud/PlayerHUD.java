@@ -31,7 +31,6 @@ import bewareofthetruth.inventory.InventoryItem;
 import bewareofthetruth.inventory.InventoryItem.ItemTypeID;
 import bewareofthetruth.inventory.InventoryItemLocation;
 import bewareofthetruth.inventory.InventoryObserver;
-import bewareofthetruth.inventory.InventoryUI;
 import bewareofthetruth.inventory.StatusObserver;
 import bewareofthetruth.inventory.StatusObserver.StatusEvent;
 import bewareofthetruth.inventory.StoreInventoryObserver;

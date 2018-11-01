@@ -21,7 +21,6 @@ import bewareofthetruth.inventory.InventorySlotObserver;
 import bewareofthetruth.inventory.InventorySlotTarget;
 import bewareofthetruth.inventory.InventorySlotTooltip;
 import bewareofthetruth.inventory.InventorySlotTooltipListener;
-import bewareofthetruth.inventory.InventoryUI;
 import bewareofthetruth.inventory.StoreInventoryObserver;
 import bewareofthetruth.inventory.StoreInventorySubject;
 import bewareofthetruth.inventory.InventorySlotObserver.SlotEvent;
