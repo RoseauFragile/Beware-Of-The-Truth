@@ -5,6 +5,10 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -24,7 +28,6 @@ import bewareofthetruth.entity.components.ComponentObserver;
 public class PlayerGraphicsComponent extends GraphicsComponent {
 
     private static final String TAG = PlayerGraphicsComponent.class.getSimpleName();
-
     protected Vector2 _previousPosition;
 
     public PlayerGraphicsComponent(){
@@ -85,6 +88,7 @@ public class PlayerGraphicsComponent extends GraphicsComponent {
         Camera camera = mapMgr.getCamera();
         camera.position.set(_currentPosition.x, _currentPosition.y, 0f);
         camera.update();
+
 
         batch.begin();
         batch.draw(_currentFrame, _currentPosition.x, _currentPosition.y, 1, 1);

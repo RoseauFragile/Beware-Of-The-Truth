@@ -211,12 +211,12 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
      //       }
      //   });
 
-       /* ImageButton questButton = _statusUI.getQuestButton();
+        ImageButton questButton = _statusUI.getQuestButton();
         questButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 _questUI.setVisible(_questUI.isVisible() ? false : true);
             }
-        });*/
+        });
 
         _conversationUI.getCloseButton().addListener(new ClickListener() {
                                                          @Override
