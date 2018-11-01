@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -29,7 +30,9 @@ public class PlayerGraphicsComponent extends GraphicsComponent {
 
     private static final String TAG = PlayerGraphicsComponent.class.getSimpleName();
     protected Vector2 _previousPosition;
-
+    protected float cameraX = _currentPosition.x;
+    protected float cameraY = _currentPosition.y;
+    
     public PlayerGraphicsComponent(){
         _previousPosition = new Vector2(0,0);
     }
@@ -86,7 +89,23 @@ public class PlayerGraphicsComponent extends GraphicsComponent {
         }
 
         Camera camera = mapMgr.getCamera();
-        camera.position.set(_currentPosition.x, _currentPosition.y, 0f);
+        
+        TiledMap tiledMap = mapMgr.getCurrentTiledMap();
+        MapProperties prop = tiledMap.getProperties();
+
+        float mapWidth = prop.get("width", Integer.class) * 2;
+        float mapHeight = prop.get("height", Integer.class) * 2;
+        System.out.println("PlayerX : " + _currentPosition.x + " PlayerY : " + _currentPosition.y);
+        System.out.println("mapWidth : " + mapWidth + " mapHeigh : " + mapHeight);
+
+        if(_currentPosition.x >= 4 && _currentPosition.x <= mapWidth - 4) {
+        	cameraX += (_currentPosition.x + delta - cameraX) * delta;
+        }
+        if(_currentPosition.y > 4 && _currentPosition.y < mapHeight - 4) {
+        	cameraY += (_currentPosition.y + delta - cameraY) * delta;
+        }
+        
+        camera.position.set(cameraX, cameraY, 0f);
         camera.update();
 
 

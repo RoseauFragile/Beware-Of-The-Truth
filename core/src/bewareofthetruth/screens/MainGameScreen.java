@@ -157,7 +157,7 @@ public class MainGameScreen extends GameScreen {
 
 			//TODO Juien ici camera
 
-			_camera.position.set(_mapMgr.getPlayerStartUnitScaled().x, _mapMgr.getPlayerStartUnitScaled().y, 0f);
+			_camera.position.set(_mapMgr.getPlayerStartUnitScaled().x, _mapMgr.getPlayerStartUnitScaled().y , 0f);
 			_camera.update();
 
 			_playerHUD.updateEntityObservers();
