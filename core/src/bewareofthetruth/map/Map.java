@@ -1,7 +1,6 @@
 package bewareofthetruth.map;
 
 import java.util.Hashtable;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
@@ -12,13 +11,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.maps.MapObject;
-
 import bewareofthetruth.audio.AudioManager;
 import bewareofthetruth.audio.AudioObserver;
 import bewareofthetruth.audio.AudioSubject;
 import bewareofthetruth.entity.Entity;
 import bewareofthetruth.particles.ParticleEffectFactory;
-import bewareofthetruth.particles.ParticleEffectFactory.ParticleEffectType;
 import bewareofthetruth.utility.Utility;
 
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -186,7 +183,8 @@ public abstract class Map implements AudioSubject{
         return _lightMapNightLayer;
     }
 
-    public Array<Vector2> getParticleEffectSpawnPositions(ParticleEffectFactory.ParticleEffectType particleEffectType) {
+    @SuppressWarnings("unused")
+	public Array<Vector2> getParticleEffectSpawnPositions(ParticleEffectFactory.ParticleEffectType particleEffectType) {
         Array<MapObject> objects = new Array<MapObject>();
         Array<Vector2> positions = new Array<Vector2>();
 
@@ -212,7 +210,8 @@ public abstract class Map implements AudioSubject{
         return positions;
     }
 
-    public Array<Vector2> getQuestItemSpawnPositions(String objectName, String objectTaskID) {
+    @SuppressWarnings("unused")
+	public Array<Vector2> getQuestItemSpawnPositions(String objectName, String objectTaskID) {
         Array<MapObject> objects = new Array<MapObject>();
         Array<Vector2> positions = new Array<Vector2>();
 
@@ -412,7 +411,8 @@ public abstract class Map implements AudioSubject{
         _playerStart =  _closestPlayerStartPosition.cpy();
     }
 
-    public void setClosestStartPositionFromScaledUnits(Vector2 position){
+    @SuppressWarnings("unused")
+	public void setClosestStartPositionFromScaledUnits(Vector2 position){
         if( UNIT_SCALE <= 0 )
             return;
 

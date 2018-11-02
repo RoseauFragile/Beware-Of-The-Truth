@@ -1,7 +1,6 @@
 package bewareofthetruth.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -21,8 +20,10 @@ import bewareofthetruth.audio.AudioObserver;
 public class LoadGameScreen extends GameScreen {
     private Stage _stage;
 	private Main _game;
+	@SuppressWarnings("rawtypes")
 	private List _listItems;
 	
+	@SuppressWarnings("rawtypes")
 	public LoadGameScreen(Main game){
 		_game = game;
 

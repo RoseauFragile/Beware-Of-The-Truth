@@ -1,23 +1,19 @@
 package bewareofthetruth.map.zone1;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Json;
-
 import bewareofthetruth.audio.AudioObserver;
 import bewareofthetruth.entity.Entity;
 import bewareofthetruth.entity.EntityConfig;
 import bewareofthetruth.entity.EntityFactory;
 import bewareofthetruth.entity.components.Component;
-import bewareofthetruth.entity.components.player.PlayerPhysicsComponent;
 import bewareofthetruth.map.Map;
 import bewareofthetruth.map.MapFactory;
 import bewareofthetruth.profile.ProfileManager;
 
 public class ZoneTest extends Map {
 	
-	  @SuppressWarnings("unused")
-		private static final String TAG = PlayerPhysicsComponent.class.getSimpleName();
+
 
 	    private static String _mapPath = "maps/zone_test.tmx";
 	    private Json _json;
@@ -65,21 +61,8 @@ public class ZoneTest extends Map {
 
 	        Entity townfolk5 = EntityFactory.getInstance().getEntityByName(EntityFactory.EntityName.TOWN_FOLK5);
 	        initSpecialEntityPosition(townfolk5);
-	        _mapEntities.add(townfolk5);/*
+	        _mapEntities.add(townfolk5);
 
-
-	       /* Array<Vector2> candleEffectPositions = getParticleEffectSpawnPositions(ParticleEffectFactory.ParticleEffectType.CANDLE_FIRE);
-	        for( Vector2 position: candleEffectPositions ){
-	            _mapParticleEffects.add(ParticleEffectFactory.getParticleEffect(ParticleEffectFactory.ParticleEffectType.CANDLE_FIRE, position));
-	        }
-
-	        Array<Vector2> lanternEffectPositions = getParticleEffectSpawnPositions(ParticleEffectFactory.ParticleEffectType.LANTERN_FIRE);
-	        for( Vector2 position: lanternEffectPositions ){
-	            _mapParticleEffects.add(ParticleEffectFactory.getParticleEffect(ParticleEffectFactory.ParticleEffectType.LANTERN_FIRE, position));
-	        }*/
-	        for(int i =0; i <_mapEntities.size; i++) {
-	        	Gdx.app.debug(TAG,i + "entite : " +_mapEntities.get(i).toString() + " x,y = " + _mapEntities.get(i).getCurrentPosition().x + ":" + _mapEntities.get(i).getCurrentPosition().y);
-	        }
 	    }
 
 	    @Override
@@ -94,7 +77,7 @@ public class ZoneTest extends Map {
 	    }
 
 	    private void initSpecialEntityPosition(Entity entity){
-	    	Gdx.app.debug(TAG, entity.getEntityConfig().getEntityID());
+
 	        Vector2 position = new Vector2(0,0);
 
 	        if( _specialNPCStartPositions.containsKey(entity.getEntityConfig().getEntityID()) ) {

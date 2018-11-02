@@ -27,6 +27,7 @@ import bewareofthetruth.entity.Entity;
 import bewareofthetruth.entity.EntityConfig;
 import bewareofthetruth.entity.components.Component;
 import bewareofthetruth.entity.components.ComponentObserver;
+import bewareofthetruth.inventory.BarInventoryObserver;
 import bewareofthetruth.inventory.InventoryItem;
 import bewareofthetruth.inventory.InventoryItem.ItemTypeID;
 import bewareofthetruth.inventory.InventoryItemLocation;
@@ -42,7 +43,7 @@ import bewareofthetruth.quest.QuestGraph;
 import bewareofthetruth.transition.ScreenTransitionAction;
 import bewareofthetruth.transition.ScreenTransitionActor;
 
-public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,ComponentObserver,ConversationGraphObserver,StoreInventoryObserver/*, BattleObserver*/, InventoryObserver, StatusObserver {
+public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,ComponentObserver,ConversationGraphObserver,StoreInventoryObserver/*, BattleObserver*/, InventoryObserver, StatusObserver,BarInventoryObserver {
     private static final String TAG = PlayerHUD.class.getSimpleName();
     private Stage _stage;
     private Viewport _viewport;
@@ -107,17 +108,20 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _statusUI.setKeepWithinStage(false);
         _statusUI.setMovable(false);
         
-        _inventoryInGame = new InventoryInGameUI();
-		//_inventoryInGame.setVisible(true);
-		_inventoryInGame.setKeepWithinStage(false);
-		_inventoryInGame.setMovable(false);
-		_inventoryInGame.setPosition((Gdx.graphics.getWidth() /2 - ( _inventoryInGame.getWidth())) + (_inventoryInGame.getWidth() /2), 0);
+
 
         _inventoryUI = new InventoryUI();
         _inventoryUI.setKeepWithinStage(false);
         _inventoryUI.setMovable(false);
         _inventoryUI.setVisible(false);
         _inventoryUI.setPosition(_statusUI.getWidth(), 200);
+        
+        _inventoryInGame = new InventoryInGameUI(_inventoryUI);
+		//_inventoryInGame.setVisible(true);
+		_inventoryInGame.setKeepWithinStage(false);
+		_inventoryInGame.setMovable(false);
+		_inventoryInGame.setPosition((Gdx.graphics.getWidth() /2 - ( _inventoryInGame.getWidth())) + (_inventoryInGame.getWidth() /2), 0);
+		Gdx.app.debug(TAG, " x Inventory : " + _inventoryInGame.getWidth() + " y Inventory : " + _inventoryInGame.getHeight() + " -------------------------------------------------------- ");
 
         _conversationUI = new ConversationUI();
         _conversationUI.setMovable(true);
@@ -191,7 +195,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
 
         _player.registerObserver(this);
         _statusUI.addObserver(this);
-        _inventoryInGame.addObserver((StatusObserver) this);
+        _inventoryInGame.addObserver((BarInventoryObserver)this);
         _storeInventoryUI.addObserver(this);
         _inventoryUI.addObserver(this);
         this.addObserver(AudioManager.getInstance());
@@ -643,54 +647,6 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _stage.dispose();
     }
 
-   /* @Override
-    public void onNotify(Entity enemyEntity/*, BattleEvent event*/
-      /*  switch (event) {
-            case OPPONENT_HIT_DAMAGE:
-                notify(AudioObserver.AudioCommand.SOUND_PLAY_ONCE, AudioObserver.AudioTypeEvent.SOUND_CREATURE_PAIN);
-                break;
-            case OPPONENT_DEFEATED:
-                MainGameScreen.setGameState(MainGameScreen.GameState.RUNNING);
-                int goldReward = Integer.parseInt(enemyEntity.getEntityConfig().getPropertyValue(EntityConfig.EntityProperties.ENTITY_GP_REWARD.toString()));
-                _statusUI.addGoldValue(goldReward);
-                int xpReward = Integer.parseInt(enemyEntity.getEntityConfig().getPropertyValue(EntityConfig.EntityProperties.ENTITY_XP_REWARD.toString()));
-                _statusUI.addXPValue(xpReward);
-                notify(AudioObserver.AudioCommand.MUSIC_STOP, AudioObserver.AudioTypeEvent.MUSIC_BATTLE);
-                _mapMgr.enableCurrentmapMusic();
-                addTransitionToScreen();
-                _battleUI.setVisible(false);
-                break;
-            case PLAYER_RUNNING:
-                MainGameScreen.setGameState(MainGameScreen.GameState.RUNNING);
-                notify(AudioObserver.AudioCommand.MUSIC_STOP, AudioObserver.AudioTypeEvent.MUSIC_BATTLE);
-                _mapMgr.enableCurrentmapMusic();
-                addTransitionToScreen();
-                _battleUI.setVisible(false);
-                break;
-            case PLAYER_HIT_DAMAGE:
-                notify(AudioObserver.AudioCommand.SOUND_PLAY_ONCE, AudioObserver.AudioTypeEvent.SOUND_PLAYER_PAIN);
-                int hpVal = ProfileManager.getInstance().getProperty("currentPlayerHP", Integer.class);
-                _statusUI.setHPValue(hpVal);
-                _shakeCam.startShaking();
-
-                if( hpVal <= 0 ){
-                    _shakeCam.reset();
-                    notify(AudioObserver.AudioCommand.MUSIC_STOP, AudioObserver.AudioTypeEvent.MUSIC_BATTLE);
-                    addTransitionToScreen();
-                    _battleUI.setVisible(false);
-                    MainGameScreen.setGameState(MainGameScreen.GameState.GAME_OVER);
-                }
-                break;
-            case PLAYER_USED_MAGIC:
-                notify(AudioObserver.AudioCommand.SOUND_PLAY_ONCE, AudioObserver.AudioTypeEvent.SOUND_PLAYER_WAND_ATTACK);
-                int mpVal = ProfileManager.getInstance().getProperty("currentPlayerMP", Integer.class);
-                _statusUI.setMPValue(mpVal);
-                break;
-            default:
-                break;
-        }
-    }*/
-
     @Override
     public void onNotify(String value, InventoryEvent event) {
         switch(event){
@@ -735,6 +691,23 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
             observer.onNotify(command, event);
         }
     }
+
+	@Override
+	public void onNotify(String value, BarInventoryEvent event) {
+        switch (event) {
+        case PLAYER_INVENTORY_UPDATED:
+            Array<InventoryItemLocation> items = _json.fromJson(Array.class, value);
+            InventoryUI.populateInventory(_inventoryUI.getInventorySlotTable(), items, _inventoryUI.getDragAndDrop(), InventoryUI.PLAYER_INVENTORY, false);
+            break;
+        /*case PLAYER_GP_TOTAL_UPDATED:
+            int val = Integer.valueOf(value);
+            _statusUI.setGoldValue(val);
+            notify(AudioObserver.AudioCommand.SOUND_PLAY_ONCE, AudioObserver.AudioTypeEvent.SOUND_COIN_RUSTLE);
+            break;*/
+        default:
+            break;
+    }
+	}
 
 
 

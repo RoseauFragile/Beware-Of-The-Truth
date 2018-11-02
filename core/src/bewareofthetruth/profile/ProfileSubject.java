@@ -2,8 +2,6 @@ package bewareofthetruth.profile;
 
 import com.badlogic.gdx.utils.Array;
 
-import bewareofthetruth.profile.ProfileObserver.ProfileEvent;
-
 public class ProfileSubject {
 
     private Array<ProfileObserver> _observers;

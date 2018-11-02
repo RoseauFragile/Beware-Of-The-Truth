@@ -1,5 +1,6 @@
 package bewareofthetruth.hud;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -37,7 +38,9 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
 
     public final static int _numSlots = 25;
     public static final String PLAYER_INVENTORY = "Player_Inventory";
+    public static final String BAR_INVENTORY = "Bar_Inventory";
     public static final String STORE_INVENTORY = "Store_Inventory";
+	private static String TAG = InventoryUI.class.getSimpleName();
 
     private int _lengthSlotRow = 10;
     private Table _inventorySlotTable;
@@ -250,7 +253,7 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
 
     public static void populateInventory(Table targetTable, Array<InventoryItemLocation> inventoryItems, DragAndDrop draganddrop, String defaultName, boolean disableNonDefaultItems){
         clearInventoryItems(targetTable);
-
+        Gdx.app.debug(TAG , "populate Inventory activated");
         Array<Cell> cells = targetTable.getCells();
         for(int i = 0; i < inventoryItems.size; i++){
             InventoryItemLocation itemLocation = inventoryItems.get(i);
@@ -489,4 +492,8 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
             observer.onNotify(value, event);
         }
     }
+
+	public InventorySlotTooltip getInventorySlotTooltip() {
+		return this._inventorySlotTooltip;
+	}
 }

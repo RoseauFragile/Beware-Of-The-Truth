@@ -12,14 +12,20 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Json;
 
 import bewareofthetruth.entity.Entity;
 import bewareofthetruth.entity.components.Component;
+import bewareofthetruth.inventory.BarInventoryObserver;
+import bewareofthetruth.inventory.BarInventoryObserver.BarInventoryEvent;
+import bewareofthetruth.inventory.BarInventorySubject;
 import bewareofthetruth.inventory.InventoryItem;
 import bewareofthetruth.inventory.InventoryItemFactory;
 import bewareofthetruth.inventory.InventoryItemLocation;
@@ -36,12 +42,13 @@ import bewareofthetruth.inventory.InventorySubject;
 import bewareofthetruth.inventory.StatusObserver;
 import bewareofthetruth.inventory.StatusObserver.StatusEvent;
 import bewareofthetruth.inventory.StatusSubject;
+import bewareofthetruth.inventory.StoreInventoryObserver;
 import bewareofthetruth.inventory.InventoryItem.ItemTypeID;
 
-public class InventoryInGameUI extends Window implements InventorySubject, InventorySlotObserver, StatusSubject {
+public class InventoryInGameUI extends Window implements InventorySlotObserver, BarInventorySubject, InventorySubject {
 
 	private ImageButton _testButton;
-	private Array<StatusObserver> _observers;
+	private Array<BarInventoryObserver> _observers;
 	private Array<InventoryObserver> _observersInventory;
 	public final static int _numSlots = 6;
 	private Table _inventorySlotTable;
@@ -55,33 +62,41 @@ public class InventoryInGameUI extends Window implements InventorySubject, Inven
     private int _APVal = 0;
     private Array<Actor> _inventoryActors;
     public static final String PLAYER_INVENTORY = "Player_Inventory";
+    private InventoryUI _inventoryUI;
+    private Json _json;
+    private Table _playerInventorySlotTable;
+
 
 	 
-	public InventoryInGameUI() {
+	public InventoryInGameUI(InventoryUI _inventoryUI) {
 		super("", Utility.STATUSUI_SKIN, "InventoryInGame");
 		
-		_inventorySlotTable = new Table();
-        _inventorySlotTable.setName("Inventory_Slot_Table");
-        _inventorySlotTooltip = new InventorySlotTooltip(Utility.STATUSUI_SKIN);
-        _dragAndDrop = new DragAndDrop();
-        _inventoryActors = new Array<Actor>();
+	        _observers = new Array<BarInventoryObserver>();
+	        _json = new Json();
 
-		
+
+	        //create
+	        _dragAndDrop = _inventoryUI.getDragAndDrop();
+	        _inventoryActors = new Array<Actor>();
+	        _inventorySlotTable = new Table();
+	        _inventorySlotTable.setName(InventoryUI.BAR_INVENTORY);
+
+	        _playerInventorySlotTable = new Table();
+	        _playerInventorySlotTable.setName(InventoryUI.PLAYER_INVENTORY);
+	        _inventorySlotTooltip = new InventorySlotTooltip(Utility.STATUSUI_SKIN);
+
+	        //layout      
+	        this.initInventorySlots();
+	        _inventoryActors.add(_inventorySlotTooltip);
 			this.setReductedBackground();
-			_observers = new Array<StatusObserver>();
-			_testButton = new ImageButton(Utility.STATUSUI_SKIN, "inventory-button");
-
 		    defaults().expand().fill();
-
-	        //layout
-		    this.initInventorySlots();
-	        
-		    //this.add(_testButton);
 	        this.add(_inventorySlotTable).colspan(2);
 	        this._inventorySlotTable.setVisible(false);
-		    //this.debug();
+		    this.debug();
 		    this.pack();
 		 }
+
+
 		 
 	public ImageButton getTestButton() {
 		return this._testButton;
@@ -101,119 +116,49 @@ public class InventoryInGameUI extends Window implements InventorySubject, Inven
         this._inventorySlotTable.setVisible(true);
 	}
 
-	@Override
-	public void onNotify(InventorySlot slot, SlotEvent event) {
-        switch(event)
-        {
-            case ADDED_ITEM:
-                InventoryItem addItem = slot.getTopInventoryItem();
-                if( addItem == null ) return;
-                if( addItem.isInventoryItemOffensive() ){
-                    _APVal += addItem.getItemUseTypeValue();
-                    _APValLabel.setText(String.valueOf(_APVal));
-                    notify(String.valueOf(_APVal), InventoryObserver.InventoryEvent.UPDATED_AP);
-
-                    if( addItem.isInventoryItemOffensiveWand() ){
-                        notify(String.valueOf(addItem.getItemUseTypeValue()), InventoryObserver.InventoryEvent.ADD_WAND_AP);
-                    }
-
-                }else if( addItem.isInventoryItemDefensive() ){
-                    _DPVal += addItem.getItemUseTypeValue();
-                    _DPValLabel.setText(String.valueOf(_DPVal));
-                    notify(String.valueOf(_DPVal), InventoryObserver.InventoryEvent.UPDATED_DP);
-                }
-                break;
-            case REMOVED_ITEM:
-                InventoryItem removeItem = slot.getTopInventoryItem();
-                if( removeItem == null ) return;
-                if( removeItem.isInventoryItemOffensive() ){
-                    _APVal -= removeItem.getItemUseTypeValue();
-                    _APValLabel.setText(String.valueOf(_APVal));
-                    notify(String.valueOf(_APVal), InventoryObserver.InventoryEvent.UPDATED_AP);
-
-                    if( removeItem.isInventoryItemOffensiveWand() ){
-                        notify(String.valueOf(removeItem.getItemUseTypeValue()), InventoryObserver.InventoryEvent.REMOVE_WAND_AP);
-                    }
-
-                }else if( removeItem.isInventoryItemDefensive() ){
-                    _DPVal -= removeItem.getItemUseTypeValue();
-                    _DPValLabel.setText(String.valueOf(_DPVal));
-                    notify(String.valueOf(_DPVal), InventoryObserver.InventoryEvent.UPDATED_DP);
-                }
-                break;
-            default:
-                break;
-        }
-	}
-
-	@Override
-	public void addObserver(InventoryObserver inventoryObserver) {
-		_observersInventory.add(inventoryObserver);
-	}
-
-	@Override
-	public void removeObserver(InventoryObserver inventoryObserver) {
-		_observersInventory.removeValue(inventoryObserver, true);
-	}
 
 	@Override
 	public void removeAllObservers() {
-	       for(InventoryObserver observer: _observersInventory){
-	            _observersInventory.removeValue(observer, true);
-	        }
-        for(StatusObserver observer: _observers){
-            _observers.removeValue(observer, true);
-        }
+
 	}
 
-	@Override
-	public void notify(String value, InventoryEvent event) {
-        for(InventoryObserver observer: _observersInventory){
-            observer.onNotify(value, event);
-        }
-	}
-
-	@Override
-	public void addObserver(StatusObserver statusObserver) {
-        _observers.add(statusObserver);
-	}
-
-	@Override
-	public void removeObserver(StatusObserver statusObserver) {
-        _observers.removeValue(statusObserver, true);
-	}
-
-	@Override
-	public void notify(int value, StatusEvent event) {
-        for(StatusObserver observer: _observers){
-            observer.onNotify(value, event);
-        }
-	}
 	
 	public void initInventorySlots() {
        
         InventorySlot inventorySlot1 = new InventorySlot();
         inventorySlot1.addListener(new InventorySlotTooltipListener(_inventorySlotTooltip));
+        inventorySlot1.addObserver(this);
+        inventorySlot1.setName(InventoryUI.BAR_INVENTORY);
         _dragAndDrop.addTarget(new InventorySlotTarget(inventorySlot1));
         
         InventorySlot inventorySlot2 = new InventorySlot();
         inventorySlot2.addListener(new InventorySlotTooltipListener(_inventorySlotTooltip));
+        inventorySlot2.addObserver(this);
+        inventorySlot2.setName(InventoryUI.BAR_INVENTORY);
         _dragAndDrop.addTarget(new InventorySlotTarget(inventorySlot2));
         
         InventorySlot inventorySlot3 = new InventorySlot();
         inventorySlot3.addListener(new InventorySlotTooltipListener(_inventorySlotTooltip));
+        inventorySlot3.addObserver(this);
+        inventorySlot3.setName(InventoryUI.BAR_INVENTORY);
         _dragAndDrop.addTarget(new InventorySlotTarget(inventorySlot3));
         
         InventorySlot inventorySlot4 = new InventorySlot();
         inventorySlot4.addListener(new InventorySlotTooltipListener(_inventorySlotTooltip));
+        inventorySlot4.addObserver(this);
+        inventorySlot4.setName(InventoryUI.BAR_INVENTORY);
         _dragAndDrop.addTarget(new InventorySlotTarget(inventorySlot4));
         
         InventorySlot inventorySlot5 = new InventorySlot();
         inventorySlot5.addListener(new InventorySlotTooltipListener(_inventorySlotTooltip));
+        inventorySlot5.addObserver(this);
+        inventorySlot5.setName(InventoryUI.BAR_INVENTORY);
         _dragAndDrop.addTarget(new InventorySlotTarget(inventorySlot5));
         
         InventorySlot inventorySlot6 = new InventorySlot();
         inventorySlot6.addListener(new InventorySlotTooltipListener(_inventorySlotTooltip));
+        inventorySlot6.addObserver(this);
+        inventorySlot6.setName(InventoryUI.BAR_INVENTORY);
         _dragAndDrop.addTarget(new InventorySlotTarget(inventorySlot6));
 		
         _inventorySlotTable.add(inventorySlot1).size(_slotWidth, _slotHeight).spaceRight(12).spaceLeft(0);
@@ -534,6 +479,78 @@ public class InventoryInGameUI extends Window implements InventorySubject, Inven
             inventorySlot.clearAllInventoryItems(false);
         }
     }
+
+	public InventoryUI get_inventoryUI() {
+		return _inventoryUI;
+	}
+
+	public void set_inventoryUI(InventoryUI _inventoryUI) {
+		this._inventoryUI = _inventoryUI;
+	}
+
+	@Override
+	public void addObserver(BarInventoryObserver barObserver) {
+		_observers.add(barObserver);
+	}
+
+	@Override
+	public void removeObserver(BarInventoryObserver barObserver) {
+		_observers.removeValue(barObserver, true);
+	}
+
+	@Override
+	public void notify(String value, BarInventoryEvent event) {
+        for(BarInventoryObserver observer: _observers){
+            observer.onNotify(value, event);
+        }
+	}
+
+	@Override
+	public void onNotify(InventorySlot slot, SlotEvent event) {
+        switch(event)
+        {
+            case ADDED_ITEM:
+                //moving from player inventory to store inventory to sell
+                if( slot.getTopInventoryItem().getName().equalsIgnoreCase(InventoryUI.PLAYER_INVENTORY) &&
+                        slot.getName().equalsIgnoreCase(InventoryUI.BAR_INVENTORY) ) {
+                }
+                //moving from store inventory to player inventory to buy
+                if( slot.getTopInventoryItem().getName().equalsIgnoreCase(InventoryUI.BAR_INVENTORY) &&
+                        slot.getName().equalsIgnoreCase(InventoryUI.PLAYER_INVENTORY) ) {
+                }
+                break;
+            case REMOVED_ITEM:
+                if( slot.getTopInventoryItem().getName().equalsIgnoreCase(InventoryUI.PLAYER_INVENTORY) &&
+                        slot.getName().equalsIgnoreCase(InventoryUI.BAR_INVENTORY) ) {
+
+                }
+                if( slot.getTopInventoryItem().getName().equalsIgnoreCase(InventoryUI.BAR_INVENTORY) &&
+                        slot.getName().equalsIgnoreCase(InventoryUI.PLAYER_INVENTORY) ) {
+                }
+                break;
+        }
+	}
+	
+    @Override
+    public void notify(String value, InventoryObserver.InventoryEvent event) {
+        for(InventoryObserver observer: _observersInventory){
+            observer.onNotify(value, event);
+        }
+    }
+
+
+
+	@Override
+	public void addObserver(InventoryObserver inventoryObserver) {
+		_observersInventory.add(inventoryObserver);
+	}
+
+
+
+	@Override
+	public void removeObserver(InventoryObserver inventoryObserver) {
+		_observersInventory.removeValue(inventoryObserver, true);
+	}
 }
                                          
 

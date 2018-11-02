@@ -1,6 +1,5 @@
 package bewareofthetruth.entity.components.player;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
@@ -8,23 +7,16 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.Array;
-
 import bewareofthetruth.entity.Entity;
-import bewareofthetruth.entity.Entity.Direction;
-import bewareofthetruth.entity.Entity.State;
 import bewareofthetruth.entity.components.Component;
 import bewareofthetruth.entity.components.ComponentObserver;
 import bewareofthetruth.entity.components.PhysicsComponent;
-import bewareofthetruth.entity.components.Component.MESSAGE;
-import bewareofthetruth.entity.components.ComponentObserver.ComponentEvent;
-import bewareofthetruth.entity.components.PhysicsComponent.BoundingBoxLocation;
 import bewareofthetruth.map.Map;
 import bewareofthetruth.map.MapFactory;
 import bewareofthetruth.map.MapManager;
 
 public class PlayerPhysicsComponent extends PhysicsComponent {
-    private static final String TAG = PlayerPhysicsComponent.class.getSimpleName();
+   // private static final String TAG = PlayerPhysicsComponent.class.getSimpleName();
 
     private Entity.State _state;
     private Vector3 _mouseSelectCoordinates;
@@ -47,7 +39,6 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
 
     @Override
     public void receiveMessage(String message) {
-        //Gdx.app.debug(TAG, "Got message " + message);
         String[] string = message.split(Component.MESSAGE_TOKEN);
 
         if( string.length == 0 ) return;
@@ -109,13 +100,12 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
         _mouseSelectCoordinates.x /= Map.UNIT_SCALE;
         _mouseSelectCoordinates.y /= Map.UNIT_SCALE;
 
-        //Gdx.app.debug(TAG, "Mouse Coordinates " + "(" + _mouseSelectCoordinates.x + "," + _mouseSelectCoordinates.y + ")");
+
 
         for( Entity mapEntity : _tempEntities ) {
             //Don't break, reset all entities
             mapEntity.sendMessage(MESSAGE.ENTITY_DESELECTED);
             Rectangle mapEntityBoundingBox = mapEntity.getCurrentBoundingBox();
-            //Gdx.app.debug(TAG, "Entity Candidate Location " + "(" + mapEntityBoundingBox.x + "," + mapEntityBoundingBox.y + ")");
             if (mapEntity.getCurrentBoundingBox().contains(_mouseSelectCoordinates.x, _mouseSelectCoordinates.y)) {
                 //Check distance
                 _selectionRay.set(_boundingBox.x, _boundingBox.y, 0.0f, mapEntityBoundingBox.x, mapEntityBoundingBox.y, 0.0f);
@@ -124,7 +114,6 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
                 if( distance <= _selectRayMaximumDistance ){
                     //We have a valid entity selection
                     //Picked/Selected
-                    //Gdx.app.debug(TAG, "Selected Entity! " + mapEntity.getEntityConfig().getEntityID());
                     mapEntity.sendMessage(MESSAGE.ENTITY_SELECTED);
                     notify(_json.toJson(mapEntity.getEntityConfig()), ComponentObserver.ComponentEvent.LOAD_CONVERSATION);
                 }
@@ -162,7 +151,6 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
                     }
 
                     notify(_json.toJson(val), ComponentObserver.ComponentEvent.QUEST_LOCATION_DISCOVERED);
-                    //Gdx.app.debug(TAG, "Discover Area Activated");
                     return true;
                 }
             }
@@ -191,10 +179,8 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
                     }
 
                     if( _previousEnemySpawn.equalsIgnoreCase(enemySpawnID) ){
-                        //Gdx.app.debug(TAG, "Enemy Spawn Area already activated " + enemySpawnID);
                         return true;
                     }else{
-                        //Gdx.app.debug(TAG, "Enemy Spawn Area " + enemySpawnID + " Activated with previous Spawn value: " + _previousEnemySpawn);
                         _previousEnemySpawn = enemySpawnID;
                     }
 
@@ -206,7 +192,6 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
 
         //If no collision, reset the value
         if( !_previousEnemySpawn.equalsIgnoreCase(String.valueOf(0)) ){
-           // Gdx.app.debug(TAG, "Enemy Spawn Area RESET with previous value " + _previousEnemySpawn);
             _previousEnemySpawn = String.valueOf(0);
             notify(_previousEnemySpawn, ComponentObserver.ComponentEvent.ENEMY_SPAWN_LOCATION_CHANGED);
         }
@@ -218,7 +203,6 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
         MapLayer mapPortalLayer =  mapMgr.getPortalLayer();
 
         if( mapPortalLayer == null ){
-            //Gdx.app.debug(TAG, "Portal Layer doesn't exist!");
             return false;
         }
 
@@ -241,8 +225,6 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
                     _currentEntityPosition.y = mapMgr.getPlayerStartUnitScaled().y;
                     _nextEntityPosition.x = mapMgr.getPlayerStartUnitScaled().x;
                     _nextEntityPosition.y = mapMgr.getPlayerStartUnitScaled().y;
-
-                  //  Gdx.app.debug(TAG, "Portal Activated");
                     return true;
                 }
             }

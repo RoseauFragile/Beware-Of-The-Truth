@@ -3,7 +3,6 @@ package bewareofthetruth.utility;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.assets.loaders.MusicLoader;
 import com.badlogic.gdx.assets.loaders.SoundLoader;
 import com.badlogic.gdx.assets.loaders.TextureLoader;
@@ -24,6 +23,7 @@ public final class Utility {
 	//private final static String STATUSUI_TEXTURE_ATLAS_PATH = "skins/statusui.atlas";
 	//private final static String STATUSUI_SKIN_PATH = "skins/statusui.json";
 	private final static String ITEMS_TEXTURE_ATLAS_PATH = "skins/items.atlas";
+	@SuppressWarnings("unused")
 	private final static String ITEMS_SKIN_PATH = "skins/items.json";
 	
 	private final static String STATUSUI_TEXTURE_ATLAS_PATH = "skins/hud.atlas";

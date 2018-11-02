@@ -27,7 +27,8 @@ public class InventoryItemFactory {
         return _instance;
     }
 
-    private InventoryItemFactory(){
+    @SuppressWarnings("unchecked")
+	private InventoryItemFactory(){
         ArrayList<JsonValue> list = _json.fromJson(ArrayList.class, Gdx.files.internal(INVENTORY_ITEM));
         _inventoryItemList = new Hashtable<ItemTypeID, InventoryItem>();
 

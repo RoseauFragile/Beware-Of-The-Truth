@@ -83,7 +83,6 @@ public class PlayerInputComponent extends InputComponent {
 
 		//Mouse input
 		if( mouseButtons.get(Mouse.SELECT)) {
-			//Gdx.app.debug(TAG, "Mouse LEFT click at : (" + _lastMouseCoordinates.x + "," + _lastMouseCoordinates.y + ")" );
 			entity.sendMessage(MESSAGE.INIT_SELECT_ENTITY, _json.toJson(_lastMouseCoordinates));
 			mouseButtons.put(Mouse.SELECT, false);
 		}
@@ -143,7 +142,6 @@ public class PlayerInputComponent extends InputComponent {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		//Gdx.app.debug(TAG, "GameScreen: MOUSE DOWN........: (" + screenX + "," + screenY + ")" );
 
 		if( button == Input.Buttons.LEFT || button == Input.Buttons.RIGHT ){
 			this.setClickedMouseCoordinates(screenX, screenY);

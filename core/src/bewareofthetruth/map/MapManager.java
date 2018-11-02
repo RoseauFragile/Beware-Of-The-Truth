@@ -4,22 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-
 import bewareofthetruth.entity.Entity;
 import bewareofthetruth.entity.components.Component;
 import bewareofthetruth.entity.components.ComponentObserver;
-import bewareofthetruth.entity.components.Component.MESSAGE;
-import bewareofthetruth.map.MapFactory.MapType;
 import bewareofthetruth.profile.ProfileManager;
 import bewareofthetruth.profile.ProfileObserver;
-import bewareofthetruth.profile.ProfileObserver.ProfileEvent;
 
-import java.util.Hashtable;
 
 public class MapManager implements ProfileObserver {
     private static final String TAG = MapManager.class.getSimpleName();
@@ -32,9 +25,6 @@ public class MapManager implements ProfileObserver {
     private MapLayer _currentLightMap = null;
     private MapLayer _previousLightMap = null;
    // private ClockActor.TimeOfDay _timeOfDay = null;
-    private float _currentLightMapOpacity = 0;
-    private float _previousLightMapOpacity = 1;
-    private boolean _timeOfDayChanged = false;
 
     public MapManager(){
     }
@@ -126,7 +116,6 @@ public class MapManager implements ProfileObserver {
         _currentMap = map;
         _mapChanged = true;
         clearCurrentSelectedMapEntity();
-        Gdx.app.debug(TAG, "Player Start: (" + _currentMap.getPlayerStart().x + "," + _currentMap.getPlayerStart().y + ")");
     }
 
     public void unregisterCurrentMapEntityObservers(){
@@ -280,7 +269,8 @@ public class MapManager implements ProfileObserver {
         _currentMap.getMapQuestEntities().addAll(entities);
     }
 
-    public void removeMapQuestEntity(Entity entity){
+    @SuppressWarnings("unchecked")
+	public void removeMapQuestEntity(Entity entity){
         entity.unregisterObservers();
 
         Array<Vector2> positions = ProfileManager.getInstance().getProperty(entity.getEntityConfig().getEntityID(), Array.class);

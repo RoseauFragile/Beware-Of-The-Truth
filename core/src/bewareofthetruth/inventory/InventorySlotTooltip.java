@@ -12,7 +12,7 @@ public class InventorySlotTooltip extends Window {
 
     public InventorySlotTooltip(final Skin skin){
         super("", skin);
-        this._skin = skin;
+        this.set_skin(skin);
 
         _description = new Label("", skin, "inventory-item-count");
 
@@ -59,4 +59,12 @@ public class InventorySlotTooltip extends Window {
         }
 
     }
+
+	public Skin get_skin() {
+		return _skin;
+	}
+
+	public void set_skin(Skin _skin) {
+		this._skin = _skin;
+	}
 }

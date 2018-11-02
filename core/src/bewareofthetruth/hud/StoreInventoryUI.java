@@ -14,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
-
 import bewareofthetruth.inventory.InventoryItemLocation;
 import bewareofthetruth.inventory.InventorySlot;
 import bewareofthetruth.inventory.InventorySlotObserver;
@@ -23,7 +22,6 @@ import bewareofthetruth.inventory.InventorySlotTooltip;
 import bewareofthetruth.inventory.InventorySlotTooltipListener;
 import bewareofthetruth.inventory.StoreInventoryObserver;
 import bewareofthetruth.inventory.StoreInventorySubject;
-import bewareofthetruth.inventory.InventorySlotObserver.SlotEvent;
 import bewareofthetruth.inventory.StoreInventoryObserver.StoreInventoryEvent;
 import bewareofthetruth.utility.Utility;
 

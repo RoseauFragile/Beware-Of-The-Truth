@@ -209,7 +209,8 @@ public class QuestGraph {
         task.setTaskComplete();
     }
 
-    public void update(MapManager mapMgr){
+    @SuppressWarnings("unchecked")
+	public void update(MapManager mapMgr){
         ArrayList<QuestTask> allQuestTasks = getAllQuestTasks();
         for( QuestTask questTask: allQuestTasks ) {
 
@@ -255,7 +256,8 @@ public class QuestGraph {
         }
     }
 
-    public void init(MapManager mapMgr){
+    @SuppressWarnings("unchecked")
+	public void init(MapManager mapMgr){
         ArrayList<QuestTask> allQuestTasks = getAllQuestTasks();
         for( QuestTask questTask: allQuestTasks ) {
 

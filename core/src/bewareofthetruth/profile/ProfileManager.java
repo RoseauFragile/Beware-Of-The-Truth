@@ -11,7 +11,8 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.ObjectMap;
 
 public class ProfileManager extends ProfileSubject {
-    private static final String TAG = ProfileManager.class.getSimpleName();
+    @SuppressWarnings("unused")
+	private static final String TAG = ProfileManager.class.getSimpleName();
 
     private Json _json;
     private static ProfileManager _profileManager;
@@ -105,7 +106,8 @@ public class ProfileManager extends ProfileSubject {
         _profileProperties.put(key, object);
     }
 
-    public <T extends Object> T getProperty(String key, Class<T> type){
+    @SuppressWarnings("unchecked")
+	public <T extends Object> T getProperty(String key, Class<T> type){
         T property = null;
         if( !_profileProperties.containsKey(key) ){
             return property;
@@ -120,7 +122,8 @@ public class ProfileManager extends ProfileSubject {
         writeProfileToStorage(_profileName, text, true);
     }
 
-    public void loadProfile(){
+    @SuppressWarnings("unchecked")
+	public void loadProfile(){
         if( _isNewProfile ){
             notify(this, ProfileObserver.ProfileEvent.CLEAR_CURRENT_PROFILE);
             saveProfile();

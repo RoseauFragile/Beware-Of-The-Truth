@@ -2,41 +2,22 @@ package bewareofthetruth.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMapImageLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Json;
-
 import bewareofthetruth.audio.AudioManager;
 import bewareofthetruth.entity.Entity;
 import bewareofthetruth.entity.EntityFactory;
-import bewareofthetruth.entity.EntityFactory.EntityType;
 import bewareofthetruth.entity.components.Component;
-import bewareofthetruth.entity.components.Component.MESSAGE;
 import bewareofthetruth.hud.PlayerHUD;
 import bewareofthetruth.main.Main;
 import bewareofthetruth.map.Map;
 import bewareofthetruth.map.MapFactory;
 import bewareofthetruth.map.MapManager;
 import bewareofthetruth.profile.ProfileManager;
-import bewareofthetruth.utility.Utility;
-
 	
 public class MainGameScreen extends GameScreen {
 	private static final String TAG = MainGameScreen.class.getSimpleName();
@@ -74,6 +55,7 @@ public class MainGameScreen extends GameScreen {
 
 	
 
+	@SuppressWarnings("static-access")
 	public MainGameScreen(Main game){
 		_game = game;
 		_mapMgr = new MapManager();
