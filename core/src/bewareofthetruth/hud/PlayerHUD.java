@@ -55,6 +55,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
     private StoreInventoryUI _storeInventoryUI;
     private QuestUI _questUI;
     private InventoryInGameUI _inventoryInGame;
+    private MiniMapUI _miniMap;
  //   private BattleUI _battleUI;
     private Dialog _messageBoxUI;
     private Json _json;
@@ -137,6 +138,15 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _questUI.setPosition(0, _stage.getHeight() / 2);
         _questUI.setWidth(_stage.getWidth());
         _questUI.setHeight(_stage.getHeight() / 2);
+        
+        _miniMap = new MiniMapUI();
+        _miniMap.setMovable(false);
+        _miniMap.setVisible(true);
+        _miniMap.setKeepWithinStage(false);
+        _miniMap.setSize(300, 300);
+        _miniMap.setPosition( _inventoryInGame.getRight() + ((Gdx.graphics.getWidth() - _inventoryInGame.getRight()) - _miniMap.getWidth()) - 4, 0);
+        
+        
 
         _stage.addActor(_questUI);
         _stage.addActor(_storeInventoryUI);
@@ -145,9 +155,10 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _stage.addActor(_statusUI);
         _stage.addActor(_inventoryInGame);
         _stage.addActor(_inventoryUI);
+        _stage.addActor(_miniMap);
       //  _stage.addActor(_clock);
         
-        _stage.setDebugAll(true);
+       /// _stage.setDebugAll(true);
 
         _questUI.validate();
         _storeInventoryUI.validate();
@@ -156,6 +167,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _statusUI.validate();
         _inventoryUI.validate();
         _inventoryInGame.validate();
+        _miniMap.validate();
        // _clock.validate();
 
 

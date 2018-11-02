@@ -21,6 +21,7 @@
 		"default": { "titleFont": "default-font", "background": "case_modulable" },
 		"solidbackground": { "titleFont": "default-font", "background": "case_modulable" },
 		"InventoryInGame": { "titleFont": "default-font", "background": "InventoryInGame" },
+		"minimap": { "titleFont": "default-font", "background": "MiniMap" },
 		
 	},
 		"com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle": {

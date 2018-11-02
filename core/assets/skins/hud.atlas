@@ -219,6 +219,7 @@ MiniMap
   rotate: false
   xy: 1915, 419
   size: 128, 128
+  split: 20, 20, 20,20
   orig: 200, 200
   offset: 41, 36
   index: -1
