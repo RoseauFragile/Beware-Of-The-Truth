@@ -12,8 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Array;
-
 import bewareofthetruth.entity.Entity;
 import bewareofthetruth.entity.components.Component;
 import bewareofthetruth.inventory.InventoryItem;
@@ -29,10 +29,7 @@ import bewareofthetruth.inventory.InventorySlotTooltipListener;
 import bewareofthetruth.inventory.InventorySubject;
 import bewareofthetruth.inventory.InventoryItem.ItemTypeID;
 import bewareofthetruth.inventory.InventoryItem.ItemUseType;
-import bewareofthetruth.inventory.InventoryObserver.InventoryEvent;
-import bewareofthetruth.inventory.InventorySlotObserver.SlotEvent;
 import bewareofthetruth.utility.Utility;
-
 
 public class InventoryUI extends Window implements InventorySubject, InventorySlotObserver{
 
@@ -62,8 +59,7 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
     private InventorySlotTooltip _inventorySlotTooltip;
 
     public InventoryUI(){
-    	//ok
-        super("Inventory", Utility.STATUSUI_SKIN, "solidbackground");
+        super("", Utility.STATUSUI_SKIN, "MenuInventory");
 
         _observers = new Array<InventoryObserver>();
 
@@ -199,15 +195,21 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
         _playerSlotsTable.add(_equipSlots);
         _inventoryActors.add(_inventorySlotTooltip);
 
+
+        defaults().expand().fill();
         this.add(_playerSlotsTable).padBottom(20);
         this.add(labelTable);
         this.row();
         this.add(_inventorySlotTable).colspan(2);
         this.row();
-        this.pack();
         this.debug();
+        this.pack();
+        
     }
 
+    
+
+	
     public DragAndDrop getDragAndDrop(){
         return _dragAndDrop;
     }
@@ -231,7 +233,8 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
         notify(String.valueOf(_APVal), InventoryObserver.InventoryEvent.UPDATED_AP);
     }
 
-    public static void clearInventoryItems(Table targetTable){
+    @SuppressWarnings("rawtypes")
+	public static void clearInventoryItems(Table targetTable){
         Array<Cell> cells = targetTable.getCells();
         for( int i = 0; i < cells.size; i++){
             InventorySlot inventorySlot = (InventorySlot)cells.get(i).getActor();
@@ -240,7 +243,8 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
         }
     }
 
-    public static Array<InventoryItemLocation> removeInventoryItems(String name, Table inventoryTable){
+    @SuppressWarnings("rawtypes")
+	public static Array<InventoryItemLocation> removeInventoryItems(String name, Table inventoryTable){
         Array<Cell> cells = inventoryTable.getCells();
         Array<InventoryItemLocation> items = new Array<InventoryItemLocation>();
         for(int i = 0; i < cells.size; i++){
@@ -251,7 +255,8 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
         return items;
     }
 
-    public static void populateInventory(Table targetTable, Array<InventoryItemLocation> inventoryItems, DragAndDrop draganddrop, String defaultName, boolean disableNonDefaultItems){
+    @SuppressWarnings("rawtypes")
+	public static void populateInventory(Table targetTable, Array<InventoryItemLocation> inventoryItems, DragAndDrop draganddrop, String defaultName, boolean disableNonDefaultItems){
         clearInventoryItems(targetTable);
         Gdx.app.debug(TAG , "populate Inventory activated");
         Array<Cell> cells = targetTable.getCells();
@@ -279,7 +284,8 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
         }
     }
 
-    public static Array<InventoryItemLocation> getInventory(Table targetTable){
+    @SuppressWarnings("rawtypes")
+	public static Array<InventoryItemLocation> getInventory(Table targetTable){
         Array<Cell> cells = targetTable.getCells();
         Array<InventoryItemLocation> items = new Array<InventoryItemLocation>();
         for(int i = 0; i < cells.size; i++){
@@ -297,7 +303,8 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
         return items;
     }
 
-    public static Array<InventoryItemLocation> getInventoryFiltered(Table targetTable, String filterOutName){
+    @SuppressWarnings("rawtypes")
+	public static Array<InventoryItemLocation> getInventoryFiltered(Table targetTable, String filterOutName){
         Array<Cell> cells = targetTable.getCells();
         Array<InventoryItemLocation> items = new Array<InventoryItemLocation>();
         for(int i = 0; i < cells.size; i++){
@@ -318,7 +325,8 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
         return items;
     }
 
-    public static Array<InventoryItemLocation> getInventory(Table targetTable, String name){
+    @SuppressWarnings("rawtypes")
+	public static Array<InventoryItemLocation> getInventory(Table targetTable, String name){
         Array<Cell> cells = targetTable.getCells();
         Array<InventoryItemLocation> items = new Array<InventoryItemLocation>();
         for(int i = 0; i < cells.size; i++){
@@ -337,7 +345,8 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
         return items;
     }
 
-    public static Array<InventoryItemLocation> getInventoryFiltered(Table sourceTable, Table targetTable, String filterOutName){
+    @SuppressWarnings("rawtypes")
+	public static Array<InventoryItemLocation> getInventoryFiltered(Table sourceTable, Table targetTable, String filterOutName){
         Array<InventoryItemLocation> items = getInventoryFiltered(targetTable, filterOutName);
         Array<Cell> sourceCells = sourceTable.getCells();
         int index = 0;
@@ -362,7 +371,8 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
     }
 
 
-    public static void setInventoryItemNames(Table targetTable, String name){
+    @SuppressWarnings("rawtypes")
+	public static void setInventoryItemNames(Table targetTable, String name){
         Array<Cell> cells = targetTable.getCells();
         for(int i = 0; i < cells.size; i++){
             InventorySlot inventorySlot =  ((InventorySlot)cells.get(i).getActor());
@@ -371,7 +381,8 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
         }
     }
 
-    public boolean doesInventoryHaveSpace(){
+    @SuppressWarnings("rawtypes")
+	public boolean doesInventoryHaveSpace(){
         Array<Cell> sourceCells = _inventorySlotTable.getCells();
         int index = 0;
 
@@ -388,7 +399,8 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
         return false;
     }
 
-    public void addEntityToInventory(Entity entity, String itemName){
+    @SuppressWarnings("rawtypes")
+	public void addEntityToInventory(Entity entity, String itemName){
         Array<Cell> sourceCells = _inventorySlotTable.getCells();
         int index = 0;
 
@@ -406,7 +418,8 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
             }
     }
 
-    public void removeQuestItemFromInventory(String questID){
+    @SuppressWarnings("rawtypes")
+	public void removeQuestItemFromInventory(String questID){
         Array<Cell> sourceCells = _inventorySlotTable.getCells();
         for (int index = 0; index < sourceCells.size; index++) {
             InventorySlot inventorySlot = ((InventorySlot) sourceCells.get(index).getActor());

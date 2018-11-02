@@ -1,10 +1,8 @@
 package bewareofthetruth.hud;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -12,12 +10,10 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-
 import bewareofthetruth.audio.AudioManager;
 import bewareofthetruth.audio.AudioObserver;
 import bewareofthetruth.audio.AudioSubject;
@@ -33,7 +29,6 @@ import bewareofthetruth.inventory.InventoryItem.ItemTypeID;
 import bewareofthetruth.inventory.InventoryItemLocation;
 import bewareofthetruth.inventory.InventoryObserver;
 import bewareofthetruth.inventory.StatusObserver;
-import bewareofthetruth.inventory.StatusObserver.StatusEvent;
 import bewareofthetruth.inventory.StoreInventoryObserver;
 import bewareofthetruth.map.MapManager;
 import bewareofthetruth.profile.ProfileManager;
@@ -63,6 +58,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
     private MapManager _mapMgr;
     private Array<AudioObserver> _observers;
     private ScreenTransitionActor _transitionActor;
+	private TestUI _test;
 
    /*
     private ShakeCamera _shakeCam;
@@ -114,15 +110,19 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _inventoryUI.setKeepWithinStage(false);
         _inventoryUI.setMovable(false);
         _inventoryUI.setVisible(false);
-        _inventoryUI.setPosition(_statusUI.getWidth(), 200);
+        //_inventoryUI.setPosition(_statusUI.getWidth(), 0);
+        _inventoryUI.setPosition(0, 0); //793, 696
+        //_inventoryUI.setSize(793, 696);
         
         _inventoryInGame = new InventoryInGameUI(_inventoryUI);
 		//_inventoryInGame.setVisible(true);
 		_inventoryInGame.setKeepWithinStage(false);
 		_inventoryInGame.setMovable(false);
 		_inventoryInGame.setPosition((Gdx.graphics.getWidth() /2 - ( _inventoryInGame.getWidth())) + (_inventoryInGame.getWidth() /2), 0);
-		Gdx.app.debug(TAG, " x Inventory : " + _inventoryInGame.getWidth() + " y Inventory : " + _inventoryInGame.getHeight() + " -------------------------------------------------------- ");
+		//Gdx.app.debug(TAG, " x Inventory : " + _inventoryInGame.getWidth() + " y Inventory : " + _inventoryInGame.getHeight() + " -------------------------------------------------------- ");
 
+		//_inventoryUI.setPosition(_statusUI.getWidth(), _inventoryInGame.getHeight());
+		
         _conversationUI = new ConversationUI();
         _conversationUI.setMovable(true);
         _conversationUI.setVisible(false);
@@ -150,7 +150,11 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _miniMap.setSize(300, 300);
         _miniMap.setPosition( _inventoryInGame.getRight() + ((Gdx.graphics.getWidth() - _inventoryInGame.getRight()) - _miniMap.getWidth()) - 4, 0);
         
-        
+        _test = new TestUI();
+        _test.setMovable(false);
+        _test.setVisible(true);
+        _test.setKeepWithinStage(false);
+        _test.setPosition(0, 0);
 
         _stage.addActor(_questUI);
         _stage.addActor(_storeInventoryUI);
@@ -160,6 +164,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _stage.addActor(_inventoryInGame);
         _stage.addActor(_inventoryUI);
         _stage.addActor(_miniMap);
+        _stage.addActor(_test);
       //  _stage.addActor(_clock);
         
        /// _stage.setDebugAll(true);
@@ -172,6 +177,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _inventoryUI.validate();
         _inventoryInGame.validate();
         _miniMap.validate();
+        _test.validate();
        // _clock.validate();
 
 
@@ -280,7 +286,8 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
                         Actions.addAction(ScreenTransitionAction.transition(ScreenTransitionAction.ScreenTransitionType.FADE_IN, 1), _transitionActor)));
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public void onNotify(ProfileManager profileManager, ProfileEvent event) {
         switch(event){
             case PROFILE_LOADED:
@@ -402,7 +409,8 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         }
     }
 
-    @Override
+    @SuppressWarnings("unused")
+	@Override
     public void onNotify(String value, ComponentEvent event) {
         switch(event) {
             case LOAD_CONVERSATION:
@@ -562,7 +570,8 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         }
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public void onNotify(String value, StoreInventoryEvent event) {
         switch (event) {
             case PLAYER_GP_TOTAL_UPDATED:
@@ -692,6 +701,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         }
     }
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void onNotify(String value, BarInventoryEvent event) {
         switch (event) {

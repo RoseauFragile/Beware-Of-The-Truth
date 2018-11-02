@@ -113,9 +113,6 @@ public class MainGameScreen extends GameScreen {
 
 	@Override
 	public void render(float delta) {
-        
-
-		
 		if( _gameState == GameState.GAME_OVER ){
 			_game.setScreen(_game.getScreenType(Main.ScreenType.GameOver));
 		}

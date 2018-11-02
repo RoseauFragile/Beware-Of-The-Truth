@@ -213,7 +213,7 @@ MenuInventory
   xy: 987, 1
   size: 793, 696
   orig: 1920, 1080
-  offset: 330, 365
+  offset: 330,365
   index: -1
 MiniMap
   rotate: false
