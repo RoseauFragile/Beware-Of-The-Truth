@@ -10,6 +10,7 @@ import bewareofthetruth.inventory.InventoryItem.ItemTypeID;
 public class EntityConfig {
     private Array<AnimationConfig> animationConfig;
     private Array<ItemTypeID> inventory;
+    private Array<ItemTypeID> inventoryBar;
     private Entity.State state = Entity.State.IDLE;
     private Entity.Direction direction = Entity.Direction.DOWN;
     private String entityID;
@@ -142,6 +143,14 @@ public class EntityConfig {
 
     public void setInventory(Array<ItemTypeID> inventory) {
         this.inventory = inventory;
+    }
+    
+    public Array<ItemTypeID> getInventoryBar() {
+        return inventoryBar;
+    }
+
+    public void setInventoryBar(Array<ItemTypeID> inventoryBar) {
+        this.inventoryBar = inventoryBar;
     }
 
     static public class AnimationConfig{

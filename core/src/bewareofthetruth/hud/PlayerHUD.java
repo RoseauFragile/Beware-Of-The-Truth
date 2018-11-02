@@ -117,7 +117,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _inventoryUI.setKeepWithinStage(false);
         _inventoryUI.setMovable(false);
         _inventoryUI.setVisible(false);
-        _inventoryUI.setPosition(_statusUI.getWidth(), 0);
+        _inventoryUI.setPosition(_statusUI.getWidth(), 200);
 
         _conversationUI = new ConversationUI();
         _conversationUI.setMovable(true);
@@ -174,6 +174,10 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         Array<Actor> actors = _inventoryUI.getInventoryActors();
         for(Actor actor : actors){
             _stage.addActor(actor);
+        }
+        Array<Actor> actorsBar = _inventoryInGame.getInventoryActors();
+        for(Actor actor : actorsBar) {
+        	_stage.addActor(actor);
         }
 
         Array<Actor> storeActors = _storeInventoryUI.getInventoryActors();
@@ -298,14 +302,29 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
                     _statusUI.setGoldValue(20);
                     _statusUI.setStatusForLevel(1);
 
-                 //   _clock.setTotalTime(60 * 60 * 12); //start at noon
+                  //   _clock.setTotalTime(60 * 60 * 12); //start at noon
                   //  profileManager.setProperty("currentTime", _clock.getTotalTime());
+                    
+                    
+                    InventoryInGameUI.clearInventoryItems(_inventoryInGame.getInventorySlotTable());
+                    Array<ItemTypeID> items2 = _player.getEntityConfig().getInventoryBar();
+                    Array<InventoryItemLocation> itemLocations2 = new Array<InventoryItemLocation>();
+                    for( int i = 0; i < items2.size; i++){
+                        itemLocations2.add(new InventoryItemLocation(i, items.get(i).toString(), 1, InventoryInGameUI.PLAYER_INVENTORY));
+                    }
+                    InventoryInGameUI.populateInventory(_inventoryInGame.getInventorySlotTable(), itemLocations, _inventoryInGame.getDragAndDrop(), InventoryInGameUI.PLAYER_INVENTORY, false);
+                    profileManager.setProperty("playerInventory", InventoryInGameUI.getInventory(_inventoryInGame.getInventorySlotTable()));
+
+
                 }else{
                     int goldVal = profileManager.getProperty("currentPlayerGP", Integer.class);
 
                     Array<InventoryItemLocation> inventory = profileManager.getProperty("playerInventory", Array.class);
                     InventoryUI.populateInventory(_inventoryUI.getInventorySlotTable(), inventory, _inventoryUI.getDragAndDrop(), InventoryUI.PLAYER_INVENTORY, false);
 
+                    Array<InventoryItemLocation> inventoryBar = profileManager.getProperty("playerBarInventory", Array.class);
+                    InventoryInGameUI.populateInventory(_inventoryInGame.getInventorySlotTable(), inventoryBar, _inventoryInGame.getDragAndDrop(), InventoryInGameUI.PLAYER_INVENTORY, false);
+                    
                     Array<InventoryItemLocation> equipInventory = profileManager.getProperty("playerEquipInventory", Array.class);
                     if( equipInventory != null && equipInventory.size > 0 ){
                         _inventoryUI.resetEquipSlots();
@@ -347,6 +366,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
             case SAVING_PROFILE:
                 profileManager.setProperty("playerQuests", _questUI.getQuests());
                 profileManager.setProperty("playerInventory", InventoryUI.getInventory(_inventoryUI.getInventorySlotTable()));
+                profileManager.setProperty("playerBarInventory", InventoryInGameUI.getInventory(_inventoryInGame.getInventorySlotTable()));
                 profileManager.setProperty("playerEquipInventory", InventoryUI.getInventory(_inventoryUI.getEquipSlotTable()));
                 profileManager.setProperty("currentPlayerGP", _statusUI.getGoldValue() );
                 profileManager.setProperty("currentPlayerLevel", _statusUI.getLevelValue() );
@@ -361,6 +381,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
             case CLEAR_CURRENT_PROFILE:
                 profileManager.setProperty("playerQuests", new Array<QuestGraph>());
                 profileManager.setProperty("playerInventory", new Array<InventoryItemLocation>());
+                profileManager.setProperty("playerBarInventory", new Array<InventoryItemLocation>());
                 profileManager.setProperty("playerEquipInventory", new Array<InventoryItemLocation>());
                 profileManager.setProperty("currentPlayerGP", 0 );
                 profileManager.setProperty("currentPlayerLevel",0 );
