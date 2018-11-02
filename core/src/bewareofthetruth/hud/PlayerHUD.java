@@ -44,7 +44,6 @@ import bewareofthetruth.transition.ScreenTransitionActor;
 
 public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,ComponentObserver,ConversationGraphObserver,StoreInventoryObserver/*, BattleObserver*/, InventoryObserver, StatusObserver {
     private static final String TAG = PlayerHUD.class.getSimpleName();
-
     private Stage _stage;
     private Viewport _viewport;
     private Camera _camera;
@@ -55,14 +54,11 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
     private ConversationUI _conversationUI;
     private StoreInventoryUI _storeInventoryUI;
     private QuestUI _questUI;
-    private InventoryInGameUI _testHud;
-    
+    private InventoryInGameUI _inventoryInGame;
  //   private BattleUI _battleUI;
-
     private Dialog _messageBoxUI;
     private Json _json;
     private MapManager _mapMgr;
-
     private Array<AudioObserver> _observers;
     private ScreenTransitionActor _transitionActor;
 
@@ -73,18 +69,15 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
     private static final String INVENTORY_FULL = "Your inventory is full!";
 
     public PlayerHUD(Camera camera, Entity player, MapManager mapMgr) {
+    
         _camera = camera;
         _player = player;
         _mapMgr = mapMgr;
         _viewport = new ScreenViewport(_camera);
         _stage = new Stage(_viewport);
-        //_stage.setDebugAll(true);
-
         _observers = new Array<AudioObserver>();
         _transitionActor = new ScreenTransitionActor();
-
         /*_shakeCam = new ShakeCamera(0,0, 30.0f);*/
-
         _json = new Json();
         _messageBoxUI = new Dialog("Message", Utility.STATUSUI_SKIN, "solidbackground"){
             {
@@ -113,19 +106,17 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _statusUI.setKeepWithinStage(false);
         _statusUI.setMovable(false);
         
-        _testHud = new InventoryInGameUI();
-        _testHud.setVisible(true);
-        _testHud.setPosition((Gdx.graphics.getWidth() /2 - ( _testHud.getWidth())) + (_testHud.getWidth() /2), 0);    
-        _testHud.setKeepWithinStage(false);
-        _testHud.setMovable(false);
-        
+        _inventoryInGame = new InventoryInGameUI();
+		//_inventoryInGame.setVisible(true);
+		_inventoryInGame.setKeepWithinStage(false);
+		_inventoryInGame.setMovable(false);
+		_inventoryInGame.setPosition((Gdx.graphics.getWidth() /2 - ( _inventoryInGame.getWidth())) + (_inventoryInGame.getWidth() /2), 0);
 
         _inventoryUI = new InventoryUI();
         _inventoryUI.setKeepWithinStage(false);
         _inventoryUI.setMovable(false);
         _inventoryUI.setVisible(false);
         _inventoryUI.setPosition(_statusUI.getWidth(), 0);
-
 
         _conversationUI = new ConversationUI();
         _conversationUI.setMovable(true);
@@ -147,33 +138,27 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _questUI.setWidth(_stage.getWidth());
         _questUI.setHeight(_stage.getHeight() / 2);
 
-      /*  _battleUI = new BattleUI();
-        _battleUI.setMovable(false);
-        //removes all listeners including ones that handle focus
-        _battleUI.clearListeners();
-        _battleUI.setVisible(false);*/
-
-        //_stage.addActor(_battleUI);
         _stage.addActor(_questUI);
         _stage.addActor(_storeInventoryUI);
         _stage.addActor(_conversationUI);
         _stage.addActor(_messageBoxUI);
         _stage.addActor(_statusUI);
-        _stage.addActor(_testHud);
+        _stage.addActor(_inventoryInGame);
         _stage.addActor(_inventoryUI);
       //  _stage.addActor(_clock);
+        
+        _stage.setDebugAll(true);
 
-      //  _battleUI.validate();
         _questUI.validate();
         _storeInventoryUI.validate();
         _conversationUI.validate();
         _messageBoxUI.validate();
         _statusUI.validate();
         _inventoryUI.validate();
-        _testHud.validate();
+        _inventoryInGame.validate();
        // _clock.validate();
 
-        //add tooltips to the stage
+
         Array<Actor> actors = _inventoryUI.getInventoryActors();
         for(Actor actor : actors){
             _stage.addActor(actor);
@@ -187,17 +172,15 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _stage.addActor(_transitionActor);
         _transitionActor.setVisible(false);
 
-        //Observers
+
         _player.registerObserver(this);
         _statusUI.addObserver(this);
-        _testHud.addObserver((StatusObserver) this);
+        _inventoryInGame.addObserver((StatusObserver) this);
         _storeInventoryUI.addObserver(this);
-      //  _inventoryUI.addObserver(_battleUI.getCurrentState());
         _inventoryUI.addObserver(this);
-      //  _battleUI.getCurrentState().addObserver(this);
         this.addObserver(AudioManager.getInstance());
 
-        //Listeners
+
         ImageButton inventoryButton = _statusUI.getInventoryButton();
         inventoryButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
@@ -205,17 +188,16 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
             }
         });
         
-        ImageButton testButton = _testHud.getTestButton();
-        testButton.addListener(new ClickListener() {
+        _inventoryInGame.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
             	if(_inGameInventoryOpen == false) {
-            		_inGameInventoryOpen = true;
-            		Gdx.app.debug(TAG, "boolean in gameinventory open :" + _inGameInventoryOpen);
+            				_inGameInventoryOpen = true;
+            				_inventoryInGame.setNormalBackground();
             	} else if(_inGameInventoryOpen == true) {
-            		_inGameInventoryOpen = false;
-            		Gdx.app.debug(TAG, "boolean in gameinventory open :" + _inGameInventoryOpen);
+            				_inGameInventoryOpen = false;            	
+            				_inventoryInGame.setReductedBackground();
+
             	}
-            	//_testHud.setVisible(_testHud.isVisible() ? false : true);
             }
         });
 

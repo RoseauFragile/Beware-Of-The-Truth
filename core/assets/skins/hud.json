@@ -20,6 +20,8 @@
 		"com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle": {
 		"default": { "titleFont": "default-font", "background": "case_modulable" },
 		"solidbackground": { "titleFont": "default-font", "background": "case_modulable" },
+		"InventoryInGame": { "titleFont": "default-font", "background": "InventoryInGame" },
+		
 	},
 		"com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle": {
 		"inventory-button": { "imageUp": "ReductInventoryInGame", "imageChecked": "InventoryInGame" },

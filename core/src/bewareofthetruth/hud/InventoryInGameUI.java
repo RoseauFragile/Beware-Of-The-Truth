@@ -1,8 +1,14 @@
 package bewareofthetruth.hud;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Array;
 
 import bewareofthetruth.inventory.InventoryObserver;
@@ -20,30 +26,37 @@ public class InventoryInGameUI extends Window implements InventorySubject, Inven
 	private ImageButton _testButton;
 	private Array<StatusObserver> _observers;
 	private Array<InventoryObserver> _observersInventory;
+
 	 
 	public InventoryInGameUI() {
-		super("Inventory", Utility.STATUSUI_SKIN, "solidbackground");
-		 
+		super("", Utility.STATUSUI_SKIN, "InventoryInGame");
+		
+			this.setReductedBackground();
 			_observers = new Array<StatusObserver>();
 			_testButton = new ImageButton(Utility.STATUSUI_SKIN, "inventory-button");
-			 
-			//Add to layout
+
 		    defaults().expand().fill();
 
-		    //account for the title padding
-		    this.pad(this.getPadTop() + 10, 10, 10, 10);
-		    //  this.setColor(Color.CLEAR);
-		    //  this.setBackground(background);
-		    //  this.row();
-		    this.add(_testButton);/*.align(Align.bottomRight)*///;
+		    this.add(_testButton);
 		    this.debug();
 		    this.pack();
 		 }
 		 
-		 public ImageButton getTestButton() {
-			 return this._testButton;
-		 }
+	public ImageButton getTestButton() {
+		return this._testButton;
+	}
 	
+	public void setReductedBackground() {
+		Image image = new Image(Utility.STATUSUI_SKIN, "ReductInventoryInGame");
+		Drawable drawable = image.getDrawable();
+		this.setBackground(drawable);
+	}
+	
+	public void setNormalBackground() {
+		Image image = new Image(Utility.STATUSUI_SKIN, "InventoryInGame");
+		Drawable drawable = image.getDrawable();
+		this.setBackground(drawable);
+	}
 
 	@Override
 	public void onNotify(InventorySlot slot, SlotEvent event) {
@@ -92,5 +105,7 @@ public class InventoryInGameUI extends Window implements InventorySubject, Inven
             observer.onNotify(value, event);
         }
 	}
+	
+	
 
 }
