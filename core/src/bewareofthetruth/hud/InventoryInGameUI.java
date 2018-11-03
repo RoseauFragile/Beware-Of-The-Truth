@@ -105,37 +105,37 @@ public class InventoryInGameUI extends Window implements InventorySlotObserver, 
 	
 	public void initInventorySlots() {
        
-        InventorySlot inventorySlot1 = new InventorySlot();
+        InventorySlot inventorySlot1 = new InventorySlot("case_original");
         inventorySlot1.addListener(new InventorySlotTooltipListener(_inventorySlotTooltip));
         inventorySlot1.addObserver(this);
         inventorySlot1.setName(InventoryUI.BAR_INVENTORY);
         _dragAndDrop.addTarget(new InventorySlotTarget(inventorySlot1));
         
-        InventorySlot inventorySlot2 = new InventorySlot();
+        InventorySlot inventorySlot2 = new InventorySlot("case_original");
         inventorySlot2.addListener(new InventorySlotTooltipListener(_inventorySlotTooltip));
         inventorySlot2.addObserver(this);
         inventorySlot2.setName(InventoryUI.BAR_INVENTORY);
         _dragAndDrop.addTarget(new InventorySlotTarget(inventorySlot2));
         
-        InventorySlot inventorySlot3 = new InventorySlot();
+        InventorySlot inventorySlot3 = new InventorySlot("case_original");
         inventorySlot3.addListener(new InventorySlotTooltipListener(_inventorySlotTooltip));
         inventorySlot3.addObserver(this);
         inventorySlot3.setName(InventoryUI.BAR_INVENTORY);
         _dragAndDrop.addTarget(new InventorySlotTarget(inventorySlot3));
         
-        InventorySlot inventorySlot4 = new InventorySlot();
+        InventorySlot inventorySlot4 = new InventorySlot("case_original");
         inventorySlot4.addListener(new InventorySlotTooltipListener(_inventorySlotTooltip));
         inventorySlot4.addObserver(this);
         inventorySlot4.setName(InventoryUI.BAR_INVENTORY);
         _dragAndDrop.addTarget(new InventorySlotTarget(inventorySlot4));
         
-        InventorySlot inventorySlot5 = new InventorySlot();
+        InventorySlot inventorySlot5 = new InventorySlot("case_original");
         inventorySlot5.addListener(new InventorySlotTooltipListener(_inventorySlotTooltip));
         inventorySlot5.addObserver(this);
         inventorySlot5.setName(InventoryUI.BAR_INVENTORY);
         _dragAndDrop.addTarget(new InventorySlotTarget(inventorySlot5));
         
-        InventorySlot inventorySlot6 = new InventorySlot();
+        InventorySlot inventorySlot6 = new InventorySlot("case_original");
         inventorySlot6.addListener(new InventorySlotTooltipListener(_inventorySlotTooltip));
         inventorySlot6.addObserver(this);
         inventorySlot6.setName(InventoryUI.BAR_INVENTORY);

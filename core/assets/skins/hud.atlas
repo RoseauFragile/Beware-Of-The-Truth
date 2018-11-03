@@ -1,67 +1,67 @@
 hud.png
-size: 2047, 1407
+size: 1945, 1395
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 botomleft_corner
   rotate: false
-  xy: 1782, 153
+  xy: 1583, 469
   size: 131, 131
   orig: 150, 150
   offset: 9, 10
   index: -1
 botomright_corner
   rotate: false
-  xy: 1782, 286
+  xy: 1735, 317
   size: 131, 131
   orig: 150, 150
   offset: 9, 10
   index: -1
 bounton_reprendre
   rotate: false
-  xy: 943, 1279
+  xy: 1458, 1001
   size: 469, 126
   orig: 469, 126
   offset: 0, 0
   index: -1
 bouton_centre_HUD
   rotate: false
-  xy: 1923, 961
+  xy: 1716, 677
   size: 114, 117
   orig: 120, 120
   offset: 3, 2
   index: -1
 bouton_option
   rotate: false
-  xy: 1, 1279
+  xy: 987, 998
   size: 469, 127
   orig: 469, 127
   offset: 0, 0
   index: -1
 bouton_quit
   rotate: false
-  xy: 1414, 1279
+  xy: 1458, 1129
   size: 469, 126
   orig: 469, 126
   offset: 0, 0
   index: -1
 bouton_save
   rotate: false
-  xy: 472, 1279
+  xy: 987, 1127
   size: 469, 127
   orig: 469, 127
   offset: 0, 0
   index: -1
 case_hud_GameInventory
   rotate: false
-  xy: 1930, 549
+  xy: 1842, 896
   size: 102, 89
   orig: 102, 89
   offset: 0, 0
   index: -1
 case_modulable
   rotate: false
-  xy: 1782, 1
+  xy: 1583, 317
   size: 150, 150
   split: 67, 70, 73, 68
   pad: 0, 0, 0, 0
@@ -70,7 +70,7 @@ case_modulable
   index: -1
 case_original
   rotate: false
-  xy: 1934, 1
+  xy: 1832, 677
   size: 104, 91
   split: 20, 15, 18, 17
   orig: 150, 150
@@ -78,35 +78,35 @@ case_original
   index: -1
 CHARGER_PARTIE
   rotate: false
-  xy: 1849, 809
+  xy: 1735, 450
   size: 137, 95
   orig: 150, 150
   offset: 6, 28
   index: -1
 chest_closed
   rotate: false
-  xy: 2008, 740
+  xy: 1736, 981
   size: 16, 15
   orig: 100, 100
   offset: 42, 42
   index: -1
 chest_open
   rotate: false
-  xy: 2003, 766
+  xy: 1926, 427
   size: 18, 15
   orig: 100, 100
   offset: 41, 42
   index: -1
 Cursor
   rotate: false
-  xy: 1982, 662
+  xy: 1858, 1257
   size: 46, 76
   orig: 128, 128
   offset: 47, 28
   index: -1
 default-rect-pad
   rotate: false
-  xy: 1840, 685
+  xy: 1939, 372
   size: 5, 3
   split: 2, 2, 1, 1
   orig: 5, 3
@@ -114,7 +114,7 @@ default-rect-pad
   index: -1
 default-rect
   rotate: false
-  xy: 1840, 676
+  xy: 1927, 770
   size: 7, 7
   split: 1, 1, 1, 1
   orig: 18, 18
@@ -122,7 +122,7 @@ default-rect
   index: -1
 default-round-down
   rotate: false
-  xy: 1991, 116
+  xy: 1716, 469
   size: 16, 24
   split: 6, 5, 8, 11
   orig: 100, 100
@@ -130,7 +130,7 @@ default-round-down
   index: -1
 default-round-large
   rotate: false
-  xy: 2009, 94
+  xy: 1846, 547
   size: 24, 24
   split: 9, 10, 9, 10
   orig: 100, 100
@@ -138,7 +138,7 @@ default-round-large
   index: -1
 default-round
   rotate: false
-  xy: 1988, 808
+  xy: 1906, 1257
   size: 16, 24
   split: 5, 6, 8, 11
   orig: 100, 100
@@ -146,7 +146,7 @@ default-round
   index: -1
 default-scroll
   rotate: false
-  xy: 1982, 740
+  xy: 1858, 1357
   size: 24, 24
   split: 9, 10, 9, 10
   orig: 100, 100
@@ -154,70 +154,70 @@ default-scroll
   index: -1
 FourWaterBar
   rotate: false
-  xy: 1934, 94
+  xy: 987, 1256
   size: 73, 20
   orig: 100, 100
   offset: 14, 42
   index: -1
 INTRODUCTION
   rotate: false
-  xy: 1885, 1279
+  xy: 1716, 896
   size: 124, 83
   orig: 150, 150
   offset: 13, 34
   index: -1
 InventoryInGame
   rotate: false
-  xy: 987, 699
+  xy: 1, 1279
   size: 860, 115
   orig: 860, 115
   offset: 0, 0
   index: -1
 left_case
   rotate: false
-  xy: 1782, 419
+  xy: 1583, 602
   size: 131, 131
   orig: 150, 150
   offset: 9, 10
   index: -1
 LifeBar
   rotate: false
-  xy: 1877, 652
+  xy: 1864, 794
   size: 75, 22
   orig: 100, 100
   offset: 13, 39
   index: -1
 LoadingBar
   rotate: false
-  xy: 1, 963
+  xy: 1, 1
   size: 1920, 156
   orig: 1920, 1142
   offset: 0, 0
   index: -1
 LoadingBarWithSmog
   rotate: false
-  xy: 1, 1121
+  xy: 1, 159
   size: 1920, 156
   orig: 1920, 1142
   offset: 0, 0
   index: -1
 menu
   rotate: false
-  xy: 1, 1
+  xy: 1, 317
   size: 984, 960
   orig: 1920, 1080
   offset: 469, 60
   index: -1
 MenuInventory
   rotate: false
-  xy: 987, 1
-  size: 793, 696
-  orig: 1920, 1080
-  offset: 330,365
+  xy: 987, 317
+  size: 594, 679
+  orig: 1000, 1000
+  offset: 203, 161
   index: -1
 MiniMap
   rotate: false
-  xy: 1915, 419
+  xy: 1716, 547
   size: 128, 128
   split: 20, 20, 20,20
   orig: 200, 200
@@ -225,77 +225,77 @@ MiniMap
   index: -1
 NOUVELLE_PARTIE
   rotate: false
-  xy: 1782, 552
+  xy: 1716, 796
   size: 146, 98
   orig: 150, 150
   offset: 2, 26
   index: -1
 OneBar
   rotate: false
-  xy: 2015, 640
+  xy: 1923, 1
   size: 19, 20
   orig: 100, 100
   offset: 41, 44
   index: -1
 OneWaterBar
   rotate: false
-  xy: 1982, 766
+  xy: 1119, 1256
   size: 19, 20
   orig: 100, 100
   offset: 41, 43
   index: -1
 OPTIONS
   rotate: false
-  xy: 1849, 906
+  xy: 1868, 317
   size: 73, 53
   orig: 150, 150
   offset: 38, 49
   index: -1
 quest
   rotate: false
-  xy: 1934, 138
+  xy: 1903, 818
   size: 20, 12
   orig: 100, 100
   offset: 40, 44
   index: -1
 quest_clicked
   rotate: false
-  xy: 1993, 640
+  xy: 1864, 840
   size: 20, 15
   orig: 100, 100
   offset: 40, 43
   index: -1
 QUITTER
   rotate: false
-  xy: 1924, 906
+  xy: 1868, 372
   size: 69, 53
   orig: 150, 150
   offset: 40, 49
   index: -1
 ReductInventoryInGame
   rotate: false
-  xy: 987, 816
+  xy: 863, 1279
   size: 860, 115
   orig: 860, 115
   offset: 0, 0
   index: -1
 right_case
   rotate: false
-  xy: 1849, 676
+  xy: 1583, 735
   size: 131, 131
   orig: 150, 150
   offset: 9, 10
   index: -1
 selection
   rotate: false
-  xy: 1840, 690
+  xy: 1458, 998
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 textfield
   rotate: false
-  xy: 1982, 788
+  xy: 1716, 981
   size: 18, 18
   split: 7, 6, 7, 6
   orig: 18, 18
@@ -303,49 +303,49 @@ textfield
   index: -1
 ThreeBar
   rotate: false
-  xy: 1782, 676
+  xy: 1868, 427
   size: 56, 20
   orig: 100, 100
   offset: 22, 40
   index: -1
 ThreeWaterBar
   rotate: false
-  xy: 1934, 116
+  xy: 1062, 1256
   size: 55, 20
   orig: 100, 100
   offset: 23, 42
   index: -1
 topleft_corner
   rotate: false
-  xy: 1915, 153
+  xy: 1583, 868
   size: 131, 131
   orig: 150, 150
   offset: 9, 10
   index: -1
 topright_corner
   rotate: false
-  xy: 1915, 286
+  xy: 1725, 1257
   size: 131, 131
   orig: 150, 150
   offset: 9, 10
   index: -1
 TwoBar
   rotate: false
-  xy: 2009, 120
+  xy: 1858, 1335
   size: 37, 20
   orig: 100, 100
   offset: 32, 40
   index: -1
 TwoWaterBar
   rotate: false
-  xy: 1954, 640
+  xy: 1864, 818
   size: 37, 20
   orig: 100, 100
   offset: 32, 42
   index: -1
 WaterBar
   rotate: false
-  xy: 1782, 652
+  xy: 1832, 770
   size: 93, 22
   orig: 100, 100
   offset: 3, 44

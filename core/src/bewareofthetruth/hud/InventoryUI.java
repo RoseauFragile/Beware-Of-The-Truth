@@ -1,6 +1,10 @@
 package bewareofthetruth.hud;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -42,7 +46,9 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
     private int _lengthSlotRow = 10;
     private Table _inventorySlotTable;
     private Table _playerSlotsTable;
-    private Table _equipSlots;
+    private Table _equipSlotsLeft;
+    private Table _equipSlotsRight;
+
     private DragAndDrop _dragAndDrop;
     private Array<Actor> _inventoryActors;
 
@@ -53,6 +59,8 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
 
     private final int _slotWidth = 52;
     private final int _slotHeight = 52;
+    private final int _equipSlotWidth = 102;
+    private final int _equipSlotHeight = 89;
 
     private Array<InventoryObserver> _observers;
 
@@ -61,6 +69,8 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
     public InventoryUI(){
         super("", Utility.STATUSUI_SKIN, "MenuInventory");
 
+        this.setSize(this.getBackground().getRightWidth(), this.getBackground().getTopHeight());
+       
         _observers = new Array<InventoryObserver>();
 
         _dragAndDrop = new DragAndDrop();
@@ -71,10 +81,15 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
         _inventorySlotTable.setName("Inventory_Slot_Table");
 
         _playerSlotsTable = new Table();
-        _equipSlots = new Table();
-        _equipSlots.setName("Equipment_Slot_Table");
-
-        _equipSlots.defaults().space(10);
+        
+        _equipSlotsLeft = new Table();
+        _equipSlotsLeft.setName("Equipment_Slot_Table_Left");
+        _equipSlotsLeft.defaults().space(10);
+        
+        _equipSlotsRight = new Table();
+        _equipSlotsRight.setName("Equipment_Slot_Table_Right");
+        //_equipSlotsRight.defaults().space(10);
+        
         _inventorySlotTooltip = new InventorySlotTooltip(Utility.STATUSUI_SKIN);
 
         
@@ -94,6 +109,18 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
         labelTable.add(_APValLabel).align(Align.center);
 
         InventorySlot headSlot = new InventorySlot(
+                ItemUseType.ARMOR_HELMET.getValue(),
+                new Image(Utility.ITEMS_TEXTUREATLAS.findRegion("inv_helmet")));
+        
+        InventorySlot headSlot2 = new InventorySlot(
+                ItemUseType.ARMOR_HELMET.getValue(),
+                new Image(Utility.ITEMS_TEXTUREATLAS.findRegion("inv_helmet")));
+        
+        InventorySlot headSlot3 = new InventorySlot(
+                ItemUseType.ARMOR_HELMET.getValue(),
+                new Image(Utility.ITEMS_TEXTUREATLAS.findRegion("inv_helmet")));
+        
+        InventorySlot headSlot4 = new InventorySlot(
                 ItemUseType.ARMOR_HELMET.getValue(),
                 new Image(Utility.ITEMS_TEXTUREATLAS.findRegion("inv_helmet")));
 
@@ -124,29 +151,38 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
                 new Image(Utility.ITEMS_TEXTUREATLAS.findRegion("inv_boot")));
 
         headSlot.addListener(new InventorySlotTooltipListener(_inventorySlotTooltip));
+        headSlot2.addListener(new InventorySlotTooltipListener(_inventorySlotTooltip));
+        headSlot3.addListener(new InventorySlotTooltipListener(_inventorySlotTooltip));
+        headSlot4.addListener(new InventorySlotTooltipListener(_inventorySlotTooltip));
         leftArmSlot.addListener(new InventorySlotTooltipListener(_inventorySlotTooltip));
         rightArmSlot.addListener(new InventorySlotTooltipListener(_inventorySlotTooltip));
         chestSlot.addListener(new InventorySlotTooltipListener(_inventorySlotTooltip));
         legsSlot.addListener(new InventorySlotTooltipListener(_inventorySlotTooltip));
 
         headSlot.addObserver(this);
+        headSlot2.addObserver(this);
+        headSlot3.addObserver(this);
+        headSlot4.addObserver(this);
         leftArmSlot.addObserver(this);
         rightArmSlot.addObserver(this);
         chestSlot.addObserver(this);
         legsSlot.addObserver(this);
 
         _dragAndDrop.addTarget(new InventorySlotTarget(headSlot));
+        _dragAndDrop.addTarget(new InventorySlotTarget(headSlot2));
+        _dragAndDrop.addTarget(new InventorySlotTarget(headSlot3));
+        _dragAndDrop.addTarget(new InventorySlotTarget(headSlot4));
         _dragAndDrop.addTarget(new InventorySlotTarget(leftArmSlot));
         _dragAndDrop.addTarget(new InventorySlotTarget(chestSlot));
         _dragAndDrop.addTarget(new InventorySlotTarget(rightArmSlot));
         _dragAndDrop.addTarget(new InventorySlotTarget(legsSlot));
 
         //TODO attention
-        _playerSlotsTable.setBackground(new Image(new NinePatch(Utility.STATUSUI_TEXTUREATLAS.createPatch("case_modulable"))).getDrawable());
+        _playerSlotsTable.setBackground(new Image(Utility.STATUSUI_SKIN, "MenuInventory").getDrawable());
 
         //layout
         for(int i = 1; i <= _numSlots; i++){
-            InventorySlot inventorySlot = new InventorySlot();
+            InventorySlot inventorySlot = new InventorySlot("case_original");
             inventorySlot.addListener(new InventorySlotTooltipListener(_inventorySlotTooltip));
             _dragAndDrop.addTarget(new InventorySlotTarget(inventorySlot));
 
@@ -180,30 +216,55 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
             }
         }
 
-        _equipSlots.add();
-        _equipSlots.add(headSlot).size(_slotWidth, _slotHeight);
-        _equipSlots.row();
+       // _equipSlotsRight.add();
+      
+        _equipSlotsRight.row();
+        _equipSlotsRight.add(headSlot).size(_equipSlotWidth, _equipSlotHeight).spaceRight(310).spaceTop(500);
+        _equipSlotsRight.add(leftArmSlot).size(_equipSlotWidth, _equipSlotHeight).spaceLeft(310).spaceTop(500);
+        
+        _equipSlotsRight.row();
 
-        _equipSlots.add(leftArmSlot).size(_slotWidth, _slotHeight);
-        _equipSlots.add(chestSlot).size(_slotWidth, _slotHeight);
-        _equipSlots.add(rightArmSlot).size(_slotWidth, _slotHeight);
-        _equipSlots.row();
+        _equipSlotsRight.add(chestSlot).size(_equipSlotWidth, _equipSlotHeight).spaceRight(310).spaceTop(30);
+        _equipSlotsRight.add(rightArmSlot).size(_equipSlotWidth, _equipSlotHeight).spaceLeft(310).spaceTop(30);
+        
+        _equipSlotsRight.row();
 
-        _equipSlots.add();
-        _equipSlots.right().add(legsSlot).size(_slotWidth, _slotHeight);
+       // _equipSlotsRight.add();
+        _equipSlotsRight.add(legsSlot).size(_equipSlotWidth, _equipSlotHeight).spaceRight(310).spaceTop(30);
+        _equipSlotsRight.add(headSlot2).size(_equipSlotWidth, _equipSlotHeight).spaceLeft(310).spaceTop(30);
+        
+        _equipSlotsRight.row();
+        
+        _equipSlotsRight.add(headSlot3).size(_equipSlotWidth, _equipSlotHeight).spaceRight(310).spaceTop(30);
+        _equipSlotsRight.add(headSlot4).size(_equipSlotWidth, _equipSlotHeight).spaceLeft(310).spaceTop(30);
+        
+        _equipSlotsRight.row();
 
-        _playerSlotsTable.add(_equipSlots);
+
+        _playerSlotsTable.add(_equipSlotsRight);
+
+        
+        
         _inventoryActors.add(_inventorySlotTooltip);
 
 
-        defaults().expand().fill();
-        this.add(_playerSlotsTable).padBottom(20);
-        this.add(labelTable);
+        //_playerSlotsTable.setSize(_playerSlotsTable.getWidth() - 50, _playerSlotsTable.getHeight() - 50);
+        //defaults().expand().fill();
+        
+        this.add(_playerSlotsTable).padBottom(-100).padTop(-100).top();//.padBottom(20);
+        
+        Pixmap pixmap = new Pixmap(200, 200, Format.RGBA8888);
+        Texture texture = new Texture(pixmap);
+        Image image = new Image(texture);
+        this.setBackground(image.getDrawable());
+        
         this.row();
-        this.add(_inventorySlotTable).colspan(2);
+        this.add(_inventorySlotTable)/*.align(Align.bottom)*/;
         this.row();
         this.debug();
         this.pack();
+        
+    
         
     }
 
@@ -219,7 +280,7 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
     }
 
     public Table getEquipSlotTable() {
-        return _equipSlots;
+        return _equipSlotsRight;
     }
 
     public void resetEquipSlots(){

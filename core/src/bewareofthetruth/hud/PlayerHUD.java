@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -104,24 +105,20 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _statusUI.setKeepWithinStage(false);
         _statusUI.setMovable(false);
         
-
-
         _inventoryUI = new InventoryUI();
         _inventoryUI.setKeepWithinStage(false);
         _inventoryUI.setMovable(false);
         _inventoryUI.setVisible(false);
-        //_inventoryUI.setPosition(_statusUI.getWidth(), 0);
-        _inventoryUI.setPosition(0, 0); //793, 696
-        //_inventoryUI.setSize(793, 696);
         
         _inventoryInGame = new InventoryInGameUI(_inventoryUI);
-		//_inventoryInGame.setVisible(true);
 		_inventoryInGame.setKeepWithinStage(false);
 		_inventoryInGame.setMovable(false);
 		_inventoryInGame.setPosition((Gdx.graphics.getWidth() /2 - ( _inventoryInGame.getWidth())) + (_inventoryInGame.getWidth() /2), 0);
-		//Gdx.app.debug(TAG, " x Inventory : " + _inventoryInGame.getWidth() + " y Inventory : " + _inventoryInGame.getHeight() + " -------------------------------------------------------- ");
 
-		//_inventoryUI.setPosition(_statusUI.getWidth(), _inventoryInGame.getHeight());
+		_inventoryUI.setSize( _inventoryUI.getWidth(), _inventoryUI.getHeight() - _inventoryInGame.getHeight() );
+		_inventoryUI.setPosition(_inventoryInGame.getX() - ((_inventoryUI.getWidth() - _inventoryInGame.getWidth()) /2 ), _inventoryInGame.getHeight());
+
+		
 		
         _conversationUI = new ConversationUI();
         _conversationUI.setMovable(true);
@@ -150,11 +147,12 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _miniMap.setSize(300, 300);
         _miniMap.setPosition( _inventoryInGame.getRight() + ((Gdx.graphics.getWidth() - _inventoryInGame.getRight()) - _miniMap.getWidth()) - 4, 0);
         
-        _test = new TestUI();
-        _test.setMovable(false);
-        _test.setVisible(true);
-        _test.setKeepWithinStage(false);
-        _test.setPosition(0, 0);
+       // _test = new TestUI();
+       // _test.setMovable(false);
+       // _test.setVisible(true);
+       // _test.setKeepWithinStage(false);
+       // _test.setPosition(0, 0);
+       // _test.setSize(1920, 1080);
 
         _stage.addActor(_questUI);
         _stage.addActor(_storeInventoryUI);
@@ -164,7 +162,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _stage.addActor(_inventoryInGame);
         _stage.addActor(_inventoryUI);
         _stage.addActor(_miniMap);
-        _stage.addActor(_test);
+        //_stage.addActor(_test);
       //  _stage.addActor(_clock);
         
        /// _stage.setDebugAll(true);
@@ -177,7 +175,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _inventoryUI.validate();
         _inventoryInGame.validate();
         _miniMap.validate();
-        _test.validate();
+      //  _test.validate();
        // _clock.validate();
 
 

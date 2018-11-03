@@ -109,7 +109,7 @@ public class StoreInventoryUI extends Window implements InventorySlotObserver, S
 
         //layout
         for(int i = 1; i <= _numStoreInventorySlots; i++){
-            InventorySlot inventorySlot = new InventorySlot();
+            InventorySlot inventorySlot = new InventorySlot("case_original");
             inventorySlot.addListener(new InventorySlotTooltipListener(_inventorySlotTooltip));
             inventorySlot.addObserver(this);
             inventorySlot.setName(InventoryUI.STORE_INVENTORY);
@@ -124,7 +124,7 @@ public class StoreInventoryUI extends Window implements InventorySlotObserver, S
         }
 
         for(int i = 1; i <= InventoryUI._numSlots; i++){
-            InventorySlot inventorySlot = new InventorySlot();
+            InventorySlot inventorySlot = new InventorySlot("case_original");
             inventorySlot.addListener(new InventorySlotTooltipListener(_inventorySlotTooltip));
             inventorySlot.addObserver(this);
             inventorySlot.setName(InventoryUI.PLAYER_INVENTORY);

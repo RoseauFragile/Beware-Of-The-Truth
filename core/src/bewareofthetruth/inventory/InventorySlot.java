@@ -22,13 +22,14 @@ public class InventorySlot extends Stack implements InventorySlotSubject {
 
     private Array<InventorySlotObserver> _observers;
 
-    public InventorySlot(){
+    public InventorySlot(String pathImage){
         _filterItemType = 0; //filter nothing
         _defaultBackground = new Stack();
         _customBackgroundDecal = new Image();
         _observers = new Array<InventorySlotObserver>();
         //TODO repere
-        Image image = new Image(new NinePatch(Utility.STATUSUI_TEXTUREATLAS.createPatch("case_original")));
+
+        Image image = new Image(new NinePatch(Utility.STATUSUI_TEXTUREATLAS.createPatch(pathImage)));
 
         _numItemsLabel = new Label(String.valueOf(_numItemsVal), Utility.STATUSUI_SKIN, "inventory-item-count");
         _numItemsLabel.setAlignment(Align.bottomRight);
@@ -44,7 +45,7 @@ public class InventorySlot extends Stack implements InventorySlotSubject {
     }
 
     public InventorySlot(int filterItemType, Image customBackgroundDecal){
-        this();
+        this("case_original");
         _filterItemType = filterItemType;
         _customBackgroundDecal = customBackgroundDecal;
         _defaultBackground.add(_customBackgroundDecal);
