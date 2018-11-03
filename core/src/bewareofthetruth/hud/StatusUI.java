@@ -105,10 +105,10 @@ public class StatusUI extends Window implements StatusSubject {
 
         //buttons
         _inventoryButton= new ImageButton(Utility.STATUSUI_SKIN, "chest-button");
-        _inventoryButton.getImageCell().size(256, 256);
+        _inventoryButton.getImageCell().size(200, 200);
 
         _questButton = new ImageButton(Utility.STATUSUI_SKIN, "quest-button");
-        _questButton.getImageCell().size(256,256);
+        _questButton.getImageCell().size(200,200);
 
         //_testButton = new ImageButton(Utility.STATUSUI_SKIN_TEST, "inventory-test-button");
         

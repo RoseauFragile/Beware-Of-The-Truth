@@ -283,6 +283,7 @@ right_case
   rotate: false
   xy: 1583, 735
   size: 131, 131
+  split: 20, 20, 20,20
   orig: 150, 150
   offset: 9, 10
   index: -1

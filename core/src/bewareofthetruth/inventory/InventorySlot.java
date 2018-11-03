@@ -13,7 +13,7 @@ import bewareofthetruth.utility.Utility;
 
 public class InventorySlot extends Stack implements InventorySlotSubject {
 
-    //All slots have this default image
+	//All slots have this default image
     private Stack _defaultBackground;
     private Image _customBackgroundDecal;
     private Label _numItemsLabel;
@@ -261,4 +261,12 @@ public class InventorySlot extends Stack implements InventorySlotSubject {
             observer.onNotify(slot, event);
         }
     }
+    
+    public Stack get_defaultBackground() {
+		return this._defaultBackground;
+	}
+
+	public void set_defaultBackground(Image _defaultBackground) {
+		this._defaultBackground.add(_defaultBackground);
+	}
 }

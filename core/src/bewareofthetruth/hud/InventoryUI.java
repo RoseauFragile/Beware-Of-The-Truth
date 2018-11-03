@@ -37,13 +37,13 @@ import bewareofthetruth.utility.Utility;
 
 public class InventoryUI extends Window implements InventorySubject, InventorySlotObserver{
 
-    public final static int _numSlots = 25;
+    public final static int _numSlots = 14;
     public static final String PLAYER_INVENTORY = "Player_Inventory";
     public static final String BAR_INVENTORY = "Bar_Inventory";
     public static final String STORE_INVENTORY = "Store_Inventory";
 	private static String TAG = InventoryUI.class.getSimpleName();
 
-    private int _lengthSlotRow = 10;
+    private int _lengthSlotRow = 7;
     private Table _inventorySlotTable;
     private Table _playerSlotsTable;
     private Table _equipSlotsLeft;
@@ -182,39 +182,22 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
 
         //layout
         for(int i = 1; i <= _numSlots; i++){
-            InventorySlot inventorySlot = new InventorySlot("case_original");
+        	
+        	
+            	InventorySlot inventorySlot = new InventorySlot("right_case");
             inventorySlot.addListener(new InventorySlotTooltipListener(_inventorySlotTooltip));
             _dragAndDrop.addTarget(new InventorySlotTarget(inventorySlot));
 
-            _inventorySlotTable.add(inventorySlot).size(_slotWidth, _slotHeight);
-
-            inventorySlot.addListener(new ClickListener() {
-                                         @Override
-                                         public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                                             super.touchUp(event, x, y, pointer, button);
-                                             if( getTapCount() == 2 ){
-                                                 InventorySlot slot = (InventorySlot)event.getListenerActor();
-                                                 if( slot.hasItem() ){
-                                                     InventoryItem item = slot.getTopInventoryItem();
-                                                     if( item.isConsumable() ){
-                                                         String itemInfo = item.getItemUseType() + Component.MESSAGE_TOKEN + item.getItemUseTypeValue();
-                                                         InventoryUI.this.notify(itemInfo, InventoryObserver.InventoryEvent.ITEM_CONSUMED);
-                                                         slot.removeActor(item);
-                                                         slot.remove(item);
-                                                     }
-                                                 }
-                                             }
-                                         }
-
-
-                                      }
-            );
+            _inventorySlotTable.add(inventorySlot).size(128, 110);
+            this.addListener(inventorySlot);
 
 
             if(i % _lengthSlotRow == 0){
                 _inventorySlotTable.row();
             }
         }
+        
+        
 
        // _equipSlotsRight.add();
       
@@ -569,5 +552,29 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
 
 	public InventorySlotTooltip getInventorySlotTooltip() {
 		return this._inventorySlotTooltip;
+	}
+	
+	private void addListener( InventorySlot inventorySlot) {
+        inventorySlot.addListener(new ClickListener() {
+            @Override
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                super.touchUp(event, x, y, pointer, button);
+                if( getTapCount() == 2 ){
+                    InventorySlot slot = (InventorySlot)event.getListenerActor();
+                    if( slot.hasItem() ){
+                        InventoryItem item = slot.getTopInventoryItem();
+                        if( item.isConsumable() ){
+                            String itemInfo = item.getItemUseType() + Component.MESSAGE_TOKEN + item.getItemUseTypeValue();
+                            InventoryUI.this.notify(itemInfo, InventoryObserver.InventoryEvent.ITEM_CONSUMED);
+                            slot.removeActor(item);
+                            slot.remove(item);
+                        }
+                    }
+                }
+            }
+
+
+         }
+);
 	}
 }
