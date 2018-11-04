@@ -11,6 +11,7 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
@@ -95,14 +96,14 @@ public class PlayerGraphicsComponent extends GraphicsComponent {
 
         float mapWidth = prop.get("width", Integer.class) * 2;
         float mapHeight = prop.get("height", Integer.class) * 2;
-       
+        float camViewportHalfX = camera.viewportWidth / 2;
+        float camViewportHalfY = camera.viewportHeight / 2;
+        float positionX = MathUtils.clamp(_currentPosition.x, camViewportHalfX, mapWidth - camViewportHalfX);
+        float positionY = MathUtils.clamp(_currentPosition.y, camViewportHalfY, mapHeight - camViewportHalfY);
 
-        if(_currentPosition.x >= 4 && _currentPosition.x <= mapWidth - 4) {
-        	cameraX += (_currentPosition.x + delta - cameraX) * delta;
-        }
-        if(_currentPosition.y > 4 && _currentPosition.y < mapHeight - 4) {
-        	cameraY += (_currentPosition.y + delta - cameraY) * delta;
-        }
+        cameraX += (positionX + delta - cameraX) * delta;
+        cameraY += (positionY + delta - cameraY) * delta;
+        
         
         camera.position.set(cameraX, cameraY, 0f);
         camera.update();
