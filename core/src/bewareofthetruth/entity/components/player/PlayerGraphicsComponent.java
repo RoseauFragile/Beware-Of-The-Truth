@@ -95,8 +95,7 @@ public class PlayerGraphicsComponent extends GraphicsComponent {
 
         float mapWidth = prop.get("width", Integer.class) * 2;
         float mapHeight = prop.get("height", Integer.class) * 2;
-        System.out.println("PlayerX : " + _currentPosition.x + " PlayerY : " + _currentPosition.y);
-        System.out.println("mapWidth : " + mapWidth + " mapHeigh : " + mapHeight);
+       
 
         if(_currentPosition.x >= 4 && _currentPosition.x <= mapWidth - 4) {
         	cameraX += (_currentPosition.x + delta - cameraX) * delta;

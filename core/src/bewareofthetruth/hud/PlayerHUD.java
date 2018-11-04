@@ -59,7 +59,8 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
     private MapManager _mapMgr;
     private Array<AudioObserver> _observers;
     private ScreenTransitionActor _transitionActor;
-	private TestUI _test;
+	private PauseUI _pauseUI;
+	public boolean _pauseVisible = false;
 
    /*
     private ShakeCamera _shakeCam;
@@ -147,6 +148,12 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _miniMap.setSize(300, 300);
         _miniMap.setPosition( _inventoryInGame.getRight() + ((Gdx.graphics.getWidth() - _inventoryInGame.getRight()) - _miniMap.getWidth()) - 4, 0);
         
+        _pauseUI = new PauseUI();
+        _pauseUI.setVisible(false);
+        _pauseUI.setKeepWithinStage(false);
+        _pauseUI.setSize(1000, 1000);
+        _pauseUI.setPosition((Gdx.graphics.getWidth() /2 - ( _pauseUI.getWidth())) + (_pauseUI.getWidth() /2), 0);
+        
        // _test = new TestUI();
        // _test.setMovable(false);
        // _test.setVisible(true);
@@ -162,6 +169,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _stage.addActor(_inventoryInGame);
         _stage.addActor(_inventoryUI);
         _stage.addActor(_miniMap);
+        _stage.addActor(_pauseUI);
         //_stage.addActor(_test);
       //  _stage.addActor(_clock);
         
@@ -175,6 +183,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _inventoryUI.validate();
         _inventoryInGame.validate();
         _miniMap.validate();
+        _pauseUI.validate();
       //  _test.validate();
        // _clock.validate();
 
@@ -639,10 +648,14 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
     @Override
     public void pause() {
        // _battleUI.resetDefaults();
+    	Gdx.app.debug(TAG, "pause activated");
+    	_pauseUI.setVisible(true);
     }
 
     @Override
     public void resume() {
+    	Gdx.app.debug(TAG, "pause desactivated");
+    	_pauseUI.setVisible(false);
     }
 
     @Override
@@ -714,10 +727,12 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
             break;*/
         default:
             break;
-    }
+        }
 	}
 
-
+	public PauseUI getPauseUI() {
+		return this._pauseUI;
+	}
 
 
 }

@@ -119,6 +119,11 @@ public class MainGameScreen extends GameScreen {
 
 		if( _gameState == GameState.PAUSED ){
 			_player.updateInput(delta);
+			if( _playerHUD.getPauseUI().isVisible() == false) {
+			_playerHUD.getPauseUI().setVisible(true);
+			} else {
+				_playerHUD.getPauseUI().setVisible(false);
+			}
 			_playerHUD.render(delta);
 			return;
 		}
@@ -209,14 +214,14 @@ public class MainGameScreen extends GameScreen {
 
 	@Override
 	public void pause() {
-		setGameState(GameState.SAVING);
-		_playerHUD.pause();
+		//setGameState(GameState.SAVING);
+		//_playerHUD.pause();
 	}
 
 	@Override
 	public void resume() {
-		setGameState(GameState.LOADING);
-		_playerHUD.resume();
+		//setGameState(GameState.LOADING);
+		//_playerHUD.resume();
 	}
 
 	@Override
