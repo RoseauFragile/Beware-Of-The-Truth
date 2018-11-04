@@ -138,7 +138,7 @@ public class StatusUI extends Window implements StatusSubject {
         this.row();
         
         this.pack();
-        this.debug();
+        //this.debug();
         
         
     }

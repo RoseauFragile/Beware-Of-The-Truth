@@ -253,14 +253,11 @@ public class MainGameScreen extends GameScreen {
 				_gameState = GameState.RUNNING;
 				break;
 			case LOADING:
-				Gdx.app.debug(TAG, "CHARGEMENT PROFILE ISSOU -----------------------------------------------------------------------------------------");
 				ProfileManager.getInstance().loadProfile();
 				_gameState = GameState.RUNNING;
 				break;
 			case SAVING:
-				Gdx.app.debug(TAG, "SAUVEGARDE ISSOU -----------------------------------------------------------------------------------------");
 				ProfileManager.getInstance().saveProfile();
-				//_gameState = GameState.PAUSED;
 				break;
 			case PAUSED:
 

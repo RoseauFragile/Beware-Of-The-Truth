@@ -34,7 +34,7 @@ public class PauseUI extends Window implements StatusSubject{
         this.row();
         this.add(_quitButton);
         this.pack();
-        this.debug();
+       // this.debug();
 	}
 
 	@Override

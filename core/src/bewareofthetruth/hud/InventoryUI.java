@@ -244,7 +244,7 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
         this.row();
         this.add(_inventorySlotTable)/*.align(Align.bottom)*/;
         this.row();
-        this.debug();
+       // this.debug();
         this.pack();
         
     

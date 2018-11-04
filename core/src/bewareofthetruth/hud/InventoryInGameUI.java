@@ -52,9 +52,7 @@ public class InventoryInGameUI extends Window implements InventorySlotObserver, 
 		super("", Utility.STATUSUI_SKIN, "InventoryInGame");
 		
 	        _observers = new Array<BarInventoryObserver>();
-	        //_json = new Json();
-
-
+	        
 	        //create
 	        _dragAndDrop = _inventoryUI.getDragAndDrop();
 	        _inventoryActors = new Array<Actor>();
@@ -72,7 +70,7 @@ public class InventoryInGameUI extends Window implements InventorySlotObserver, 
 		    defaults().expand().fill();
 	        this.add(_inventorySlotTable).colspan(2);
 	        this._inventorySlotTable.setVisible(false);
-		    this.debug();
+		  //  this.debug();
 		    this.pack();
 		 }
 
@@ -542,13 +540,3 @@ public class InventoryInGameUI extends Window implements InventorySlotObserver, 
 		_observersInventory.removeValue(inventoryObserver, true);
 	}
 }
-                                         
-
-
-                                      
-                     
-        
-	
-	
-
-
