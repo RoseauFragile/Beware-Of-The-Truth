@@ -2,9 +2,7 @@ package bewareofthetruth.hud;
 
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
-
 import bewareofthetruth.inventory.StatusObserver;
 import bewareofthetruth.inventory.StatusObserver.StatusEvent;
 import bewareofthetruth.inventory.StatusSubject;
@@ -22,31 +20,21 @@ public class PauseUI extends Window implements StatusSubject{
 		super("", Utility.STATUSUI_SKIN, "pauseMenu");
 		
 		_observers = new Array<StatusObserver>();
-		
         _resumeButton= new ImageButton(Utility.STATUSUI_SKIN, "menu-reprendre-button");
-        //_inventoryButton.getImageCell().size(200, 200);
-
         _saveButton = new ImageButton(Utility.STATUSUI_SKIN, "menu-sauvegarder-button");
-       // _questButton.getImageCell().size(200,200);
-        
         _optionsButton= new ImageButton(Utility.STATUSUI_SKIN, "menu-options-button");
-        
         _quitButton= new ImageButton(Utility.STATUSUI_SKIN, "menu-quitter-button");
-        
-        defaults().expand().fill();
-
-        //account for the title padding
-       // this.pad(this.getPadTop() + 50, 30, 10, 10);
-
-       // this.add();
-        this.add(_resumeButton).padBottom(-400);
+        this.add();
+        this.row(); 
+        this.add(_resumeButton).spaceBottom(50).padTop(100);
         this.row();
-        this.add(_saveButton).padBottom(-300);
+        this.add(_saveButton).spaceBottom(50);
         this.row();
-        this.add(_optionsButton).padBottom(-225);
+        this.add(_optionsButton).spaceBottom(50);
         this.row();
         this.add(_quitButton);
         this.pack();
+        this.debug();
 	}
 
 	@Override
@@ -88,6 +76,4 @@ public class PauseUI extends Window implements StatusSubject{
 	public ImageButton get_quitButton() {
 		return this._quitButton;
 	}
-
-	
 }

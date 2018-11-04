@@ -11,7 +11,7 @@ public class LevelTable {
     private String levelID;
     private int xpMax;
     private int hpMax;
-    private int mpMax;
+    private int waterMax;
 
     public String getLevelID() {
         return levelID;
@@ -37,12 +37,12 @@ public class LevelTable {
         this.hpMax = hpMax;
     }
 
-    public int getMpMax() {
-        return mpMax;
+    public int getWaterMax() {
+        return waterMax;
     }
 
-    public void setMpMax(int mpMax) {
-        this.mpMax = mpMax;
+    public void setWaterMax(int mpMax) {
+        this.waterMax = mpMax;
     }
 
     static public Array<LevelTable> getLevelTables(String configFilePath){

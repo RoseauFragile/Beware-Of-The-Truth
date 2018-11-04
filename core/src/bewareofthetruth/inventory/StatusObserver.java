@@ -5,7 +5,7 @@ public interface StatusObserver {
         UPDATED_GP,
         UPDATED_LEVEL,
         UPDATED_HP,
-        UPDATED_MP,
+        UPDATED_WATER,
         UPDATED_XP,
         LEVELED_UP
     }

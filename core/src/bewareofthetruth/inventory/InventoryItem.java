@@ -25,7 +25,7 @@ public class InventoryItem extends Image {
 
     public enum ItemUseType{
         ITEM_RESTORE_HEALTH(1),
-        ITEM_RESTORE_MP(2),
+        ITEM_RESTORE_WATER(2),
         ITEM_DAMAGE(4),
         WEAPON_ONEHAND(8),
         WEAPON_TWOHAND(16),
@@ -157,8 +157,8 @@ public class InventoryItem extends Image {
         return ((itemUseType & ItemUseType.ITEM_RESTORE_HEALTH.getValue()) == ItemUseType.ITEM_RESTORE_HEALTH.getValue());
     }
 
-    public static boolean doesRestoreMP(int itemUseType){
-        return ((itemUseType & ItemUseType.ITEM_RESTORE_MP.getValue()) == ItemUseType.ITEM_RESTORE_MP.getValue());
+    public static boolean doesRestoreWater(int itemUseType){
+        return ((itemUseType & ItemUseType.ITEM_RESTORE_WATER.getValue()) == ItemUseType.ITEM_RESTORE_WATER.getValue());
     }
 
     public int getTradeValue(){

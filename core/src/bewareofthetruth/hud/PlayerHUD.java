@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -152,8 +151,8 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _pauseUI = new PauseUI();
         _pauseUI.setVisible(false);
         _pauseUI.setKeepWithinStage(false);
-        _pauseUI.setSize(1500, 1000);
-        _pauseUI.setPosition((Gdx.graphics.getWidth() /2 - ( _pauseUI.getWidth())) + (_pauseUI.getWidth() /2), _inventoryInGame.getHeight());
+       // _pauseUI.setSize(1500, 1000);
+     //   _pauseUI.setPosition((Gdx.graphics.getWidth() /2 - ( _pauseUI.getWidth())) + (_pauseUI.getWidth() /2), _inventoryInGame.getHeight());
         
        // _test = new TestUI();
        // _test.setMovable(false);
@@ -212,6 +211,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _inventoryInGame.addObserver((BarInventoryObserver)this);
         _storeInventoryUI.addObserver(this);
         _inventoryUI.addObserver(this);
+        _pauseUI.addObserver(this);
         this.addObserver(AudioManager.getInstance());
 
 
@@ -239,7 +239,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         ImageButton saveButton = _pauseUI.get_saveButton();
         saveButton.addListener(new ClickListener() {
         	public void clicked(InputEvent event, float x, float y) {
-               // MainGameScreen.setGameState(MainGameScreen.GameState.SAVING);
+               MainGameScreen.setGameState(MainGameScreen.GameState.SAVING);
             }
         });
         
@@ -387,19 +387,19 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
                     int hpMaxVal = profileManager.getProperty("currentPlayerHPMax", Integer.class);
                     int hpVal = profileManager.getProperty("currentPlayerHP", Integer.class);
 
-                    int mpMaxVal = profileManager.getProperty("currentPlayerMPMax", Integer.class);
-                    int mpVal = profileManager.getProperty("currentPlayerMP", Integer.class);
+                    int waterMaxVal = profileManager.getProperty("currentPlayerWaterMax", Integer.class);
+                    int waterVal = profileManager.getProperty("currentPlayerWater", Integer.class);
 
                     int levelVal = profileManager.getProperty("currentPlayerLevel", Integer.class);
 
                     //set the current max values first
                     _statusUI.setXPValueMax(xpMaxVal);
                     _statusUI.setHPValueMax(hpMaxVal);
-                    _statusUI.setMPValueMax(mpMaxVal);
+                    _statusUI.setWaterValueMax(waterMaxVal);
 
                     _statusUI.setXPValue(xpVal);
                     _statusUI.setHPValue(hpVal);
-                    _statusUI.setMPValue(mpVal);
+                    _statusUI.setWaterValue(waterVal);
 
                     //then add in current values
                     _statusUI.setGoldValue(goldVal);
@@ -421,8 +421,8 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
                 profileManager.setProperty("currentPlayerXPMax", _statusUI.getXPValueMax() );
                 profileManager.setProperty("currentPlayerHP", _statusUI.getHPValue() );
                 profileManager.setProperty("currentPlayerHPMax", _statusUI.getHPValueMax() );
-                profileManager.setProperty("currentPlayerMP", _statusUI.getMPValue() );
-                profileManager.setProperty("currentPlayerMPMax", _statusUI.getMPValueMax() );
+                profileManager.setProperty("currentPlayerWater", _statusUI.getWaterValue() );
+                profileManager.setProperty("currentPlayerWaterMax", _statusUI.getWaterValueMax() );
             //    profileManager.setProperty("currentTime", _clock.getTotalTime());
                 break;
             case CLEAR_CURRENT_PROFILE:
@@ -436,8 +436,8 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
                 profileManager.setProperty("currentPlayerXPMax", 0 );
                 profileManager.setProperty("currentPlayerHP", 0 );
                 profileManager.setProperty("currentPlayerHPMax", 0 );
-                profileManager.setProperty("currentPlayerMP", 0 );
-                profileManager.setProperty("currentPlayerMPMax", 0 );
+                profileManager.setProperty("currentPlayerWater", 0 );
+                profileManager.setProperty("currentPlayerWaterMax", 0 );
                 profileManager.setProperty("currentTime", 0);
                 break;
             default:
@@ -637,8 +637,8 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
             case UPDATED_LEVEL:
                 ProfileManager.getInstance().setProperty("currentPlayerLevel", _statusUI.getLevelValue());
                 break;
-            case UPDATED_MP:
-                ProfileManager.getInstance().setProperty("currentPlayerMP", _statusUI.getMPValue());
+            case UPDATED_WATER:
+                ProfileManager.getInstance().setProperty("currentPlayerWater", _statusUI.getWaterValue());
                 break;
             case UPDATED_XP:
                 ProfileManager.getInstance().setProperty("currentPlayerXP", _statusUI.getXPValue());
@@ -709,9 +709,9 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
                 if( InventoryItem.doesRestoreHP(type) ){
                     notify(AudioObserver.AudioCommand.SOUND_PLAY_ONCE, AudioObserver.AudioTypeEvent.SOUND_EATING);
                     _statusUI.addHPValue(typeValue);
-                }else if( InventoryItem.doesRestoreMP(type) ){
+                }else if( InventoryItem.doesRestoreWater(type) ){
                     notify(AudioObserver.AudioCommand.SOUND_PLAY_ONCE, AudioObserver.AudioTypeEvent.SOUND_DRINKING);
-                    _statusUI.addMPValue(typeValue);
+                    _statusUI.addWaterValue(typeValue);
                 }
                 break;
             default:
@@ -762,6 +762,23 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
 	public PauseUI getPauseUI() {
 		return this._pauseUI;
 	}
+	
+	public void setOnlyPauseUIVisible() {
+		this._pauseUI.setVisible(true);
+		this._statusUI.setVisible(false);
+		this._inventoryUI.setVisible(false);
+		this._conversationUI.setVisible(false);
+		this._storeInventoryUI.setVisible(false);
+		this._questUI.setVisible(false);
+		this._inventoryInGame.setVisible(false);
+		this._miniMap.setVisible(false);
+	}
 
+	public void resumeFromPause() {
+		this._pauseUI.setVisible(false);
+		this._statusUI.setVisible(true);
+		this._inventoryInGame.setVisible(true);
+		this._miniMap.setVisible(true);
+	}
 
 }

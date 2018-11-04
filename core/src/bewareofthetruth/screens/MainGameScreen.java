@@ -112,7 +112,7 @@ public class MainGameScreen extends GameScreen {
 
 	@Override
 	public void render(float delta) {
-		System.out.println(_gameState);
+
 		if( _gameState == GameState.GAME_OVER ){
 			_game.setScreen(_game.getScreenType(Main.ScreenType.GameOver));
 		}
@@ -124,13 +124,13 @@ public class MainGameScreen extends GameScreen {
 		}
 		
 		if(_gameState == GameState.PAUSE && _threadPause == true) {
-			_playerHUD.getPauseUI().setVisible(false);
+			_playerHUD.setOnlyPauseUIVisible();
 			_threadPause = false;
 			_gameState = GameState.RUNNING;
 		}
 
 		if( _gameState == GameState.PAUSE ){
-			_playerHUD.getPauseUI().setVisible(true);
+			_playerHUD.resumeFromPause();
 			_threadPause = true;
 			_gameState = GameState.RUNNING;
 		}
@@ -253,13 +253,14 @@ public class MainGameScreen extends GameScreen {
 				_gameState = GameState.RUNNING;
 				break;
 			case LOADING:
+				Gdx.app.debug(TAG, "CHARGEMENT PROFILE ISSOU -----------------------------------------------------------------------------------------");
 				ProfileManager.getInstance().loadProfile();
 				_gameState = GameState.RUNNING;
 				break;
 			case SAVING:
-				
+				Gdx.app.debug(TAG, "SAUVEGARDE ISSOU -----------------------------------------------------------------------------------------");
 				ProfileManager.getInstance().saveProfile();
-				_gameState = GameState.PAUSED;
+				//_gameState = GameState.PAUSED;
 				break;
 			case PAUSED:
 

@@ -76,6 +76,7 @@ public class PlayerInputComponent extends InputComponent {
 			entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.DOWN));
 		}else if(keys.get(Keys.QUIT)) {
 			quitReleased();
+			MainGameScreen.setGameState(MainGameScreen.GameState.SAVING);
 			Gdx.app.exit();
 		}else{
 			entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.IDLE));
