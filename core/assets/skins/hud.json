@@ -35,6 +35,10 @@
 		"main-menu-intro": { "imageUp": "INTRODUCTION", "imageChecked": "INTRODUCTION" },
 		"chest-button": { "imageUp": "chest_closed", "imageChecked": "chest_open" },
 		"quest-button": { "imageUp": "quest", "imageChecked": "quest_clicked" },
+		"menu-reprendre-button": { "imageUp": "bounton_reprendre", "imageChecked": "bounton_reprendre" },
+		"menu-sauvegarder-button": { "imageUp": "bouton_save", "imageChecked": "bouton_save" },
+		"menu-options-button": { "imageUp": "bouton_option", "imageChecked": "bouton_option" },
+		"menu-quitter-button": { "imageUp": "bouton_quit", "imageChecked": "bouton_quit" }
 	},
 	"com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {
 		default: { down: default-round-down, up: default-round, font: default-font, fontColor: white },

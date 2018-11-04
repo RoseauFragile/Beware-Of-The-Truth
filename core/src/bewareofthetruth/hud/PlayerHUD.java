@@ -36,6 +36,7 @@ import bewareofthetruth.profile.ProfileManager;
 import bewareofthetruth.profile.ProfileObserver;
 import bewareofthetruth.utility.Utility;
 import bewareofthetruth.quest.QuestGraph;
+import bewareofthetruth.screens.MainGameScreen;
 import bewareofthetruth.transition.ScreenTransitionAction;
 import bewareofthetruth.transition.ScreenTransitionActor;
 
@@ -151,8 +152,8 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _pauseUI = new PauseUI();
         _pauseUI.setVisible(false);
         _pauseUI.setKeepWithinStage(false);
-        _pauseUI.setSize(1000, 1000);
-        _pauseUI.setPosition((Gdx.graphics.getWidth() /2 - ( _pauseUI.getWidth())) + (_pauseUI.getWidth() /2), 0);
+        _pauseUI.setSize(1500, 1000);
+        _pauseUI.setPosition((Gdx.graphics.getWidth() /2 - ( _pauseUI.getWidth())) + (_pauseUI.getWidth() /2), _inventoryInGame.getHeight());
         
        // _test = new TestUI();
        // _test.setMovable(false);
@@ -218,6 +219,34 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         inventoryButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 _inventoryUI.setVisible(_inventoryUI.isVisible() ? false : true);
+            }
+        });
+        
+        ImageButton exitButton = _pauseUI.get_quitButton();
+        exitButton.addListener(new ClickListener() {
+        	public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.exit();
+            }
+        });
+        
+        ImageButton optionsButton = _pauseUI.get_optionsButton();
+        optionsButton.addListener(new ClickListener() {
+        	public void clicked(InputEvent event, float x, float y) {
+                
+            }
+        });
+        
+        ImageButton saveButton = _pauseUI.get_saveButton();
+        saveButton.addListener(new ClickListener() {
+        	public void clicked(InputEvent event, float x, float y) {
+               // MainGameScreen.setGameState(MainGameScreen.GameState.SAVING);
+            }
+        });
+        
+        ImageButton resumeButton = _pauseUI.get_resumeButton();
+        resumeButton.addListener(new ClickListener() {
+        	public void clicked(InputEvent event, float x, float y) {
+        		MainGameScreen.setGameState(MainGameScreen.GameState.PAUSE);
             }
         });
         

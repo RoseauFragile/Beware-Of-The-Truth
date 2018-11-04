@@ -36,8 +36,9 @@ public class MainGameScreen extends GameScreen {
 		SAVING,
 		LOADING,
 		RUNNING,
-		PAUSED,
-		GAME_OVER
+		GAME_OVER,
+		PAUSE,
+		PAUSED
 	}
 	private static GameState _gameState;
 
@@ -45,15 +46,13 @@ public class MainGameScreen extends GameScreen {
 	protected MapManager _mapMgr;
 	protected OrthographicCamera _camera = null;
 	protected OrthographicCamera _hudCamera = null;
-
 	private Json _json;
 	private Main _game;
 	private InputMultiplexer _multiplexer;
-
 	private Entity _player;
 	private PlayerHUD _playerHUD;
+	private boolean _threadPause = false;
 
-	
 
 	@SuppressWarnings("static-access")
 	public MainGameScreen(Main game){
@@ -113,20 +112,29 @@ public class MainGameScreen extends GameScreen {
 
 	@Override
 	public void render(float delta) {
+		System.out.println(_gameState);
 		if( _gameState == GameState.GAME_OVER ){
 			_game.setScreen(_game.getScreenType(Main.ScreenType.GameOver));
 		}
 
 		if( _gameState == GameState.PAUSED ){
 			_player.updateInput(delta);
-			if( _playerHUD.getPauseUI().isVisible() == false) {
-			_playerHUD.getPauseUI().setVisible(true);
-			} else {
-				_playerHUD.getPauseUI().setVisible(false);
-			}
 			_playerHUD.render(delta);
 			return;
 		}
+		
+		if(_gameState == GameState.PAUSE && _threadPause == true) {
+			_playerHUD.getPauseUI().setVisible(false);
+			_threadPause = false;
+			_gameState = GameState.RUNNING;
+		}
+
+		if( _gameState == GameState.PAUSE ){
+			_playerHUD.getPauseUI().setVisible(true);
+			_threadPause = true;
+			_gameState = GameState.RUNNING;
+		}
+		
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -249,10 +257,12 @@ public class MainGameScreen extends GameScreen {
 				_gameState = GameState.RUNNING;
 				break;
 			case SAVING:
+				
 				ProfileManager.getInstance().saveProfile();
 				_gameState = GameState.PAUSED;
 				break;
 			case PAUSED:
+
 				if( _gameState == GameState.PAUSED ){
 					_gameState = GameState.RUNNING;
 				}else if( _gameState == GameState.RUNNING ){
@@ -261,6 +271,9 @@ public class MainGameScreen extends GameScreen {
 				break;
 			case GAME_OVER:
 				_gameState = GameState.GAME_OVER;
+				break;
+			case PAUSE:
+				_gameState = GameState.PAUSE;
 				break;
 			default:
 				_gameState = GameState.RUNNING;

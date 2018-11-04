@@ -2,21 +2,19 @@ package bewareofthetruth.entity.components.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector3;
-
 import bewareofthetruth.entity.Entity;
-import bewareofthetruth.entity.Entity.Direction;
-import bewareofthetruth.entity.Entity.State;
 import bewareofthetruth.entity.components.InputComponent;
 import bewareofthetruth.screens.MainGameScreen;
-import bewareofthetruth.entity.components.Component.MESSAGE;
+
 
 //TODO Julien classe qui controle le player
 public class PlayerInputComponent extends InputComponent {
 
+	@SuppressWarnings("unused")
 	private final static String TAG = PlayerInputComponent.class.getSimpleName();
 	private Vector3 _lastMouseCoordinates;
+
 
 	public PlayerInputComponent(){
 		this._lastMouseCoordinates = new Vector3();
@@ -43,11 +41,15 @@ public class PlayerInputComponent extends InputComponent {
 
 	@Override
 	public void update(Entity entity, float delta){
+
 		//Keyboard input
 		if(keys.get(Keys.PAUSE)) {
 			
 			MainGameScreen.setGameState(MainGameScreen.GameState.PAUSED);
 			pauseReleased();
+		}else if(keys.get(Keys.ESC)) {
+			MainGameScreen.setGameState(MainGameScreen.GameState.PAUSE);
+			escapeReleased();
 		}else if (keys.get(Keys.UP) && keys.get(Keys.RIGHT)) {
 			entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.WALKING));
 			entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.UP_RIGHT));
@@ -109,6 +111,9 @@ public class PlayerInputComponent extends InputComponent {
 		if( keycode == Input.Keys.P ){
 			this.pausePressed();
 		}
+		if( keycode == Input.Keys.ESCAPE) {
+			this.escapePressed();
+		}
 
 		return true;
 	}
@@ -132,6 +137,9 @@ public class PlayerInputComponent extends InputComponent {
 		}
 		if( keycode == Input.Keys.P ){
 			this.pauseReleased();
+		}		
+		if( keycode == Input.Keys.ESCAPE ){
+			this.escapeReleased();
 		}
 		return true;
 	}
@@ -204,6 +212,10 @@ public class PlayerInputComponent extends InputComponent {
 	public void quitPressed(){
 		keys.put(Keys.QUIT, true);
 	}
+	
+	public void escapePressed(){
+		keys.put(Keys.ESC, true);
+	}
 
 	public void pausePressed() {
 		keys.put(Keys.PAUSE, true);
@@ -242,6 +254,10 @@ public class PlayerInputComponent extends InputComponent {
 	public void quitReleased(){
 		keys.put(Keys.QUIT, false);
 	}
+	
+	public void escapeReleased(){
+		keys.put(Keys.ESC, false);
+	}
 
 	public void pauseReleased() { keys.put(Keys.PAUSE, false);}
 	
@@ -259,5 +275,6 @@ public class PlayerInputComponent extends InputComponent {
 		keys.put(Keys.UP, false);
 		keys.put(Keys.DOWN, false);
 		keys.put(Keys.QUIT, false);
+		keys.put(Keys.ESC, false);
 	}
 }
