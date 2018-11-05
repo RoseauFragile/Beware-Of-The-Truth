@@ -70,7 +70,7 @@ public class InventoryInGameUI extends Window implements InventorySlotObserver, 
 		    defaults().expand().fill();
 	        this.add(_inventorySlotTable).colspan(2);
 	        this._inventorySlotTable.setVisible(false);
-		  //  this.debug();
+		  //  this.debug(); cdssdf
 		    this.pack();
 		 }
 
