@@ -1,6 +1,7 @@
 package bewareofthetruth.entity.components.player;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.btree.decorator.Random;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -24,6 +25,7 @@ import bewareofthetruth.entity.EntityConfig.AnimationConfig;
 import bewareofthetruth.entity.components.GraphicsComponent;
 import bewareofthetruth.entity.components.Component.MESSAGE;
 import bewareofthetruth.map.MapManager;
+import bewareofthetruth.sfx.ShakeCamera;
 import bewareofthetruth.entity.components.ComponentObserver;
 
 
@@ -33,9 +35,13 @@ public class PlayerGraphicsComponent extends GraphicsComponent {
     protected Vector2 _previousPosition;
     protected float cameraX = _currentPosition.x;
     protected float cameraY = _currentPosition.y;
+    private ShakeCamera _shakeCam;
+
     
     public PlayerGraphicsComponent(){
         _previousPosition = new Vector2(0,0);
+        _shakeCam = new ShakeCamera(_currentPosition.x,_currentPosition.y, 30.0f);
+
     }
 
     @Override
@@ -77,7 +83,7 @@ public class PlayerGraphicsComponent extends GraphicsComponent {
             }
         }
     }
-
+    
     @Override
     public void update(Entity entity, MapManager mapMgr, Batch batch, float delta){
         updateAnimations(delta);
@@ -103,10 +109,19 @@ public class PlayerGraphicsComponent extends GraphicsComponent {
 
         cameraX += (positionX + delta - cameraX) * delta;
         cameraY += (positionY + delta - cameraY) * delta;
-        
+        if(_currentPosition.x < 5) {
+        	_shakeCam.startShaking();
+        }
+        if( _shakeCam.isCameraShaking() ){
+            Vector2 shakeCoords = _shakeCam.getNewShakePosition();
+            cameraX = shakeCoords.x - camViewportHalfX;
+            cameraY = shakeCoords.y - camViewportHalfY;
+        }
         
         camera.position.set(cameraX, cameraY, 0f);
         camera.update();
+        _shakeCam.reset();
+        
 
 
         batch.begin();
