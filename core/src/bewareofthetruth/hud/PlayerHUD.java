@@ -3,6 +3,7 @@ package bewareofthetruth.hud;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -36,6 +37,7 @@ import bewareofthetruth.profile.ProfileObserver;
 import bewareofthetruth.utility.Utility;
 import bewareofthetruth.quest.QuestGraph;
 import bewareofthetruth.screens.MainGameScreen;
+import bewareofthetruth.sfx.ShakeCamera;
 import bewareofthetruth.transition.ScreenTransitionAction;
 import bewareofthetruth.transition.ScreenTransitionActor;
 
@@ -62,9 +64,9 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
 	private PauseUI _pauseUI;
 	public boolean _pauseVisible = false;
 
-   /*
+  
     private ShakeCamera _shakeCam;
-    private ClockActor _clock;*/
+   /* private ClockActor _clock;*/
 
     private static final String INVENTORY_FULL = "Your inventory is full!";
 
@@ -77,7 +79,7 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _stage = new Stage(_viewport);
         _observers = new Array<AudioObserver>();
         _transitionActor = new ScreenTransitionActor();
-        /*_shakeCam = new ShakeCamera(0,0, 30.0f);*/
+        _shakeCam = new ShakeCamera(0,0, 30.0f);
         _json = new Json();
         _messageBoxUI = new Dialog("Message", Utility.STATUSUI_SKIN, "solidbackground"){
             {
@@ -653,16 +655,16 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
 
     @Override
     public void show() {
-        //_shakeCam.reset();
+        _shakeCam.reset();
     }
 
     @Override
     public void render(float delta) {
-       /* if( _shakeCam.isCameraShaking() ){
+        if( _shakeCam.isCameraShaking() ){
             Vector2 shakeCoords = _shakeCam.getNewShakePosition();
             _camera.position.x = shakeCoords.x + _stage.getWidth()/2;
             _camera.position.y = shakeCoords.y + _stage.getHeight()/2;
-        }*/
+        }
         _stage.act(delta);
         _stage.draw();
     }
