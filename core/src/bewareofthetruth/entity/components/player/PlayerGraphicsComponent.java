@@ -40,7 +40,7 @@ public class PlayerGraphicsComponent extends GraphicsComponent {
     
     public PlayerGraphicsComponent(){
         _previousPosition = new Vector2(0,0);
-        _shakeCam = new ShakeCamera(_currentPosition.x,_currentPosition.y, 30.0f);
+        _shakeCam = new ShakeCamera(_currentPosition.x,_currentPosition.y, 10.0f);
 
     }
 
@@ -114,8 +114,10 @@ public class PlayerGraphicsComponent extends GraphicsComponent {
         }
         if( _shakeCam.isCameraShaking() ){
             Vector2 shakeCoords = _shakeCam.getNewShakePosition();
-            cameraX = shakeCoords.x - camViewportHalfX;
-            cameraY = shakeCoords.y - camViewportHalfY;
+            cameraX += shakeCoords.x/100;
+            cameraY += shakeCoords.y/100;
+            _shakeCam.reset();
+            System.out.println("X: " + cameraX + " Y: " + cameraY );
         }
         
         camera.position.set(cameraX, cameraY, 0f);

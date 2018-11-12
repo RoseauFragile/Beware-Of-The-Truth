@@ -660,7 +660,6 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
 
     @Override
     public void render(float delta) {
-    	this._shakeCam.startShaking();
         if( _shakeCam.isCameraShaking() ){
             Vector2 shakeCoords = _shakeCam.getNewShakePosition();
             _camera.position.x = shakeCoords.x + _stage.getWidth()/2;
