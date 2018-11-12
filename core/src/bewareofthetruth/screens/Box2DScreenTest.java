@@ -40,10 +40,7 @@ public class Box2DScreenTest extends GameScreen implements InputProcessor {
 	// Ball
 	CircleShape _circle;
 	FixtureDef _circleFixtureDef;
-	private static final float SCENE_WIDTH = 12.8f;
-	// 13 metres    wide
-	private static final float SCENE_HEIGHT = 7.2f;
-	// 7 metres    high
+
 	
 	public Box2DScreenTest(Main game) {
 		this._game = game;
@@ -92,7 +89,20 @@ public class Box2DScreenTest extends GameScreen implements InputProcessor {
 		table.add(returnButton).spaceBottom(10).row();
 		_stage.addActor(table);
 
+		returnButton.addListener(new ClickListener() {
 
+			   @Override
+			   public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				   return true;
+			   }
+
+			   @Override
+			   public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+				   _game.setScreen(_game.getScreenType(ScreenType.MainMenu));
+			   }
+
+		   }
+);
 
 notify(AudioObserver.AudioCommand.MUSIC_LOAD, AudioObserver.AudioTypeEvent.MUSIC_TITLE);
 	}
