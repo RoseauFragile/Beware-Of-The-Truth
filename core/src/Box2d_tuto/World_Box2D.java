@@ -18,6 +18,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import bewareofthetruth.main.Main;
 import bewareofthetruth.screens.GameScreen;
 
 public class World_Box2D extends GameScreen implements InputProcessor {
@@ -40,7 +41,11 @@ public class World_Box2D extends GameScreen implements InputProcessor {
 	FixtureDef circleFixtureDef;
 	private Viewport viewport; 
 	
-	public World_Box2D() {
+	private Main _game;
+	
+	public World_Box2D(Main game) {
+		//TODO 6
+		this._game = game;
 		this.create();
 	}
 	
