@@ -34,6 +34,6 @@ public class World  {
 		// Center camera to get (0,0) as the origin of the Box2D world 
 		viewport.update(SCENE_WIDTH, SCENE_HEIGHT, true);
 		
-		world = new World(new Vector2(0,-9.8f), true); 
+		//world = new World(new Vector2(0,-9.8f), true); 
 	}
 }
