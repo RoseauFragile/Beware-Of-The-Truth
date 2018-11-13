@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
 
+import Box2d_tuto.World_Box2D;
 import bewareofthetruth.screens.CutSceneScreen;
 import bewareofthetruth.screens.GameOverScreen;
 import bewareofthetruth.screens.LoadGameScreen;
@@ -23,6 +24,7 @@ public class Main extends Game {
 	private static CutSceneScreen _cutSceneScreen;
 	//private static CreditScreen _creditScreen;
 	private static MainOptionsScreen _mainOptionsScreen;
+	private static 	World_Box2D world;
 	
 	public static enum ScreenType{
 		MainMenu,
@@ -64,7 +66,9 @@ public class Main extends Game {
 	public void create(){
 		 customCursor = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("sprites/hud/hud.cursor/Cursor.png")), 48, 26);
 		Gdx.graphics.setCursor(customCursor);
-		_mainGameScreen = new MainGameScreen(this);
+		world = new World_Box2D();
+		
+		/*_mainGameScreen = new MainGameScreen(this);
 		_mainMenuScreen = new MainMenuScreen(this);
 		_loadGameScreen = new LoadGameScreen(this);
 		_newGameScreen = new NewGameScreen(this);
@@ -72,11 +76,12 @@ public class Main extends Game {
 		_cutSceneScreen = new CutSceneScreen(this);
 		//_creditScreen = new CreditScreen(this);
 		_mainOptionsScreen = new MainOptionsScreen(this);
-		setScreen(_mainMenuScreen);
+		setScreen(_mainMenuScreen);*/
 	}
 
 	@Override
 	public void dispose(){
+		world.dispose();
 		_mainGameScreen.dispose();
 		_mainMenuScreen.dispose();
 		_loadGameScreen.dispose();
