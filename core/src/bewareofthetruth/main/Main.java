@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
 
 import Box2d_tuto.World_Box2D;
+import bewareofthetruth.screens.Box2DScreenTest;
 import bewareofthetruth.screens.CutSceneScreen;
 import bewareofthetruth.screens.GameOverScreen;
 import bewareofthetruth.screens.LoadGameScreen;
@@ -25,7 +26,7 @@ public class Main extends Game {
 	//private static CreditScreen _creditScreen;
 	private static MainOptionsScreen _mainOptionsScreen;
 	private static 	World_Box2D world;
-	
+	private static Box2DScreenTest _box2dScreenTest;	
 	public static enum ScreenType{
 		MainMenu,
 		MainGame,
@@ -33,7 +34,7 @@ public class Main extends Game {
 		NewGame,
 		GameOver,
 		WatchIntro,
-		Credits, MainOptions
+		Credits, MainOptions, Box2DTest
 	}
 
 	private Cursor customCursor;
@@ -54,6 +55,8 @@ public class Main extends Game {
 				return _gameOverScreen;
 			case WatchIntro:
 				return _cutSceneScreen;
+			case Box2DTest:
+				return _box2dScreenTest;
 			//case Credits:
 			//	return _creditScreen;
 			default:
@@ -77,6 +80,9 @@ public class Main extends Game {
 		//_creditScreen = new CreditScreen(this);
 		_mainOptionsScreen = new MainOptionsScreen(this);
 		setScreen(_mainMenuScreen);*/
+
+		_box2dScreenTest = new Box2DScreenTest(this);
+		setScreen(_mainMenuScreen);
 	}
 
 	@Override
@@ -88,6 +94,7 @@ public class Main extends Game {
 		_newGameScreen.dispose();
 		_gameOverScreen.dispose();
 		//_creditScreen.dispose();
+		_box2dScreenTest.dispose();
 		_mainOptionsScreen.dispose();
 		customCursor.dispose();
 

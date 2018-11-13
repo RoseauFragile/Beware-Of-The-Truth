@@ -36,6 +36,8 @@ public class MainMenuScreen extends GameScreen {
 		ImageButton optionsButton = new ImageButton( Utility.STATUSUI_SKIN,"main-menu-options");
 		ImageButton exitButton = new ImageButton( Utility.STATUSUI_SKIN,"main-menu-exit");
 		ImageButton watchIntroButton = new ImageButton( Utility.STATUSUI_SKIN,"main-menu-intro");
+		//ImageButton watchIntroButton = new ImageButton( Utility.STATUSUI_SKIN,"main-menu-intro");
+
 
 		spriteBatch = new SpriteBatch();
         backgroundTexture = new Texture("beware.png");
@@ -117,7 +119,7 @@ public class MainMenuScreen extends GameScreen {
 										 @Override
 										 public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 											 MainMenuScreen.this.notify(AudioObserver.AudioCommand.MUSIC_STOP, AudioObserver.AudioTypeEvent.MUSIC_INTRO);
-											 _game.setScreen(_game.getScreenType(ScreenType.WatchIntro));
+											 _game.setScreen(_game.getScreenType(ScreenType.Box2DTest));
 										 }
 									 }
 		);
