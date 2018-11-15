@@ -71,7 +71,7 @@ public class Main extends Game {
 		Gdx.graphics.setCursor(customCursor);
 		world = new World_Box2D();
 		
-		/*_mainGameScreen = new MainGameScreen(this);
+		_mainGameScreen = new MainGameScreen(this);
 		_mainMenuScreen = new MainMenuScreen(this);
 		_loadGameScreen = new LoadGameScreen(this);
 		_newGameScreen = new NewGameScreen(this);
@@ -79,7 +79,7 @@ public class Main extends Game {
 		_cutSceneScreen = new CutSceneScreen(this);
 		//_creditScreen = new CreditScreen(this);
 		_mainOptionsScreen = new MainOptionsScreen(this);
-		setScreen(_mainMenuScreen);*/
+		setScreen(_mainMenuScreen);
 
 		_box2dScreenTest = new Box2DScreenTest(this);
 		setScreen(_mainMenuScreen);
