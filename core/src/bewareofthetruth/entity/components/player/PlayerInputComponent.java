@@ -8,7 +8,7 @@ import bewareofthetruth.entity.components.InputComponent;
 import bewareofthetruth.screens.MainGameScreen;
 
 
-//TODO Julien classe qui controle le player
+
 public class PlayerInputComponent extends InputComponent {
 
 	@SuppressWarnings("unused")

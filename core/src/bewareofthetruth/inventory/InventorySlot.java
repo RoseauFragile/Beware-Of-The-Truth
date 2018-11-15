@@ -27,7 +27,7 @@ public class InventorySlot extends Stack implements InventorySlotSubject {
         _defaultBackground = new Stack();
         _customBackgroundDecal = new Image();
         _observers = new Array<InventorySlotObserver>();
-        //TODO repere
+
 
         Image image = new Image(new NinePatch(Utility.STATUSUI_TEXTUREATLAS.createPatch(pathImage)));
 

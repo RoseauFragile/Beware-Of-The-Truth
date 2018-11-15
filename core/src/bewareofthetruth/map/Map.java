@@ -19,7 +19,7 @@ import bewareofthetruth.particles.ParticleEffectFactory;
 import bewareofthetruth.utility.Utility;
 
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
-//TODO Soit on garde cette architecture et on créer une map pour chaque Level ce qui est en soit efficaces pour un rpg mais LOURD soit on fais une factory plus élaboré avec la bdd
+
 public abstract class Map implements AudioSubject{
     private static final String TAG = Map.class.getSimpleName();
 
@@ -76,6 +76,7 @@ public abstract class Map implements AudioSubject{
     protected Array<Entity> _mapEntities;
     protected Array<Entity> _mapQuestEntities;
     protected Array<ParticleEffect> _mapParticleEffects;
+
 
     protected Map( MapFactory.MapType mapType, String fullMapPath){
         _json = new Json();
@@ -422,6 +423,15 @@ public abstract class Map implements AudioSubject{
 
     abstract public void unloadMusic();
     abstract public void loadMusic();
+    
+    public void unloadMusic(AudioObserver.AudioTypeEvent musicToStop) {
+    	notify(AudioObserver.AudioCommand.MUSIC_STOP, musicToStop);
+    }
+    
+    public void loadMusic(AudioObserver.AudioTypeEvent musicToPlayInLoop) {
+        notify(AudioObserver.AudioCommand.MUSIC_LOAD, musicToPlayInLoop);
+        notify(AudioObserver.AudioCommand.MUSIC_PLAY_LOOP, musicToPlayInLoop);
+    }
 
     @Override
     public void addObserver(AudioObserver audioObserver) {

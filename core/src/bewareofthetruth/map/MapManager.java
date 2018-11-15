@@ -313,7 +313,7 @@ public class MapManager implements ProfileObserver {
         return this._player;
     }
 
-	//TODO Juien ici camera
+
 
     public void setCamera(Camera camera){
         this._camera = camera;
