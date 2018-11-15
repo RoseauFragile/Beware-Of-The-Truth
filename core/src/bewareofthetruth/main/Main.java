@@ -87,6 +87,10 @@ public class Main extends Game {
 		_cutSceneScreen = new CutSceneScreen(this);
 		//_creditScreen = new CreditScreen(this);
 		_mainOptionsScreen = new MainOptionsScreen(this);
+		setScreen(_mainMenuScreen);
+
+		_box2dScreenTest = new Box2DScreenTest(this);
+		_mainOptionsScreen = new MainOptionsScreen(this);
 		
 		//TODO 4
 		_worldBox2D = new World_Box2D(this);
