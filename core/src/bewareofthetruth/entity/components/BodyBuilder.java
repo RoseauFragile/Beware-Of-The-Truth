@@ -6,6 +6,9 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+
+import bewareofthetruth.entity.Entity;
+
 import static bewareofthetruth.utility.Utility.BIT_ENNEMY;
 import static bewareofthetruth.utility.Utility.BIT_PLAYER;
 import static bewareofthetruth.utility.Utility.BIT_WALL;
@@ -16,7 +19,7 @@ public class BodyBuilder {
 	public static final float PPM = 64;
 	
 	//TODO to fix for body
-	public static Body createEntityBody(World world, float x, float y, int width, int height, boolean isStatic, boolean fixedRotation, short cBits, short mBits, short gIndex, IEntity entity) {
+	public static Body createEntityBody(World world, float x, float y, int width, int height, boolean isStatic, boolean fixedRotation, short cBits, short mBits, short gIndex, Entity entity) {
 		BodyDef def = new BodyDef();
 		def.fixedRotation = fixedRotation;
 		def.position.set(x / PPM,  y / PPM);
@@ -42,7 +45,7 @@ public class BodyBuilder {
 	
 	
 	//TODO to fix for body player
-	public static Body createPlayerBody(World world, float x, float y, int width, int height, boolean isStatic, boolean fixedRotation, short cBits, short mBits, short gIndex, IPlayer player) {
+	public static Body createPlayerBody(World world, float x, float y, int width, int height, boolean isStatic, boolean fixedRotation, short cBits, short mBits, short gIndex, Entity entity) {
 		BodyDef def = new BodyDef();
 		def.fixedRotation = fixedRotation;
 		def.position.set(x / PPM,  y / PPM);
@@ -63,7 +66,7 @@ public class BodyBuilder {
 		fixtureDef.filter.groupIndex = gIndex;
 		
 		Body body = world.createBody(def);
-		body.createFixture(fixtureDef).setUserData(player);
+		body.createFixture(fixtureDef).setUserData(entity);
 		return body;
 	}
 	

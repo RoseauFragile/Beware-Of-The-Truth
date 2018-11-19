@@ -10,6 +10,7 @@ public class MapDAO extends AbstractDAO{
 	private String _MapPath;
 	private ArrayList<EntityFactory.EntityName> _entities;
 	
+	
 	public MapDAO() {
 	}
 
