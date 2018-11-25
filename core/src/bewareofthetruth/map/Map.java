@@ -77,7 +77,7 @@ public abstract class Map implements AudioSubject{
     protected Array<Entity> _mapQuestEntities;
     protected Array<ParticleEffect> _mapParticleEffects;
 
-
+    //TODO il va falloir adapté le constructeur et implémenté une méthode pour créer tout les PNJ ICI 
     protected Map( MapFactory.MapType mapType, String fullMapPath){
         _json = new Json();
         _mapEntities = new Array<Entity>(10);

@@ -1,9 +1,15 @@
 package bewareofthetruth.dao;
 
-public class BewareOfTheTruthDAO {
+public class BewareOfTheTruthDAO extends AbstractDAO{
 
-	//TODO il faut créer un DAO pour la map, pour les options, le player et l'avancement ce sera du serial
+	private MapDAO _mapDAO;
+	
 	public BewareOfTheTruthDAO() {
+		super();
+		this._mapDAO = new MapDAO();
 	}
 
+	public MapDAO getMapDAO() {
+		return _mapDAO;
+	}
 }

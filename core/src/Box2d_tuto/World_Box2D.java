@@ -44,7 +44,6 @@ public class World_Box2D extends GameScreen implements InputProcessor {
 	private Main _game;
 	
 	public World_Box2D(Main game) {
-		//TODO 6
 		this._game = game;
 		this.create();
 	}

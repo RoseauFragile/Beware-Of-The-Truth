@@ -118,8 +118,7 @@ public class MainMenuScreen extends GameScreen {
 
 										 @Override
 										 public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-											 MainMenuScreen.this.notify(AudioObserver.AudioCommand.MUSIC_STOP, AudioObserver.AudioTypeEvent.MUSIC_INTRO);
-											 //TODO 7
+											 MainMenuScreen.this.notify(AudioObserver.AudioCommand.MUSIC_STOP, AudioObserver.AudioTypeEvent.MUSIC_INTRO);									
 											 _game.setScreen(_game.getScreenType(ScreenType.WorldBox2D));
 										 }
 									 }

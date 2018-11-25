@@ -1,13 +1,9 @@
 package bewareofthetruth.audio;
 
 import java.util.Hashtable;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-
-import bewareofthetruth.audio.AudioObserver.AudioCommand;
-import bewareofthetruth.audio.AudioObserver.AudioTypeEvent;
 import bewareofthetruth.utility.Utility;
 
 public class AudioManager implements AudioObserver {

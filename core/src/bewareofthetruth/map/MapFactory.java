@@ -20,6 +20,9 @@ public class MapFactory {
         ZONE_TEST
     }
 	
+    //TODO l'idée pour passer en BDD sera de passer d'un référencement en mapType à un référencement en IdMap avec la Bdd, 
+    //en gros au lancement du jeu on récupère la première map en fonction de l'ID de la map contenue dans la sauvegarde du jeu,
+    // OU ALORS si cela s'avère trop compliqué on peut tout simplement créer un attribut mapType dans la BDD et faireun énorme switch case ici
 	static public Map getMap(MapType mapType) {
 		Map map =null;
 		switch(mapType) {

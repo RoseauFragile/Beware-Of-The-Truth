@@ -202,53 +202,6 @@ public class MapManager implements ProfileObserver {
         return _currentLightMap;
     }
 
-   /* public void updateLightMaps(ClockActor.TimeOfDay timeOfDay){
-        if( _timeOfDay != timeOfDay ){
-            _currentLightMapOpacity = 0;
-            _previousLightMapOpacity = 1;
-            _timeOfDay = timeOfDay;
-            _timeOfDayChanged = true;
-            _previousLightMap = _currentLightMap;
-
-            Gdx.app.debug(TAG, "Time of Day CHANGED");
-        }
-        switch(timeOfDay){
-            case DAWN:
-                _currentLightMap = _currentMap.getLightMapDawnLayer();
-                break;
-            case AFTERNOON:
-                _currentLightMap = _currentMap.getLightMapAfternoonLayer();
-                break;
-            case DUSK:
-                _currentLightMap = _currentMap.getLightMapDuskLayer();
-                break;
-            case NIGHT:
-                _currentLightMap = _currentMap.getLightMapNightLayer();
-                break;
-            default:
-                _currentLightMap = _currentMap.getLightMapAfternoonLayer();
-                break;
-        }
-
-            if( _timeOfDayChanged ){
-                if( _previousLightMap != null && _previousLightMapOpacity != 0 ){
-                    _previousLightMap.setOpacity(_previousLightMapOpacity);
-                    _previousLightMapOpacity = MathUtils.clamp(_previousLightMapOpacity -= .05, 0, 1);
-
-                    if( _previousLightMapOpacity == 0 ){
-                        _previousLightMap = null;
-                    }
-                }
-
-                if( _currentLightMap != null && _currentLightMapOpacity != 1 ) {
-                    _currentLightMap.setOpacity(_currentLightMapOpacity);
-                    _currentLightMapOpacity = MathUtils.clamp(_currentLightMapOpacity += .01, 0, 1);
-                }
-            }else{
-                _timeOfDayChanged = false;
-            }
-    }*/
-
     public void updateCurrentMapEntities(MapManager mapMgr, Batch batch, float delta){
         _currentMap.updateMapEntities(mapMgr, batch, delta);
     }
@@ -312,8 +265,6 @@ public class MapManager implements ProfileObserver {
     public Entity getPlayer(){
         return this._player;
     }
-
-
 
     public void setCamera(Camera camera){
         this._camera = camera;

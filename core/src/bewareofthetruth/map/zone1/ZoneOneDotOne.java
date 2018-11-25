@@ -5,7 +5,6 @@ import com.badlogic.gdx.utils.Json;
 import bewareofthetruth.audio.AudioObserver;
 import bewareofthetruth.entity.Entity;
 import bewareofthetruth.entity.EntityConfig;
-import bewareofthetruth.entity.EntityFactory;
 import bewareofthetruth.entity.components.Component;
 import bewareofthetruth.map.Map;
 import bewareofthetruth.map.MapFactory;
@@ -20,48 +19,9 @@ public class ZoneOneDotOne extends Map{
 
     public ZoneOneDotOne(){
         super(MapFactory.MapType.ZONE_1_1, _mapPath);
-
         _json = new Json();
 
-        for( Vector2 position: _npcStartPositions){
-            Entity entity = EntityFactory.getInstance().getEntityByName(EntityFactory.EntityName.TOWN_GUARD_WALKING);
-            entity.sendMessage(Component.MESSAGE.INIT_START_POSITION, _json.toJson(position));
-            _mapEntities.add(entity);
-        }
 
-        
-        //Special cases
-        Entity blackSmith = EntityFactory.getInstance().getEntityByName(EntityFactory.EntityName.TOWN_BLACKSMITH);
-        initSpecialEntityPosition(blackSmith);
-        _mapEntities.add(blackSmith);
-
-        Entity mage = EntityFactory.getInstance().getEntityByName(EntityFactory.EntityName.TOWN_MAGE);
-        initSpecialEntityPosition(mage);
-        _mapEntities.add(mage);
-
-        Entity innKeeper = EntityFactory.getInstance().getEntityByName(EntityFactory.EntityName.TOWN_INNKEEPER);
-        initSpecialEntityPosition(innKeeper);
-        _mapEntities.add(innKeeper);
-
-        Entity townfolk1 = EntityFactory.getInstance().getEntityByName(EntityFactory.EntityName.TOWN_FOLK1);
-        initSpecialEntityPosition(townfolk1);
-        _mapEntities.add(townfolk1);
-
-        Entity townfolk2 = EntityFactory.getInstance().getEntityByName(EntityFactory.EntityName.TOWN_FOLK2);
-        initSpecialEntityPosition(townfolk2);
-        _mapEntities.add(townfolk2);
-
-        Entity townfolk3 = EntityFactory.getInstance().getEntityByName(EntityFactory.EntityName.TOWN_FOLK3);
-        initSpecialEntityPosition(townfolk3);
-        _mapEntities.add(townfolk3);
-
-        Entity townfolk4 = EntityFactory.getInstance().getEntityByName(EntityFactory.EntityName.TOWN_FOLK4);
-        initSpecialEntityPosition(townfolk4);
-        _mapEntities.add(townfolk4);
-
-        Entity townfolk5 = EntityFactory.getInstance().getEntityByName(EntityFactory.EntityName.TOWN_FOLK5);
-        initSpecialEntityPosition(townfolk5);
-        _mapEntities.add(townfolk5);
     }
 
     @Override

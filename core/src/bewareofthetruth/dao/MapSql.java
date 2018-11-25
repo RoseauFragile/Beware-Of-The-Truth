@@ -4,9 +4,11 @@ public class MapSql {
 
 	private int _id;
 	private String _mapPath;
+	private String _mapName;
 	
-	public MapSql(final int id, final String mapPath) {
+	public MapSql(final int id,final String mapName, final String mapPath) {
 		this._id = id;
+		this._mapName = mapName;
 		this._mapPath = mapPath;
 	}
 
@@ -24,6 +26,14 @@ public class MapSql {
 
 	public void set_mapPath(String _mapPath) {
 		this._mapPath = _mapPath;
+	}
+
+	public String get_mapName() {
+		return _mapName;
+	}
+
+	public void set_mapName(String _mapName) {
+		this._mapName = _mapName;
 	}
 
 }

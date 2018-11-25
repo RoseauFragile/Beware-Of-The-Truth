@@ -49,7 +49,8 @@ public class LevelTable {
         Json json = new Json();
         Array<LevelTable> levelTable = new Array<LevelTable>();
 
-        ArrayList<JsonValue> list = json.fromJson(ArrayList.class, Gdx.files.internal(configFilePath));
+        @SuppressWarnings("unchecked")
+		ArrayList<JsonValue> list = json.fromJson(ArrayList.class, Gdx.files.internal(configFilePath));
 
         for (JsonValue jsonVal : list) {
             LevelTable table = json.readValue(LevelTable.class, jsonVal);
