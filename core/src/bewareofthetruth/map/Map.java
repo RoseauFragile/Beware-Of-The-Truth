@@ -178,17 +178,20 @@ public class Map implements AudioSubject{
         //Observers
         this.addObserver(AudioManager.getInstance());
         
-        //TODO Je dois fixe le spawn des mobs
+        
+        //guard entities
         for( Vector2 position: _npcStartPositions){
             Entity entity = EntityFactory.getInstance().getEntityByName(EntityFactory.EntityName.TOWN_GUARD_WALKING);
             entity.sendMessage(Component.MESSAGE.INIT_START_POSITION, _json.toJson(position));
             _mapEntities.add(entity);
         }
 
-        //Special cases
-        Entity blackSmith = EntityFactory.getInstance().getEntityByName(EntityFactory.EntityName.TOWN_BLACKSMITH);
-        initSpecialEntityPosition(blackSmith);
-        _mapEntities.add(blackSmith);
+        //Special entities
+        for( int i = 0; i< this._arrayListOfEntities.size();i++){
+            Entity entity = EntityFactory.getInstance().getEntityByName(this._arrayListOfEntities.get(i));
+            initSpecialEntityPosition(entity);
+            _mapEntities.add(entity);
+        }
     }
 
     public MapLayer getLightMapDawnLayer(){
@@ -496,7 +499,6 @@ public class Map implements AudioSubject{
         Vector2 position = new Vector2(0,0);
 
         if( _specialNPCStartPositions.containsKey(entity.getEntityConfig().getEntityID()) ) {
-        	//Gdx.app.debug(TAG, "test");
             position = _specialNPCStartPositions.get(entity.getEntityConfig().getEntityID());
         }
         entity.sendMessage(Component.MESSAGE.INIT_START_POSITION, _json.toJson(position));
