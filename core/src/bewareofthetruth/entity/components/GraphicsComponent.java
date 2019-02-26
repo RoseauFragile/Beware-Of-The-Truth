@@ -81,7 +81,11 @@ public abstract class GraphicsComponent extends ComponentSubject implements Comp
 					Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.WALK_UP);
                     if( animation == null ) return;
                     _currentFrame = animation.getKeyFrames()[0];
-                } else if(_currentState == Entity.State.IMMOBILE) {
+                } else if(_currentState == Entity.State.ROLL) {
+					Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.ROLL_UP);
+                    if( animation == null ) return;
+                    _currentFrame = animation.getKeyFrames()[0];
+                }  else if(_currentState == Entity.State.IMMOBILE) {
 					Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.IMMOBILE);
                     if( animation == null ) return;
                     _currentFrame = animation.getKeyFrame(_frameTime);
