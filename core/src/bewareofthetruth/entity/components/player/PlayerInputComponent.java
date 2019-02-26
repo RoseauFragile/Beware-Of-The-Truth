@@ -50,6 +50,15 @@ public class PlayerInputComponent extends InputComponent {
 		}else if(keys.get(Keys.SPACE)  && keys.get(Keys.LEFT)) {
 			entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.ROLL));
 			entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.LEFT));
+		}else if(keys.get(Keys.SPACE)  && keys.get(Keys.RIGHT)) {
+			entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.ROLL));
+			entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.RIGHT));
+		}else if(keys.get(Keys.SPACE)  && keys.get(Keys.DOWN)) {
+			entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.ROLL));
+			entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.DOWN));
+		}else if(keys.get(Keys.SPACE)  && keys.get(Keys.UP)) {
+			entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.ROLL));
+			entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.UP));
 		}else if(keys.get(Keys.ESC)) {
 			MainGameScreen.setGameState(MainGameScreen.GameState.PAUSE);
 			escapeReleased();

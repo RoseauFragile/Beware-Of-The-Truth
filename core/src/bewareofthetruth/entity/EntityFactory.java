@@ -80,6 +80,8 @@ public class EntityFactory {
         switch(entityType){
             case PLAYER:
                 entity = new Entity(new PlayerInputComponent(), new PlayerPhysicsComponent(), new PlayerGraphicsComponent());
+                entity.get_graphicsComponent().setEntity(entity);
+                entity.get_physicsComponent().set_entity(entity);
                 entity.setEntityConfig(Entity.getEntityConfig(EntityFactory.PLAYER_CONFIG));
                 entity.sendMessage(Component.MESSAGE.LOAD_ANIMATIONS, _json.toJson(entity.getEntityConfig()));
                 return entity;
