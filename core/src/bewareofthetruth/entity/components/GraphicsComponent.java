@@ -2,7 +2,7 @@ package bewareofthetruth.entity.components;
 
 import java.util.Hashtable;
 
-
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -25,6 +25,7 @@ public abstract class GraphicsComponent extends ComponentSubject implements Comp
     public Vector2 _currentPosition;
     protected Hashtable<Entity.AnimationType, Animation<TextureRegion>> _animations;
     protected ShapeRenderer _shapeRenderer;
+    private static String TAG = GraphicsComponent.class.getSimpleName();
 
     protected GraphicsComponent(){
         _currentPosition = new Vector2(0,0);
@@ -39,7 +40,7 @@ public abstract class GraphicsComponent extends ComponentSubject implements Comp
 
     protected void updateAnimations(float delta){
         _frameTime = (_frameTime + delta)%5; //Want to avoid overflow
-
+        Gdx.app.debug(TAG, " current State = " + _currentState + " ; current Direction = " + _currentDirection);
         //Look into the appropriate variable when changing position
         switch (_currentDirection) {
             case DOWN:
@@ -62,6 +63,10 @@ public abstract class GraphicsComponent extends ComponentSubject implements Comp
 					Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.WALK_LEFT);
                     if( animation == null ) return;
                     _currentFrame = animation.getKeyFrame(_frameTime);
+                } else if (_currentState == Entity.State.ROLL) {
+					Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.ROLL_LEFT);
+                    if( animation == null ) return;
+                    _currentFrame = animation.getKeyFrame(_frameTime);
                 } else if(_currentState == Entity.State.IDLE) {
 					Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.WALK_LEFT);
                     if( animation == null ) return;
@@ -73,7 +78,7 @@ public abstract class GraphicsComponent extends ComponentSubject implements Comp
                 }
                 break;
             case UP:
-                if (_currentState == Entity.State.WALKING) {
+                if (_currentState == Entity.State.WALKING ) {
 					Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.WALK_UP);
                     if( animation == null ) return;
                     _currentFrame = animation.getKeyFrame(_frameTime);
@@ -81,11 +86,7 @@ public abstract class GraphicsComponent extends ComponentSubject implements Comp
 					Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.WALK_UP);
                     if( animation == null ) return;
                     _currentFrame = animation.getKeyFrames()[0];
-                } else if(_currentState == Entity.State.ROLL) {
-					Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.ROLL_UP);
-                    if( animation == null ) return;
-                    _currentFrame = animation.getKeyFrames()[0];
-                }  else if(_currentState == Entity.State.IMMOBILE) {
+                } else if(_currentState == Entity.State.IMMOBILE) {
 					Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.IMMOBILE);
                     if( animation == null ) return;
                     _currentFrame = animation.getKeyFrame(_frameTime);

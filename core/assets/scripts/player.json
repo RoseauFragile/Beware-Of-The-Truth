@@ -178,8 +178,8 @@ animationConfig: [
 		]
 	}
 	{
-	    frameDuration: 0.25
-		animationType: ROLL_UP
+	    frameDuration: 0.1
+		animationType: ROLL_LEFT
 		texturePaths: [
 			sprites/characters/heros/gauche_roulade.png
 		]

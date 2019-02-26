@@ -72,7 +72,7 @@ public class Entity {
 		WALK_RIGHT,
 		WALK_UP,
 		WALK_DOWN,
-		ROLL_UP,
+		ROLL_LEFT,
 		IDLE,
 		IMMOBILE
 	}

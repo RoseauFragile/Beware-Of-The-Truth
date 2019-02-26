@@ -47,9 +47,9 @@ public class PlayerInputComponent extends InputComponent {
 			
 			MainGameScreen.setGameState(MainGameScreen.GameState.PAUSED);
 			pauseReleased();
-		}else if(keys.get(Keys.SPACE)) {
+		}else if(keys.get(Keys.SPACE)  && keys.get(Keys.LEFT)) {
 			entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.ROLL));
-			//entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.UP));
+			entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.LEFT));
 		}else if(keys.get(Keys.ESC)) {
 			MainGameScreen.setGameState(MainGameScreen.GameState.PAUSE);
 			escapeReleased();

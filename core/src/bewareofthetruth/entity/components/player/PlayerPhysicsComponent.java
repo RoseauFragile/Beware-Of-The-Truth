@@ -79,7 +79,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
 
         if (    !isCollisionWithMapLayer(entity, mapMgr) &&
                 !isCollisionWithMapEntities(entity, mapMgr) &&
-                _state == Entity.State.WALKING){
+                _state == Entity.State.WALKING || _state == Entity.State.ROLL){
             setNextPositionToCurrent(entity);
 
             Camera camera = mapMgr.getCamera();
