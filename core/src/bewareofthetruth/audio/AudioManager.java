@@ -30,6 +30,7 @@ public class AudioManager implements AudioObserver {
 
 
     @Override
+    //TODO passer d'event à string
     public void onNotify(AudioCommand command, AudioTypeEvent event) {
         switch(command){
             case MUSIC_LOAD:

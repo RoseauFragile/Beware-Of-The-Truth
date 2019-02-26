@@ -222,7 +222,7 @@ public class QuestGraph {
             String taskLocation = questTask.getPropertyValue(QuestTask.QuestTaskPropertyType.TARGET_LOCATION.toString());
             if (taskLocation == null ||
                     taskLocation.isEmpty() ||
-                    !taskLocation.equalsIgnoreCase(mapMgr.getCurrentMapType().toString())) continue;
+                    !taskLocation.equals(mapMgr.getCurrentMapId())) continue;
 
             switch (questTask.getQuestType()) {
                 case FETCH:
@@ -269,7 +269,7 @@ public class QuestGraph {
             String taskLocation = questTask.getPropertyValue(QuestTask.QuestTaskPropertyType.TARGET_LOCATION.toString());
             if (     taskLocation == null ||
                      taskLocation.isEmpty() ||
-                    !taskLocation.equalsIgnoreCase(mapMgr.getCurrentMapType().toString())) continue;
+                    !taskLocation.equals(mapMgr.getCurrentMapId())) continue;
 
             switch (questTask.getQuestType()) {
                 case FETCH:

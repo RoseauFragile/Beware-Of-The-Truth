@@ -1,6 +1,8 @@
 package bewareofthetruth.audio;
 
 public interface AudioObserver {
+	
+	//TODO sera supprimé
     public static enum AudioTypeEvent{
         MUSIC_TITLE("audio/10112013.ogg"),
         MUSIC_TOWN("audio/Magic Town_0.mp3"),
@@ -45,5 +47,6 @@ public interface AudioObserver {
         SOUND_STOP
     }
 
+    //TODO passer d'event à string
     void onNotify(AudioCommand command, AudioTypeEvent event);
 }

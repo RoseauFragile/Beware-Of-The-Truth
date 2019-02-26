@@ -5,11 +5,13 @@ public class MapSql {
 	private int _id;
 	private String _mapPath;
 	private String _mapName;
+	private String _mapMusicPath;
 	
-	public MapSql(final int id,final String mapName, final String mapPath) {
+	public MapSql(final int id,final String mapName, final String mapPath, final String mapMusicPath) {
 		this._id = id;
 		this._mapName = mapName;
 		this._mapPath = mapPath;
+		this._mapMusicPath = mapMusicPath;
 	}
 
 	public int get_id() {
@@ -34,6 +36,14 @@ public class MapSql {
 
 	public void set_mapName(String _mapName) {
 		this._mapName = _mapName;
+	}
+
+	public String get_mapMusicPath() {
+		return _mapMusicPath;
+	}
+
+	public void set_mapMusicPath(String _mapMusicPath) {
+		this._mapMusicPath = _mapMusicPath;
 	}
 
 }

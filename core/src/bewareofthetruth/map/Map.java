@@ -1,5 +1,6 @@
 package bewareofthetruth.map;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -14,13 +15,19 @@ import com.badlogic.gdx.maps.MapObject;
 import bewareofthetruth.audio.AudioManager;
 import bewareofthetruth.audio.AudioObserver;
 import bewareofthetruth.audio.AudioSubject;
+import bewareofthetruth.dao.MapDAO;
 import bewareofthetruth.entity.Entity;
+import bewareofthetruth.entity.EntityConfig;
+import bewareofthetruth.entity.EntityFactory;
+import bewareofthetruth.entity.EntityFactory.EntityName;
+import bewareofthetruth.entity.components.Component;
 import bewareofthetruth.particles.ParticleEffectFactory;
+import bewareofthetruth.profile.ProfileManager;
 import bewareofthetruth.utility.Utility;
 
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 
-public abstract class Map implements AudioSubject{
+public class Map implements AudioSubject{
     private static final String TAG = Map.class.getSimpleName();
 
     public final static float UNIT_SCALE  = 1/64f;
@@ -72,19 +79,23 @@ public abstract class Map implements AudioSubject{
     protected MapLayer _lightMapDuskLayer = null;
     protected MapLayer _lightMapNightLayer = null;
 
-    protected MapFactory.MapType _currentMapType;
+    protected int _currentMapId;
     protected Array<Entity> _mapEntities;
     protected Array<Entity> _mapQuestEntities;
     protected Array<ParticleEffect> _mapParticleEffects;
+    protected ArrayList<EntityName> _arrayListOfEntities;
 
-    //TODO il va falloir adapté le constructeur et implémenté une méthode pour créer tout les PNJ ICI 
-    protected Map( MapFactory.MapType mapType, String fullMapPath){
+	private int _id;
+	
+    protected Map( int mapId, String fullMapPath, String musicPath, ArrayList<EntityName> arrayListOfEntities){
         _json = new Json();
+        this._id = mapId;
+        this._arrayListOfEntities = arrayListOfEntities;
         _mapEntities = new Array<Entity>(10);
         _observers = new Array<AudioObserver>();
         _mapQuestEntities = new Array<Entity>();
         _mapParticleEffects = new Array<ParticleEffect>();
-        _currentMapType = mapType;
+        _currentMapId = mapId;
         _playerStart = new Vector2(0,0);
         _playerStartPositionRect = new Vector2(0,0);
         _closestPlayerStartPosition = new Vector2(0,0);
@@ -166,6 +177,18 @@ public abstract class Map implements AudioSubject{
 
         //Observers
         this.addObserver(AudioManager.getInstance());
+        
+        //TODO Je dois fixe le spawn des mobs
+        for( Vector2 position: _npcStartPositions){
+            Entity entity = EntityFactory.getInstance().getEntityByName(EntityFactory.EntityName.TOWN_GUARD_WALKING);
+            entity.sendMessage(Component.MESSAGE.INIT_START_POSITION, _json.toJson(position));
+            _mapEntities.add(entity);
+        }
+
+        //Special cases
+        Entity blackSmith = EntityFactory.getInstance().getEntityByName(EntityFactory.EntityName.TOWN_BLACKSMITH);
+        initSpecialEntityPosition(blackSmith);
+        _mapEntities.add(blackSmith);
     }
 
     public MapLayer getLightMapDawnLayer(){
@@ -255,8 +278,8 @@ public abstract class Map implements AudioSubject{
         _mapQuestEntities.addAll(entities);
     }
 
-    public MapFactory.MapType getCurrentMapType(){
-        return _currentMapType;
+    public int getCurrentMapId(){
+        return _currentMapId;
     }
 
     public Vector2 getPlayerStart() {
@@ -421,8 +444,13 @@ public abstract class Map implements AudioSubject{
         setClosestStartPosition(_convertedUnits);
     }
 
-    abstract public void unloadMusic();
-    abstract public void loadMusic();
+    //TODO Il faut définir le chargement des mmusiques
+    public void unloadMusic() {
+    	
+    };
+    public void loadMusic() {
+    	
+    };
     
     public void unloadMusic(AudioObserver.AudioTypeEvent musicToStop) {
     	notify(AudioObserver.AudioCommand.MUSIC_STOP, musicToStop);
@@ -452,6 +480,32 @@ public abstract class Map implements AudioSubject{
     public void notify(AudioObserver.AudioCommand command, AudioObserver.AudioTypeEvent event) {
         for(AudioObserver observer: _observers){
             observer.onNotify(command, event);
+        }
+    }
+
+    public void setId(int id) {
+    	this._id = id;
+    }
+    
+	public int getId() {
+		return this._id;
+	}
+	
+    private void initSpecialEntityPosition(Entity entity){
+
+        Vector2 position = new Vector2(0,0);
+
+        if( _specialNPCStartPositions.containsKey(entity.getEntityConfig().getEntityID()) ) {
+        	//Gdx.app.debug(TAG, "test");
+            position = _specialNPCStartPositions.get(entity.getEntityConfig().getEntityID());
+        }
+        entity.sendMessage(Component.MESSAGE.INIT_START_POSITION, _json.toJson(position));
+
+        //Overwrite default if special config is found
+        EntityConfig entityConfig = ProfileManager.getInstance().getProperty(entity.getEntityConfig().getEntityID(), EntityConfig.class);
+        if( entityConfig != null ){
+        	
+            entity.setEntityConfig(entityConfig);
         }
     }
 }

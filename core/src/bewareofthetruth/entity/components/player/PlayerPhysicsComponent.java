@@ -1,5 +1,6 @@
 package bewareofthetruth.entity.components.player;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
@@ -23,6 +24,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
     private boolean _isMouseSelectEnabled = false;
     private String _previousDiscovery;
     private String _previousEnemySpawn;
+    private static String TAG = PlayerPhysicsComponent.class.getSimpleName();
 
     public PlayerPhysicsComponent(){
         _boundingBoxLocation = BoundingBoxLocation.BOTTOM_CENTER;
@@ -219,7 +221,11 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
                     }
 
                     mapMgr.setClosestStartPositionFromScaledUnits(_currentEntityPosition);
-                    mapMgr.loadMap(MapFactory.MapType.valueOf(mapName));
+                    int nextMapId = mapMgr.getMapIdByName(mapName);
+                    Gdx.app.debug(TAG," DEBUG TP NEXT MAP NAME : " + mapName);
+                    Gdx.app.debug(TAG," DEBUG TP NEXT MAP ID : " + nextMapId);
+
+                    mapMgr.loadMap(nextMapId);
 
                     _currentEntityPosition.x = mapMgr.getPlayerStartUnitScaled().x;
                     _currentEntityPosition.y = mapMgr.getPlayerStartUnitScaled().y;

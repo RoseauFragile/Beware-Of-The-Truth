@@ -1,77 +1,25 @@
 package bewareofthetruth.map;
 
 import java.sql.SQLException;
-import java.util.Hashtable;
+import java.util.ArrayList;
 import java.util.Iterator;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
-import bewareofthetruth.map.zone1.ZoneOneDotOne;
-import bewareofthetruth.map.zone1.ZoneOneDotThree;
-import bewareofthetruth.map.zone1.ZoneOneDotTwo;
-import bewareofthetruth.map.zone1.ZoneTest;
 import bewareofthetruth.dao.BewareOfTheTruthDAO;
 import bewareofthetruth.dao.MapSql;
+import bewareofthetruth.entity.EntityFactory;
 
 public class MapFactory {
-	//AllMaps for the game
-	//TODO Soit on garde cette architecture et on créer une map pour chaque Level ce qui est en soit efficaces pour un rpg mais LOURD soit on fais une factory plus élaboré avec la bdd
-	//De plus il faudra avoir un algo plus réfléchi sur les teleporters, en effet cela ne calcule pas le point de spawn player le plus près du tp correpondant à la zone d'ou l'on vient
-    private static Hashtable<MapType,Map> _mapTable = new Hashtable<MapType, Map>();
-    private Array<MapSql> mapSql;
+    
+    private static Array<Map> mapTable = new Array<Map>();
+    private static Array<MapSql> mapSql;
     private static final String TAG = MapFactory.class.getSimpleName();
     
-    public static enum MapType{
-        ZONE_1_1,
-        ZONE_1_2,
-        ZONE_1_3,
-        ZONE_TEST
-    }
-	
-    //TODO l'idée pour passer en BDD sera de passer d'un référencement en mapType à un référencement en IdMap avec la Bdd, 
-    //en gros au lancement du jeu on récupère la première map en fonction de l'ID de la map contenue dans la sauvegarde du jeu,
-    // OU ALORS si cela s'avère trop compliqué on peut tout simplement créer un attribut mapType dans la BDD et faireun énorme switch case ici
-	static public Map getMap(MapType mapType) {
-		Map map =null;
-		switch(mapType) {
-		case ZONE_1_1:
-			map = _mapTable.get(MapType.ZONE_1_1);
-			if(map == null) {
-				map = new ZoneOneDotOne();
-				_mapTable.put(MapType.ZONE_1_1, map);
-			}
-			break;
-		case ZONE_1_2:
-			map = _mapTable.get(MapType.ZONE_1_2);
-			if(map == null) {
-				map = new ZoneOneDotTwo();
-				_mapTable.put(MapType.ZONE_1_2, map);
-			}
-			break;
-		case ZONE_1_3:
-			map = _mapTable.get(MapType.ZONE_1_3);
-			if(map == null) {
-				map = new ZoneOneDotThree();
-				_mapTable.put(MapType.ZONE_1_3, map);
-			}
-			break;
-		case ZONE_TEST:
-			map = _mapTable.get(MapType.ZONE_TEST);
-			if(map == null) {
-				map = new ZoneTest();
-				_mapTable.put(MapType.ZONE_TEST, map);
-			}
-			break;
-		default:
-				break;
-		}
-		return map;
-	}
-	
     public static void clearCache(){
-        for( Map map: _mapTable.values()){
+        for( Map map: mapTable){
             map.dispose();
         }
-        _mapTable.clear();
+        mapTable.clear();
     }
 
 	public Array<MapSql> getMapSql() {
@@ -89,5 +37,35 @@ public class MapFactory {
 		       MapSql s = it.next();
 		       Gdx.app.debug(TAG, " : map Sql : "+it + " : " + " : "+s.get_id() + " : " + s.get_mapName() + " : "+s.get_mapPath());
 		}
+	}
+
+	public static Map getMapById(int id, BewareOfTheTruthDAO bewareOfTheTruthDAO) {
+		Map map =null;
+		for(int i = 0; i < mapTable.size;i++) {
+			if(mapTable.get(i).getId() == id) {
+				map = mapTable.get(i);
+			};
+		}
+		if(map == null) {
+			for(int i = 0; i < mapSql.size;i++) {
+				if(mapSql.get(i).get_id() == id) {
+			        ArrayList<EntityFactory.EntityName> arrayListOfEntities = bewareOfTheTruthDAO.getMapDAO().get_entitiesByMapId(mapSql.get(i).get_id()) ;
+					map = new Map(mapSql.get(i).get_id(),mapSql.get(i).get_mapPath(),mapSql.get(i).get_mapMusicPath(), arrayListOfEntities);
+					mapTable.add(map);
+				};
+			}
+		}
+		return map;
+	}
+
+	public int getMapIdByName(String mapName) {
+		int id = 0;
+		for(MapSql map : mapSql) {
+			Gdx.app.debug(TAG, " DEBUG TP V2 : MAP IN LOOP ID = " + map.get_id() +" MAP IN LOOP NAME = " + map.get_mapName() + " MAP REQUEST : " + mapName);
+			if(map.get_mapName().equals(mapName)) {
+				id = map.get_id();
+			};
+		}
+		return id;
 	}
 }

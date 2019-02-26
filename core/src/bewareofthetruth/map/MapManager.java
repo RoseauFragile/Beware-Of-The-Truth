@@ -39,73 +39,54 @@ public class MapManager implements ProfileObserver {
     public void onNotify(ProfileManager profileManager, ProfileEvent event) {
         switch(event){
             case PROFILE_LOADED:
-            	//TODO modifier en id
-                String currentMap = profileManager.getProperty("currentMapType", String.class);
-                MapFactory.MapType mapType;
-                if( currentMap == null || currentMap.isEmpty() ){
-                	//TODO créer une méthode pour la première map
-                    mapType = MapFactory.MapType.ZONE_1_1;
+                int currentMap = profileManager.getProperty("currentMapId", int.class);
+                int mapId;
+                if( profileManager.getProperty("currentMapId", int.class) == null  ){
+                    mapId = 1;
                 }else{
-                    mapType = MapFactory.MapType.valueOf(currentMap);
+                    mapId = profileManager.getProperty("currentMapId", int.class);
                 }
-                loadMap(mapType);
-
-                //TODO créer un méthode pour charger le spawn du joueur
-                Vector2 topWorldMapStartPosition = profileManager.getProperty("topWorldMapStartPosition", Vector2.class);
-                if( topWorldMapStartPosition != null ){
-                    MapFactory.getMap(MapFactory.MapType.ZONE_1_2).setPlayerStart(topWorldMapStartPosition);
-                }
-
-                Vector2 castleOfDoomMapStartPosition = profileManager.getProperty("castleOfDoomMapStartPosition", Vector2.class);
-                if( castleOfDoomMapStartPosition != null ){
-                    MapFactory.getMap(MapFactory.MapType.ZONE_1_3).setPlayerStart(castleOfDoomMapStartPosition);
-                }
-
-                Vector2 townMapStartPosition = profileManager.getProperty("townMapStartPosition", Vector2.class);
-                if( townMapStartPosition != null ){
-                    MapFactory.getMap(MapFactory.MapType.ZONE_1_1).setPlayerStart(townMapStartPosition);
-                }
-
-                Vector2 testMapStartPosition = profileManager.getProperty("testMapStartPosition", Vector2.class);
-                if( testMapStartPosition != null ){
-                    MapFactory.getMap(MapFactory.MapType.ZONE_TEST).setPlayerStart(testMapStartPosition);
+                loadMap(mapId);
+                for (int i = 0; i< this.get_mapFactory().getMapSql().size;i++) {
+                  
+                    String nameOfMapLoop = this.get_mapFactory().getMapSql().get(i).get_mapName()+"Position";
+                    Vector2 position = profileManager.getProperty(nameOfMapLoop, Vector2.class);
+                    if( position != null ){
+                        MapFactory.getMapById(this.get_mapFactory().getMapSql().get(i).get_id(),this.get_mainGameScreen().get_bewareOfTruthDao()).setPlayerStart(position);
+                    }
                 }
                 
                 break;
             case SAVING_PROFILE:
                 if( _currentMap != null ){
-                    profileManager.setProperty("currentMapType", _currentMap._currentMapType.toString());
+                    profileManager.setProperty("currentMapId", _currentMap._currentMapId);
                 }
-                //TODO il va falloir repenser le système de création de sauvegarde le string sera le nom de la map + "Position" et ce sera un getMap par ID
-                profileManager.setProperty("topWorldMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_2).getPlayerStart() );
-                profileManager.setProperty("castleOfDoomMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_3).getPlayerStart() );
-                profileManager.setProperty("townMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_1).getPlayerStart() );
-                profileManager.setProperty("testMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_TEST).getPlayerStart() );
+                for (int i = 0; i< this.get_mapFactory().getMapSql().size;i++) {
+                	String propertyString = this.get_mapFactory().getMapSql().get(i).get_mapName()+"Position";
+                    profileManager.setProperty(propertyString, MapFactory.getMapById(this.get_mapFactory().getMapSql().get(i).get_id(),this.get_mainGameScreen().get_bewareOfTruthDao()).getPlayerStart() );
+                }
 
                 break;
             case CLEAR_CURRENT_PROFILE:
                 _currentMap = null;
-                profileManager.setProperty("currentMapType", MapFactory.MapType.ZONE_1_1.toString());
-
+                profileManager.setProperty("currentMapType", 1);
                 MapFactory.clearCache();
-                //TODO il va falloir repenser le système de création de sauvegarde le string sera le nom de la map + "Position" et ce sera un getMap par ID
-
-                profileManager.setProperty("topWorldMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_1).getPlayerStart() );
-                profileManager.setProperty("castleOfDoomMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_3).getPlayerStart() );
-                profileManager.setProperty("townMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_1).getPlayerStart() );
-                profileManager.setProperty("testMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_TEST).getPlayerStart() );
+                for (int i = 0; i< this.get_mapFactory().getMapSql().size;i++) {
+                	String propertyString = this.get_mapFactory().getMapSql().get(i).get_mapName()+"Position";
+                    profileManager.setProperty(propertyString, MapFactory.getMapById(this.get_mapFactory().getMapSql().get(i).get_id(),this.get_mainGameScreen().get_bewareOfTruthDao()).getPlayerStart() );
+                }
 
                 break;
             default:
                 break;
         }
     }
-
-    public void loadMap(MapFactory.MapType mapType){
-        Map map = MapFactory.getMap(mapType);
+    
+    public void loadMap(int id){
+        Map map = MapFactory.getMapById(id,this.get_mainGameScreen().get_bewareOfTruthDao());
 
         if( map == null ){
-            Gdx.app.debug(TAG, "Map does not exist!  :" + mapType);
+            Gdx.app.debug(TAG, "Map does not exist! with ID :" + id);
             return;
         }
 
@@ -189,8 +170,8 @@ public class MapManager implements ProfileObserver {
         return _currentMap.getEnemySpawnLayer();
     }
 
-    public MapFactory.MapType getCurrentMapType(){
-        return _currentMap.getCurrentMapType();
+    public int getCurrentMapId(){
+        return _currentMap.getCurrentMapId();
     }
 
     public Vector2 getPlayerStartUnitScaled() {
@@ -199,7 +180,7 @@ public class MapManager implements ProfileObserver {
 
     public TiledMap getCurrentTiledMap(){
         if( _currentMap == null ) {
-            loadMap(MapFactory.MapType.ZONE_1_1);
+            loadMap(1);
         }
         return _currentMap.getCurrentTiledMap();
     }
@@ -306,5 +287,10 @@ public class MapManager implements ProfileObserver {
 
 	public void set_mainGameScreen(MainGameScreen _mainGameScreen) {
 		this._mainGameScreen = _mainGameScreen;
+	}
+
+	public int getMapIdByName(String mapName) {
+		int nextMap = this.get_mapFactory().getMapIdByName(mapName);
+		return nextMap;
 	}
 }
