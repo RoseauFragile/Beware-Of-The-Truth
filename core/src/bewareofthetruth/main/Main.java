@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
-
 import Box2d_tuto.World_Box2D;
 import bewareofthetruth.screens.Box2DScreenTest;
 import bewareofthetruth.screens.CutSceneScreen;
@@ -73,7 +72,6 @@ public class Main extends Game {
 		 customCursor = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("sprites/hud/hud.cursor/Cursor.png")), 48, 26);
 		Gdx.graphics.setCursor(customCursor);
 
-		
 		_mainGameScreen = new MainGameScreen(this);
 		_mainMenuScreen = new MainMenuScreen(this);
 		_loadGameScreen = new LoadGameScreen(this);
@@ -106,6 +104,5 @@ public class Main extends Game {
 		customCursor.dispose();
 
 	}
-
 }
 

@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import bewareofthetruth.audio.AudioObserver;
+import bewareofthetruth.dao.BewareOfTheTruthDAO;
 import bewareofthetruth.main.Main;
 import bewareofthetruth.main.Main.ScreenType;
 import bewareofthetruth.utility.Utility;
@@ -26,8 +27,7 @@ public class MainMenuScreen extends GameScreen {
 	
 	public MainMenuScreen(Main game){
 		_game = game;
-
-
+		
 		_stage = new Stage();
 		Table table = new Table();
 
@@ -169,8 +169,5 @@ public class MainMenuScreen extends GameScreen {
 		backgroundTexture.dispose();
 		_stage.dispose();
 	}
-	
-
-
 }
 

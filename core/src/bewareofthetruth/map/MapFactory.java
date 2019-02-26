@@ -1,18 +1,25 @@
 package bewareofthetruth.map;
 
+import java.sql.SQLException;
 import java.util.Hashtable;
-
+import java.util.Iterator;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.Array;
 import bewareofthetruth.map.zone1.ZoneOneDotOne;
 import bewareofthetruth.map.zone1.ZoneOneDotThree;
 import bewareofthetruth.map.zone1.ZoneOneDotTwo;
 import bewareofthetruth.map.zone1.ZoneTest;
+import bewareofthetruth.dao.BewareOfTheTruthDAO;
+import bewareofthetruth.dao.MapSql;
 
 public class MapFactory {
 	//AllMaps for the game
 	//TODO Soit on garde cette architecture et on créer une map pour chaque Level ce qui est en soit efficaces pour un rpg mais LOURD soit on fais une factory plus élaboré avec la bdd
 	//De plus il faudra avoir un algo plus réfléchi sur les teleporters, en effet cela ne calcule pas le point de spawn player le plus près du tp correpondant à la zone d'ou l'on vient
     private static Hashtable<MapType,Map> _mapTable = new Hashtable<MapType, Map>();
-
+    private Array<MapSql> mapSql;
+    private static final String TAG = MapFactory.class.getSimpleName();
+    
     public static enum MapType{
         ZONE_1_1,
         ZONE_1_2,
@@ -66,4 +73,21 @@ public class MapFactory {
         }
         _mapTable.clear();
     }
+
+	public Array<MapSql> getMapSql() {
+		return mapSql;
+	}
+
+	public void setMapSql(BewareOfTheTruthDAO bewareOfTheTruthDAO) {
+		try {
+			this.mapSql = bewareOfTheTruthDAO.getMapDAO().getMapSql();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		Iterator<MapSql> it = this.mapSql.iterator(); 
+		while (it.hasNext()) {
+		       MapSql s = it.next();
+		       Gdx.app.debug(TAG, " : map Sql : "+it + " : " + " : "+s.get_id() + " : " + s.get_mapName() + " : "+s.get_mapPath());
+		}
+	}
 }

@@ -3,7 +3,7 @@ package bewareofthetruth.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+import com.badlogic.gdx.utils.Array;
 import bewareofthetruth.entity.EntityFactory;
 
 public class MapDAO extends AbstractDAO{
@@ -14,23 +14,15 @@ public class MapDAO extends AbstractDAO{
 	private static int _idMapColumn = 1;
 	private static int _mapNameColumn = 2;
 	private static int _mapPathColumn = 3;
+	private static final String TAG = MapDAO.class.getSimpleName();
 	
 	public MapDAO() {
+		System.out.println(TAG);
 	}
 
 	public MapSql getMapById() throws SQLException {
-		MapSql mapSql = null;
-		
-		//TODO a modifier avec la future bdd
-		String getMapById = ("SELECT Level.ID_Level, Level.Name_Level, Level.Height, Level.Width, Level.Source_Map\r\n"
-				+ "FROM Level, Chapter, comporte\r\n"
-				+ "WHERE Level.ID_Level = comporte.ID_Level AND Chapter.ID_Chapter = comporte.ID_Chapter AND comporte.ID_Chapter = "
-								);
-		ResultSet rs = executeQuery(getMapById);
-		if(rs.next() == true) {
-			mapSql = new MapSql(rs.getInt(_idMapColumn),rs.getString(_mapNameColumn), rs.getString(_mapPathColumn));
-		}
-		return mapSql;
+
+		return null;
 	}
 	
 	public int get_idChapter() {
@@ -57,4 +49,18 @@ public class MapDAO extends AbstractDAO{
 		this._entities = entities;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked", "static-access" })
+	public Array<MapSql> getMapSql() throws SQLException {
+		Array<MapSql> mapSql = new Array();
+        String sql = "SELECT map.id, map.name, map.path FROM map";
+        try (
+             ResultSet rs    = this.executeQuery(sql)){
+            while (rs.next()) {
+				mapSql.add(new MapSql(rs.getInt(_idMapColumn),rs.getString(_mapNameColumn), rs.getString(_mapPathColumn)));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+		return mapSql;
+	}
 }

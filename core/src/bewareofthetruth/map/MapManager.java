@@ -12,6 +12,7 @@ import bewareofthetruth.entity.components.Component;
 import bewareofthetruth.entity.components.ComponentObserver;
 import bewareofthetruth.profile.ProfileManager;
 import bewareofthetruth.profile.ProfileObserver;
+import bewareofthetruth.screens.MainGameScreen;
 
 
 public class MapManager implements ProfileObserver {
@@ -24,24 +25,32 @@ public class MapManager implements ProfileObserver {
     private Entity _currentSelectedEntity = null;
     private MapLayer _currentLightMap = null;
     private MapLayer _previousLightMap = null;
+    private MapFactory _mapFactory;
+    private MainGameScreen _mainGameScreen;
    // private ClockActor.TimeOfDay _timeOfDay = null;
 
-    public MapManager(){
+    public MapManager(MainGameScreen _mainGameScreen){
+    	this.set_mainGameScreen(_mainGameScreen);
+    	this.set_mapFactory(new MapFactory());
+    	this.get_mapFactory().setMapSql(this.get_mainGameScreen().get_bewareOfTruthDao());
     }
 
     @Override
     public void onNotify(ProfileManager profileManager, ProfileEvent event) {
         switch(event){
             case PROFILE_LOADED:
+            	//TODO modifier en id
                 String currentMap = profileManager.getProperty("currentMapType", String.class);
                 MapFactory.MapType mapType;
                 if( currentMap == null || currentMap.isEmpty() ){
+                	//TODO créer une méthode pour la première map
                     mapType = MapFactory.MapType.ZONE_1_1;
                 }else{
                     mapType = MapFactory.MapType.valueOf(currentMap);
                 }
                 loadMap(mapType);
 
+                //TODO créer un méthode pour charger le spawn du joueur
                 Vector2 topWorldMapStartPosition = profileManager.getProperty("topWorldMapStartPosition", Vector2.class);
                 if( topWorldMapStartPosition != null ){
                     MapFactory.getMap(MapFactory.MapType.ZONE_1_2).setPlayerStart(topWorldMapStartPosition);
@@ -67,7 +76,7 @@ public class MapManager implements ProfileObserver {
                 if( _currentMap != null ){
                     profileManager.setProperty("currentMapType", _currentMap._currentMapType.toString());
                 }
-
+                //TODO il va falloir repenser le système de création de sauvegarde le string sera le nom de la map + "Position" et ce sera un getMap par ID
                 profileManager.setProperty("topWorldMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_2).getPlayerStart() );
                 profileManager.setProperty("castleOfDoomMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_3).getPlayerStart() );
                 profileManager.setProperty("townMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_1).getPlayerStart() );
@@ -79,6 +88,7 @@ public class MapManager implements ProfileObserver {
                 profileManager.setProperty("currentMapType", MapFactory.MapType.ZONE_1_1.toString());
 
                 MapFactory.clearCache();
+                //TODO il va falloir repenser le système de création de sauvegarde le string sera le nom de la map + "Position" et ce sera un getMap par ID
 
                 profileManager.setProperty("topWorldMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_1).getPlayerStart() );
                 profileManager.setProperty("castleOfDoomMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_3).getPlayerStart() );
@@ -281,4 +291,20 @@ public class MapManager implements ProfileObserver {
     public void setMapChanged(boolean hasMapChanged){
         this._mapChanged = hasMapChanged;
     }
+
+	public MapFactory get_mapFactory() {
+		return _mapFactory;
+	}
+
+	public void set_mapFactory(MapFactory _mapFactory) {
+		this._mapFactory = _mapFactory;
+	}
+
+	public MainGameScreen get_mainGameScreen() {
+		return _mainGameScreen;
+	}
+
+	public void set_mainGameScreen(MainGameScreen _mainGameScreen) {
+		this._mainGameScreen = _mainGameScreen;
+	}
 }
