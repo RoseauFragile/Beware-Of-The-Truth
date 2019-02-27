@@ -6,6 +6,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
 import Box2d_tuto.Physics1;
+import bewareofthetruth.main.Main;
 
 public class DesktopLauncher {
 
@@ -16,8 +17,8 @@ public class DesktopLauncher {
 		config.height = 1080;
 		config.backgroundFPS = 60;
 		config.title = "Zombie/heros et tiledMap";
-		final Application app = new LwjglApplication(new Physics1(), config);
-		//Application app = new LwjglApplication(new Physics2(), config);
+		//final Application app = new LwjglApplication(new Physics1(), config);
+		Application app = new LwjglApplication(new Main(), config);
 
 		Gdx.app = app;
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);

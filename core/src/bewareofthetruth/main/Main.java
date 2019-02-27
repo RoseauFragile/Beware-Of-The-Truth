@@ -25,8 +25,8 @@ public class Main extends Game {
 	private static CutSceneScreen _cutSceneScreen;
 	//private static CreditScreen _creditScreen;
 	private static MainOptionsScreen _mainOptionsScreen;
-	private static Box2DScreenTest _box2dScreenTest;
-	private static World_Box2D _worldBox2D;
+	//private static Box2DScreenTest _box2dScreenTest;
+	//private static World_Box2D _worldBox2D;
 
 	public static enum ScreenType{
 		MainMenu,
@@ -35,7 +35,7 @@ public class Main extends Game {
 		NewGame,
 		GameOver,
 		WatchIntro,
-		Credits, MainOptions, Box2DTest,  WorldBox2D
+		Credits, MainOptions/*, Box2DTest,  WorldBox2D*/
 	}
 
 	private Cursor customCursor;
@@ -56,10 +56,10 @@ public class Main extends Game {
 			return _gameOverScreen;
 		case WatchIntro:
 			return _cutSceneScreen;
-		case Box2DTest:
+		/*case Box2DTest:
 			return _box2dScreenTest;
 		case WorldBox2D:
-			return _worldBox2D;
+			return _worldBox2D;*/
 			//case Credits:
 			//	return _creditScreen;
 		default:
@@ -81,10 +81,10 @@ public class Main extends Game {
 		_cutSceneScreen = new CutSceneScreen(this);
 		//_creditScreen = new CreditScreen(this);
 		_mainOptionsScreen = new MainOptionsScreen(this);
-		setScreen(_mainMenuScreen);
-		_box2dScreenTest = new Box2DScreenTest(this);
+		//setScreen(_mainMenuScreen);
+		//_box2dScreenTest = new Box2DScreenTest(this);
 		_mainOptionsScreen = new MainOptionsScreen(this);
-		_worldBox2D = new World_Box2D(this);
+		//_worldBox2D = new World_Box2D(this);
 		setScreen(_mainMenuScreen);
 		//box2dScreenTest = new Box2DScreenTest(this);
 		//setScreen(_mainMenuScreen);
@@ -98,7 +98,7 @@ public class Main extends Game {
 		_newGameScreen.dispose();
 		_gameOverScreen.dispose();
 		//_creditScreen.dispose();
-		_box2dScreenTest.dispose();
+		//_box2dScreenTest.dispose();
 		_mainOptionsScreen.dispose();
 		customCursor.dispose();
 
