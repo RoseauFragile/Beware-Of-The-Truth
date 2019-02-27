@@ -5,6 +5,8 @@ import java.awt.Point;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -30,11 +32,15 @@ public class World_Box2D extends GameScreen implements InputProcessor {
 	World world; 
 	Box2DDebugRenderer debugRenderer; 
 	BodyDef defaultDynamicBodyDef;
+	Matrix4 debugMatrix;
+    SpriteBatch batch;
+
+
 
 	// Box 
 	FixtureDef boxFixtureDef; 
 	PolygonShape square;
-	boolean boxMode = true;
+	protected boolean boxMode = true;
 	
 	// Ball 
 	CircleShape circle; 
@@ -46,10 +52,10 @@ public class World_Box2D extends GameScreen implements InputProcessor {
 	public World_Box2D(Main game) {
 		//TODO 6
 		this._game = game;
-		this.create();
 	}
 	
-	private void create() {
+	@Override
+	public void show() {
 		viewport = new FitViewport(SCENE_WIDTH, SCENE_HEIGHT);
 		// Center camera to get (0,0) as the origin of the Box2D world 
 		viewport.update(SCENE_WIDTH, SCENE_HEIGHT, true);
@@ -61,7 +67,7 @@ public class World_Box2D extends GameScreen implements InputProcessor {
 		
 		defaultDynamicBodyDef = new BodyDef(); 
 		defaultDynamicBodyDef.type = BodyType.DynamicBody; 
-		
+        batch = new SpriteBatch();
 		// Shape for boxes 
 		square = new PolygonShape(); 
 		// 1 meter-sided square (0.5f is half-width/height) 
@@ -72,7 +78,6 @@ public class World_Box2D extends GameScreen implements InputProcessor {
 		boxFixtureDef.density = 0.8f; 
 		boxFixtureDef.friction = 0.8f; 
 		boxFixtureDef.restitution = 0.15f; 
-		
 		// Shape for circles 
 		circle = new CircleShape(); 
 		// 0.5 metres for radius 
@@ -87,14 +92,17 @@ public class World_Box2D extends GameScreen implements InputProcessor {
 	
 	@Override
 	public void render(float delta) {
-		System.out.println("coucou");
 		Gdx.input.setInputProcessor(this);
 		world.step(1/60f, 6, 2);
-		debugRenderer.render(world, viewport.getCamera().combined);		
+		debugMatrix = batch.getProjectionMatrix().cpy().scale(5,
+                5, 0);
+		debugRenderer.render(world, debugMatrix);		
 		super.render(delta);
 	}
-
-	public void dispose() {  
+	
+	@Override
+	public void dispose() { 
+		debugRenderer.dispose();
 		square.dispose();  
 		circle.dispose();  
 		world.dispose(); 
@@ -109,7 +117,7 @@ public class World_Box2D extends GameScreen implements InputProcessor {
 	private void createCircle(float x, float y) {  
 		defaultDynamicBodyDef.position.set(x,y);
 		Body body = world.createBody(defaultDynamicBodyDef);
-		body.createFixture(boxFixtureDef); 
+		body.createFixture(circleFixtureDef); 
 	  }
 
 
@@ -136,11 +144,14 @@ public class World_Box2D extends GameScreen implements InputProcessor {
 		 if (button == Input.Buttons.LEFT) {    
 			 	Vector3 point = new Vector3(5, 5, 0);
 				viewport.getCamera().unproject(point.set(screenX,screenY, 0));    
-			    if(boxMode)      
-			    	createSquare(point.x, point.y);   
-			    else // Ball mode      
+			    if(boxMode) {   
+			    	createSquare(point.x, point.y);
+			    	boxMode = !boxMode;    
+
+			    } else { // Ball mode      
 			    	createCircle(point.x, point.y);    
-			    boxMode = !boxMode;    
+			    	boxMode = !boxMode;    
+			    }
 			    return true;  
 			    
 		 } return false;

@@ -8,16 +8,17 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 
 import bewareofthetruth.entity.Entity;
-import bewareofthetruth.entity.Entity.Direction;
 import bewareofthetruth.map.Map;
 import bewareofthetruth.map.MapManager;
-import bewareofthetruth.utility.Utility;
+import bewareofthetruth.utility.BodyBuilder;;
 
-public abstract class PhysicsComponent extends ComponentSubject implements Component {
+public abstract class PhysicsComponent extends ComponentSubject implements Component, ContactListener{
 	private static final String TAG = PhysicsComponent.class.getSimpleName();
 
 	public abstract void update(Entity entity, MapManager mapMgr, float delta);
@@ -27,6 +28,9 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
 	protected Entity.Direction _currentDirection;
 	protected Json _json;
 	protected Vector2 _velocity;
+
+	protected Body body;
+
 
 	protected Array<Entity> _tempEntities;
 
@@ -40,12 +44,21 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
 	}
 
 	public PhysicsComponent() {
-		this._nextEntityPosition = new Vector2(0, 0);
-		this._currentEntityPosition = new Vector2(0, 0);
-		this._velocity = new Vector2(2f, 2f);
-		this._boundingBox = new Rectangle();
-		this._json = new Json();
-		this._tempEntities = new Array<Entity>();
+		_nextEntityPosition = new Vector2(0, 0);
+		_currentEntityPosition = new Vector2(0, 0);
+		_velocity = new Vector2(2f, 2f);
+		final Byte categoryOfEntity = 4;
+		//---------WITH BODY -----------------
+		body = BodyBuilder.createBox(world, x, y, Entity.FRAME_WIDTH, Entity.FRAME_WIDTH, false, false, cBits, mBits, gIndex));
+		//TODO Réussir à récupérer le x et y de départ et le world
+		//TODO Ajouter dans le JSON le nombre de byte correspondant à la catégorie de l'entité pour les collisions + LARGEUR et HAUTEUR
+
+		//---------WITH RECTANGLE-------------
+		_boundingBox = new Rectangle();
+
+		//------------------------------------
+		_json = new Json();
+		_tempEntities = new Array<Entity>();
 		_boundingBoxLocation = BoundingBoxLocation.BOTTOM_LEFT;
 		_selectionRay = new Ray(new Vector3(), new Vector3());
 	}
@@ -56,14 +69,14 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
 		_tempEntities.addAll(mapMgr.getCurrentMapQuestEntities());
 		boolean isCollisionWithMapEntities = false;
 
-		for (Entity mapEntity : _tempEntities) {
+		for (final Entity mapEntity : _tempEntities) {
 			// Check for testing against self
 			if (mapEntity.equals(entity)) {
 				continue;
 			}
 
-			Rectangle targetRect = mapEntity.getCurrentBoundingBox();
-			if (_boundingBox.overlaps(targetRect)) {
+			final Rectangle targetRectp = mapEntity.getCurrentBoundingBox();
+			if (_boundingBox.overlaps(targetRectp)) {
 				// Collision
 				entity.sendMessage(MESSAGE.COLLISION_WITH_ENTITY);
 				isCollisionWithMapEntities = true;
@@ -91,7 +104,7 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
 	}
 
 	protected boolean isCollisionWithMapLayer(Entity entity, MapManager mapMgr) {
-		MapLayer mapCollisionLayer = mapMgr.getCollisionLayer();
+		final MapLayer mapCollisionLayer = mapMgr.getCollisionLayer();
 
 		if (mapCollisionLayer == null) {
 			return false;
@@ -99,7 +112,7 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
 
 		Rectangle rectangle = null;
 
-		for (MapObject object : mapCollisionLayer.getObjects()) {
+		for (final MapObject object : mapCollisionLayer.getObjects()) {
 			if (object instanceof RectangleMapObject) {
 				rectangle = ((RectangleMapObject) object).getRectangle();
 				if (_boundingBox.overlaps(rectangle)) {
@@ -114,8 +127,8 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
 	}
 
 	protected void setNextPositionToCurrent(Entity entity) {
-		this._currentEntityPosition.x = _nextEntityPosition.x;
-		this._currentEntityPosition.y = _nextEntityPosition.y;
+		_currentEntityPosition.x = _nextEntityPosition.x;
+		_currentEntityPosition.y = _nextEntityPosition.y;
 
 		// Gdx.app.debug(TAG, "SETTING Current Position " +
 		// entity.getEntityConfig().getEntityID() + ": (" + _currentEntityPosition.x +
@@ -124,11 +137,13 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
 	}
 
 	protected void calculateNextPosition(float deltaTime) {
-		if (_currentDirection == null)
+		if (_currentDirection == null) {
 			return;
+		}
 
-		if (deltaTime > .7)
+		if (deltaTime > .7) {
 			return;
+		}
 
 		float testX = _currentEntityPosition.x;
 		float testY = _currentEntityPosition.y;
@@ -180,11 +195,11 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
 		float width;
 		float height;
 
-		float origWidth = Entity.FRAME_WIDTH;
-		float origHeight = Entity.FRAME_HEIGHT;
+		final float origWidth = Entity.FRAME_WIDTH;
+		final float origHeight = Entity.FRAME_HEIGHT;
 
-		float widthReductionAmount = 1.0f - percentageWidthReduced; // .8f for 20% (1 - .20)
-		float heightReductionAmount = 1.0f - percentageHeightReduced; // .8f for 20% (1 - .20)
+		final float widthReductionAmount = 1.0f - percentageWidthReduced; // .8f for 20% (1 - .20)
+		final float heightReductionAmount = 1.0f - percentageHeightReduced; // .8f for 20% (1 - .20)
 
 		if (widthReductionAmount > 0 && widthReductionAmount < 1) {
 			width = Entity.FRAME_WIDTH * widthReductionAmount;

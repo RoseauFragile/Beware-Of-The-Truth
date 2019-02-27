@@ -104,7 +104,6 @@ public class Main extends Game {
 	public void dispose(){
 		
 		//TODO 5
-		_worldBox2D.dispose();
 		_mainGameScreen.dispose();
 		_mainMenuScreen.dispose();
 		_loadGameScreen.dispose();

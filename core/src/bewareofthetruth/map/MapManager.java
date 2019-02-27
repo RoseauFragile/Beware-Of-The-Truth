@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+
 import bewareofthetruth.entity.Entity;
 import bewareofthetruth.entity.components.Component;
 import bewareofthetruth.entity.components.ComponentObserver;
@@ -15,194 +16,195 @@ import bewareofthetruth.profile.ProfileObserver;
 
 
 public class MapManager implements ProfileObserver {
-    private static final String TAG = MapManager.class.getSimpleName();
+	private static final String TAG = MapManager.class.getSimpleName();
 
-    private Camera _camera;
-    private boolean _mapChanged = false;
-    private Map _currentMap;
-    private Entity _player;
-    private Entity _currentSelectedEntity = null;
-    private MapLayer _currentLightMap = null;
-    private MapLayer _previousLightMap = null;
-   // private ClockActor.TimeOfDay _timeOfDay = null;
+	private Camera _camera;
+	private boolean _mapChanged = false;
+	private Map _currentMap;
+	private WorldContactListener worldContactListener;
+	private Entity _player;
+	private Entity _currentSelectedEntity = null;
+	private MapLayer _currentLightMap = null;
+	private MapLayer _previousLightMap = null;
+	// private ClockActor.TimeOfDay _timeOfDay = null;
 
-    public MapManager(){
-    }
+	public MapManager(){
+	}
 
-    @Override
-    public void onNotify(ProfileManager profileManager, ProfileEvent event) {
-        switch(event){
-            case PROFILE_LOADED:
-                String currentMap = profileManager.getProperty("currentMapType", String.class);
-                MapFactory.MapType mapType;
-                if( currentMap == null || currentMap.isEmpty() ){
-                    mapType = MapFactory.MapType.ZONE_1_1;
-                }else{
-                    mapType = MapFactory.MapType.valueOf(currentMap);
-                }
-                loadMap(mapType);
+	@Override
+	public void onNotify(ProfileManager profileManager, ProfileEvent event) {
+		switch(event){
+		case PROFILE_LOADED:
+			final String currentMap = profileManager.getProperty("currentMapType", String.class);
+			MapFactory.MapType mapType;
+			if( currentMap == null || currentMap.isEmpty() ){
+				mapType = MapFactory.MapType.ZONE_1_1;
+			}else{
+				mapType = MapFactory.MapType.valueOf(currentMap);
+			}
+			loadMap(mapType);
 
-                Vector2 topWorldMapStartPosition = profileManager.getProperty("topWorldMapStartPosition", Vector2.class);
-                if( topWorldMapStartPosition != null ){
-                    MapFactory.getMap(MapFactory.MapType.ZONE_1_2).setPlayerStart(topWorldMapStartPosition);
-                }
+			final Vector2 topWorldMapStartPosition = profileManager.getProperty("topWorldMapStartPosition", Vector2.class);
+			if( topWorldMapStartPosition != null ){
+				MapFactory.getMap(MapFactory.MapType.ZONE_1_2).setPlayerStart(topWorldMapStartPosition);
+			}
 
-                Vector2 castleOfDoomMapStartPosition = profileManager.getProperty("castleOfDoomMapStartPosition", Vector2.class);
-                if( castleOfDoomMapStartPosition != null ){
-                    MapFactory.getMap(MapFactory.MapType.ZONE_1_3).setPlayerStart(castleOfDoomMapStartPosition);
-                }
+			final Vector2 castleOfDoomMapStartPosition = profileManager.getProperty("castleOfDoomMapStartPosition", Vector2.class);
+			if( castleOfDoomMapStartPosition != null ){
+				MapFactory.getMap(MapFactory.MapType.ZONE_1_3).setPlayerStart(castleOfDoomMapStartPosition);
+			}
 
-                Vector2 townMapStartPosition = profileManager.getProperty("townMapStartPosition", Vector2.class);
-                if( townMapStartPosition != null ){
-                    MapFactory.getMap(MapFactory.MapType.ZONE_1_1).setPlayerStart(townMapStartPosition);
-                }
+			final Vector2 townMapStartPosition = profileManager.getProperty("townMapStartPosition", Vector2.class);
+			if( townMapStartPosition != null ){
+				MapFactory.getMap(MapFactory.MapType.ZONE_1_1).setPlayerStart(townMapStartPosition);
+			}
 
-                Vector2 testMapStartPosition = profileManager.getProperty("testMapStartPosition", Vector2.class);
-                if( testMapStartPosition != null ){
-                    MapFactory.getMap(MapFactory.MapType.ZONE_TEST).setPlayerStart(testMapStartPosition);
-                }
-                
-                break;
-            case SAVING_PROFILE:
-                if( _currentMap != null ){
-                    profileManager.setProperty("currentMapType", _currentMap._currentMapType.toString());
-                }
+			final Vector2 testMapStartPosition = profileManager.getProperty("testMapStartPosition", Vector2.class);
+			if( testMapStartPosition != null ){
+				MapFactory.getMap(MapFactory.MapType.ZONE_TEST).setPlayerStart(testMapStartPosition);
+			}
 
-                profileManager.setProperty("topWorldMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_2).getPlayerStart() );
-                profileManager.setProperty("castleOfDoomMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_3).getPlayerStart() );
-                profileManager.setProperty("townMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_1).getPlayerStart() );
-                profileManager.setProperty("testMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_TEST).getPlayerStart() );
+			break;
+		case SAVING_PROFILE:
+			if( _currentMap != null ){
+				profileManager.setProperty("currentMapType", _currentMap._currentMapType.toString());
+			}
 
-                break;
-            case CLEAR_CURRENT_PROFILE:
-                _currentMap = null;
-                profileManager.setProperty("currentMapType", MapFactory.MapType.ZONE_1_1.toString());
+			profileManager.setProperty("topWorldMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_2).getPlayerStart() );
+			profileManager.setProperty("castleOfDoomMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_3).getPlayerStart() );
+			profileManager.setProperty("townMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_1).getPlayerStart() );
+			profileManager.setProperty("testMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_TEST).getPlayerStart() );
 
-                MapFactory.clearCache();
+			break;
+		case CLEAR_CURRENT_PROFILE:
+			_currentMap = null;
+			profileManager.setProperty("currentMapType", MapFactory.MapType.ZONE_1_1.toString());
 
-                profileManager.setProperty("topWorldMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_1).getPlayerStart() );
-                profileManager.setProperty("castleOfDoomMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_3).getPlayerStart() );
-                profileManager.setProperty("townMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_1).getPlayerStart() );
-                profileManager.setProperty("testMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_TEST).getPlayerStart() );
+			MapFactory.clearCache();
 
-                break;
-            default:
-                break;
-        }
-    }
+			profileManager.setProperty("topWorldMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_1).getPlayerStart() );
+			profileManager.setProperty("castleOfDoomMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_3).getPlayerStart() );
+			profileManager.setProperty("townMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_1).getPlayerStart() );
+			profileManager.setProperty("testMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_TEST).getPlayerStart() );
 
-    public void loadMap(MapFactory.MapType mapType){
-        Map map = MapFactory.getMap(mapType);
+			break;
+		default:
+			break;
+		}
+	}
 
-        if( map == null ){
-            Gdx.app.debug(TAG, "Map does not exist!  :" + mapType);
-            return;
-        }
+	public void loadMap(MapFactory.MapType mapType){
+		final Map map = MapFactory.getMap(mapType);
 
-        if( _currentMap != null ){
-            _currentMap.unloadMusic();
-            if( _previousLightMap != null ){
-                _previousLightMap.setOpacity(0);
-                _previousLightMap = null;
-            }
-            if( _currentLightMap != null ){
-                _currentLightMap.setOpacity(1);
-                _currentLightMap = null;
-            }
-        }
+		if( map == null ){
+			Gdx.app.debug(TAG, "Map does not exist!  :" + mapType);
+			return;
+		}
 
-        map.loadMusic();
+		if( _currentMap != null ){
+			_currentMap.unloadMusic();
+			if( _previousLightMap != null ){
+				_previousLightMap.setOpacity(0);
+				_previousLightMap = null;
+			}
+			if( _currentLightMap != null ){
+				_currentLightMap.setOpacity(1);
+				_currentLightMap = null;
+			}
+		}
 
-        _currentMap = map;
-        _mapChanged = true;
-        clearCurrentSelectedMapEntity();
-    }
+		map.loadMusic();
 
-    public void unregisterCurrentMapEntityObservers(){
-        if( _currentMap != null ){
-            Array<Entity> entities = _currentMap.getMapEntities();
-            for(Entity entity: entities){
-                entity.unregisterObservers();
-            }
+		_currentMap = map;
+		_mapChanged = true;
+		clearCurrentSelectedMapEntity();
+	}
 
-            Array<Entity> questEntities = _currentMap.getMapQuestEntities();
-            for(Entity questEntity: questEntities){
-                questEntity.unregisterObservers();
-            }
-        }
-    }
+	public void unregisterCurrentMapEntityObservers(){
+		if( _currentMap != null ){
+			final Array<Entity> entities = _currentMap.getMapEntities();
+			for(final Entity entity: entities){
+				entity.unregisterObservers();
+			}
 
-    public void registerCurrentMapEntityObservers(ComponentObserver observer){
-        if( _currentMap != null ){
-            Array<Entity> entities = _currentMap.getMapEntities();
-            for(Entity entity: entities){
-                entity.registerObserver(observer);
-            }
+			final Array<Entity> questEntities = _currentMap.getMapQuestEntities();
+			for(final Entity questEntity: questEntities){
+				questEntity.unregisterObservers();
+			}
+		}
+	}
 
-            Array<Entity> questEntities = _currentMap.getMapQuestEntities();
-            for(Entity questEntity: questEntities){
-                questEntity.registerObserver(observer);
-            }
-        }
-    }
+	public void registerCurrentMapEntityObservers(ComponentObserver observer){
+		if( _currentMap != null ){
+			final Array<Entity> entities = _currentMap.getMapEntities();
+			for(final Entity entity: entities){
+				entity.registerObserver(observer);
+			}
+
+			final Array<Entity> questEntities = _currentMap.getMapQuestEntities();
+			for(final Entity questEntity: questEntities){
+				questEntity.registerObserver(observer);
+			}
+		}
+	}
 
 
-    public void disableCurrentmapMusic(){
-        _currentMap.unloadMusic();
-    }
+	public void disableCurrentmapMusic(){
+		_currentMap.unloadMusic();
+	}
 
-    public void enableCurrentmapMusic(){
-        _currentMap.loadMusic();
-    }
+	public void enableCurrentmapMusic(){
+		_currentMap.loadMusic();
+	}
 
-    public void setClosestStartPositionFromScaledUnits(Vector2 position) {
-        _currentMap.setClosestStartPositionFromScaledUnits(position);
-    }
+	public void setClosestStartPositionFromScaledUnits(Vector2 position) {
+		_currentMap.setClosestStartPositionFromScaledUnits(position);
+	}
 
-    public MapLayer getCollisionLayer(){
-        return _currentMap.getCollisionLayer();
-    }
+	public MapLayer getCollisionLayer(){
+		return _currentMap.getCollisionLayer();
+	}
 
-    public MapLayer getPortalLayer(){
-        return _currentMap.getPortalLayer();
-    }
+	public MapLayer getPortalLayer(){
+		return _currentMap.getPortalLayer();
+	}
 
-    public Array<Vector2> getQuestItemSpawnPositions(String objectName, String objectTaskID) {
-        return _currentMap.getQuestItemSpawnPositions(objectName, objectTaskID);
-    }
+	public Array<Vector2> getQuestItemSpawnPositions(String objectName, String objectTaskID) {
+		return _currentMap.getQuestItemSpawnPositions(objectName, objectTaskID);
+	}
 
-    public MapLayer getQuestDiscoverLayer(){
-        return _currentMap.getQuestDiscoverLayer();
-    }
+	public MapLayer getQuestDiscoverLayer(){
+		return _currentMap.getQuestDiscoverLayer();
+	}
 
-    public MapLayer getEnemySpawnLayer(){
-        return _currentMap.getEnemySpawnLayer();
-    }
+	public MapLayer getEnemySpawnLayer(){
+		return _currentMap.getEnemySpawnLayer();
+	}
 
-    public MapFactory.MapType getCurrentMapType(){
-        return _currentMap.getCurrentMapType();
-    }
+	public MapFactory.MapType getCurrentMapType(){
+		return _currentMap.getCurrentMapType();
+	}
 
-    public Vector2 getPlayerStartUnitScaled() {
-        return _currentMap.getPlayerStartUnitScaled();
-    }
+	public Vector2 getPlayerStartUnitScaled() {
+		return _currentMap.getPlayerStartUnitScaled();
+	}
 
-    public TiledMap getCurrentTiledMap(){
-        if( _currentMap == null ) {
-            loadMap(MapFactory.MapType.ZONE_1_1);
-        }
-        return _currentMap.getCurrentTiledMap();
-    }
+	public TiledMap getCurrentTiledMap(){
+		if( _currentMap == null ) {
+			loadMap(MapFactory.MapType.ZONE_1_1);
+		}
+		return _currentMap.getCurrentTiledMap();
+	}
 
-    public MapLayer getPreviousLightMapLayer(){
-        return _previousLightMap;
-    }
+	public MapLayer getPreviousLightMapLayer(){
+		return _previousLightMap;
+	}
 
-    public MapLayer getCurrentLightMapLayer(){
-        return _currentLightMap;
-    }
+	public MapLayer getCurrentLightMapLayer(){
+		return _currentLightMap;
+	}
 
-   /* public void updateLightMaps(ClockActor.TimeOfDay timeOfDay){
+	/* public void updateLightMaps(ClockActor.TimeOfDay timeOfDay){
         if( _timeOfDay != timeOfDay ){
             _currentLightMapOpacity = 0;
             _previousLightMapOpacity = 1;
@@ -249,85 +251,89 @@ public class MapManager implements ProfileObserver {
             }
     }*/
 
-    public void updateCurrentMapEntities(MapManager mapMgr, Batch batch, float delta){
-        _currentMap.updateMapEntities(mapMgr, batch, delta);
-    }
+	public void updateCurrentMapEntities(MapManager mapMgr, Batch batch, float delta){
+		_currentMap.updateMapEntities(mapMgr, batch, delta);
+	}
 
-    public void updateCurrentMapEffects(MapManager mapMgr, Batch batch, float delta){
-        _currentMap.updateMapEffects(mapMgr, batch, delta);
-    }
+	public void updateCurrentMapEffects(MapManager mapMgr, Batch batch, float delta){
+		_currentMap.updateMapEffects(mapMgr, batch, delta);
+	}
 
-    public final Array<Entity> getCurrentMapEntities(){
-        return _currentMap.getMapEntities();
-    }
+	public final Array<Entity> getCurrentMapEntities(){
+		return _currentMap.getMapEntities();
+	}
 
-    public final Array<Entity> getCurrentMapQuestEntities(){
-        return _currentMap.getMapQuestEntities();
-    }
+	public final Array<Entity> getCurrentMapQuestEntities(){
+		return _currentMap.getMapQuestEntities();
+	}
 
-    public void addMapQuestEntities(Array<Entity> entities){
-        _currentMap.getMapQuestEntities().addAll(entities);
-    }
+	public void addMapQuestEntities(Array<Entity> entities){
+		_currentMap.getMapQuestEntities().addAll(entities);
+	}
 
-    @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	public void removeMapQuestEntity(Entity entity){
-        entity.unregisterObservers();
+		entity.unregisterObservers();
 
-        Array<Vector2> positions = ProfileManager.getInstance().getProperty(entity.getEntityConfig().getEntityID(), Array.class);
-        if( positions == null ) return;
+		final Array<Vector2> positions = ProfileManager.getInstance().getProperty(entity.getEntityConfig().getEntityID(), Array.class);
+		if( positions == null ) {
+			return;
+		}
 
-        for( Vector2 position : positions){
-            if( position.x == entity.getCurrentPosition().x &&
-                    position.y == entity.getCurrentPosition().y ){
-                positions.removeValue(position, true);
-                break;
-            }
-        }
-        _currentMap.getMapQuestEntities().removeValue(entity, true);
-        ProfileManager.getInstance().setProperty(entity.getEntityConfig().getEntityID(), positions);
-    }
+		for( final Vector2 position : positions){
+			if( position.x == entity.getCurrentPosition().x &&
+					position.y == entity.getCurrentPosition().y ){
+				positions.removeValue(position, true);
+				break;
+			}
+		}
+		_currentMap.getMapQuestEntities().removeValue(entity, true);
+		ProfileManager.getInstance().setProperty(entity.getEntityConfig().getEntityID(), positions);
+	}
 
-    public void clearAllMapQuestEntities(){
-        _currentMap.getMapQuestEntities().clear();
-    }
+	public void clearAllMapQuestEntities(){
+		_currentMap.getMapQuestEntities().clear();
+	}
 
-    public Entity getCurrentSelectedMapEntity(){
-        return _currentSelectedEntity;
-    }
+	public Entity getCurrentSelectedMapEntity(){
+		return _currentSelectedEntity;
+	}
 
-    public void setCurrentSelectedMapEntity(Entity currentSelectedEntity) {
-        this._currentSelectedEntity = currentSelectedEntity;
-    }
+	public void setCurrentSelectedMapEntity(Entity currentSelectedEntity) {
+		_currentSelectedEntity = currentSelectedEntity;
+	}
 
-    public void clearCurrentSelectedMapEntity(){
-        if( _currentSelectedEntity == null ) return;
-        _currentSelectedEntity.sendMessage(Component.MESSAGE.ENTITY_DESELECTED);
-        _currentSelectedEntity = null;
-    }
+	public void clearCurrentSelectedMapEntity(){
+		if( _currentSelectedEntity == null ) {
+			return;
+		}
+		_currentSelectedEntity.sendMessage(Component.MESSAGE.ENTITY_DESELECTED);
+		_currentSelectedEntity = null;
+	}
 
-    public void setPlayer(Entity entity){
-        this._player = entity;
-    }
+	public void setPlayer(Entity entity){
+		_player = entity;
+	}
 
-    public Entity getPlayer(){
-        return this._player;
-    }
+	public Entity getPlayer(){
+		return _player;
+	}
 
 	//TODO Juien ici camera
 
-    public void setCamera(Camera camera){
-        this._camera = camera;
-    }
+	public void setCamera(Camera camera){
+		_camera = camera;
+	}
 
-    public Camera getCamera(){
-        return _camera;
-    }
+	public Camera getCamera(){
+		return _camera;
+	}
 
-    public boolean hasMapChanged(){
-        return _mapChanged;
-    }
+	public boolean hasMapChanged(){
+		return _mapChanged;
+	}
 
-    public void setMapChanged(boolean hasMapChanged){
-        this._mapChanged = hasMapChanged;
-    }
+	public void setMapChanged(boolean hasMapChanged){
+		_mapChanged = hasMapChanged;
+	}
 }

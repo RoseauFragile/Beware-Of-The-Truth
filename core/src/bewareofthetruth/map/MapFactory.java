@@ -11,22 +11,23 @@ public class MapFactory {
 	//AllMaps for the game
 	//TODO Soit on garde cette architecture et on créer une map pour chaque Level ce qui est en soit efficaces pour un rpg mais LOURD soit on fais une factory plus élaboré avec la bdd
 	//De plus il faudra avoir un algo plus réfléchi sur les teleporters, en effet cela ne calcule pas le point de spawn player le plus près du tp correpondant à la zone d'ou l'on vient
-    private static Hashtable<MapType,Map> _mapTable = new Hashtable<MapType, Map>();
+	private static Hashtable<MapType,Map> _mapTable = new Hashtable<MapType, Map>();
+	final static WorldContactListener worldContactListener = new WorldContactListener();
 
-    public static enum MapType{
-        ZONE_1_1,
-        ZONE_1_2,
-        ZONE_1_3,
-        ZONE_TEST
-    }
-	
+	public static enum MapType{
+		ZONE_1_1,
+		ZONE_1_2,
+		ZONE_1_3,
+		ZONE_TEST
+	}
+
 	static public Map getMap(MapType mapType) {
 		Map map =null;
 		switch(mapType) {
 		case ZONE_1_1:
 			map = _mapTable.get(MapType.ZONE_1_1);
 			if(map == null) {
-				map = new ZoneOneDotOne();
+				map = new ZoneOneDotOne(worldContactListener);
 				_mapTable.put(MapType.ZONE_1_1, map);
 			}
 			break;
@@ -52,15 +53,15 @@ public class MapFactory {
 			}
 			break;
 		default:
-				break;
+			break;
 		}
 		return map;
 	}
-	
-    public static void clearCache(){
-        for( Map map: _mapTable.values()){
-            map.dispose();
-        }
-        _mapTable.clear();
-    }
+
+	public static void clearCache(){
+		for( final Map map: _mapTable.values()){
+			map.dispose();
+		}
+		_mapTable.clear();
+	}
 }
