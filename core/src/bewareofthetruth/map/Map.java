@@ -12,6 +12,7 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 
@@ -86,6 +87,7 @@ public class Map implements AudioSubject{
 	protected ArrayList<EntityName> _arrayListOfEntities;
 
 	private int _id;
+	private World _world;
 
 	protected Map( int mapId, String fullMapPath, String musicPath, ArrayList<EntityName> arrayListOfEntities){
 		_json = new Json();
@@ -510,5 +512,13 @@ public class Map implements AudioSubject{
 
 			entity.setEntityConfig(entityConfig);
 		}
+	}
+
+	public World get_world() {
+		return _world;
+	}
+
+	public void set_world(World _world) {
+		this._world = _world;
 	}
 }
