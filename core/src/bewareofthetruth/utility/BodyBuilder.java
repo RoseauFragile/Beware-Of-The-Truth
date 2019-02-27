@@ -1,5 +1,6 @@
 package bewareofthetruth.utility;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -37,12 +38,12 @@ public class BodyBuilder {
 		return pBody;
 	}*/
 
-	public static Body createBox(final World world, float x, float y, float w, float h,
+	public static Body createBox(final World world, Vector2 position, int w, int h,
 			boolean isStatic, boolean canRotate, short cBits, short mBits, short gIndex) {
 
 		final BodyDef bodyDef = new BodyDef();
 		bodyDef.fixedRotation = canRotate;
-		bodyDef.position.set(x, y);
+		bodyDef.position.set(position);
 
 		if(isStatic) {
 			bodyDef.type = BodyDef.BodyType.StaticBody;
@@ -56,9 +57,9 @@ public class BodyBuilder {
 		final FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;
 		fixtureDef.density = 1.0f;
-		fixtureDef.filter.categoryBits = cBits; // Is a
+		/*fixtureDef.filter.categoryBits = cBits; // Is a
 		fixtureDef.filter.maskBits = mBits; // Collides with
-		fixtureDef.filter.groupIndex = gIndex;
+		fixtureDef.filter.groupIndex = gIndex;*/
 
 		return world.createBody(bodyDef).createFixture(fixtureDef).getBody();
 	}

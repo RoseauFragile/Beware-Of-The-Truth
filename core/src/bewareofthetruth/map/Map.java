@@ -8,10 +8,12 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 
@@ -85,6 +87,8 @@ public class Map implements AudioSubject{
 	protected Array<ParticleEffect> _mapParticleEffects;
 	protected ArrayList<EntityName> _arrayListOfEntities;
 
+	protected World _world;
+
 	private int _id;
 
 	protected Map( int mapId, String fullMapPath, String musicPath, ArrayList<EntityName> arrayListOfEntities){
@@ -100,6 +104,7 @@ public class Map implements AudioSubject{
 		_playerStartPositionRect = new Vector2(0,0);
 		_closestPlayerStartPosition = new Vector2(0,0);
 		_convertedUnits = new Vector2(0,0);
+
 
 		if( fullMapPath == null || fullMapPath.isEmpty() ) {
 			Gdx.app.debug(TAG, "Map is invalid");
@@ -178,11 +183,21 @@ public class Map implements AudioSubject{
 		//Observers
 		this.addObserver(AudioManager.getInstance());
 
+		//World
+		final MapProperties prop = _currentMap.getProperties();
+		final int mapWidth = prop.get("width", Integer.class);
+		final int mapHeight = prop.get("height", Integer.class);
+		final int tilePixelWidth = prop.get("tilewidth", Integer.class);
+		final int tilePixelHeight = prop.get("tileheight", Integer.class);
+
+		_world = new World(new Vector2(mapWidth * tilePixelWidth, mapHeight * tilePixelHeight), true);
+		System.out.println("World width" + mapWidth * tilePixelWidth);
 
 		//guard entities
 		for( final Vector2 position: _npcStartPositions){
 			final Entity entity = EntityFactory.getInstance().getEntityByName(EntityFactory.EntityName.TOWN_GUARD_WALKING);
 			entity.sendMessage(Component.MESSAGE.INIT_START_POSITION, _json.toJson(position));
+			entity.get_physicsComponent().setBody(_world, position, (short)16, (short)16, (short)16);
 			_mapEntities.add(entity);
 		}
 
@@ -320,6 +335,7 @@ public class Map implements AudioSubject{
 		for( int i=0; i < _mapParticleEffects.size; i++){
 			_mapParticleEffects.get(i).dispose();
 		}
+		_world.dispose();
 	}
 
 	public MapLayer getCollisionLayer(){
@@ -503,6 +519,7 @@ public class Map implements AudioSubject{
 			position = _specialNPCStartPositions.get(entity.getEntityConfig().getEntityID());
 		}
 		entity.sendMessage(Component.MESSAGE.INIT_START_POSITION, _json.toJson(position));
+		entity.get_physicsComponent().setBody(_world, position, (short)16, (short)16, (short)16);
 
 		//Overwrite default if special config is found
 		final EntityConfig entityConfig = ProfileManager.getInstance().getProperty(entity.getEntityConfig().getEntityID(), EntityConfig.class);
@@ -511,4 +528,13 @@ public class Map implements AudioSubject{
 			entity.setEntityConfig(entityConfig);
 		}
 	}
+
+	public World get_world() {
+		return _world;
+	}
+
+	public void set_world(World _world) {
+		this._world = _world;
+	}
+
 }

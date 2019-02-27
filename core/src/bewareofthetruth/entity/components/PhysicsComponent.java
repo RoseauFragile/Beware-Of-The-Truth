@@ -1,21 +1,20 @@
 package bewareofthetruth.entity.components;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 
 import bewareofthetruth.entity.Entity;
 import bewareofthetruth.map.Map;
 import bewareofthetruth.map.MapManager;
+import bewareofthetruth.utility.BodyBuilder;
 
 public abstract class PhysicsComponent extends ComponentSubject implements Component, ContactListener{
 	private static final String TAG = PhysicsComponent.class.getSimpleName();
@@ -49,7 +48,7 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
 		_velocity = new Vector2(2f, 2f);
 		final Byte categoryOfEntity = 4;
 		//---------WITH BODY -----------------
-		//body = BodyBuilder.createBox(world, x, y, Entity.FRAME_WIDTH, Entity.FRAME_WIDTH, false, false, cBits, mBits, gIndex));
+		//body =;
 		//TODO Réussir à récupérer le x et y de départ et le world
 		//TODO Ajouter dans le JSON le nombre de byte correspondant à la catégorie de l'entité pour les collisions + LARGEUR et HAUTEUR
 
@@ -63,7 +62,18 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
 		_selectionRay = new Ray(new Vector3(), new Vector3());
 	}
 
-	protected boolean isCollisionWithMapEntities(Entity entity, MapManager mapMgr) {
+	public Body getBody() {
+		return body;
+	}
+
+	public void setBody(final World world, Vector2 position, short cBits, short mBits, short gIndex) {
+		body = BodyBuilder.createBox(world, position, Entity.FRAME_WIDTH, Entity.FRAME_WIDTH, false, false, cBits, mBits, gIndex);
+		System.out.println("Position " + body.getPosition().toString());
+		System.out.println("World " + body.getWorld().getBodyCount());
+
+	}
+
+	/*protected boolean isCollisionWithMapEntities(Entity entity, MapManager mapMgr) {
 		_tempEntities.clear();
 		_tempEntities.addAll(mapMgr.getCurrentMapEntities());
 		_tempEntities.addAll(mapMgr.getCurrentMapQuestEntities());
@@ -124,7 +134,7 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
 		}
 
 		return false;
-	}
+	}*/
 
 	protected void setNextPositionToCurrent(Entity entity) {
 		_currentEntityPosition.x = _nextEntityPosition.x;

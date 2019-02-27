@@ -58,9 +58,7 @@ public class NPCPhysicsComponent extends PhysicsComponent {
 			return;
 		}
 
-		if (    !isCollisionWithMapLayer(entity, mapMgr) &&
-				!isCollisionWithMapEntities(entity, mapMgr) &&
-				_state == Entity.State.WALKING){
+		if (_state == Entity.State.WALKING){
 			setNextPositionToCurrent(entity);
 		} else {
 			updateBoundingBoxPosition(_currentEntityPosition);
@@ -80,7 +78,7 @@ public class NPCPhysicsComponent extends PhysicsComponent {
 		}
 	}
 
-	@Override
+	/*@Override
 	protected boolean isCollisionWithMapEntities(Entity entity, MapManager mapMgr){
 		//Test against player
 		if( isCollision(entity, mapMgr.getPlayer()) ) {
@@ -92,7 +90,7 @@ public class NPCPhysicsComponent extends PhysicsComponent {
 		}
 
 		return false;
-	}
+	}*/
 
 	@Override
 	public void beginContact(Contact contact) {

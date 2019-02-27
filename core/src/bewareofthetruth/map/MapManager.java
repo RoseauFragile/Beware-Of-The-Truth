@@ -298,4 +298,12 @@ public class MapManager implements ProfileObserver {
 		final int nextMap = this.get_mapFactory().getMapIdByName(mapName);
 		return nextMap;
 	}
+
+	public Map get_currentMap() {
+		return _currentMap;
+	}
+
+	public void set_currentMap(Map _currentMap) {
+		this._currentMap = _currentMap;
+	}
 }

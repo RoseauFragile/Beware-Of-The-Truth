@@ -7,7 +7,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMapImageLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.Json;
+
 import bewareofthetruth.audio.AudioManager;
 import bewareofthetruth.dao.BewareOfTheTruthDAO;
 import bewareofthetruth.entity.Entity;
@@ -19,7 +22,7 @@ import bewareofthetruth.map.Map;
 import bewareofthetruth.map.MapFactory;
 import bewareofthetruth.map.MapManager;
 import bewareofthetruth.profile.ProfileManager;
-	
+
 public class MainGameScreen extends GameScreen {
 	private static final String TAG = MainGameScreen.class.getSimpleName();
 
@@ -47,13 +50,15 @@ public class MainGameScreen extends GameScreen {
 	protected MapManager _mapMgr;
 	protected OrthographicCamera _camera = null;
 	protected OrthographicCamera _hudCamera = null;
-	private Json _json;
-	private Main _game;
-	private InputMultiplexer _multiplexer;
-	private Entity _player;
-	private PlayerHUD _playerHUD;
+	private final Json _json;
+	private final Main _game;
+	private final InputMultiplexer _multiplexer;
+	private final Entity _player;
+	private final PlayerHUD _playerHUD;
 	private boolean _threadPause = false;
-    private BewareOfTheTruthDAO _bewareOfTruthDao;
+	private BewareOfTheTruthDAO _bewareOfTruthDao;
+	private final Box2DDebugRenderer debugRenderer;
+	private final Matrix4 debugMatrix;
 
 
 	@SuppressWarnings("static-access")
@@ -62,7 +67,7 @@ public class MainGameScreen extends GameScreen {
 		this.set_bewareOfTruthDao(new BewareOfTheTruthDAO());
 		_mapMgr = new MapManager(this);
 		_json = new Json();
-		
+
 
 		setGameState(GameState.RUNNING);
 
@@ -74,6 +79,7 @@ public class MainGameScreen extends GameScreen {
 		_camera.setToOrtho(false, VIEWPORT.viewportWidth, VIEWPORT.viewportHeight);
 
 		_player = EntityFactory.getInstance().getEntity(EntityFactory.EntityType.PLAYER);
+
 		_mapMgr.setPlayer(_player);
 		_mapMgr.setCamera(_camera);
 
@@ -86,6 +92,9 @@ public class MainGameScreen extends GameScreen {
 		_multiplexer.addProcessor(_playerHUD.getStage());
 		_multiplexer.addProcessor(_player.getInputProcessor());
 		Gdx.input.setInputProcessor(_multiplexer);
+
+		debugMatrix= new Matrix4(_camera.combined);
+		debugRenderer = new Box2DDebugRenderer();
 
 		//Gdx.app.debug(TAG, "UnitScale value is: " + _mapRenderer.getUnitScale());
 	}
@@ -115,6 +124,7 @@ public class MainGameScreen extends GameScreen {
 
 	@Override
 	public void render(float delta) {
+		_mapMgr.get_currentMap().get_world().step(1 / 60f, 6, 2);
 
 		if( _gameState == GameState.GAME_OVER ){
 			_game.setScreen(_game.getScreenType(Main.ScreenType.GameOver));
@@ -125,7 +135,7 @@ public class MainGameScreen extends GameScreen {
 			_playerHUD.render(delta);
 			return;
 		}
-		
+
 		if(_gameState == GameState.PAUSE && _threadPause == true) {
 			_playerHUD.setOnlyPauseUIVisible();
 			_threadPause = false;
@@ -137,10 +147,9 @@ public class MainGameScreen extends GameScreen {
 			_threadPause = true;
 			_gameState = GameState.RUNNING;
 		}
-		
+
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
 		_mapRenderer.setView(_camera);
 
 		_mapRenderer.getBatch().enableBlending();
@@ -162,25 +171,26 @@ public class MainGameScreen extends GameScreen {
 		}
 
 		//_mapMgr.updateLightMaps(_playerHUD.getCurrentTimeOfDay());
-		TiledMapImageLayer lightMap = (TiledMapImageLayer)_mapMgr.getCurrentLightMapLayer();
-		TiledMapImageLayer previousLightMap = (TiledMapImageLayer)_mapMgr.getPreviousLightMapLayer();
+		final TiledMapImageLayer lightMap = (TiledMapImageLayer)_mapMgr.getCurrentLightMapLayer();
+		final TiledMapImageLayer previousLightMap = (TiledMapImageLayer)_mapMgr.getPreviousLightMapLayer();
 
 		if( lightMap != null) {
 			_mapRenderer.getBatch().begin();
-			TiledMapTileLayer backgroundMapLayer = (TiledMapTileLayer)_mapMgr.getCurrentTiledMap().getLayers().get(Map.BACKGROUND_LAYER);
+			final TiledMapTileLayer backgroundMapLayer = (TiledMapTileLayer)_mapMgr.getCurrentTiledMap().getLayers().get(Map.BACKGROUND_LAYER);
 			if( backgroundMapLayer != null ){
 				_mapRenderer.renderTileLayer(backgroundMapLayer);
 			}
 
-			TiledMapTileLayer groundMapLayer = (TiledMapTileLayer)_mapMgr.getCurrentTiledMap().getLayers().get(Map.GROUND_LAYER);
+			final TiledMapTileLayer groundMapLayer = (TiledMapTileLayer)_mapMgr.getCurrentTiledMap().getLayers().get(Map.GROUND_LAYER);
 			if( groundMapLayer != null ){
 				_mapRenderer.renderTileLayer(groundMapLayer);
 			}
 
-			TiledMapTileLayer decorationMapLayer = (TiledMapTileLayer)_mapMgr.getCurrentTiledMap().getLayers().get(Map.DECORATION_LAYER);
+			final TiledMapTileLayer decorationMapLayer = (TiledMapTileLayer)_mapMgr.getCurrentTiledMap().getLayers().get(Map.DECORATION_LAYER);
 			if( decorationMapLayer != null ){
 				_mapRenderer.renderTileLayer(decorationMapLayer);
 			}
+			debugRenderer.render(_mapMgr.get_currentMap().get_world(), debugMatrix);
 
 			_mapRenderer.getBatch().end();
 
@@ -208,7 +218,6 @@ public class MainGameScreen extends GameScreen {
 			_player.update(_mapMgr, _mapRenderer.getBatch(), delta);
 			_mapMgr.updateCurrentMapEffects(_mapMgr, _mapRenderer.getBatch(), delta);
 		}
-		
 		_playerHUD.render(delta);
 
 	}
@@ -243,40 +252,40 @@ public class MainGameScreen extends GameScreen {
 		if( _mapRenderer != null ){
 			_mapRenderer.dispose();
 		}
-
+		debugRenderer.dispose();
 		AudioManager.getInstance().dispose();
 		MapFactory.clearCache();
 	}
 
 	public static void setGameState(GameState gameState){
 		switch(gameState){
-			case RUNNING:
-				_gameState = GameState.RUNNING;
-				break;
-			case LOADING:
-				ProfileManager.getInstance().loadProfile();
-				_gameState = GameState.RUNNING;
-				break;
-			case SAVING:
-				ProfileManager.getInstance().saveProfile();
-				break;
-			case PAUSED:
+		case RUNNING:
+			_gameState = GameState.RUNNING;
+			break;
+		case LOADING:
+			ProfileManager.getInstance().loadProfile();
+			_gameState = GameState.RUNNING;
+			break;
+		case SAVING:
+			ProfileManager.getInstance().saveProfile();
+			break;
+		case PAUSED:
 
-				if( _gameState == GameState.PAUSED ){
-					_gameState = GameState.RUNNING;
-				}else if( _gameState == GameState.RUNNING ){
-					_gameState = GameState.PAUSED;
-				}
-				break;
-			case GAME_OVER:
-				_gameState = GameState.GAME_OVER;
-				break;
-			case PAUSE:
-				_gameState = GameState.PAUSE;
-				break;
-			default:
+			if( _gameState == GameState.PAUSED ){
 				_gameState = GameState.RUNNING;
-				break;
+			}else if( _gameState == GameState.RUNNING ){
+				_gameState = GameState.PAUSED;
+			}
+			break;
+		case GAME_OVER:
+			_gameState = GameState.GAME_OVER;
+			break;
+		case PAUSE:
+			_gameState = GameState.PAUSE;
+			break;
+		default:
+			_gameState = GameState.RUNNING;
+			break;
 		}
 
 	}
@@ -312,7 +321,7 @@ public class MainGameScreen extends GameScreen {
 		Gdx.app.debug(TAG, "WorldRenderer: viewport: (" + VIEWPORT.viewportWidth + "," + VIEWPORT.viewportHeight + ")" );
 		Gdx.app.debug(TAG, "WorldRenderer: physical: (" + VIEWPORT.physicalWidth + "," + VIEWPORT.physicalHeight + ")" );
 	}
-	
+
 	public BewareOfTheTruthDAO get_bewareOfTruthDao() {
 		return _bewareOfTruthDao;
 	}
