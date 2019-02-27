@@ -58,7 +58,7 @@ public class Entity {
 	public static enum State {
 		IDLE,
 		WALKING,
-
+		ROLL,
 		IMMOBILE;//This should always be last
 
 		static public State getRandomNext() {
@@ -72,6 +72,8 @@ public class Entity {
 		WALK_RIGHT,
 		WALK_UP,
 		WALK_DOWN,
+		ROLL_LEFT,
+		ROLL_RIGHT,
 		IDLE,
 		IMMOBILE
 	}
@@ -272,5 +274,28 @@ public class Entity {
 		return entity;
 	}
 
+	public InputComponent get_inputComponent() {
+		return _inputComponent;
+	}
+
+	public void set_inputComponent(InputComponent _inputComponent) {
+		this._inputComponent = _inputComponent;
+	}
+
+	public GraphicsComponent get_graphicsComponent() {
+		return _graphicsComponent;
+	}
+
+	public void set_graphicsComponent(GraphicsComponent _graphicsComponent) {
+		this._graphicsComponent = _graphicsComponent;
+	}
+
+	public PhysicsComponent get_physicsComponent() {
+		return _physicsComponent;
+	}
+
+	public void set_physicsComponent(PhysicsComponent _physicsComponent) {
+		this._physicsComponent = _physicsComponent;
+	}
 
 }

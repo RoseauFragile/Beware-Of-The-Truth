@@ -8,7 +8,7 @@ import bewareofthetruth.entity.components.InputComponent;
 import bewareofthetruth.screens.MainGameScreen;
 
 
-//TODO Julien classe qui controle le player
+
 public class PlayerInputComponent extends InputComponent {
 
 	@SuppressWarnings("unused")
@@ -47,6 +47,18 @@ public class PlayerInputComponent extends InputComponent {
 			
 			MainGameScreen.setGameState(MainGameScreen.GameState.PAUSED);
 			pauseReleased();
+		}else if(keys.get(Keys.SPACE)  && keys.get(Keys.LEFT)) {
+			entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.ROLL));
+			entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.LEFT));
+		}else if(keys.get(Keys.SPACE)  && keys.get(Keys.RIGHT)) {
+			entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.ROLL));
+			entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.RIGHT));
+		}else if(keys.get(Keys.SPACE)  && keys.get(Keys.DOWN)) {
+			entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.ROLL));
+			entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.DOWN));
+		}else if(keys.get(Keys.SPACE)  && keys.get(Keys.UP)) {
+			entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.ROLL));
+			entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.UP));
 		}else if(keys.get(Keys.ESC)) {
 			MainGameScreen.setGameState(MainGameScreen.GameState.PAUSE);
 			escapeReleased();
@@ -103,6 +115,9 @@ public class PlayerInputComponent extends InputComponent {
 		if( keycode == Input.Keys.UP || keycode == Input.Keys.W){
 			this.upPressed();
 		}
+		if( keycode == Input.Keys.SPACE){
+			this.spacePressed();
+		}
 		if( keycode == Input.Keys.DOWN || keycode == Input.Keys.S){
 			this.downPressed();
 		}
@@ -132,6 +147,9 @@ public class PlayerInputComponent extends InputComponent {
 		}
 		if( keycode == Input.Keys.DOWN || keycode == Input.Keys.S){
 			this.downReleased();
+		}
+		if( keycode == Input.Keys.SPACE){
+			this.spaceReleased();
 		}
 		if( keycode == Input.Keys.Q){
 			this.quitReleased();
@@ -207,6 +225,10 @@ public class PlayerInputComponent extends InputComponent {
 		keys.put(Keys.UP, true);
 	}
 	
+	public void spacePressed(){
+		keys.put(Keys.SPACE, true);
+	}
+	
 	public void downPressed(){
 		keys.put(Keys.DOWN, true);
 	}
@@ -248,6 +270,10 @@ public class PlayerInputComponent extends InputComponent {
 		keys.put(Keys.UP, false);
 	}
 	
+	public void spaceReleased(){
+		keys.put(Keys.SPACE, false);
+	}
+	
 	public void downReleased(){
 		keys.put(Keys.DOWN, false);
 	}
@@ -275,6 +301,7 @@ public class PlayerInputComponent extends InputComponent {
 		keys.put(Keys.RIGHT, false);
 		keys.put(Keys.UP, false);
 		keys.put(Keys.DOWN, false);
+		keys.put(Keys.SPACE, false);
 		keys.put(Keys.QUIT, false);
 		keys.put(Keys.ESC, false);
 	}

@@ -1,5 +1,6 @@
 package bewareofthetruth.map;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 import com.badlogic.gdx.Gdx;
@@ -11,8 +12,6 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 
@@ -20,10 +19,15 @@ import bewareofthetruth.audio.AudioManager;
 import bewareofthetruth.audio.AudioObserver;
 import bewareofthetruth.audio.AudioSubject;
 import bewareofthetruth.entity.Entity;
+import bewareofthetruth.entity.EntityConfig;
+import bewareofthetruth.entity.EntityFactory;
+import bewareofthetruth.entity.EntityFactory.EntityName;
+import bewareofthetruth.entity.components.Component;
 import bewareofthetruth.particles.ParticleEffectFactory;
+import bewareofthetruth.profile.ProfileManager;
 import bewareofthetruth.utility.Utility;
-//TODO Soit on garde cette architecture et on créer une map pour chaque Level ce qui est en soit efficaces pour un rpg mais LOURD soit on fais une factory plus élaboré avec la bdd
-public abstract class Map implements AudioSubject{
+
+public class Map implements AudioSubject{
 	private static final String TAG = Map.class.getSimpleName();
 
 	public final static float UNIT_SCALE  = 1/64f;
@@ -54,15 +58,11 @@ public abstract class Map implements AudioSubject{
 
 	protected Json _json;
 
-	protected World world;
-
-
 	protected Vector2 _playerStartPositionRect;
 	protected Vector2 _closestPlayerStartPosition;
 	protected Vector2 _convertedUnits;
 	protected TiledMap _currentMap = null;
 	protected Vector2 _playerStart;
-
 	protected Array<Vector2> _npcStartPositions;
 	protected Hashtable<String, Vector2> _specialNPCStartPositions;
 
@@ -79,24 +79,27 @@ public abstract class Map implements AudioSubject{
 	protected MapLayer _lightMapDuskLayer = null;
 	protected MapLayer _lightMapNightLayer = null;
 
-	protected MapFactory.MapType _currentMapType;
+	protected int _currentMapId;
 	protected Array<Entity> _mapEntities;
 	protected Array<Entity> _mapQuestEntities;
 	protected Array<ParticleEffect> _mapParticleEffects;
+	protected ArrayList<EntityName> _arrayListOfEntities;
 
-	protected Map( MapFactory.MapType mapType, String fullMapPath, ContactListener worldContactListener){
+	private int _id;
+
+	protected Map( int mapId, String fullMapPath, String musicPath, ArrayList<EntityName> arrayListOfEntities){
 		_json = new Json();
+		_id = mapId;
+		_arrayListOfEntities = arrayListOfEntities;
 		_mapEntities = new Array<Entity>(10);
 		_observers = new Array<AudioObserver>();
 		_mapQuestEntities = new Array<Entity>();
 		_mapParticleEffects = new Array<ParticleEffect>();
-		_currentMapType = mapType;
+		_currentMapId = mapId;
 		_playerStart = new Vector2(0,0);
 		_playerStartPositionRect = new Vector2(0,0);
 		_closestPlayerStartPosition = new Vector2(0,0);
 		_convertedUnits = new Vector2(0,0);
-		world = new World(new Vector2(0f, 0f), false);
-		world.setContactListener(worldContactListener);
 
 		if( fullMapPath == null || fullMapPath.isEmpty() ) {
 			Gdx.app.debug(TAG, "Map is invalid");
@@ -174,6 +177,21 @@ public abstract class Map implements AudioSubject{
 
 		//Observers
 		this.addObserver(AudioManager.getInstance());
+
+
+		//guard entities
+		for( final Vector2 position: _npcStartPositions){
+			final Entity entity = EntityFactory.getInstance().getEntityByName(EntityFactory.EntityName.TOWN_GUARD_WALKING);
+			entity.sendMessage(Component.MESSAGE.INIT_START_POSITION, _json.toJson(position));
+			_mapEntities.add(entity);
+		}
+
+		//Special entities
+		for( int i = 0; i< _arrayListOfEntities.size();i++){
+			final Entity entity = EntityFactory.getInstance().getEntityByName(_arrayListOfEntities.get(i));
+			initSpecialEntityPosition(entity);
+			_mapEntities.add(entity);
+		}
 	}
 
 	public MapLayer getLightMapDawnLayer(){
@@ -191,15 +209,6 @@ public abstract class Map implements AudioSubject{
 	public MapLayer getLightMapNightLayer(){
 		return _lightMapNightLayer;
 	}
-
-	public World getWorld() {
-		return world;
-	}
-
-	public void setWorld(World world) {
-		this.world = world;
-	}
-
 
 	@SuppressWarnings("unused")
 	public Array<Vector2> getParticleEffectSpawnPositions(ParticleEffectFactory.ParticleEffectType particleEffectType) {
@@ -272,8 +281,8 @@ public abstract class Map implements AudioSubject{
 		_mapQuestEntities.addAll(entities);
 	}
 
-	public MapFactory.MapType getCurrentMapType(){
-		return _currentMapType;
+	public int getCurrentMapId(){
+		return _currentMapId;
 	}
 
 	public Vector2 getPlayerStart() {
@@ -439,8 +448,22 @@ public abstract class Map implements AudioSubject{
 		setClosestStartPosition(_convertedUnits);
 	}
 
-	abstract public void unloadMusic();
-	abstract public void loadMusic();
+	//TODO Il faut définir le chargement des mmusiques
+	public void unloadMusic() {
+
+	};
+	public void loadMusic() {
+
+	};
+
+	public void unloadMusic(AudioObserver.AudioTypeEvent musicToStop) {
+		notify(AudioObserver.AudioCommand.MUSIC_STOP, musicToStop);
+	}
+
+	public void loadMusic(AudioObserver.AudioTypeEvent musicToPlayInLoop) {
+		notify(AudioObserver.AudioCommand.MUSIC_LOAD, musicToPlayInLoop);
+		notify(AudioObserver.AudioCommand.MUSIC_PLAY_LOOP, musicToPlayInLoop);
+	}
 
 	@Override
 	public void addObserver(AudioObserver audioObserver) {
@@ -461,6 +484,31 @@ public abstract class Map implements AudioSubject{
 	public void notify(AudioObserver.AudioCommand command, AudioObserver.AudioTypeEvent event) {
 		for(final AudioObserver observer: _observers){
 			observer.onNotify(command, event);
+		}
+	}
+
+	public void setId(int id) {
+		_id = id;
+	}
+
+	public int getId() {
+		return _id;
+	}
+
+	private void initSpecialEntityPosition(Entity entity){
+
+		Vector2 position = new Vector2(0,0);
+
+		if( _specialNPCStartPositions.containsKey(entity.getEntityConfig().getEntityID()) ) {
+			position = _specialNPCStartPositions.get(entity.getEntityConfig().getEntityID());
+		}
+		entity.sendMessage(Component.MESSAGE.INIT_START_POSITION, _json.toJson(position));
+
+		//Overwrite default if special config is found
+		final EntityConfig entityConfig = ProfileManager.getInstance().getProperty(entity.getEntityConfig().getEntityID(), EntityConfig.class);
+		if( entityConfig != null ){
+
+			entity.setEntityConfig(entityConfig);
 		}
 	}
 }

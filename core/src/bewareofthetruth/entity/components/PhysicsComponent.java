@@ -16,7 +16,6 @@ import com.badlogic.gdx.utils.Json;
 import bewareofthetruth.entity.Entity;
 import bewareofthetruth.map.Map;
 import bewareofthetruth.map.MapManager;
-import bewareofthetruth.utility.BodyBuilder;;
 
 public abstract class PhysicsComponent extends ComponentSubject implements Component, ContactListener{
 	private static final String TAG = PhysicsComponent.class.getSimpleName();
@@ -32,6 +31,7 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
 	protected Body body;
 
 
+	private Entity _entity;
 	protected Array<Entity> _tempEntities;
 
 	public Rectangle _boundingBox;
@@ -49,7 +49,7 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
 		_velocity = new Vector2(2f, 2f);
 		final Byte categoryOfEntity = 4;
 		//---------WITH BODY -----------------
-		body = BodyBuilder.createBox(world, x, y, Entity.FRAME_WIDTH, Entity.FRAME_WIDTH, false, false, cBits, mBits, gIndex));
+		//body = BodyBuilder.createBox(world, x, y, Entity.FRAME_WIDTH, Entity.FRAME_WIDTH, false, false, cBits, mBits, gIndex));
 		//TODO Réussir à récupérer le x et y de départ et le world
 		//TODO Ajouter dans le JSON le nombre de byte correspondant à la catégorie de l'entité pour les collisions + LARGEUR et HAUTEUR
 
@@ -137,57 +137,118 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
 	}
 
 	protected void calculateNextPosition(float deltaTime) {
-		if (_currentDirection == null) {
-			return;
+		if(this.get_entity() != null && this.get_entity().get_graphicsComponent()._currentState == Entity.State.ROLL) {
+			if (_currentDirection == null) {
+				return;
+			}
+
+			if (deltaTime > .7) {
+				return;
+			}
+			final double coefficientRoulade = 0.05;
+			float testX;
+			float testY;
+
+			testX = _currentEntityPosition.x;
+			testY = _currentEntityPosition.y;
+
+			_velocity.scl(deltaTime);
+
+			switch (_currentDirection) {
+			case LEFT:
+				testX -= _velocity.x + coefficientRoulade;
+				break;
+			case RIGHT:
+				testX += _velocity.x + coefficientRoulade;
+				break;
+			case UP:
+				testY += _velocity.y + coefficientRoulade;
+				break;
+			case DOWN:
+				testY -= _velocity.y + coefficientRoulade;
+				break;
+			case UP_RIGHT:
+				testX += _velocity.x + coefficientRoulade;
+				testY += _velocity.y + coefficientRoulade;
+				break;
+			case UP_LEFT:
+				testX -= _velocity.x + coefficientRoulade;
+				testY += _velocity.y + coefficientRoulade;
+				break;
+			case DOWN_RIGHT :
+				testX += _velocity.x + coefficientRoulade;
+				testY -= _velocity.y + coefficientRoulade;
+				break;
+			case DOWN_LEFT :
+				testX -= _velocity.x + coefficientRoulade;
+				testY -= _velocity.y + coefficientRoulade;
+				break;
+			default:
+				break;
+			}
+
+			_nextEntityPosition.x = testX;
+			_nextEntityPosition.y = testY;
+
+			// velocity
+			_velocity.scl(1 / deltaTime);
+		}else {
+			if (_currentDirection == null) {
+				return;
+			}
+
+			if (deltaTime > .7) {
+				return;
+			}
+
+			float testX;
+			float testY;
+
+			testX = _currentEntityPosition.x;
+			testY = _currentEntityPosition.y;
+
+
+			_velocity.scl(deltaTime);
+
+			switch (_currentDirection) {
+			case LEFT:
+				testX -= _velocity.x;
+				break;
+			case RIGHT:
+				testX += _velocity.x;
+				break;
+			case UP:
+				testY += _velocity.y;
+				break;
+			case DOWN:
+				testY -= _velocity.y;
+				break;
+			case UP_RIGHT:
+				testX += _velocity.x;
+				testY += _velocity.y;
+				break;
+			case UP_LEFT:
+				testX -= _velocity.x;
+				testY += _velocity.y;
+				break;
+			case DOWN_RIGHT :
+				testX += _velocity.x;
+				testY -= _velocity.y;
+				break;
+			case DOWN_LEFT :
+				testX -= _velocity.x;
+				testY -= _velocity.y;
+				break;
+			default:
+				break;
+			}
+
+			_nextEntityPosition.x = testX;
+			_nextEntityPosition.y = testY;
+
+			// velocity
+			_velocity.scl(1 / deltaTime);
 		}
-
-		if (deltaTime > .7) {
-			return;
-		}
-
-		float testX = _currentEntityPosition.x;
-		float testY = _currentEntityPosition.y;
-
-		_velocity.scl(deltaTime);
-
-		switch (_currentDirection) {
-		case LEFT:
-			testX -= _velocity.x;
-			break;
-		case RIGHT:
-			testX += _velocity.x;
-			break;
-		case UP:
-			testY += _velocity.y;
-			break;
-		case DOWN:
-			testY -= _velocity.y;
-			break;
-		case UP_RIGHT:
-			testX += _velocity.x;
-			testY += _velocity.y;
-			break;
-		case UP_LEFT:
-			testX -= _velocity.x;
-			testY += _velocity.y;
-			break;
-		case DOWN_RIGHT :
-			testX += _velocity.x;
-			testY -= _velocity.y;
-			break;
-		case DOWN_LEFT :
-			testX -= _velocity.x;
-			testY -= _velocity.y;
-			break;
-		default:
-			break;
-		}
-
-		_nextEntityPosition.x = testX;
-		_nextEntityPosition.y = testY;
-
-		// velocity
-		_velocity.scl(1 / deltaTime);
 	}
 
 	protected void initBoundingBox(float percentageWidthReduced, float percentageHeightReduced) {
@@ -279,5 +340,13 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
 		// Gdx.app.debug(TAG, "SETTING Bounding Box for " +
 		// entity.getEntityConfig().getEntityID() + ": (" + minX + "," + minY + ")
 		// width: " + width + " height: " + height);
+	}
+
+	public Entity get_entity() {
+		return _entity;
+	}
+
+	public void set_entity(Entity _entity) {
+		this._entity = _entity;
 	}
 }

@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import bewareofthetruth.audio.AudioObserver;
+import bewareofthetruth.dao.BewareOfTheTruthDAO;
 import bewareofthetruth.main.Main;
 import bewareofthetruth.main.Main.ScreenType;
 import bewareofthetruth.utility.Utility;
@@ -26,8 +27,7 @@ public class MainMenuScreen extends GameScreen {
 	
 	public MainMenuScreen(Main game){
 		_game = game;
-
-
+		
 		_stage = new Stage();
 		Table table = new Table();
 
@@ -118,8 +118,7 @@ public class MainMenuScreen extends GameScreen {
 
 										 @Override
 										 public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-											 MainMenuScreen.this.notify(AudioObserver.AudioCommand.MUSIC_STOP, AudioObserver.AudioTypeEvent.MUSIC_INTRO);
-											 //TODO 7
+											 MainMenuScreen.this.notify(AudioObserver.AudioCommand.MUSIC_STOP, AudioObserver.AudioTypeEvent.MUSIC_INTRO);									
 											 _game.setScreen(_game.getScreenType(ScreenType.WorldBox2D));
 										 }
 									 }
@@ -170,8 +169,5 @@ public class MainMenuScreen extends GameScreen {
 		backgroundTexture.dispose();
 		_stage.dispose();
 	}
-	
-
-
 }
 

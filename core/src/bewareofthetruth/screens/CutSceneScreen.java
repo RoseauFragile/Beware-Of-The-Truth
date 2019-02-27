@@ -88,7 +88,7 @@ public class CutSceneScreen extends MainGameScreen {
             @Override
             public void run() {
                 hideMessage();
-                _mapMgr.loadMap(MapFactory.MapType.ZONE_TEST);
+                //_mapMgr.loadMap(MapFactory.MapType.ZONE_TEST);
                 _mapMgr.disableCurrentmapMusic();
                 setCameraPosition(10, 16);
                 _animBlackSmith.setVisible(true);
@@ -104,7 +104,7 @@ public class CutSceneScreen extends MainGameScreen {
             @Override
             public void run() {
                 hideMessage();
-                _mapMgr.loadMap(MapFactory.MapType.ZONE_1_3);
+               // _mapMgr.loadMap(MapFactory.MapType.ZONE_1_3);
                 _mapMgr.disableCurrentmapMusic();
                 setCameraPosition(50, 30);
 

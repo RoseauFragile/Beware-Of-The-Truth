@@ -19,7 +19,12 @@ public final class Utility {
 	private static final String TAG = Utility.class.getSimpleName();
 
 	private static InternalFileHandleResolver _filePathResolver =  new InternalFileHandleResolver();
-
+	public static final short BIT_WALL = 1;
+	public static final short BIT_PLAYER = 2;
+	public static final short BIT_DOOR = 4;
+	public static final short BIT_ENNEMY = 8;
+	public static final short BIT_BREAKABLE = 16;
+	public static final short BIT_LIGHT = 32;
 	//private final static String STATUSUI_TEXTURE_ATLAS_PATH = "skins/statusui.atlas";
 	//private final static String STATUSUI_SKIN_PATH = "skins/statusui.json";
 	private final static String ITEMS_TEXTURE_ATLAS_PATH = "skins/items.atlas";

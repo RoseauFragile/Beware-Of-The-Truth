@@ -1,5 +1,6 @@
 package bewareofthetruth.entity.components.player;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
@@ -16,7 +17,6 @@ import bewareofthetruth.entity.components.Component;
 import bewareofthetruth.entity.components.ComponentObserver;
 import bewareofthetruth.entity.components.PhysicsComponent;
 import bewareofthetruth.map.Map;
-import bewareofthetruth.map.MapFactory;
 import bewareofthetruth.map.MapManager;
 
 public class PlayerPhysicsComponent extends PhysicsComponent {
@@ -27,6 +27,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
 	private boolean _isMouseSelectEnabled = false;
 	private String _previousDiscovery;
 	private String _previousEnemySpawn;
+	private static String TAG = PlayerPhysicsComponent.class.getSimpleName();
 
 	public PlayerPhysicsComponent(){
 		_boundingBoxLocation = BoundingBoxLocation.BOTTOM_CENTER;
@@ -83,7 +84,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
 
 		if (    !isCollisionWithMapLayer(entity, mapMgr) &&
 				!isCollisionWithMapEntities(entity, mapMgr) &&
-				_state == Entity.State.WALKING){
+				_state == Entity.State.WALKING || _state == Entity.State.ROLL){
 			setNextPositionToCurrent(entity);
 
 			final Camera camera = mapMgr.getCamera();
@@ -225,7 +226,11 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
 					}
 
 					mapMgr.setClosestStartPositionFromScaledUnits(_currentEntityPosition);
-					mapMgr.loadMap(MapFactory.MapType.valueOf(mapName));
+					final int nextMapId = mapMgr.getMapIdByName(mapName);
+					Gdx.app.debug(TAG," DEBUG TP NEXT MAP NAME : " + mapName);
+					Gdx.app.debug(TAG," DEBUG TP NEXT MAP ID : " + nextMapId);
+
+					mapMgr.loadMap(nextMapId);
 
 					_currentEntityPosition.x = mapMgr.getPlayerStartUnitScaled().x;
 					_currentEntityPosition.y = mapMgr.getPlayerStartUnitScaled().y;
@@ -261,6 +266,4 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
 		// TODO Auto-generated method stub
 
 	}
-
-
 }

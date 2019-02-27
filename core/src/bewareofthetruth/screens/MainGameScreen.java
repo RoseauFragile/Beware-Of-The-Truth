@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.Json;
 import bewareofthetruth.audio.AudioManager;
+import bewareofthetruth.dao.BewareOfTheTruthDAO;
 import bewareofthetruth.entity.Entity;
 import bewareofthetruth.entity.EntityFactory;
 import bewareofthetruth.entity.components.Component;
@@ -52,13 +53,16 @@ public class MainGameScreen extends GameScreen {
 	private Entity _player;
 	private PlayerHUD _playerHUD;
 	private boolean _threadPause = false;
+    private BewareOfTheTruthDAO _bewareOfTruthDao;
 
 
 	@SuppressWarnings("static-access")
 	public MainGameScreen(Main game){
 		_game = game;
-		_mapMgr = new MapManager();
+		this.set_bewareOfTruthDao(new BewareOfTheTruthDAO());
+		_mapMgr = new MapManager(this);
 		_json = new Json();
+		
 
 		setGameState(GameState.RUNNING);
 
@@ -71,7 +75,6 @@ public class MainGameScreen extends GameScreen {
 
 		_player = EntityFactory.getInstance().getEntity(EntityFactory.EntityType.PLAYER);
 		_mapMgr.setPlayer(_player);
-		//TODO Juien ici camera
 		_mapMgr.setCamera(_camera);
 
 		_hudCamera = new OrthographicCamera();
@@ -146,8 +149,6 @@ public class MainGameScreen extends GameScreen {
 		if( _mapMgr.hasMapChanged() ){
 			_mapRenderer.setMap(_mapMgr.getCurrentTiledMap());
 			_player.sendMessage(Component.MESSAGE.INIT_START_POSITION, _json.toJson(_mapMgr.getPlayerStartUnitScaled()));
-
-			//TODO Juien ici camera
 
 			_camera.position.set(_mapMgr.getPlayerStartUnitScaled().x, _mapMgr.getPlayerStartUnitScaled().y , 0f);
 			_camera.update();
@@ -310,5 +311,13 @@ public class MainGameScreen extends GameScreen {
 		Gdx.app.debug(TAG, "WorldRenderer: virtual: (" + VIEWPORT.virtualWidth + "," + VIEWPORT.virtualHeight + ")" );
 		Gdx.app.debug(TAG, "WorldRenderer: viewport: (" + VIEWPORT.viewportWidth + "," + VIEWPORT.viewportHeight + ")" );
 		Gdx.app.debug(TAG, "WorldRenderer: physical: (" + VIEWPORT.physicalWidth + "," + VIEWPORT.physicalHeight + ")" );
+	}
+	
+	public BewareOfTheTruthDAO get_bewareOfTruthDao() {
+		return _bewareOfTruthDao;
+	}
+
+	public void set_bewareOfTruthDao(BewareOfTheTruthDAO _bewareOfTruthDao) {
+		this._bewareOfTruthDao = _bewareOfTruthDao;
 	}
 }

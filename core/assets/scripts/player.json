@@ -176,6 +176,58 @@ animationConfig: [
 				y: 3
 			}
 		]
-	}	
+	}
+	{
+	    frameDuration: 0.1
+		animationType: ROLL_LEFT
+		texturePaths: [
+			sprites/characters/heros/gauche_roulade.png
+		]
+		gridPoints: [
+			{
+				x: 0
+				y: 0
+			}
+			
+			{
+				x: 0
+				y: 1
+			}
+			{
+			    x: 0
+				y: 2
+			}
+			{
+			    x: 0
+				y: 3
+			}
+		]
+	}
+		{
+	    frameDuration: 0.1
+		animationType: ROLL_RIGHT
+		texturePaths: [
+			sprites/characters/heros/droite_roulade.png
+		]
+		gridPoints: [
+			{
+				x: 0
+				y: 0
+			}
+			
+			{
+				x: 0
+				y: 1
+			}
+			{
+			    x: 0
+				y: 2
+			}
+			{
+			    x: 0
+				y: 3
+			}
+		]
+	}				
 ]
 }	

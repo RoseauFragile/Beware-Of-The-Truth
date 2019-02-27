@@ -13,6 +13,7 @@ import bewareofthetruth.entity.components.Component;
 import bewareofthetruth.entity.components.ComponentObserver;
 import bewareofthetruth.profile.ProfileManager;
 import bewareofthetruth.profile.ProfileObserver;
+import bewareofthetruth.screens.MainGameScreen;
 
 
 public class MapManager implements ProfileObserver {
@@ -21,71 +22,60 @@ public class MapManager implements ProfileObserver {
 	private Camera _camera;
 	private boolean _mapChanged = false;
 	private Map _currentMap;
-	private WorldContactListener worldContactListener;
 	private Entity _player;
 	private Entity _currentSelectedEntity = null;
 	private MapLayer _currentLightMap = null;
 	private MapLayer _previousLightMap = null;
+	private MapFactory _mapFactory;
+	private MainGameScreen _mainGameScreen;
 	// private ClockActor.TimeOfDay _timeOfDay = null;
 
-	public MapManager(){
+	public MapManager(MainGameScreen _mainGameScreen){
+		this.set_mainGameScreen(_mainGameScreen);
+		this.set_mapFactory(new MapFactory());
+		this.get_mapFactory().setMapSql(this.get_mainGameScreen().get_bewareOfTruthDao());
 	}
 
 	@Override
 	public void onNotify(ProfileManager profileManager, ProfileEvent event) {
 		switch(event){
 		case PROFILE_LOADED:
-			final String currentMap = profileManager.getProperty("currentMapType", String.class);
-			MapFactory.MapType mapType;
-			if( currentMap == null || currentMap.isEmpty() ){
-				mapType = MapFactory.MapType.ZONE_1_1;
+			final int currentMap = profileManager.getProperty("currentMapId", int.class);
+			int mapId;
+			if( profileManager.getProperty("currentMapId", int.class) == null  ){
+				mapId = 1;
 			}else{
-				mapType = MapFactory.MapType.valueOf(currentMap);
+				mapId = profileManager.getProperty("currentMapId", int.class);
 			}
-			loadMap(mapType);
+			loadMap(mapId);
+			for (int i = 0; i< this.get_mapFactory().getMapSql().size;i++) {
 
-			final Vector2 topWorldMapStartPosition = profileManager.getProperty("topWorldMapStartPosition", Vector2.class);
-			if( topWorldMapStartPosition != null ){
-				MapFactory.getMap(MapFactory.MapType.ZONE_1_2).setPlayerStart(topWorldMapStartPosition);
-			}
-
-			final Vector2 castleOfDoomMapStartPosition = profileManager.getProperty("castleOfDoomMapStartPosition", Vector2.class);
-			if( castleOfDoomMapStartPosition != null ){
-				MapFactory.getMap(MapFactory.MapType.ZONE_1_3).setPlayerStart(castleOfDoomMapStartPosition);
-			}
-
-			final Vector2 townMapStartPosition = profileManager.getProperty("townMapStartPosition", Vector2.class);
-			if( townMapStartPosition != null ){
-				MapFactory.getMap(MapFactory.MapType.ZONE_1_1).setPlayerStart(townMapStartPosition);
-			}
-
-			final Vector2 testMapStartPosition = profileManager.getProperty("testMapStartPosition", Vector2.class);
-			if( testMapStartPosition != null ){
-				MapFactory.getMap(MapFactory.MapType.ZONE_TEST).setPlayerStart(testMapStartPosition);
+				final String nameOfMapLoop = this.get_mapFactory().getMapSql().get(i).get_mapName()+"Position";
+				final Vector2 position = profileManager.getProperty(nameOfMapLoop, Vector2.class);
+				if( position != null ){
+					MapFactory.getMapById(this.get_mapFactory().getMapSql().get(i).get_id(),this.get_mainGameScreen().get_bewareOfTruthDao()).setPlayerStart(position);
+				}
 			}
 
 			break;
 		case SAVING_PROFILE:
 			if( _currentMap != null ){
-				profileManager.setProperty("currentMapType", _currentMap._currentMapType.toString());
+				profileManager.setProperty("currentMapId", _currentMap._currentMapId);
 			}
-
-			profileManager.setProperty("topWorldMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_2).getPlayerStart() );
-			profileManager.setProperty("castleOfDoomMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_3).getPlayerStart() );
-			profileManager.setProperty("townMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_1).getPlayerStart() );
-			profileManager.setProperty("testMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_TEST).getPlayerStart() );
+			for (int i = 0; i< this.get_mapFactory().getMapSql().size;i++) {
+				final String propertyString = this.get_mapFactory().getMapSql().get(i).get_mapName()+"Position";
+				profileManager.setProperty(propertyString, MapFactory.getMapById(this.get_mapFactory().getMapSql().get(i).get_id(),this.get_mainGameScreen().get_bewareOfTruthDao()).getPlayerStart() );
+			}
 
 			break;
 		case CLEAR_CURRENT_PROFILE:
 			_currentMap = null;
-			profileManager.setProperty("currentMapType", MapFactory.MapType.ZONE_1_1.toString());
-
+			profileManager.setProperty("currentMapType", 1);
 			MapFactory.clearCache();
-
-			profileManager.setProperty("topWorldMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_1).getPlayerStart() );
-			profileManager.setProperty("castleOfDoomMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_3).getPlayerStart() );
-			profileManager.setProperty("townMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_1_1).getPlayerStart() );
-			profileManager.setProperty("testMapStartPosition", MapFactory.getMap(MapFactory.MapType.ZONE_TEST).getPlayerStart() );
+			for (int i = 0; i< this.get_mapFactory().getMapSql().size;i++) {
+				final String propertyString = this.get_mapFactory().getMapSql().get(i).get_mapName()+"Position";
+				profileManager.setProperty(propertyString, MapFactory.getMapById(this.get_mapFactory().getMapSql().get(i).get_id(),this.get_mainGameScreen().get_bewareOfTruthDao()).getPlayerStart() );
+			}
 
 			break;
 		default:
@@ -93,11 +83,11 @@ public class MapManager implements ProfileObserver {
 		}
 	}
 
-	public void loadMap(MapFactory.MapType mapType){
-		final Map map = MapFactory.getMap(mapType);
+	public void loadMap(int id){
+		final Map map = MapFactory.getMapById(id,this.get_mainGameScreen().get_bewareOfTruthDao());
 
 		if( map == null ){
-			Gdx.app.debug(TAG, "Map does not exist!  :" + mapType);
+			Gdx.app.debug(TAG, "Map does not exist! with ID :" + id);
 			return;
 		}
 
@@ -181,8 +171,8 @@ public class MapManager implements ProfileObserver {
 		return _currentMap.getEnemySpawnLayer();
 	}
 
-	public MapFactory.MapType getCurrentMapType(){
-		return _currentMap.getCurrentMapType();
+	public int getCurrentMapId(){
+		return _currentMap.getCurrentMapId();
 	}
 
 	public Vector2 getPlayerStartUnitScaled() {
@@ -191,7 +181,7 @@ public class MapManager implements ProfileObserver {
 
 	public TiledMap getCurrentTiledMap(){
 		if( _currentMap == null ) {
-			loadMap(MapFactory.MapType.ZONE_1_1);
+			loadMap(1);
 		}
 		return _currentMap.getCurrentTiledMap();
 	}
@@ -203,53 +193,6 @@ public class MapManager implements ProfileObserver {
 	public MapLayer getCurrentLightMapLayer(){
 		return _currentLightMap;
 	}
-
-	/* public void updateLightMaps(ClockActor.TimeOfDay timeOfDay){
-        if( _timeOfDay != timeOfDay ){
-            _currentLightMapOpacity = 0;
-            _previousLightMapOpacity = 1;
-            _timeOfDay = timeOfDay;
-            _timeOfDayChanged = true;
-            _previousLightMap = _currentLightMap;
-
-            Gdx.app.debug(TAG, "Time of Day CHANGED");
-        }
-        switch(timeOfDay){
-            case DAWN:
-                _currentLightMap = _currentMap.getLightMapDawnLayer();
-                break;
-            case AFTERNOON:
-                _currentLightMap = _currentMap.getLightMapAfternoonLayer();
-                break;
-            case DUSK:
-                _currentLightMap = _currentMap.getLightMapDuskLayer();
-                break;
-            case NIGHT:
-                _currentLightMap = _currentMap.getLightMapNightLayer();
-                break;
-            default:
-                _currentLightMap = _currentMap.getLightMapAfternoonLayer();
-                break;
-        }
-
-            if( _timeOfDayChanged ){
-                if( _previousLightMap != null && _previousLightMapOpacity != 0 ){
-                    _previousLightMap.setOpacity(_previousLightMapOpacity);
-                    _previousLightMapOpacity = MathUtils.clamp(_previousLightMapOpacity -= .05, 0, 1);
-
-                    if( _previousLightMapOpacity == 0 ){
-                        _previousLightMap = null;
-                    }
-                }
-
-                if( _currentLightMap != null && _currentLightMapOpacity != 1 ) {
-                    _currentLightMap.setOpacity(_currentLightMapOpacity);
-                    _currentLightMapOpacity = MathUtils.clamp(_currentLightMapOpacity += .01, 0, 1);
-                }
-            }else{
-                _timeOfDayChanged = false;
-            }
-    }*/
 
 	public void updateCurrentMapEntities(MapManager mapMgr, Batch batch, float delta){
 		_currentMap.updateMapEntities(mapMgr, batch, delta);
@@ -319,8 +262,6 @@ public class MapManager implements ProfileObserver {
 		return _player;
 	}
 
-	//TODO Juien ici camera
-
 	public void setCamera(Camera camera){
 		_camera = camera;
 	}
@@ -335,5 +276,26 @@ public class MapManager implements ProfileObserver {
 
 	public void setMapChanged(boolean hasMapChanged){
 		_mapChanged = hasMapChanged;
+	}
+
+	public MapFactory get_mapFactory() {
+		return _mapFactory;
+	}
+
+	public void set_mapFactory(MapFactory _mapFactory) {
+		this._mapFactory = _mapFactory;
+	}
+
+	public MainGameScreen get_mainGameScreen() {
+		return _mainGameScreen;
+	}
+
+	public void set_mainGameScreen(MainGameScreen _mainGameScreen) {
+		this._mainGameScreen = _mainGameScreen;
+	}
+
+	public int getMapIdByName(String mapName) {
+		final int nextMap = this.get_mapFactory().getMapIdByName(mapName);
+		return nextMap;
 	}
 }
