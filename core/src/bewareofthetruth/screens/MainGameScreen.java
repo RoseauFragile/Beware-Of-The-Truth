@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMapImageLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -59,6 +60,8 @@ public class MainGameScreen extends GameScreen {
 	private BewareOfTheTruthDAO _bewareOfTruthDao;
 	private final Box2DDebugRenderer debugRenderer;
 	private final Matrix4 debugMatrix;
+	SpriteBatch spritebatch;
+
 
 
 	@SuppressWarnings("static-access")
@@ -92,8 +95,9 @@ public class MainGameScreen extends GameScreen {
 		_multiplexer.addProcessor(_playerHUD.getStage());
 		_multiplexer.addProcessor(_player.getInputProcessor());
 		Gdx.input.setInputProcessor(_multiplexer);
-
-		debugMatrix= new Matrix4(_camera.combined);
+		spritebatch=new SpriteBatch();
+		spritebatch.setProjectionMatrix(_camera.combined);
+		debugMatrix=new Matrix4(_camera.combined);
 		debugRenderer = new Box2DDebugRenderer();
 
 		//Gdx.app.debug(TAG, "UnitScale value is: " + _mapRenderer.getUnitScale());
@@ -124,7 +128,13 @@ public class MainGameScreen extends GameScreen {
 
 	@Override
 	public void render(float delta) {
-		_mapMgr.get_currentMap().get_world().step(1 / 60f, 6, 2);
+		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		_mapMgr.get_currentMap().get_world().step(1 / 60f, 0, 2);
+		spritebatch.begin();
+		debugRenderer.render(_mapMgr.get_currentMap().get_world(), debugMatrix);
+		spritebatch.end();
 
 		if( _gameState == GameState.GAME_OVER ){
 			_game.setScreen(_game.getScreenType(Main.ScreenType.GameOver));
@@ -148,8 +158,6 @@ public class MainGameScreen extends GameScreen {
 			_gameState = GameState.RUNNING;
 		}
 
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		_mapRenderer.setView(_camera);
 
 		_mapRenderer.getBatch().enableBlending();
@@ -190,7 +198,6 @@ public class MainGameScreen extends GameScreen {
 			if( decorationMapLayer != null ){
 				_mapRenderer.renderTileLayer(decorationMapLayer);
 			}
-			debugRenderer.render(_mapMgr.get_currentMap().get_world(), debugMatrix);
 
 			_mapRenderer.getBatch().end();
 

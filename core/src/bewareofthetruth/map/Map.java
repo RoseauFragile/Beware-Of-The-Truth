@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
@@ -184,14 +183,8 @@ public class Map implements AudioSubject{
 		this.addObserver(AudioManager.getInstance());
 
 		//World
-		final MapProperties prop = _currentMap.getProperties();
-		final int mapWidth = prop.get("width", Integer.class);
-		final int mapHeight = prop.get("height", Integer.class);
-		final int tilePixelWidth = prop.get("tilewidth", Integer.class);
-		final int tilePixelHeight = prop.get("tileheight", Integer.class);
 
-		_world = new World(new Vector2(mapWidth * tilePixelWidth, mapHeight * tilePixelHeight), true);
-		System.out.println("World width" + mapWidth * tilePixelWidth);
+		_world = new World(new Vector2(0, 0), true);
 
 		//guard entities
 		for( final Vector2 position: _npcStartPositions){
