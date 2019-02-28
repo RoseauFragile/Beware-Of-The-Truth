@@ -104,7 +104,7 @@ public class MapManager implements ProfileObserver {
 		}
 
 		map.loadMusic();
-
+		_player.get_physicsComponent().setBody(map.get_world(), _player.getCurrentPosition(), (short) 2, (short) 2, (short) 2);
 		_currentMap = map;
 		_mapChanged = true;
 		clearCurrentSelectedMapEntity();

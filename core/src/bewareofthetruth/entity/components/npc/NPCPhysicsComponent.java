@@ -17,7 +17,7 @@ public class NPCPhysicsComponent extends PhysicsComponent {
 
 	public NPCPhysicsComponent(){
 		_boundingBoxLocation = BoundingBoxLocation.CENTER;
-		initBoundingBox(0.4f, 0.15f);
+		//initBoundingBox(0.4f, 0.15f);
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class NPCPhysicsComponent extends PhysicsComponent {
 
 	@Override
 	public void update(Entity entity, MapManager mapMgr, float delta) {
-		updateBoundingBoxPosition(_nextEntityPosition);
+		//updateBoundingBoxPosition(_nextEntityPosition);
 
 		if( isEntityFarFromPlayer(mapMgr) ){
 			entity.sendMessage(MESSAGE.ENTITY_DESELECTED);
@@ -59,11 +59,11 @@ public class NPCPhysicsComponent extends PhysicsComponent {
 		}
 
 		if (_state == Entity.State.WALKING){
-			setNextPositionToCurrent(entity);
+			//setNextPositionToCurrent(entity);
 		} else {
-			updateBoundingBoxPosition(_currentEntityPosition);
+			//updateBoundingBoxPosition(_currentEntityPosition);
 		}
-		calculateNextPosition(delta);
+		//calculateNextPosition(delta);
 	}
 
 	private boolean isEntityFarFromPlayer(MapManager mapMgr){

@@ -51,6 +51,7 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
 		//body =;
 		//TODO Réussir à récupérer le x et y de départ et le world
 		//TODO Ajouter dans le JSON le nombre de byte correspondant à la catégorie de l'entité pour les collisions + LARGEUR et HAUTEUR
+		//TODO Lier la position du body à la vrai position
 
 		//---------WITH RECTANGLE-------------
 		_boundingBox = new Rectangle();

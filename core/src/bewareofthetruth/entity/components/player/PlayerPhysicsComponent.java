@@ -91,6 +91,8 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
 		}else{
 			updateBoundingBoxPosition(_currentEntityPosition);
 		}
+		System.out.println("Position : " + _currentEntityPosition.toString());
+		System.out.println("BodyPosition : " + getBody().getPosition().toString());
 
 		calculateNextPosition(delta);
 	}

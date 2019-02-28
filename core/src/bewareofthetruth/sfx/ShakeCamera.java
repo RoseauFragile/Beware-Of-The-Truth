@@ -10,16 +10,16 @@ public class ShakeCamera {
 	private float _origShakeRadius = 30.0f;
 	private float _shakeRadius;
 	private float _randomAngle;
-	private Vector2 _offset;
-	private Vector2 _currentPosition;
-	private Vector2 _origPosition;
+	private final Vector2 _offset;
+	private final Vector2 _currentPosition;
+	private final Vector2 _origPosition;
 
 	public ShakeCamera(float x, float y, float shakeRadius) {
-		this._origPosition = new Vector2(x, y);
-		this._shakeRadius = shakeRadius;
-		this._origShakeRadius = shakeRadius;
-		this._offset = new Vector2();
-		this._currentPosition = new Vector2();
+		_origPosition = new Vector2(x, y);
+		_shakeRadius = shakeRadius;
+		_origShakeRadius = shakeRadius;
+		_offset = new Vector2();
+		_currentPosition = new Vector2();
 		reset();
 	}
 
@@ -39,8 +39,8 @@ public class ShakeCamera {
 	}
 
 	private void computeCameraOffset() {
-		float sine = MathUtils.sinDeg(_randomAngle);
-		float cosine = MathUtils.cosDeg(_randomAngle);
+		final float sine = MathUtils.sinDeg(_randomAngle);
+		final float cosine = MathUtils.cosDeg(_randomAngle);
 		_offset.x = cosine * _shakeRadius;
 		_offset.y = sine * _shakeRadius;
 	}

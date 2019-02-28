@@ -57,9 +57,9 @@ public class BodyBuilder {
 		final FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;
 		fixtureDef.density = 1.0f;
-		/*fixtureDef.filter.categoryBits = cBits; // Is a
-		fixtureDef.filter.maskBits = mBits; // Collides with
-		fixtureDef.filter.groupIndex = gIndex;*/
+		fixtureDef.filter.categoryBits = 2; // Is a
+		fixtureDef.filter.maskBits = 2; // Collides with
+		fixtureDef.filter.groupIndex = 4;
 
 		return world.createBody(bodyDef).createFixture(fixtureDef).getBody();
 	}

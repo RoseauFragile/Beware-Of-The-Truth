@@ -42,6 +42,8 @@ public abstract class GraphicsComponent extends ComponentSubject implements Comp
 	protected void updateAnimations(float delta){
 		_frameTime = (_frameTime + delta)%5; //Want to avoid overflow
 		//Look into the appropriate variable when changing position
+		//TODO Lier l'image au box2d body
+
 		switch (_currentDirection) {
 		case DOWN:
 			if (_currentState == Entity.State.WALKING) {
