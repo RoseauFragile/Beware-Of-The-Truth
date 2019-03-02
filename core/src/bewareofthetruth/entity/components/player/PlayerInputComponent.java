@@ -3,6 +3,7 @@ package bewareofthetruth.entity.components.player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector3;
+
 import bewareofthetruth.entity.Entity;
 import bewareofthetruth.entity.components.InputComponent;
 import bewareofthetruth.screens.MainGameScreen;
@@ -13,18 +14,20 @@ public class PlayerInputComponent extends InputComponent {
 
 	@SuppressWarnings("unused")
 	private final static String TAG = PlayerInputComponent.class.getSimpleName();
-	private Vector3 _lastMouseCoordinates;
+	private final Vector3 _lastMouseCoordinates;
 
 
 	public PlayerInputComponent(){
-		this._lastMouseCoordinates = new Vector3();
+		_lastMouseCoordinates = new Vector3();
 	}
 
 	@Override
 	public void receiveMessage(String message) {
-		String[] string = message.split(MESSAGE_TOKEN);
+		final String[] string = message.split(MESSAGE_TOKEN);
 
-		if( string.length == 0 ) return;
+		if( string.length == 0 ) {
+			return;
+		}
 
 		//Specifically for messages with 1 object payload
 		if( string.length == 2 ) {
@@ -44,7 +47,7 @@ public class PlayerInputComponent extends InputComponent {
 
 		//Keyboard input
 		if(keys.get(Keys.PAUSE)) {
-			
+
 			MainGameScreen.setGameState(MainGameScreen.GameState.PAUSED);
 			pauseReleased();
 		}else if(keys.get(Keys.SPACE)  && keys.get(Keys.LEFT)) {
@@ -138,6 +141,7 @@ public class PlayerInputComponent extends InputComponent {
 	public boolean keyUp(int keycode) {
 		if( keycode == Input.Keys.LEFT || keycode == Input.Keys.A){
 			this.leftReleased();
+			System.out.println("released");
 		}
 		if( keycode == Input.Keys.RIGHT || keycode == Input.Keys.D){
 			this.rightReleased();
@@ -156,7 +160,7 @@ public class PlayerInputComponent extends InputComponent {
 		}
 		if( keycode == Input.Keys.P ){
 			this.pauseReleased();
-		}		
+		}
 		if( keycode == Input.Keys.ESCAPE ){
 			this.escapeReleased();
 		}
@@ -211,31 +215,31 @@ public class PlayerInputComponent extends InputComponent {
 	public boolean scrolled(int amount) {
 		return false;
 	}
-	
+
 	//Key presses
 	public void leftPressed(){
 		keys.put(Keys.LEFT, true);
 	}
-	
+
 	public void rightPressed(){
 		keys.put(Keys.RIGHT, true);
 	}
-	
+
 	public void upPressed(){
 		keys.put(Keys.UP, true);
 	}
-	
+
 	public void spacePressed(){
 		keys.put(Keys.SPACE, true);
 	}
-	
+
 	public void downPressed(){
 		keys.put(Keys.DOWN, true);
 	}
 	public void quitPressed(){
 		keys.put(Keys.QUIT, true);
 	}
-	
+
 	public void escapePressed(){
 		keys.put(Keys.ESC, true);
 	}
@@ -243,55 +247,55 @@ public class PlayerInputComponent extends InputComponent {
 	public void pausePressed() {
 		keys.put(Keys.PAUSE, true);
 	}
-	
+
 	public void setClickedMouseCoordinates(int x,int y){
 		_lastMouseCoordinates.set(x, y, 0);
 	}
-	
+
 	public void selectMouseButtonPressed(int x, int y){
 		mouseButtons.put(Mouse.SELECT, true);
 	}
-	
+
 	public void doActionMouseButtonPressed(int x, int y){
 		mouseButtons.put(Mouse.DOACTION, true);
 	}
-	
+
 	//Releases
-	
+
 	public void leftReleased(){
 		keys.put(Keys.LEFT, false);
 	}
-	
+
 	public void rightReleased(){
 		keys.put(Keys.RIGHT, false);
 	}
-	
+
 	public void upReleased(){
 		keys.put(Keys.UP, false);
 	}
-	
+
 	public void spaceReleased(){
 		keys.put(Keys.SPACE, false);
 	}
-	
+
 	public void downReleased(){
 		keys.put(Keys.DOWN, false);
 	}
-	
+
 	public void quitReleased(){
 		keys.put(Keys.QUIT, false);
 	}
-	
+
 	public void escapeReleased(){
 		keys.put(Keys.ESC, false);
 	}
 
 	public void pauseReleased() { keys.put(Keys.PAUSE, false);}
-	
+
 	public void selectMouseButtonReleased(int x, int y){
 		mouseButtons.put(Mouse.SELECT, false);
 	}
-	
+
 	public void doActionMouseButtonReleased(int x, int y){
 		mouseButtons.put(Mouse.DOACTION, false);
 	}

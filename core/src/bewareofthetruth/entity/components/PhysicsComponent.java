@@ -28,6 +28,8 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
 	protected Vector2 _velocity;
 
 	protected Body body;
+	Vector2 vel;
+
 
 
 	private Entity _entity;
@@ -69,8 +71,6 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
 
 	public void setBody(final World world, Vector2 position, short cBits, short mBits, short gIndex) {
 		body = BodyBuilder.createBox(world, position, Entity.FRAME_WIDTH * Map.UNIT_SCALE, Entity.FRAME_WIDTH * Map.UNIT_SCALE, false, false, cBits, mBits, gIndex);
-		System.out.println("Position " + body.getPosition().toString());
-		System.out.println("World " + body.getWorld().getBodyCount());
 
 	}
 
@@ -148,6 +148,9 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
 	}
 
 	protected void calculateNextPosition(float deltaTime) {
+		float desiredVelX = 0;
+		float desiredVelY = 0;
+		vel = body.getLinearVelocity();
 		if(this.get_entity() != null && this.get_entity().get_graphicsComponent()._currentState == Entity.State.ROLL) {
 			if (_currentDirection == null) {
 				return;
@@ -220,42 +223,59 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
 
 
 			_velocity.scl(deltaTime);
-
+			System.out.println(_currentDirection);
 			switch (_currentDirection) {
 			case LEFT:
+				desiredVelX = -2;
 				testX -= _velocity.x;
 				break;
 			case RIGHT:
+				desiredVelX = 2;
 				testX += _velocity.x;
 				break;
 			case UP:
+				desiredVelY = 2;
 				testY += _velocity.y;
 				break;
 			case DOWN:
+				desiredVelY = -2;
 				testY -= _velocity.y;
 				break;
 			case UP_RIGHT:
+				desiredVelX = 2;
+				desiredVelY = 2;
 				testX += _velocity.x;
 				testY += _velocity.y;
 				break;
 			case UP_LEFT:
+				desiredVelX = -2;
+				desiredVelY = 2;
 				testX -= _velocity.x;
 				testY += _velocity.y;
 				break;
 			case DOWN_RIGHT :
+				desiredVelX = 2;
+				desiredVelY = -2;
 				testX += _velocity.x;
 				testY -= _velocity.y;
 				break;
 			case DOWN_LEFT :
+				desiredVelX = -2;
+				desiredVelY = -2;
 				testX -= _velocity.x;
 				testY -= _velocity.y;
 				break;
 			default:
 				break;
 			}
-
+			final float velChangeX = desiredVelX - vel.x;
+			final float forceX = this.getBody().getMass() * velChangeX / (1/60.0f); //f = mv/t
+			final float velChangeY = desiredVelY - vel.y;
+			final float forceY = this.getBody().getMass() * velChangeY / (1/60.0f); //f = mv/t
+			this.getBody().applyForce( new Vector2(forceX, forceY), body.getWorldCenter(), true);
 			_nextEntityPosition.x = testX;
 			_nextEntityPosition.y = testY;
+			this.getBody().applyForce( new Vector2(0, 0), body.getWorldCenter(), true);
 
 			// velocity
 			_velocity.scl(1 / deltaTime);
@@ -271,7 +291,7 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
 		final float origHeight = Entity.FRAME_HEIGHT;
 
 		final float widthReductionAmount = 1.0f - percentageWidthReduced; // .8f for 20% (1 - .20)
-		final float heightReductionAmount = 1.0f - percentageHeightReduced; // .8f for 20% (1 - .20)
+		final float heightReductionAmount = 1.0f - percentageHeightReduced; // .8f for 20% 1 - .20)
 
 		if (widthReductionAmount > 0 && widthReductionAmount < 1) {
 			width = Entity.FRAME_WIDTH * widthReductionAmount;

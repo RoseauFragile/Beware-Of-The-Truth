@@ -200,6 +200,8 @@ public class Map implements AudioSubject{
 			initSpecialEntityPosition(entity);
 			_mapEntities.add(entity);
 		}
+
+
 	}
 
 	public MapLayer getLightMapDawnLayer(){

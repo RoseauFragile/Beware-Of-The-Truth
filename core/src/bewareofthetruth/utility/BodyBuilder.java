@@ -50,7 +50,7 @@ public class BodyBuilder {
 		} else {
 			bodyDef.type = BodyDef.BodyType.DynamicBody;
 		}*/
-		bodyDef.type = BodyDef.BodyType.DynamicBody;
+		bodyDef.type = BodyDef.BodyType.KinematicBody;
 
 		final PolygonShape shape = new PolygonShape();
 		shape.setAsBox(w / 2, h / 2);

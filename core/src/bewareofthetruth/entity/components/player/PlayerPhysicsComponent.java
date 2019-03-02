@@ -76,7 +76,6 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
 		updatePortalLayerActivation(mapMgr);
 		updateDiscoverLayerActivation(mapMgr);
 		updateEnemySpawnLayerActivation(mapMgr);
-		this.getBody().getPosition().set(_currentEntityPosition.x * Map.UNIT_SCALE, _currentEntityPosition.y * Map.UNIT_SCALE);
 		if( _isMouseSelectEnabled ){
 			selectMapEntityCandidate(mapMgr);
 			_isMouseSelectEnabled = false;
