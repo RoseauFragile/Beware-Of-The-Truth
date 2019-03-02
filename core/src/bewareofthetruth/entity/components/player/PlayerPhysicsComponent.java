@@ -83,7 +83,6 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
 
 		if (_state == Entity.State.WALKING || _state == Entity.State.ROLL){
 			setNextPositionToCurrent(entity);
-
 			final Camera camera = mapMgr.getCamera();
 			camera.position.set(_currentEntityPosition.x, _currentEntityPosition.y, 0f);
 			camera.update();
@@ -91,6 +90,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
 			updateBoundingBoxPosition(_currentEntityPosition);
 		}
 		calculateNextPosition(delta);
+		
 	}
 
 	private void selectMapEntityCandidate(MapManager mapMgr){
