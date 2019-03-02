@@ -46,10 +46,12 @@ public class PlayerInputComponent extends InputComponent {
 	public void update(Entity entity, float delta){
 
 		//Keyboard input
-		if(keys.get(Keys.PAUSE)) {
 
+		if(keys.get(Keys.PAUSE)) {
 			MainGameScreen.setGameState(MainGameScreen.GameState.PAUSED);
 			pauseReleased();
+			/*}else if(keys.get(Keys.SPACE)) {
+			entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.IMMOBILE));*/
 		}else if(keys.get(Keys.SPACE)  && keys.get(Keys.LEFT)) {
 			entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.ROLL));
 			entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.LEFT));
@@ -164,6 +166,7 @@ public class PlayerInputComponent extends InputComponent {
 		if( keycode == Input.Keys.ESCAPE ){
 			this.escapeReleased();
 		}
+
 		return true;
 	}
 
@@ -227,6 +230,10 @@ public class PlayerInputComponent extends InputComponent {
 
 	public void upPressed(){
 		keys.put(Keys.UP, true);
+	}
+
+	public void stopReleased(){
+		keys.put(Keys.STOP, true);
 	}
 
 	public void spacePressed(){

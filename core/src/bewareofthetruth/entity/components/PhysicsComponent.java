@@ -151,6 +151,14 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
 		float desiredVelX = 0;
 		float desiredVelY = 0;
 		vel = body.getLinearVelocity();
+		if(this.get_entity().get_graphicsComponent()._currentState == Entity.State.IDLE){
+			final float velChangeX = desiredVelX - vel.x;
+			final float forceX = this.getBody().getMass() * velChangeX / (1/60.0f); //f = mv/t
+			final float velChangeY = desiredVelY - vel.y;
+			final float forceY = this.getBody().getMass() * velChangeY / (1/60.0f); //f = mv/t
+			this.getBody().applyForce( new Vector2(forceX, forceY), body.getWorldCenter(), true);
+			return;
+		}
 		if(this.get_entity() != null && this.get_entity().get_graphicsComponent()._currentState == Entity.State.ROLL) {
 			if (_currentDirection == null) {
 				return;
@@ -207,6 +215,7 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
 			// velocity
 			_velocity.scl(1 / deltaTime);
 		}else {
+
 			if (_currentDirection == null) {
 				return;
 			}
@@ -275,7 +284,6 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
 			this.getBody().applyForce( new Vector2(forceX, forceY), body.getWorldCenter(), true);
 			_nextEntityPosition.x = testX;
 			_nextEntityPosition.y = testY;
-			this.getBody().applyForce( new Vector2(0, 0), body.getWorldCenter(), true);
 
 			// velocity
 			_velocity.scl(1 / deltaTime);
