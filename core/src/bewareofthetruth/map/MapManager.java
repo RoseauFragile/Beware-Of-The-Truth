@@ -92,6 +92,7 @@ public class MapManager implements ProfileObserver {
 		}
 
 		if( _currentMap != null ){
+			_currentMap.get_world().destroyBody(_player.get_physicsComponent().getBody());
 			_currentMap.unloadMusic();
 			if( _previousLightMap != null ){
 				_previousLightMap.setOpacity(0);
