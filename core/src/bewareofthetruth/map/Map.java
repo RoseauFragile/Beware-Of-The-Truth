@@ -23,6 +23,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -579,8 +580,15 @@ public class Map implements AudioSubject{
 
             BodyDef bd = new BodyDef();
             bd.type = BodyType.StaticBody;
+            
             Body body = this.get_world().createBody(bd);
-            body.createFixture(shape, 1);
+    		 FixtureDef fixtureDef = new FixtureDef();
+    		fixtureDef.shape = shape;
+    		fixtureDef.density = 1.0f;
+    		fixtureDef.filter.categoryBits = 2; // Is a
+    		fixtureDef.filter.maskBits = 2; // Collides with
+    		fixtureDef.filter.groupIndex = 4;
+    		body.createFixture(fixtureDef);
             shape.dispose();
         }
  
@@ -633,6 +641,7 @@ public class Map implements AudioSubject{
 
         ChainShape chain = new ChainShape(); 
         chain.createChain(worldVertices);
+        
         return chain;
     }
 
