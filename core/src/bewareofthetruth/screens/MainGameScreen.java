@@ -132,9 +132,6 @@ public class MainGameScreen extends GameScreen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		_mapMgr.get_currentMap().get_world().step(1 / 60f, 0, 2);
-		spritebatch.begin();
-		debugRenderer.render(_mapMgr.get_currentMap().get_world(), debugMatrix);
-		spritebatch.end();
 
 		if( _gameState == GameState.GAME_OVER ){
 			_game.setScreen(_game.getScreenType(Main.ScreenType.GameOver));
@@ -226,6 +223,7 @@ public class MainGameScreen extends GameScreen {
 			_mapMgr.updateCurrentMapEffects(_mapMgr, _mapRenderer.getBatch(), delta);
 		}
 		_playerHUD.render(delta);
+		debugRenderer.render(_mapMgr.get_currentMap().get_world(), _camera.combined);
 
 	}
 

@@ -38,18 +38,19 @@ public class BodyBuilder {
 		return pBody;
 	}*/
 
-	public static Body createBox(final World world, Vector2 position, int w, int h,
+	public static Body createBox(final World world, Vector2 position, float w, float h,
 			boolean isStatic, boolean canRotate, short cBits, short mBits, short gIndex) {
 
 		final BodyDef bodyDef = new BodyDef();
 		bodyDef.fixedRotation = canRotate;
-		bodyDef.position.set(position);
+		bodyDef.position.set(position.x + w / 2, position.y + h / 2);
 
-		if(isStatic) {
-			bodyDef.type = BodyDef.BodyType.StaticBody;
+
+		/*if(isStatic) {
 		} else {
 			bodyDef.type = BodyDef.BodyType.DynamicBody;
-		}
+		}*/
+		bodyDef.type = BodyDef.BodyType.DynamicBody;
 
 		final PolygonShape shape = new PolygonShape();
 		shape.setAsBox(w / 2, h / 2);

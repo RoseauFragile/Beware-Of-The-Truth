@@ -68,7 +68,7 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
 	}
 
 	public void setBody(final World world, Vector2 position, short cBits, short mBits, short gIndex) {
-		body = BodyBuilder.createBox(world, position, Entity.FRAME_WIDTH, Entity.FRAME_WIDTH, false, false, cBits, mBits, gIndex);
+		body = BodyBuilder.createBox(world, position, Entity.FRAME_WIDTH * Map.UNIT_SCALE, Entity.FRAME_WIDTH * Map.UNIT_SCALE, false, false, cBits, mBits, gIndex);
 		System.out.println("Position " + body.getPosition().toString());
 		System.out.println("World " + body.getWorld().getBodyCount());
 
@@ -341,7 +341,7 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
 			_boundingBox.set(minX, minY, _boundingBox.getWidth(), _boundingBox.getHeight());
 			break;
 		case BOTTOM_CENTER:
-			_boundingBox.setCenter(minX + Entity.FRAME_WIDTH / 2, minY + Entity.FRAME_HEIGHT / 4);
+			_boundingBox.setCenter(minX + Entity.FRAME_WIDTH / 42, minY + Entity.FRAME_HEIGHT / 4);
 			break;
 		case CENTER:
 			_boundingBox.setCenter(minX + Entity.FRAME_WIDTH / 2, minY + Entity.FRAME_HEIGHT / 2);
