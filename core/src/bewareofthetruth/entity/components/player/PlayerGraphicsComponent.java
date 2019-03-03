@@ -16,6 +16,7 @@ import bewareofthetruth.entity.EntityConfig;
 import bewareofthetruth.entity.EntityConfig.AnimationConfig;
 import bewareofthetruth.entity.components.ComponentObserver;
 import bewareofthetruth.entity.components.GraphicsComponent;
+import bewareofthetruth.map.Map;
 import bewareofthetruth.map.MapManager;
 import bewareofthetruth.sfx.ShakeCamera;
 
@@ -120,7 +121,7 @@ public class PlayerGraphicsComponent extends GraphicsComponent {
 
 
 		batch.begin();
-		batch.draw(_currentFrame, _currentPosition.x, _currentPosition.y, 1, 1);
+		batch.draw(_currentFrame, getEntity().get_physicsComponent().getBody().getPosition().x - Entity.FRAME_WIDTH * Map.UNIT_SCALE / 2, getEntity().get_physicsComponent().getBody().getPosition().y - Entity.FRAME_WIDTH * Map.UNIT_SCALE / 2, 1, 1);
 		batch.end();
 
 		//Used to graphically debug boundingboxes
