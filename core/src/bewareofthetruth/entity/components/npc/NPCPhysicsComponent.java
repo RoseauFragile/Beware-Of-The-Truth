@@ -49,21 +49,20 @@ public class NPCPhysicsComponent extends PhysicsComponent {
 	@Override
 	public void update(Entity entity, MapManager mapMgr, float delta) {
 		//updateBoundingBoxPosition(_nextEntityPosition);
-
+		System.out.println(_state.toString());
 		if( isEntityFarFromPlayer(mapMgr) ){
 			entity.sendMessage(MESSAGE.ENTITY_DESELECTED);
 		}
-
 		if( _state == Entity.State.IMMOBILE ) {
 			return;
 		}
 
 		if (_state == Entity.State.WALKING){
-			//setNextPositionToCurrent(entity);
+			setNextPositionToCurrent(entity);
 		} else {
 			//updateBoundingBoxPosition(_currentEntityPosition);
 		}
-		//calculateNextPosition(delta);
+		calculateNextPosition(delta);
 	}
 
 	private boolean isEntityFarFromPlayer(MapManager mapMgr){

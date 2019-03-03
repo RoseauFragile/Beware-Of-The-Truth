@@ -232,10 +232,6 @@ public class PlayerInputComponent extends InputComponent {
 		keys.put(Keys.UP, true);
 	}
 
-	public void stopReleased(){
-		keys.put(Keys.STOP, true);
-	}
-
 	public void spacePressed(){
 		keys.put(Keys.SPACE, true);
 	}

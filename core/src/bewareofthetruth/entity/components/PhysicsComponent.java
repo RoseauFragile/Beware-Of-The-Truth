@@ -70,8 +70,7 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
 	}
 
 	public void setBody(final World world, Vector2 position, short cBits, short mBits, short gIndex) {
-		body = BodyBuilder.createBox(world, position, Entity.FRAME_WIDTH * Map.UNIT_SCALE, Entity.FRAME_WIDTH * Map.UNIT_SCALE, false, false, cBits, mBits, gIndex);
-
+		body = BodyBuilder.createBox(world, position, Entity.FRAME_WIDTH * Map.UNIT_SCALE, Entity.FRAME_WIDTH * Map.UNIT_SCALE, false, true, cBits, mBits, gIndex);
 	}
 
 	/*protected boolean isCollisionWithMapEntities(Entity entity, MapManager mapMgr) {
@@ -141,6 +140,8 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
 		_currentEntityPosition.x = _nextEntityPosition.x;
 		_currentEntityPosition.y = _nextEntityPosition.y;
 
+
+
 		// Gdx.app.debug(TAG, "SETTING Current Position " +
 		// entity.getEntityConfig().getEntityID() + ": (" + _currentEntityPosition.x +
 		// "," + _currentEntityPosition.y + ")");
@@ -151,6 +152,7 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
 		float desiredVelX = 0;
 		float desiredVelY = 0;
 		vel = body.getLinearVelocity();
+		System.out.println(this.get_entity().toString());
 		if(this.get_entity().get_graphicsComponent()._currentState == Entity.State.IDLE){
 			final float velChangeX = desiredVelX - vel.x;
 			final float forceX = this.getBody().getMass() * velChangeX / (1/60.0f); //f = mv/t

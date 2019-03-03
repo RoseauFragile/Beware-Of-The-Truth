@@ -89,6 +89,9 @@ public class EntityFactory {
 			return entity;
 		case NPC:
 			entity = new Entity(new NPCInputComponent(), new NPCPhysicsComponent(), new NPCGraphicsComponent());
+			entity.get_graphicsComponent().setEntity(entity);
+			entity.get_physicsComponent().set_entity(entity);
+
 			return entity;
 		default:
 			return null;

@@ -1,5 +1,8 @@
 package bewareofthetruth.entity;
 
+import java.util.ArrayList;
+import java.util.Hashtable;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -8,11 +11,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 
-import bewareofthetruth.entity.EntityFactory.EntityType;
 import bewareofthetruth.entity.components.Component;
 import bewareofthetruth.entity.components.ComponentObserver;
 import bewareofthetruth.entity.components.GraphicsComponent;
@@ -20,9 +22,6 @@ import bewareofthetruth.entity.components.InputComponent;
 import bewareofthetruth.entity.components.PhysicsComponent;
 import bewareofthetruth.map.MapManager;
 import bewareofthetruth.profile.ProfileManager;
-
-import java.util.ArrayList;
-import java.util.Hashtable;
 
 public class Entity {
 	private static final String TAG = Entity.class.getSimpleName();
@@ -36,7 +35,7 @@ public class Entity {
 		UP_LEFT,
 		DOWN_RIGHT,
 		DOWN_LEFT;
-		
+
 
 		static public Direction getRandomNext() {
 			return Direction.values()[MathUtils.random(Direction.values().length - 1)];
@@ -134,11 +133,11 @@ public class Entity {
 	public void sendMessage(Component.MESSAGE messageType, String ... args){
 		String fullMessage = messageType.toString();
 
-		for (String string : args) {
+		for (final String string : args) {
 			fullMessage += Component.MESSAGE_TOKEN + string;
 		}
 
-		for(Component component: _components){
+		for(final Component component: _components){
 			component.receiveMessage(fullMessage);
 		}
 	}
@@ -166,7 +165,7 @@ public class Entity {
 	}
 
 	public void dispose(){
-		for(Component component: _components){
+		for(final Component component: _components){
 			component.dispose();
 		}
 	}
@@ -184,7 +183,7 @@ public class Entity {
 	}
 
 	public void setEntityConfig(EntityConfig entityConfig){
-		this._entityConfig = entityConfig;
+		_entityConfig = entityConfig;
 	}
 
 	public Animation<TextureRegion> getAnimation(Entity.AnimationType type){
@@ -192,17 +191,17 @@ public class Entity {
 	}
 
 	static public EntityConfig getEntityConfig(String configFilePath){
-		Json json = new Json();
+		final Json json = new Json();
 		return json.fromJson(EntityConfig.class, Gdx.files.internal(configFilePath));
 	}
 
 	static public Array<EntityConfig> getEntityConfigs(String configFilePath){
-		Json json = new Json();
-		Array<EntityConfig> configs = new Array<EntityConfig>();
+		final Json json = new Json();
+		final Array<EntityConfig> configs = new Array<EntityConfig>();
 
-    	ArrayList<JsonValue> list = json.fromJson(ArrayList.class, Gdx.files.internal(configFilePath));
+		final ArrayList<JsonValue> list = json.fromJson(ArrayList.class, Gdx.files.internal(configFilePath));
 
-		for (JsonValue jsonVal : list) {
+		for (final JsonValue jsonVal : list) {
 			configs.add(json.readValue(EntityConfig.class, jsonVal));
 		}
 
@@ -210,8 +209,8 @@ public class Entity {
 	}
 
 	public static EntityConfig loadEntityConfigByPath(String entityConfigPath){
-		EntityConfig entityConfig = Entity.getEntityConfig(entityConfigPath);
-		EntityConfig serializedConfig = ProfileManager.getInstance().getProperty(entityConfig.getEntityID(), EntityConfig.class);
+		final EntityConfig entityConfig = Entity.getEntityConfig(entityConfigPath);
+		final EntityConfig serializedConfig = ProfileManager.getInstance().getProperty(entityConfig.getEntityID(), EntityConfig.class);
 
 		if( serializedConfig == null ){
 			return entityConfig;
@@ -221,7 +220,7 @@ public class Entity {
 	}
 
 	public static EntityConfig loadEntityConfig(EntityConfig entityConfig){
-		EntityConfig serializedConfig = ProfileManager.getInstance().getProperty(entityConfig.getEntityID(), EntityConfig.class);
+		final EntityConfig serializedConfig = ProfileManager.getInstance().getProperty(entityConfig.getEntityID(), EntityConfig.class);
 
 		if( serializedConfig == null ){
 			return entityConfig;
@@ -231,8 +230,8 @@ public class Entity {
 	}
 
 	public static Entity initEntity(EntityConfig entityConfig, Vector2 position){
-		Json json = new Json();
-		Entity entity = EntityFactory.getEntity(EntityFactory.EntityType.NPC);
+		final Json json = new Json();
+		final Entity entity = EntityFactory.getEntity(EntityFactory.EntityType.NPC);
 		entity.setEntityConfig(entityConfig);
 
 		entity.sendMessage(Component.MESSAGE.LOAD_ANIMATIONS, json.toJson(entity.getEntityConfig()));
@@ -244,10 +243,10 @@ public class Entity {
 	}
 
 	public static Hashtable<String, Entity> initEntities(Array<EntityConfig> configs){
-		Json json = new Json();
-		Hashtable<String, Entity > entities = new Hashtable<String, Entity>();
-		for( EntityConfig config: configs ){
-			Entity entity = EntityFactory.getEntity(EntityFactory.EntityType.NPC);
+		final Json json = new Json();
+		final Hashtable<String, Entity > entities = new Hashtable<String, Entity>();
+		for( final EntityConfig config: configs ){
+			final Entity entity = EntityFactory.getEntity(EntityFactory.EntityType.NPC);
 
 			entity.setEntityConfig(config);
 			entity.sendMessage(Component.MESSAGE.LOAD_ANIMATIONS, json.toJson(entity.getEntityConfig()));
@@ -262,8 +261,8 @@ public class Entity {
 	}
 
 	public static Entity initEntity(EntityConfig entityConfig){
-		Json json = new Json();
-		Entity entity = EntityFactory.getEntity(EntityFactory.EntityType.NPC);
+		final Json json = new Json();
+		final Entity entity = EntityFactory.getEntity(EntityFactory.EntityType.NPC);
 		entity.setEntityConfig(entityConfig);
 
 		entity.sendMessage(Component.MESSAGE.LOAD_ANIMATIONS, json.toJson(entity.getEntityConfig()));
