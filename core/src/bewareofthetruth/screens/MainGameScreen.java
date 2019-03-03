@@ -2,6 +2,7 @@ package bewareofthetruth.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -223,6 +224,10 @@ public class MainGameScreen extends GameScreen {
 			_mapMgr.updateCurrentMapEffects(_mapMgr, _mapRenderer.getBatch(), delta);
 		}
 		_playerHUD.render(delta);
+		/*_mapMgr.get_currentMap().get_rayHandler().setCombinedMatrix(_camera);
+		_mapMgr.get_currentMap().get_rayHandler().setAmbientLight(Color.DARK_GRAY);*/
+
+		//_mapMgr.get_currentMap().get_rayHandler().updateAndRender();
 		debugRenderer.render(_mapMgr.get_currentMap().get_world(), _camera.combined);
 
 	}

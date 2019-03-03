@@ -1,41 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="left-up" width="22" height="14" tilewidth="128" tileheight="128" infinite="0" nextobjectid="37">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="left-up" width="22" height="14" tilewidth="128" tileheight="128" infinite="0" nextlayerid="13" nextobjectid="47">
  <tileset firstgid="1" source="tileset/mur.tsx"/>
  <tileset firstgid="49" source="tileset/sol.tsx"/>
  <tileset firstgid="67" source="tileset/lampe3.tsx"/>
- <layer name="sol" width="22" height="14">
+ <layer id="1" name="sol" width="22" height="14">
   <data encoding="base64" compression="zlib">
    eJy1kgsKgCAQRPdKtkRq9DlqR3UDBRNHNsuBh6Dy1EGiZzyNyd9eI0zCGUcG+6yCPEux5gZ513jvBMd5k72thIF3FvYG0v11g9Yd8Kb5XnyHV3Mm8padov7eejVvbZ2L+v3SrQXejdp/QcNR8dbSe++RCXhqLDo=
   </data>
  </layer>
- <layer name="decors" width="22" height="14">
+ <layer id="2" name="decors" width="22" height="14">
   <data encoding="base64" compression="zlib">
    eJxjYBgFo2AUjILhAQAE0AAB
   </data>
  </layer>
- <layer name="mur" width="22" height="14">
+ <layer id="3" name="mur" width="22" height="14">
   <data encoding="base64" compression="zlib">
    eJxjYKAt0ANiAyzsoQQkgVgFilWRxJWRxFVwqCEFKFOgd6gBUFrQh2L08KNlGqF2nI2CwQUAVA4Ezw==
   </data>
  </layer>
- <layer name="decors-lumiere" width="22" height="14">
+ <layer id="4" name="decors-lumiere" width="22" height="14">
   <data encoding="base64" compression="zlib">
    eJxjYBgFo2AUjILhAQAE0AAB
   </data>
  </layer>
- <objectgroup name="objets" visible="0"/>
- <layer name="calque64" width="22" height="14">
+ <objectgroup id="5" name="objets" visible="0"/>
+ <layer id="6" name="calque64" width="22" height="14">
   <data encoding="base64" compression="zlib">
    eJxjYBgFo2AUjILhAQAE0AAB
   </data>
  </layer>
- <layer name="toit" width="22" height="14">
+ <layer id="7" name="toit" width="22" height="14">
   <data encoding="base64" compression="zlib">
    eJzjYmBg4AJiMSAWZ4AAQSAWgopTgpUYsANFIOYjA8PM1cJhLsjdMkhYBIpl8GARJHP5cZiLDqSBWJaAGk4yzCUG0NtcNSBWx4N5cGB2Ct0LCmNs8QUL9+ESvkPBXFAeYcOCmcjAlJYphDAA1kcI/w==
   </data>
  </layer>
- <objectgroup name="objets-lumiere"/>
- <objectgroup name="MAP_COLLISION_LAYER">
+ <objectgroup id="8" name="objets-lumiere">
+  <object id="37" x="959" y="431"/>
+  <object id="38" x="1128" y="434"/>
+  <object id="39" x="1325" y="433"/>
+  <object id="40" x="632" y="930"/>
+  <object id="41" x="851" y="931"/>
+  <object id="42" x="1227" y="930"/>
+  <object id="43" x="221" y="426"/>
+  <object id="44" x="224" y="910"/>
+  <object id="45" x="223" y="1354"/>
+  <object id="46" x="953" y="1606"/>
+ </objectgroup>
+ <objectgroup id="9" name="MAP_COLLISION_LAYER">
   <object id="7" x="200" y="256" width="56" height="1320"/>
   <object id="8" x="198" y="1580" width="2444" height="40"/>
   <object id="9" x="2570" y="334" width="56" height="1246"/>
@@ -48,10 +59,10 @@
   <object id="16" x="516" y="826" width="1918" height="194"/>
   <object id="17" x="1542" y="1020" width="890" height="130"/>
  </objectgroup>
- <objectgroup name="MAP_PORTAL_LAYER">
+ <objectgroup id="10" name="MAP_PORTAL_LAYER">
   <object id="5" name="ZONE_1_3" x="512" y="257.333" width="129.333" height="22.6667"/>
  </objectgroup>
- <objectgroup name="MAP_SPAWNS_LAYER">
+ <objectgroup id="11" name="MAP_SPAWNS_LAYER">
   <object id="6" name="PLAYER_START" x="510.667" y="314.667" width="130.667" height="44"/>
   <object id="18" name="NPC_START" x="338.667" y="442.667" width="64" height="64"/>
   <object id="20" name="NPC_START" x="708" y="432.667" width="64" height="64"/>
@@ -67,7 +78,7 @@
   <object id="33" name="TOWN_INNKEEPER" x="1074.67" y="561.333" width="64" height="64"/>
   <object id="35" name="TOWN_BLACKSMITH" x="1217.33" y="560" width="64" height="64"/>
  </objectgroup>
- <objectgroup name="MAP_QUEST_ITEM_SPAWN_LAYER">
+ <objectgroup id="12" name="MAP_QUEST_ITEM_SPAWN_LAYER">
   <object id="36" name="3" x="1234" y="1074" width="68" height="46">
    <properties>
     <property name="taskID" value="2"/>

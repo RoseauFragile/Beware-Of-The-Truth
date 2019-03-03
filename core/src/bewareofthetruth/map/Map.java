@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.maps.MapLayer;
@@ -41,6 +42,8 @@ import bewareofthetruth.entity.components.Component;
 import bewareofthetruth.particles.ParticleEffectFactory;
 import bewareofthetruth.profile.ProfileManager;
 import bewareofthetruth.utility.Utility;
+import box2dLight.PointLight;
+import box2dLight.RayHandler;
 
 public class Map implements AudioSubject{
 	private static final String TAG = Map.class.getSimpleName();
@@ -66,6 +69,8 @@ public class Map implements AudioSubject{
 	public final static String LIGHTMAP_AFTERNOON_LAYER = "MAP_LIGHTMAP_LAYER_AFTERNOON";
 	public final static String LIGHTMAP_DUSK_LAYER = "MAP_LIGHTMAP_LAYER_DUSK";
 	public final static String LIGHTMAP_NIGHT_LAYER = "MAP_LIGHTMAP_LAYER_NIGHT";
+	public final static String LIGHT_LAYER = "objets-lumiere";
+
 
 	//Starting locations
 	protected final static String PLAYER_START = "PLAYER_START";
@@ -93,6 +98,7 @@ public class Map implements AudioSubject{
 	protected MapLayer _lightMapAfternoonLayer = null;
 	protected MapLayer _lightMapDuskLayer = null;
 	protected MapLayer _lightMapNightLayer = null;
+	protected MapLayer _lightLayer = null;
 
 	protected int _currentMapId;
 	protected Array<Entity> _mapEntities;
@@ -101,8 +107,11 @@ public class Map implements AudioSubject{
 	protected ArrayList<EntityName> _arrayListOfEntities;
 
 	protected World _world;
-
+    // The pixels per tile. If your tiles are 16x16, this is set to 16f
+    private static float ppt = 64f;
 	private int _id;
+
+	private RayHandler _rayHandler;
 
 	protected Map( int mapId, String fullMapPath, String musicPath, ArrayList<EntityName> arrayListOfEntities){
 		_json = new Json();
@@ -168,6 +177,11 @@ public class Map implements AudioSubject{
 		if( _lightMapDawnLayer == null ){
 			//  Gdx.app.debug(TAG, "No dawn lightmap layer found!");
 		}
+		
+		_lightLayer = _currentMap.getLayers().get(LIGHT_LAYER);
+		if( _lightLayer == null ){
+			//  Gdx.app.debug(TAG, "No light layer found!");
+		}
 
 		_lightMapAfternoonLayer = _currentMap.getLayers().get(LIGHTMAP_AFTERNOON_LAYER);
 		if( _lightMapAfternoonLayer == null ){
@@ -200,6 +214,8 @@ public class Map implements AudioSubject{
 
 		_world = new World(new Vector2(0, 0), true);
 		this.buildCollisionLayer();
+		set_rayHandler(new RayHandler(_world));
+		this.buildLightLayer();
 
 		//guard entities
 		for( final Vector2 position: _npcStartPositions){
@@ -547,9 +563,6 @@ public class Map implements AudioSubject{
 		this._world = _world;
 	}
 	
-    // The pixels per tile. If your tiles are 16x16, this is set to 16f
-    private static float ppt = 64f;
-
     public void buildCollisionLayer() {
         //ppt = 128f;
         MapObjects objects = _collisionLayer.getObjects();
@@ -589,6 +602,49 @@ public class Map implements AudioSubject{
     		fixtureDef.filter.maskBits = 2; // Collides with
     		fixtureDef.filter.groupIndex = 4;
     		body.createFixture(fixtureDef);
+            shape.dispose();
+        }
+ 
+    }
+    
+    public void buildLightLayer() {
+        //ppt = 128f;
+        MapObjects objects = _lightLayer.getObjects();
+
+        for(MapObject object : objects) {
+
+            if (object instanceof TextureMapObject) {
+                continue;
+            }
+
+            Shape shape;
+
+            if (object instanceof RectangleMapObject) {
+                shape = getRectangle((RectangleMapObject)object);
+                BodyDef bd = new BodyDef();
+                bd.type = BodyType.StaticBody;
+                Body body = this.get_world().createBody(bd);
+        		FixtureDef fixtureDef = new FixtureDef();
+        		fixtureDef.shape = shape;
+        		fixtureDef.density = 1.0f;
+        		body.createFixture(fixtureDef);
+            	PointLight pl = new PointLight(_rayHandler, 32, Color.WHITE, 30,body.getPosition().x, body.getPosition().y);
+            	pl.attachToBody(body);
+            }
+            else if (object instanceof PolygonMapObject) {
+                shape = getPolygon((PolygonMapObject)object);
+            }
+            else if (object instanceof PolylineMapObject) {
+                shape = getPolyline((PolylineMapObject)object);
+            }
+            else if (object instanceof CircleMapObject) {
+                shape = getCircle((CircleMapObject)object);
+            }
+            else {
+                continue;
+            }
+
+
             shape.dispose();
         }
  
@@ -644,5 +700,13 @@ public class Map implements AudioSubject{
         
         return chain;
     }
+
+	public RayHandler get_rayHandler() {
+		return _rayHandler;
+	}
+
+	public void set_rayHandler(RayHandler _rayHandler) {
+		this._rayHandler = _rayHandler;
+	}
 
 }
